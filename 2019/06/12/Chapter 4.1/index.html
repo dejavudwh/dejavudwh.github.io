@@ -73,7 +73,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="SICP,计算机科学,解释器,Lisp,Scheme,大二期间,">
 
 
 
@@ -86,16 +86,18 @@
 
 
 
-<meta name="description" content="a sophomore majoring in software engineering">
-<meta property="og:type" content="website">
-<meta property="og:title" content="dejavudwh Blog">
-<meta property="og:url" content="https://dejavudwh.github.io/archives/2019/06/index.html">
+<meta name="description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 3 元语言抽象  练习答案元循环求值器 复杂系统设计的通用技术事，将基本元素组合起来，形成复合元素，从复合元素出发通过抽">
+<meta name="keywords" content="SICP,计算机科学,解释器,Lisp,Scheme,大二期间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chapter 4.1">
+<meta property="og:url" content="https://dejavudwh.github.io/2019/06/12/Chapter 4.1/index.html">
 <meta property="og:site_name" content="dejavudwh Blog">
-<meta property="og:description" content="a sophomore majoring in software engineering">
+<meta property="og:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 3 元语言抽象  练习答案元循环求值器 复杂系统设计的通用技术事，将基本元素组合起来，形成复合元素，从复合元素出发通过抽">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-06-12T14:03:51.251Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dejavudwh Blog">
-<meta name="twitter:description" content="a sophomore majoring in software engineering">
+<meta name="twitter:title" content="Chapter 4.1">
+<meta name="twitter:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 3 元语言抽象  练习答案元循环求值器 复杂系统设计的通用技术事，将基本元素组合起来，形成复合元素，从复合元素出发通过抽">
 
 
 
@@ -125,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="https://dejavudwh.github.io/archives/2019/06/">
+  <link rel="canonical" href="https://dejavudwh.github.io/2019/06/12/Chapter 4.1/">
 
 
 
 
 
-  <title>Archive | dejavudwh Blog</title>
+  <title>Chapter 4.1 | dejavudwh Blog</title>
   
 
 
@@ -150,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/dejavudwh" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -296,391 +298,317 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.github.io/2019/06/12/Chapter 4.1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dejavudwh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dejavudwh Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">Chapter 4.1</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-12T18:54:25+08:00">
+                2019-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        Um..! 14 posts in total. Keep on posting.
-      </span>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
+             <span id="/2019/06/12/Chapter 4.1/" class="leancloud_visitors" data-flag-title="Chapter 4.1">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 3.1/" itemprop="url">
+          
+
+          
+            <div class="post-wordcount">
               
-                <span itemprop="name">Chapter 3.1</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
               
-            </a>
-        
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
+              
+                <span class="post-meta-divider">|</span>
+              
 
-    </header>
-  </article>
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  
+                </span>
+              
+            </div>
+          
 
+          
 
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 1.1/" itemprop="url">
-              
-                <span itemprop="name">Chapter 1.1</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
+      
+        <h1 id="SICP-CONCLUSION"><a href="#SICP-CONCLUSION" class="headerlink" title="SICP CONCLUSION"></a><strong>SICP CONCLUSION</strong></h1><blockquote>
+<p>让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！</p>
+</blockquote>
+<blockquote>
+<p>祝我能够突破层层代码，找到住在里计算机的神灵！</p>
+</blockquote>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a><strong><font color="green">目录</font></strong></h2><h5 id="1-构造过程抽象"><a href="#1-构造过程抽象" class="headerlink" title="1. 构造过程抽象"></a>1. 构造过程抽象</h5><h5 id="2-构造数据抽象"><a href="#2-构造数据抽象" class="headerlink" title="2. 构造数据抽象"></a>2. 构造数据抽象</h5><h5 id="3-模块化、对象和状态"><a href="#3-模块化、对象和状态" class="headerlink" title="3. 模块化、对象和状态"></a>3. 模块化、对象和状态</h5><h5 id="4-元语言抽象"><a href="#4-元语言抽象" class="headerlink" title="4. 元语言抽象"></a>4. 元语言抽象</h5><h5 id="5-寄存器机器里的计算"><a href="#5-寄存器机器里的计算" class="headerlink" title="5. 寄存器机器里的计算"></a>5. 寄存器机器里的计算</h5><h2 id="Chapter-3"><a href="#Chapter-3" class="headerlink" title="Chapter 3"></a><strong><font color="red">Chapter 3</font></strong></h2><ul>
+<li>元语言抽象</li>
+</ul>
+<h5 id="练习答案"><a href="#练习答案" class="headerlink" title="练习答案"></a><a href="https://github.com/dejavudwh/SICP-Exercise" target="_blank" rel="noopener">练习答案</a></h5><h6 id="元循环求值器"><a href="#元循环求值器" class="headerlink" title="元循环求值器"></a>元循环求值器</h6><blockquote>
+<p><strong>复杂系统设计的通用技术事，将基本元素组合起来，形成复合元素，从复合元素出发通过抽象形成更高一层的构件，并通过采取某种适当的关于系统结构的大尺度观点，保持系统的模块性。随着面对问题复杂性的增加，任一一个程序设计语言都难以表述自己的想法，所以建立新语言成为了工程设计中控制复杂性的一种威力强大的策略。（或者说我们在每个问题的解空间里，构造一门最合适的语言才是最高级的抽象？）</strong></p>
+</blockquote>
+<a id="more"></a>
 
-        
-        
+<blockquote>
+<p><strong>求值器决定了一个程序设计语言中各种表达式的意义，而它本身也不过就是另一个程序而已</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>事实上，我们几乎可以把任何程序看作是某个语言的求值器</strong></p>
+</blockquote>
+<ol>
+<li>求值一个表达式，首先求值其中的子表达式，而后将运算符子表达式的值作用于运算对象子表达式的值</li>
+<li>在将一个复合过程应用于一集实际参数时，我们在一个新的环境里求值这个过程的体。构造这一环境的方式就是用一个框架扩充该过程对象的环境部分。框架中包含这个过程中形参和实参的约束</li>
+</ol>
+<p>求值器的实现依赖于表达式的语法形式，依旧使用数据抽象的想法</p>
+<ul>
+<li>求值器的内核</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">;;eval</span><br><span class="line">(define (eval exp env)</span><br><span class="line">  (cond ((self-evaluating? exp) exp)</span><br><span class="line">        ((variable? exp) (lookup-variable-value exp env))</span><br><span class="line">        ((quoted? exp) (text-of-quotation exp))</span><br><span class="line">        ((assignment? exp) (eval-assignment exp env))</span><br><span class="line">        ((definition? exp) (eval-definition exp env))</span><br><span class="line">        ((if? exp) (eval-if exp env))</span><br><span class="line">        ((lambda? exp)</span><br><span class="line">         (make-procedure (lambda-parameters exp)</span><br><span class="line">                         (lambda-body exp)</span><br><span class="line">                         env))</span><br><span class="line">        ((begin? exp)</span><br><span class="line">         (eval-sequence (begin-actions exp) env))</span><br><span class="line">        ((cond? exp) (eval (cond-&gt;if exp) env))</span><br><span class="line">        ((application? exp)</span><br><span class="line">         (apply (eval (operator exp) env)</span><br><span class="line">                (list-of-values (operands exp) env)))</span><br><span class="line">        (else</span><br><span class="line">         (error &quot;Unknown expression type -- EVAL&quot; exp))))</span><br></pre></td></tr></table></figure>
 
-        
+<p>apply-primitive-procedure直接应用于基本过程<br>对于复合过程，需要建立新的环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">;;apply</span><br><span class="line">(define (apply procedure arguments)</span><br><span class="line">  (cond ((primitive-procedure? procedure)</span><br><span class="line">         (apply-primitive-procedure procedure arguments))</span><br><span class="line">        ((compound-procedure? procedure)</span><br><span class="line">         (eval-sequence</span><br><span class="line">           (procedure-body procedure)</span><br><span class="line">           (extend-environment</span><br><span class="line">             (procedure-parameters procedure)</span><br><span class="line">             arguments</span><br><span class="line">             (procedure-environment procedure))))</span><br><span class="line">        (else</span><br><span class="line">         (error</span><br><span class="line">          &quot;Unknown procedure type -- APPLY&quot; procedure))))</span><br></pre></td></tr></table></figure>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<blockquote>
+<p><strong>在从开始构造求值器的内核到运行这个程序，主要使用的还是数据抽象技术，首先所有东西的基础都是Scheme的语法形式，内核可以分为两个部分，1时求值表达式，2是应用过程。在透过数据抽象中可以得到提出每类表达式有关的操作函数，而有关过程的应用分为两个部分，1是基本过程，2是复合过程，复合过程也就是相应表达式在对应环境的求值。</strong></p>
+</blockquote>
+<ul>
+<li>将数据作为程序</li>
+</ul>
+<p>将程序看成一种抽象的机器的一个描述，按照这种观点，求值器可以看作一部非常特殊的机器，它要求以一部机器的描述作为输入，给定了一个输入后，求值器就能够规划自己的行为，模拟被描述机器的执行过程。按照这一观点，我们的求值器可以看作是一种通用机器。求值器另一个惊人的地方是它是数据对象和这个程序设计语言本身的桥梁，用户认为输入的是一个表达式，而求值器不过是按照一套良好的规则进行运行。</p>
+<blockquote>
+<p>就此来说，任何一个有效的过程都可以描述为一个程序。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(define (run-forever) (run-forever))</span><br><span class="line"></span><br><span class="line">(define (try p)</span><br><span class="line">  (if (halt? p p)</span><br><span class="line">      (run-forever)</span><br><span class="line">      &apos;halted))</span><br><span class="line"></span><br><span class="line">(try try)</span><br></pre></td></tr></table></figure>
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 1.2/" itemprop="url">
-              
-                <span itemprop="name">Chapter 1.2</span>
-              
-            </a>
-        
-      </h2>
+<blockquote>
+<p>停机定理：是一个良好的刻画工作，但是却不能由一个计算过程来完成，是一个不可计算问题</p>
+</blockquote>
+<ul>
+<li>将语法分析与执行分离</li>
+</ul>
+<p>之前的求值器实现简单，但是也十分低效，因为语法分析和执行过程交织在一起，所以如果程序要执行多次，语法分析也要做许多次。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">(define (eval exp env)</span><br><span class="line">  ((analyze exp) env))</span><br><span class="line"></span><br><span class="line">(define (analyze exp)</span><br><span class="line">  (cond ((self-evaluating? exp)</span><br><span class="line">         (analyze-self-evaluating exp))</span><br><span class="line">        ((quoted? exp) (analyze-quoted exp))</span><br><span class="line">        ((variable? exp) (analyze-variable exp))</span><br><span class="line">        ((assignment? exp) (analyze-assignment exp))</span><br><span class="line">        ((definition? exp) (analyze-definition exp))</span><br><span class="line">        ((if? exp) (analyze-if exp))</span><br><span class="line">        ((lambda? exp) (analyze-lambda exp))</span><br><span class="line">        ((begin? exp) (analyze-sequence (begin-actions exp)))</span><br><span class="line">        ((cond? exp) (analyze (cond-&gt;if exp)))</span><br><span class="line">        ((application? exp) (analyze-application exp))</span><br><span class="line">        (else</span><br><span class="line">         (error &quot;Unknown expression type -- ANALYZE&quot; exp))))</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+<blockquote>
+<p>这一小节里主要讲的是当面对复杂性提高，而当前语言又难以表述的时候，我们就应该构建一门新的语言了，或者说每个程序都是在构造一门新语言。之后作者实现了Scheme的求值器，在中间提出了图灵的停机定理来引出不可计算问题</p>
+</blockquote>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 2.1/" itemprop="url">
-              
-                <span itemprop="name">Chapter 2.1</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 2.3/" itemprop="url">
-              
-                <span itemprop="name">Chapter 2.3</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 2.4/" itemprop="url">
-              
-                <span itemprop="name">Chapter 2.4</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 2.2/" itemprop="url">
-              
-                <span itemprop="name">Chapter 2.2</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 1.3/" itemprop="url">
-              
-                <span itemprop="name">Chapter 1.3</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 3.2/" itemprop="url">
-              
-                <span itemprop="name">Chapter 3.2</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 3.4/" itemprop="url">
-              
-                <span itemprop="name">Chapter 3.4</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/06/12/Chapter 4.1/">Chapter 4.1</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 dejavudwh 的个人博客">dejavudwh</a></p>
+  <p><span>发布时间:</span>2019年06月12日 - 18:06</p>
+  <p><span>最后更新:</span>2019年06月12日 - 22:06</p>
+  <p><span>原始链接:</span><a href="/2019/06/12/Chapter 4.1/" title="Chapter 4.1">https://dejavudwh.github.io/2019/06/12/Chapter 4.1/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://dejavudwh.github.io/2019/06/12/Chapter 4.1/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SICP/" rel="tag"><i class="fa fa-tag"></i> SICP</a>
+          
+            <a href="/tags/计算机科学/" rel="tag"><i class="fa fa-tag"></i> 计算机科学</a>
+          
+            <a href="/tags/解释器/" rel="tag"><i class="fa fa-tag"></i> 解释器</a>
+          
+            <a href="/tags/Lisp/" rel="tag"><i class="fa fa-tag"></i> Lisp</a>
+          
+            <a href="/tags/Scheme/" rel="tag"><i class="fa fa-tag"></i> Scheme</a>
+          
+            <a href="/tags/大二期间/" rel="tag"><i class="fa fa-tag"></i> 大二期间</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/12/Chapter 2.5/" rel="next" title="Chapter 2.5">
+                <i class="fa fa-chevron-left"></i> Chapter 2.5
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/12/Chapter 3.4/" rel="prev" title="Chapter 3.4">
+                Chapter 3.4 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2019/06/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/06/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -688,6 +616,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDcwNC8yMTIzMA"></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -708,8 +645,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -800,6 +746,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SICP-CONCLUSION"><span class="nav-number">1.</span> <span class="nav-text">SICP CONCLUSION</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-构造过程抽象"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">1. 构造过程抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-构造数据抽象"><span class="nav-number">1.1.0.0.2.</span> <span class="nav-text">2. 构造数据抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-模块化、对象和状态"><span class="nav-number">1.1.0.0.3.</span> <span class="nav-text">3. 模块化、对象和状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-元语言抽象"><span class="nav-number">1.1.0.0.4.</span> <span class="nav-text">4. 元语言抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-寄存器机器里的计算"><span class="nav-number">1.1.0.0.5.</span> <span class="nav-text">5. 寄存器机器里的计算</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-3"><span class="nav-number">1.2.</span> <span class="nav-text">Chapter 3</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#练习答案"><span class="nav-number">1.2.0.0.1.</span> <span class="nav-text">练习答案</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#元循环求值器"><span class="nav-number">1.2.0.0.1.1.</span> <span class="nav-text">元循环求值器</span></a></li></ol></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -962,6 +924,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -990,6 +956,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 

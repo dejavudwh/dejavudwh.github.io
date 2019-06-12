@@ -73,7 +73,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="SICP,计算机科学,解释器,Lisp,Scheme,大二期间,">
 
 
 
@@ -86,16 +86,18 @@
 
 
 
-<meta name="description" content="a sophomore majoring in software engineering">
-<meta property="og:type" content="website">
-<meta property="og:title" content="dejavudwh Blog">
-<meta property="og:url" content="https://dejavudwh.github.io/archives/2019/06/index.html">
+<meta name="description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 1 构造过程对象  练习答案用高阶函数做抽象或许这就是函数式和面向对象各有吸引人的地方吧，函数式的硬通货是过程，面向对象">
+<meta name="keywords" content="SICP,计算机科学,解释器,Lisp,Scheme,大二期间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chapter 1.3">
+<meta property="og:url" content="https://dejavudwh.github.io/2019/06/12/Chapter 1.3/index.html">
 <meta property="og:site_name" content="dejavudwh Blog">
-<meta property="og:description" content="a sophomore majoring in software engineering">
+<meta property="og:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 1 构造过程对象  练习答案用高阶函数做抽象或许这就是函数式和面向对象各有吸引人的地方吧，函数式的硬通货是过程，面向对象">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-06-12T11:26:27.030Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dejavudwh Blog">
-<meta name="twitter:description" content="a sophomore majoring in software engineering">
+<meta name="twitter:title" content="Chapter 1.3">
+<meta name="twitter:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 1 构造过程对象  练习答案用高阶函数做抽象或许这就是函数式和面向对象各有吸引人的地方吧，函数式的硬通货是过程，面向对象">
 
 
 
@@ -125,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="https://dejavudwh.github.io/archives/2019/06/">
+  <link rel="canonical" href="https://dejavudwh.github.io/2019/06/12/Chapter 1.3/">
 
 
 
 
 
-  <title>Archive | dejavudwh Blog</title>
+  <title>Chapter 1.3 | dejavudwh Blog</title>
   
 
 
@@ -150,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/dejavudwh" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -296,391 +298,329 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.github.io/2019/06/12/Chapter 1.3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dejavudwh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dejavudwh Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">Chapter 1.3</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-12T18:54:25+08:00">
+                2019-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        Um..! 14 posts in total. Keep on posting.
-      </span>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
+             <span id="/2019/06/12/Chapter 1.3/" class="leancloud_visitors" data-flag-title="Chapter 1.3">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 3.1/" itemprop="url">
+          
+
+          
+            <div class="post-wordcount">
               
-                <span itemprop="name">Chapter 3.1</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
               
-            </a>
-        
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
+              
+                <span class="post-meta-divider">|</span>
+              
 
-    </header>
-  </article>
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  
+                </span>
+              
+            </div>
+          
 
+          
 
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 1.1/" itemprop="url">
-              
-                <span itemprop="name">Chapter 1.1</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
+      
+        <h1 id="SICP-CONCLUSION"><a href="#SICP-CONCLUSION" class="headerlink" title="SICP CONCLUSION"></a><strong>SICP CONCLUSION</strong></h1><blockquote>
+<p>让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！</p>
+</blockquote>
+<blockquote>
+<p>祝我能够突破层层代码，找到住在里计算机的神灵！</p>
+</blockquote>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a><strong><font color="green">目录</font></strong></h2><h5 id="1-构造过程抽象"><a href="#1-构造过程抽象" class="headerlink" title="1. 构造过程抽象"></a>1. 构造过程抽象</h5><h5 id="2-构造数据抽象"><a href="#2-构造数据抽象" class="headerlink" title="2. 构造数据抽象"></a>2. 构造数据抽象</h5><h5 id="3-模块化、对象和状态"><a href="#3-模块化、对象和状态" class="headerlink" title="3. 模块化、对象和状态"></a>3. 模块化、对象和状态</h5><h5 id="4-元语言抽象"><a href="#4-元语言抽象" class="headerlink" title="4. 元语言抽象"></a>4. 元语言抽象</h5><h5 id="5-寄存器机器里的计算"><a href="#5-寄存器机器里的计算" class="headerlink" title="5. 寄存器机器里的计算"></a>5. 寄存器机器里的计算</h5><h2 id="Chapter-1"><a href="#Chapter-1" class="headerlink" title="Chapter 1"></a><strong><font color="red">Chapter 1</font></strong></h2><ul>
+<li>构造过程对象</li>
+</ul>
+<h3 id="练习答案"><a href="#练习答案" class="headerlink" title="练习答案"></a><a href="https://github.com/dejavudwh/SICP-Exercise" target="_blank" rel="noopener">练习答案</a></h3><h4 id="用高阶函数做抽象"><a href="#用高阶函数做抽象" class="headerlink" title="用高阶函数做抽象"></a>用高阶函数做抽象</h4><p><font color="pink"><em>或许这就是函数式和面向对象各有吸引人的地方吧，函数式的硬通货是过程，面向对象则是对象</em></font></p>
+<blockquote>
+<p>人们对功能强大的程序设计有一个必然要求，就是能为公共模式命名，建立抽象，而后直接在抽象的层次上工作</p>
+</blockquote>
+<a id="more"></a>
 
-        
-        
+<ul>
+<li><h6 id="过程作为参数"><a href="#过程作为参数" class="headerlink" title="过程作为参数"></a>过程作为参数</h6></li>
+</ul>
+<p>三个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(define (sum-integers a b)</span><br><span class="line">  (if (&gt; a b)</span><br><span class="line">      0</span><br><span class="line">      (+ a (sum-integers (+ a 1) b))))</span><br><span class="line"></span><br><span class="line">(define (sum-cubes a b)</span><br><span class="line">  (if (&gt; a b)</span><br><span class="line">      0</span><br><span class="line">      (+ (cube a) (sum-cubes (+ a 1) b))))</span><br><span class="line"></span><br><span class="line">(define (pi-sum a b)</span><br><span class="line">  (if (&gt; a b)</span><br><span class="line">      0</span><br><span class="line">      (+ (/ 1.0 (* a (+ a 2))) (pi-sum (+ a 4) b))))</span><br></pre></td></tr></table></figure>
 
-        
+<p><em>三个例子存在着很明显的公共模式，也即说明可以建立非常强大的抽象</em></p>
+<ol>
+<li>需要进行加法的操作函数</li>
+<li>获得下一个值的函数</li>
+<li>对两个参数的特定操作，+ ？</li>
+</ol>
+<blockquote>
+<p>在思考的是，面向对象中，相关的想法是怎么样的。如果在一个类中，会存在许多可以提取公共模式的方法吗？或者说这是Java中许多类共有的方法的思想来源，在操作时传递有相同方法的类，但方法中又有类型参数的限制，所以？继承or多态等等吗… 工具函数</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">;; 扩展到积分操作</span><br><span class="line">(define (integral f a b dx)</span><br><span class="line">  (define (add-dx x) (+ x dx))</span><br><span class="line">  (* (sum f (+ a (/ dx 2)) add-dx b)</span><br><span class="line">     dx))</span><br><span class="line"></span><br><span class="line">;: (integral cube 0 1 0.01)</span><br><span class="line"></span><br><span class="line">;: (integral cube 0 1 0.001)</span><br></pre></td></tr></table></figure>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<p><em>练习中的过滤器</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(define (filtered-accumulate combiner null-value term a next b filter)</span><br><span class="line">  (if (&gt; a b)</span><br><span class="line">      null-value</span><br><span class="line">      (if (filter a)</span><br><span class="line">          (combiner (term a) (filtered-accumulate combiner null-value term (next a) next b filter))</span><br><span class="line">          (combiner null-value (filtered-accumulate combiner null-value term (next a) next b filter)))))</span><br></pre></td></tr></table></figure>
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 1.2/" itemprop="url">
-              
-                <span itemprop="name">Chapter 1.2</span>
-              
-            </a>
-        
-      </h2>
+<ul>
+<li><h6 id="用lambda构造过程"><a href="#用lambda构造过程" class="headerlink" title="用lambda构造过程"></a>用lambda构造过程</h6></li>
+</ul>
+<blockquote>
+<p>作为一个匿名函数去传递</p>
+</blockquote>
+<ol>
+<li>用let创建局部变量</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(let ((&lt;var&gt;&lt;exp&gt;)</span><br><span class="line">       &lt;var&gt;&lt;exp&gt;))</span><br><span class="line">       body)</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
+<p><em>但其实是作为lambda的语法糖而已</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">((lambda (&lt;var1&gt;&lt;var2&gt;)</span><br><span class="line">  &lt;body&gt;)</span><br><span class="line">  &lt;exp&gt;</span><br><span class="line">  &lt;exp&gt;)</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </article>
+<ol start="2">
+<li>过程作为一般性的方法</li>
+</ol>
+<blockquote>
+<p>更高级的抽象：描述一般性的方法，不依赖特定的数值或者函数</p>
+</blockquote>
+<ul>
+<li>通过区间折半寻找方程的跟</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(define (search f neg-point pos-point)</span><br><span class="line">  (let ((midpoint (average neg-point pos-point)))</span><br><span class="line">    (if (close-enough? neg-point pos-point)</span><br><span class="line">        midpoint</span><br><span class="line">        (let ((test-value (f midpoint)))</span><br><span class="line">          (cond ((positive? test-value)</span><br><span class="line">                 (search f neg-point midpoint))</span><br><span class="line">                ((negative? test-value)</span><br><span class="line">                 (search f midpoint pos-point))</span><br><span class="line">                (else midpoint))))))</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">;; 抽象出来的作为基本的谓词过程</span><br><span class="line">(define (close-enough? x y)</span><br><span class="line">  (&lt; (abs (- x y)) 0.001))</span><br></pre></td></tr></table></figure>
 
+<p><em>改进这个方法，如果同号就无法使用折半</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(define (half-interval-method f a b)</span><br><span class="line">  (let ((a-value (f a))</span><br><span class="line">        (b-value (f b)))</span><br><span class="line">    (cond ((and (negative? a-value) (positive? b-value))</span><br><span class="line">           (search f a b))</span><br><span class="line">          ((and (negative? b-value) (positive? a-value))</span><br><span class="line">           (search f b a))</span><br><span class="line">          (else</span><br><span class="line">           (error &quot;Values are not of opposite sign&quot; a b)))))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>找出函数不动点</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(define (fixed-point f first-guess)</span><br><span class="line">  (define (close-enough? v1 v2)</span><br><span class="line">    (&lt; (abs (- v1 v2)) tolerance))</span><br><span class="line">  (define (try guess)</span><br><span class="line">    (let ((next (f guess)))</span><br><span class="line">      (if (close-enough? guess next)</span><br><span class="line">          next</span><br><span class="line">          (try next))))</span><br><span class="line">  (try first-guess))</span><br></pre></td></tr></table></figure>
+
+<p><em>回想到之前讲的求平方根，一样可重新用这个一般性方法实现</em></p>
+<ol start="3">
+<li>过程作为返回值</li>
+</ol>
+<p>书上这里用的是平均阻尼和之前的不动点一起构成作为例子，但是核心点还是构造更加抽象更加一般性的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(define (average-damp f)</span><br><span class="line">  (lambda (x) (average x (f x))))</span><br><span class="line"></span><br><span class="line">;: ((average-damp square) 10)</span><br><span class="line"></span><br><span class="line">(define (sqrt x)</span><br><span class="line">  (fixed-point (average-damp (lambda (y) (/ x y)))</span><br><span class="line">               1.0))</span><br><span class="line"></span><br><span class="line">(define (cube-root x)</span><br><span class="line">  (fixed-point (average-damp (lambda (y) (/ x (square y))))</span><br><span class="line">               1.0))</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>将一个计算过程形式化为一个过程，一般说，存在着许多不同的方式，有经验的程序员知道如何选择过程的形式，使其特别清晰且易理解，使该计算过程中有用的元素能表现为一些相互分离的个体，并使他们可能重新用于其他的应用</p>
+</blockquote>
+<ol start="4">
+<li>抽象和第一级过程</li>
+</ol>
+<ul>
+<li><p>第四小节主要是在先前的一般性方法继续进行抽象，使之成为更加一般的操作</p>
+</li>
+<li><p>在不同的程序设计语言中，第一级都可能有所不同，而第一级元素也正是一个语言中最具魅力也是最不同的地方，也是因为它被赋予的某些特权：</p>
+<ol>
+<li>可以用变量命名</li>
+<li>可以提供给过程作为参数</li>
+<li>可以由过程作为结果返回</li>
+<li>可以包含在数据结构中</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>这一节里，应该可以说是字字不离抽象了。从一开始的过程作为参数，作为返回值，匿名过程，到最后的构建更具有一般性的方法。都是为了使之更具有模块化、通用性。而在思考到面向对象中，它的第一级元素肯定是对象，万物皆过程，万物皆对象可能就是他们之间各具魅力的地方吧，而其中的继承、多态、重载是不是都为了更好的获得一般性方法的描述呢？</p>
+</blockquote>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 2.1/" itemprop="url">
-              
-                <span itemprop="name">Chapter 2.1</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 2.3/" itemprop="url">
-              
-                <span itemprop="name">Chapter 2.3</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 2.4/" itemprop="url">
-              
-                <span itemprop="name">Chapter 2.4</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 2.2/" itemprop="url">
-              
-                <span itemprop="name">Chapter 2.2</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 1.3/" itemprop="url">
-              
-                <span itemprop="name">Chapter 1.3</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 3.2/" itemprop="url">
-              
-                <span itemprop="name">Chapter 3.2</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/12/Chapter 3.4/" itemprop="url">
-              
-                <span itemprop="name">Chapter 3.4</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SICP/" rel="tag"><i class="fa fa-tag"></i> SICP</a>
+          
+            <a href="/tags/计算机科学/" rel="tag"><i class="fa fa-tag"></i> 计算机科学</a>
+          
+            <a href="/tags/解释器/" rel="tag"><i class="fa fa-tag"></i> 解释器</a>
+          
+            <a href="/tags/Lisp/" rel="tag"><i class="fa fa-tag"></i> Lisp</a>
+          
+            <a href="/tags/Scheme/" rel="tag"><i class="fa fa-tag"></i> Scheme</a>
+          
+            <a href="/tags/大二期间/" rel="tag"><i class="fa fa-tag"></i> 大二期间</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/12/Chapter 3.2/" rel="next" title="Chapter 3.2">
+                <i class="fa fa-chevron-left"></i> Chapter 3.2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/12/Chapter 2.2/" rel="prev" title="Chapter 2.2">
+                Chapter 2.2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2019/06/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/06/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -688,6 +628,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDcwNC8yMTIzMA"></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -708,8 +657,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -800,6 +758,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SICP-CONCLUSION"><span class="nav-number">1.</span> <span class="nav-text">SICP CONCLUSION</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-构造过程抽象"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">1. 构造过程抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-构造数据抽象"><span class="nav-number">1.1.0.0.2.</span> <span class="nav-text">2. 构造数据抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-模块化、对象和状态"><span class="nav-number">1.1.0.0.3.</span> <span class="nav-text">3. 模块化、对象和状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-元语言抽象"><span class="nav-number">1.1.0.0.4.</span> <span class="nav-text">4. 元语言抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-寄存器机器里的计算"><span class="nav-number">1.1.0.0.5.</span> <span class="nav-text">5. 寄存器机器里的计算</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-1"><span class="nav-number">1.2.</span> <span class="nav-text">Chapter 1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#练习答案"><span class="nav-number">1.2.1.</span> <span class="nav-text">练习答案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用高阶函数做抽象"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">用高阶函数做抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#过程作为参数"><span class="nav-number">1.2.1.1.0.1.</span> <span class="nav-text">过程作为参数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#用lambda构造过程"><span class="nav-number">1.2.1.1.0.2.</span> <span class="nav-text">用lambda构造过程</span></a></li></ol></li></ol></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -962,6 +936,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -990,6 +968,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
