@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://dejavudwh.cn/hightlight.html</loc>
+    <loc>https://dejavudwh.cn/categories/index.html</loc>
     
-    <lastmod>2019-06-13T07:14:31.986Z</lastmod>
+    <lastmod>2019-06-13T07:22:42.676Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dejavudwh.cn/tags/index.html</loc>
+    
+    <lastmod>2019-06-13T07:20:58.510Z</lastmod>
     
   </url>
   
@@ -124,20 +131,6 @@
     <loc>https://dejavudwh.cn/about/index.html</loc>
     
     <lastmod>2019-06-12T11:09:40.638Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dejavudwh.cn/categories/index.html</loc>
-    
-    <lastmod>2019-06-12T11:03:55.202Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dejavudwh.cn/tags/index.html</loc>
-    
-    <lastmod>2019-06-12T11:03:21.772Z</lastmod>
     
   </url>
   
