@@ -81,25 +81,25 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="dejavudwh Blog" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="dejavudwh's Blog" type="application/atom+xml">
 
 
 
 
 
 
-<meta name="description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 3 元语言抽象  练习答案元循环求值器 复杂系统设计的通用技术事，将基本元素组合起来，形成复合元素，从复合元素出发通过抽">
+<meta name="description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 3 模块化、对象和状态  练习答案 从前两章中我们认识到，在克服系统复杂性问题时，构造过程抽象和数据抽象祈祷了非常关键的">
 <meta name="keywords" content="SICP,计算机科学,解释器,Lisp,Scheme,大二期间">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Chapter 4.1">
-<meta property="og:url" content="https://dejavudwh.cn/2019/06/12/Chapter 4.1/index.html">
-<meta property="og:site_name" content="dejavudwh Blog">
-<meta property="og:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 3 元语言抽象  练习答案元循环求值器 复杂系统设计的通用技术事，将基本元素组合起来，形成复合元素，从复合元素出发通过抽">
+<meta property="og:title" content="Chapter 3.1">
+<meta property="og:url" content="https://dejavudwh.cn/Chapter 3.1.html">
+<meta property="og:site_name" content="dejavudwh&#39;s Blog">
+<meta property="og:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 3 模块化、对象和状态  练习答案 从前两章中我们认识到，在克服系统复杂性问题时，构造过程抽象和数据抽象祈祷了非常关键的">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-06-12T14:03:51.251Z">
+<meta property="og:updated_time" content="2019-06-12T11:27:14.844Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 4.1">
-<meta name="twitter:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 3 元语言抽象  练习答案元循环求值器 复杂系统设计的通用技术事，将基本元素组合起来，形成复合元素，从复合元素出发通过抽">
+<meta name="twitter:title" content="Chapter 3.1">
+<meta name="twitter:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 3 模块化、对象和状态  练习答案 从前两章中我们认识到，在克服系统复杂性问题时，构造过程抽象和数据抽象祈祷了非常关键的">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://dejavudwh.cn/2019/06/12/Chapter 4.1/">
+  <link rel="canonical" href="https://dejavudwh.cn/Chapter 3.1.html">
 
 
 
 
 
-  <title>Chapter 4.1 | dejavudwh Blog</title>
+  <title>Chapter 3.1 | dejavudwh's Blog</title>
   
 
 
@@ -171,12 +171,12 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">dejavudwh Blog</span>
+        <span class="site-title">dejavudwh's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <h1 class="site-subtitle" itemprop="description">开发日记</h1>
       
   </div>
 
@@ -320,7 +320,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/2019/06/12/Chapter 4.1/">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/Chapter 3.1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dejavudwh">
@@ -329,7 +329,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="dejavudwh Blog">
+      <meta itemprop="name" content="dejavudwh's Blog">
     </span>
 
     
@@ -337,7 +337,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Chapter 4.1</h1>
+          <h2 class="post-title" itemprop="name headline">Chapter 3.1</h2>
         
 
         <div class="post-meta">
@@ -389,7 +389,7 @@
 
           
           
-             <span id="/2019/06/12/Chapter 4.1/" class="leancloud_visitors" data-flag-title="Chapter 4.1">
+             <span id="/Chapter 3.1.html" class="leancloud_visitors" data-flag-title="Chapter 3.1">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -414,7 +414,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.3k
+                  1.6k
                 </span>
               
 
@@ -430,7 +430,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  5
+                  6
                 </span>
               
             </div>
@@ -458,55 +458,78 @@
 <p>祝我能够突破层层代码，找到住在里计算机的神灵！</p>
 </blockquote>
 <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a><strong><font color="green">目录</font></strong></h2><h5 id="1-构造过程抽象"><a href="#1-构造过程抽象" class="headerlink" title="1. 构造过程抽象"></a>1. 构造过程抽象</h5><h5 id="2-构造数据抽象"><a href="#2-构造数据抽象" class="headerlink" title="2. 构造数据抽象"></a>2. 构造数据抽象</h5><h5 id="3-模块化、对象和状态"><a href="#3-模块化、对象和状态" class="headerlink" title="3. 模块化、对象和状态"></a>3. 模块化、对象和状态</h5><h5 id="4-元语言抽象"><a href="#4-元语言抽象" class="headerlink" title="4. 元语言抽象"></a>4. 元语言抽象</h5><h5 id="5-寄存器机器里的计算"><a href="#5-寄存器机器里的计算" class="headerlink" title="5. 寄存器机器里的计算"></a>5. 寄存器机器里的计算</h5><h2 id="Chapter-3"><a href="#Chapter-3" class="headerlink" title="Chapter 3"></a><strong><font color="red">Chapter 3</font></strong></h2><ul>
-<li>元语言抽象</li>
+<li>模块化、对象和状态</li>
 </ul>
-<h5 id="练习答案"><a href="#练习答案" class="headerlink" title="练习答案"></a><a href="https://github.com/dejavudwh/SICP-Exercise" target="_blank" rel="noopener">练习答案</a></h5><h6 id="元循环求值器"><a href="#元循环求值器" class="headerlink" title="元循环求值器"></a>元循环求值器</h6><blockquote>
-<p><strong>复杂系统设计的通用技术事，将基本元素组合起来，形成复合元素，从复合元素出发通过抽象形成更高一层的构件，并通过采取某种适当的关于系统结构的大尺度观点，保持系统的模块性。随着面对问题复杂性的增加，任一一个程序设计语言都难以表述自己的想法，所以建立新语言成为了工程设计中控制复杂性的一种威力强大的策略。（或者说我们在每个问题的解空间里，构造一门最合适的语言才是最高级的抽象？）</strong></p>
+<h5 id="练习答案"><a href="#练习答案" class="headerlink" title="练习答案"></a><a href="https://github.com/dejavudwh/SICP-Exercise" target="_blank" rel="noopener">练习答案</a></h5><blockquote>
+<p>从前两章中我们认识到，在克服系统复杂性问题时，构造过程抽象和数据抽象祈祷了非常关键的作用。但是在进行组织模块化后，我们还需要一些组织原则来完成系统的整体设计，使这些系统自然地划分为内聚的部分</p>
+</blockquote>
+<blockquote>
+<p>有一种强有力的设计策略，就是基于外界事物的结构，去模拟设计，也就是划分每个计算对象，也就是面向对象思想，这一策略的好处也就是在扩展修改增加程序时，只需要做一些局部的工作</p>
+</blockquote>
+<blockquote>
+<p>另外一种策略是将注意力集中在流过系统的信息流上</p>
 </blockquote>
 <a id="more"></a>
 
-<blockquote>
-<p><strong>求值器决定了一个程序设计语言中各种表达式的意义，而它本身也不过就是另一个程序而已</strong></p>
-</blockquote>
-<blockquote>
-<p><strong>事实上，我们几乎可以把任何程序看作是某个语言的求值器</strong></p>
-</blockquote>
-<ol>
-<li>求值一个表达式，首先求值其中的子表达式，而后将运算符子表达式的值作用于运算对象子表达式的值</li>
-<li>在将一个复合过程应用于一集实际参数时，我们在一个新的环境里求值这个过程的体。构造这一环境的方式就是用一个框架扩充该过程对象的环境部分。框架中包含这个过程中形参和实参的约束</li>
-</ol>
-<p>求值器的实现依赖于表达式的语法形式，依旧使用数据抽象的想法</p>
+<h3 id="赋值和局部状态"><a href="#赋值和局部状态" class="headerlink" title="赋值和局部状态"></a>赋值和局部状态</h3><p><em>作为一个对象，我们就可以算它的状态是受时间或者历史影响的，那么就需要表示它的状态变量，而所谓的交互就是建立对象与对象之间状态变量的联系，形成内部联系紧密，而与其他子系统只存在着松散的联系</em></p>
 <ul>
-<li>求值器的内核</li>
+<li>银行账户例子</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">;;eval</span><br><span class="line">(define (eval exp env)</span><br><span class="line">  (cond ((self-evaluating? exp) exp)</span><br><span class="line">        ((variable? exp) (lookup-variable-value exp env))</span><br><span class="line">        ((quoted? exp) (text-of-quotation exp))</span><br><span class="line">        ((assignment? exp) (eval-assignment exp env))</span><br><span class="line">        ((definition? exp) (eval-definition exp env))</span><br><span class="line">        ((if? exp) (eval-if exp env))</span><br><span class="line">        ((lambda? exp)</span><br><span class="line">         (make-procedure (lambda-parameters exp)</span><br><span class="line">                         (lambda-body exp)</span><br><span class="line">                         env))</span><br><span class="line">        ((begin? exp)</span><br><span class="line">         (eval-sequence (begin-actions exp) env))</span><br><span class="line">        ((cond? exp) (eval (cond-&gt;if exp) env))</span><br><span class="line">        ((application? exp)</span><br><span class="line">         (apply (eval (operator exp) env)</span><br><span class="line">                (list-of-values (operands exp) env)))</span><br><span class="line">        (else</span><br><span class="line">         (error &quot;Unknown expression type -- EVAL&quot; exp))))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">balance 100</span><br><span class="line">;: (withdraw 25)</span><br><span class="line">75</span><br><span class="line">;: (withdraw 25)</span><br><span class="line">50</span><br><span class="line">;: (withdraw 60)</span><br><span class="line">Not enough</span><br><span class="line">;: (withdraw 15)</span><br><span class="line">35</span><br></pre></td></tr></table></figure>
 
-<p>apply-primitive-procedure直接应用于基本过程<br>对于复合过程，需要建立新的环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">;;apply</span><br><span class="line">(define (apply procedure arguments)</span><br><span class="line">  (cond ((primitive-procedure? procedure)</span><br><span class="line">         (apply-primitive-procedure procedure arguments))</span><br><span class="line">        ((compound-procedure? procedure)</span><br><span class="line">         (eval-sequence</span><br><span class="line">           (procedure-body procedure)</span><br><span class="line">           (extend-environment</span><br><span class="line">             (procedure-parameters procedure)</span><br><span class="line">             arguments</span><br><span class="line">             (procedure-environment procedure))))</span><br><span class="line">        (else</span><br><span class="line">         (error</span><br><span class="line">          &quot;Unknown procedure type -- APPLY&quot; procedure))))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">(define (make-account balance)</span><br><span class="line">  (define (withdraw amount)</span><br><span class="line">    (if (&gt;= balance amount)</span><br><span class="line">        (begin (set! balance (- balance amount))</span><br><span class="line">               balance)</span><br><span class="line">        &quot;Insufficient funds&quot;))</span><br><span class="line">  (define (deposit amount)</span><br><span class="line">    (set! balance (+ balance amount))</span><br><span class="line">    balance)</span><br><span class="line">  (define (dispatch m)</span><br><span class="line">    (cond ((eq? m &apos;withdraw) withdraw)</span><br><span class="line">          ((eq? m &apos;deposit) deposit)</span><br><span class="line">          (else (error &quot;Unknown request -- MAKE-ACCOUNT&quot;</span><br><span class="line">                       m))))</span><br><span class="line">  dispatch)</span><br><span class="line"></span><br><span class="line">;: (define acc (make-account 100))</span><br><span class="line"></span><br><span class="line">;: ((acc &apos;withdraw) 50)</span><br><span class="line">;: ((acc &apos;withdraw) 60)</span><br><span class="line">;: ((acc &apos;deposit) 40)</span><br><span class="line">;: ((acc &apos;withdraw) 60)</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p><strong>在从开始构造求值器的内核到运行这个程序，主要使用的还是数据抽象技术，首先所有东西的基础都是Scheme的语法形式，内核可以分为两个部分，1时求值表达式，2是应用过程。在透过数据抽象中可以得到提出每类表达式有关的操作函数，而有关过程的应用分为两个部分，1是基本过程，2是复合过程，复合过程也就是相应表达式在对应环境的求值。</strong></p>
-</blockquote>
 <ul>
-<li>将数据作为程序</li>
+<li>引进赋值带来的利益</li>
 </ul>
-<p>将程序看成一种抽象的机器的一个描述，按照这种观点，求值器可以看作一部非常特殊的机器，它要求以一部机器的描述作为输入，给定了一个输入后，求值器就能够规划自己的行为，模拟被描述机器的执行过程。按照这一观点，我们的求值器可以看作是一种通用机器。求值器另一个惊人的地方是它是数据对象和这个程序设计语言本身的桥梁，用户认为输入的是一个表达式，而求值器不过是按照一套良好的规则进行运行。</p>
+<p><em>蒙特卡洛模拟例子</em></p>
 <blockquote>
-<p>就此来说，任何一个有效的过程都可以描述为一个程序。</p>
+<p>6/Π2是随机选取两个整数之间没有公共因子的概率</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(define (run-forever) (run-forever))</span><br><span class="line"></span><br><span class="line">(define (try p)</span><br><span class="line">  (if (halt? p p)</span><br><span class="line">      (run-forever)</span><br><span class="line">      &apos;halted))</span><br><span class="line"></span><br><span class="line">(try try)</span><br></pre></td></tr></table></figure>
+<p><strong>使用了随机数生成器：内部拥有状态变量</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">(define (estimate-pi trials)</span><br><span class="line">  (sqrt (/ 6 (monte-carlo trials cesaro-test))))</span><br><span class="line"></span><br><span class="line">(define (cesaro-test)</span><br><span class="line">   (= (gcd (rand) (rand)) 1))</span><br><span class="line"></span><br><span class="line">(define (monte-carlo trials experiment)</span><br><span class="line">  (define (iter trials-remaining trials-passed)</span><br><span class="line">    (cond ((= trials-remaining 0)</span><br><span class="line">           (/ trials-passed trials))</span><br><span class="line">          ((experiment)</span><br><span class="line">           (iter (- trials-remaining 1) (+ trials-passed 1)))</span><br><span class="line">          (else</span><br><span class="line">           (iter (- trials-remaining 1) trials-passed))))</span><br><span class="line">  (iter trials 0))</span><br></pre></td></tr></table></figure>
+
+<p><strong>不使用随机数生成器</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">(define (estimate-pi trials)</span><br><span class="line">  (sqrt (/ 6 (random-gcd-test trials random-init))))</span><br><span class="line"></span><br><span class="line">(define (random-gcd-test trials initial-x)</span><br><span class="line">  (define (iter trials-remaining trials-passed x)</span><br><span class="line">    (let ((x1 (rand-update x)))</span><br><span class="line">      (let ((x2 (rand-update x1)))</span><br><span class="line">        (cond ((= trials-remaining 0)   </span><br><span class="line">               (/ trials-passed trials))</span><br><span class="line">              ((= (gcd x1 x2) 1)</span><br><span class="line">               (iter (- trials-remaining 1)</span><br><span class="line">                     (+ trials-passed 1)</span><br><span class="line">                     x2))</span><br><span class="line">              (else</span><br><span class="line">               (iter (- trials-remaining 1)</span><br><span class="line">                     trials-passed</span><br><span class="line">                     x2))))))</span><br><span class="line">  (iter trials 0 initial-x))</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>停机定理：是一个良好的刻画工作，但是却不能由一个计算过程来完成，是一个不可计算问题</p>
+<p>虽然现在还没有看出非常大的问题，但是其中已经破坏了程序的模块性，而且暴露本应该是内部的状态变量。而之前的程序反应出的是一个复杂的计算性过程，其他部分都像在随着时间不断变化，并且隐藏起随时间变化的内部，而这就需要局部变量去模拟系统的状态，并用赋值来模拟它们的变化。增强模块性</p>
 </blockquote>
 <ul>
-<li>将语法分析与执行分离</li>
+<li>引进赋值的代价</li>
 </ul>
-<p>之前的求值器实现简单，但是也十分低效，因为语法分析和执行过程交织在一起，所以如果程序要执行多次，语法分析也要做许多次。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">(define (eval exp env)</span><br><span class="line">  ((analyze exp) env))</span><br><span class="line"></span><br><span class="line">(define (analyze exp)</span><br><span class="line">  (cond ((self-evaluating? exp)</span><br><span class="line">         (analyze-self-evaluating exp))</span><br><span class="line">        ((quoted? exp) (analyze-quoted exp))</span><br><span class="line">        ((variable? exp) (analyze-variable exp))</span><br><span class="line">        ((assignment? exp) (analyze-assignment exp))</span><br><span class="line">        ((definition? exp) (analyze-definition exp))</span><br><span class="line">        ((if? exp) (analyze-if exp))</span><br><span class="line">        ((lambda? exp) (analyze-lambda exp))</span><br><span class="line">        ((begin? exp) (analyze-sequence (begin-actions exp)))</span><br><span class="line">        ((cond? exp) (analyze (cond-&gt;if exp)))</span><br><span class="line">        ((application? exp) (analyze-application exp))</span><br><span class="line">        (else</span><br><span class="line">         (error &quot;Unknown expression type -- ANALYZE&quot; exp))))</span><br></pre></td></tr></table></figure>
-
 <blockquote>
-<p>这一小节里主要讲的是当面对复杂性提高，而当前语言又难以表述的时候，我们就应该构建一门新的语言了，或者说每个程序都是在构造一门新语言。之后作者实现了Scheme的求值器，在中间提出了图灵的停机定理来引出不可计算问题</p>
+<p>引进了赋值可以去模拟系统的变化，但是这也迫使我们需要引进新的计算模型，因为代换模型已经不适用了。如果我们不使用赋值，以同样参数对同一过程的两次求值可以产生同样的的结果，这样的就称为<em>函数式程序设计</em></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(define (make-decrementer balance) ;; 函数式编程，所以两次调用并不能改变状态</span><br><span class="line">  (lambda (amount)</span><br><span class="line">    (- balance amount)))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>同一和变化</li>
+</ul>
+<blockquote>
+<p>一旦我们将变化引进了我们的计算模型，首先考虑两个物体实际上同一的概念</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">;: (define D1 (make-decrementer 25))</span><br><span class="line">;: (define D2 (make-decrementer 25))</span><br></pre></td></tr></table></figure>
+
+<p><em>如果我们说D1 D2是同一的是可接受的，因为调用它并不会改变其内部状态</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">;: (define W1 (make-simplified-withdraw 25))</span><br><span class="line">;: (define W2 (make-simplified-withdraw 25))</span><br></pre></td></tr></table></figure>
+
+<p><em>但是W1 W2很显然就不是同一的了</em></p>
+<blockquote>
+<p>如果一个语言支持在表达式里“同一的东西可以替换”，那么久称这个语言是具有引用透明性的</p>
+</blockquote>
+<blockquote>
+<p>我们只能通过改变一个对象，去观察另一个对象是否发生变化，以此来判断这两个是不是同一的，但如果不能通过观察对象两次，看看一次观察中看到的某些对象性质是否与另一次不同，我们又怎么能清楚一个对象是否变化了呢？所以如果没有有关同一的某些先验观念，我们也就不能确定变化，而不能看到变化久不能确定同一性</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1)</span><br><span class="line">;: (define peter-acc (make-account 100))</span><br><span class="line">;: (define paul-acc (make-account 100))</span><br><span class="line">;:</span><br><span class="line">2)</span><br><span class="line">;: (define peter-acc (make-account 100))</span><br><span class="line">;: (define paul-acc peter-acc)</span><br></pre></td></tr></table></figure>
+
+<p><strong>在第一种情况下，很显然这两个是不同对象，但在2中，修改一个对象也就会修改另外一个对象，所以在构造计算模型的时候，就很容易引起混乱，比如在面向对象中有关对象的传递，同一或许有点让人迷惑。但是如果我们保证绝不修改数据对象，那么有关同一的概念就又不同了，就可以将一个数据对象完全看作是由其片段组成的了。在有理数中可以看作它是由分子分母组成的，所以如果修改了它的分字或者分母，它就不在是一个同一对象了。但是对于银行账户，如果你改变了它的账户，它依旧是同一对象。</strong></p>
+<ul>
+<li>命令式函数设计的缺陷</li>
+</ul>
+<p><strong>在命令式函数中广泛使用赋值，这就会引进一个复杂的问题，就是赋值的顺序，状态有关时间的变化</strong></p>
+<blockquote>
+<p>这一节主要是在需要一种更好的组织系统的设计方式后，一种是面向对象的方式，一种是流的方式，在基于面向对象的基础上引入了局部变量和赋值来描述计算模型的状态，这样的好处的是使程序更加的具有模块化，在每个模块中都有自己的局部变量去描述自身的状态，但这其中也有代价，就是发生了同一概念的复杂性</p>
 </blockquote>
 
       
@@ -518,35 +541,6 @@
     <div>
       
         
-<div class="my_post_copyright">
-  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
-
-  <!-- JS库 sweetalert 可修改路径 -->
-  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2019/06/12/Chapter 4.1/">Chapter 4.1</a></p>
-  <p><span>文章作者:</span><a href="/" title="访问 dejavudwh 的个人博客">dejavudwh</a></p>
-  <p><span>发布时间:</span>2019年06月12日 - 18:06</p>
-  <p><span>最后更新:</span>2019年06月12日 - 22:06</p>
-  <p><span>原始链接:</span><a href="/2019/06/12/Chapter 4.1/" title="Chapter 4.1">https://dejavudwh.cn/2019/06/12/Chapter 4.1/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://dejavudwh.cn/2019/06/12/Chapter 4.1/" aria-label="复制成功！"></i></span>
-  </p>
-  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
-</div>
-<script>
-    var clipboard = new Clipboard('.fa-clipboard');
-    $(".fa-clipboard").click(function(){
-      clipboard.on('success', function(){
-        swal({
-          title: "",
-          text: '复制成功',
-          icon: "success",
-          showConfirmButton: true
-          });
-    });
-    });
-</script>
-
 
       
     </div>
@@ -584,8 +578,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/12/Chapter 3.5/" rel="next" title="Chapter 3.5">
-                <i class="fa fa-chevron-left"></i> Chapter 3.5
+              <a href="/Chapter 3.4.html" rel="next" title="Chapter 3.4">
+                <i class="fa fa-chevron-left"></i> Chapter 3.4
               </a>
             
           </div>
@@ -594,8 +588,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/12/Chapter 2.5/" rel="prev" title="Chapter 2.5">
-                Chapter 2.5 <i class="fa fa-chevron-right"></i>
+              <a href="/Chapter 2.2.html" rel="prev" title="Chapter 2.2">
+                Chapter 2.2 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -670,7 +664,7 @@
               <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="dejavudwh">
             
               <p class="site-author-name" itemprop="name">dejavudwh</p>
-              <p class="site-description motion-element" itemprop="description">a sophomore majoring in software engineering</p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           <nav class="site-state motion-element">
@@ -764,7 +758,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SICP-CONCLUSION"><span class="nav-number">1.</span> <span class="nav-text">SICP CONCLUSION</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-构造过程抽象"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">1. 构造过程抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-构造数据抽象"><span class="nav-number">1.1.0.0.2.</span> <span class="nav-text">2. 构造数据抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-模块化、对象和状态"><span class="nav-number">1.1.0.0.3.</span> <span class="nav-text">3. 模块化、对象和状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-元语言抽象"><span class="nav-number">1.1.0.0.4.</span> <span class="nav-text">4. 元语言抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-寄存器机器里的计算"><span class="nav-number">1.1.0.0.5.</span> <span class="nav-text">5. 寄存器机器里的计算</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-3"><span class="nav-number">1.2.</span> <span class="nav-text">Chapter 3</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#练习答案"><span class="nav-number">1.2.0.0.1.</span> <span class="nav-text">练习答案</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#元循环求值器"><span class="nav-number">1.2.0.0.1.1.</span> <span class="nav-text">元循环求值器</span></a></li></ol></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SICP-CONCLUSION"><span class="nav-number">1.</span> <span class="nav-text">SICP CONCLUSION</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-构造过程抽象"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">1. 构造过程抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-构造数据抽象"><span class="nav-number">1.1.0.0.2.</span> <span class="nav-text">2. 构造数据抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-模块化、对象和状态"><span class="nav-number">1.1.0.0.3.</span> <span class="nav-text">3. 模块化、对象和状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-元语言抽象"><span class="nav-number">1.1.0.0.4.</span> <span class="nav-text">4. 元语言抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-寄存器机器里的计算"><span class="nav-number">1.1.0.0.5.</span> <span class="nav-text">5. 寄存器机器里的计算</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-3"><span class="nav-number">1.2.</span> <span class="nav-text">Chapter 3</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#练习答案"><span class="nav-number">1.2.0.0.1.</span> <span class="nav-text">练习答案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#赋值和局部状态"><span class="nav-number">1.2.1.</span> <span class="nav-text">赋值和局部状态</span></a></li></div>
             
 
           </div>
@@ -1424,6 +1418,21 @@
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
   

@@ -81,25 +81,25 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="dejavudwh Blog" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="dejavudwh's Blog" type="application/atom+xml">
 
 
 
 
 
 
-<meta name="description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 3 模块化、对象和状态  练习答案并发：时间是一个本质问题 在引入赋值后，迫使我们需要关心事件发生的顺序，从而引发了并发">
+<meta name="description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 2 构造数据对象  练习答案抽象数据的多重表示 在这一节里，我们将学习如何去处理数据，是他们可能在一个程序的不同部分中采">
 <meta name="keywords" content="SICP,计算机科学,解释器,Lisp,Scheme,大二期间">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Chapter 3.4">
-<meta property="og:url" content="https://dejavudwh.cn/2019/06/12/Chapter 3.4/index.html">
-<meta property="og:site_name" content="dejavudwh Blog">
-<meta property="og:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 3 模块化、对象和状态  练习答案并发：时间是一个本质问题 在引入赋值后，迫使我们需要关心事件发生的顺序，从而引发了并发">
+<meta property="og:title" content="Chapter 2.4">
+<meta property="og:url" content="https://dejavudwh.cn/Chapter 2.4.html">
+<meta property="og:site_name" content="dejavudwh&#39;s Blog">
+<meta property="og:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 2 构造数据对象  练习答案抽象数据的多重表示 在这一节里，我们将学习如何去处理数据，是他们可能在一个程序的不同部分中采">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-06-12T11:27:38.014Z">
+<meta property="og:updated_time" content="2019-06-12T11:27:04.536Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 3.4">
-<meta name="twitter:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 3 模块化、对象和状态  练习答案并发：时间是一个本质问题 在引入赋值后，迫使我们需要关心事件发生的顺序，从而引发了并发">
+<meta name="twitter:title" content="Chapter 2.4">
+<meta name="twitter:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 2 构造数据对象  练习答案抽象数据的多重表示 在这一节里，我们将学习如何去处理数据，是他们可能在一个程序的不同部分中采">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://dejavudwh.cn/2019/06/12/Chapter 3.4/">
+  <link rel="canonical" href="https://dejavudwh.cn/Chapter 2.4.html">
 
 
 
 
 
-  <title>Chapter 3.4 | dejavudwh Blog</title>
+  <title>Chapter 2.4 | dejavudwh's Blog</title>
   
 
 
@@ -171,12 +171,12 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">dejavudwh Blog</span>
+        <span class="site-title">dejavudwh's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <h1 class="site-subtitle" itemprop="description">开发日记</h1>
       
   </div>
 
@@ -320,7 +320,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/2019/06/12/Chapter 3.4/">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/Chapter 2.4.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dejavudwh">
@@ -329,7 +329,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="dejavudwh Blog">
+      <meta itemprop="name" content="dejavudwh's Blog">
     </span>
 
     
@@ -337,7 +337,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Chapter 3.4</h1>
+          <h2 class="post-title" itemprop="name headline">Chapter 2.4</h2>
         
 
         <div class="post-meta">
@@ -389,7 +389,7 @@
 
           
           
-             <span id="/2019/06/12/Chapter 3.4/" class="leancloud_visitors" data-flag-title="Chapter 3.4">
+             <span id="/Chapter 2.4.html" class="leancloud_visitors" data-flag-title="Chapter 2.4">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -414,7 +414,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.1k
+                  1.4k
                 </span>
               
 
@@ -430,7 +430,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  4
+                  6
                 </span>
               
             </div>
@@ -457,54 +457,51 @@
 <blockquote>
 <p>祝我能够突破层层代码，找到住在里计算机的神灵！</p>
 </blockquote>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a><strong><font color="green">目录</font></strong></h2><h5 id="1-构造过程抽象"><a href="#1-构造过程抽象" class="headerlink" title="1. 构造过程抽象"></a>1. 构造过程抽象</h5><h5 id="2-构造数据抽象"><a href="#2-构造数据抽象" class="headerlink" title="2. 构造数据抽象"></a>2. 构造数据抽象</h5><h5 id="3-模块化、对象和状态"><a href="#3-模块化、对象和状态" class="headerlink" title="3. 模块化、对象和状态"></a>3. 模块化、对象和状态</h5><h5 id="4-元语言抽象"><a href="#4-元语言抽象" class="headerlink" title="4. 元语言抽象"></a>4. 元语言抽象</h5><h5 id="5-寄存器机器里的计算"><a href="#5-寄存器机器里的计算" class="headerlink" title="5. 寄存器机器里的计算"></a>5. 寄存器机器里的计算</h5><h2 id="Chapter-3"><a href="#Chapter-3" class="headerlink" title="Chapter 3"></a><strong><font color="red">Chapter 3</font></strong></h2><ul>
-<li>模块化、对象和状态</li>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a><strong><font color="green">目录</font></strong></h2><h5 id="1-构造过程抽象"><a href="#1-构造过程抽象" class="headerlink" title="1. 构造过程抽象"></a>1. 构造过程抽象</h5><h5 id="2-构造数据抽象"><a href="#2-构造数据抽象" class="headerlink" title="2. 构造数据抽象"></a>2. 构造数据抽象</h5><h5 id="3-模块化、对象和状态"><a href="#3-模块化、对象和状态" class="headerlink" title="3. 模块化、对象和状态"></a>3. 模块化、对象和状态</h5><h5 id="4-元语言抽象"><a href="#4-元语言抽象" class="headerlink" title="4. 元语言抽象"></a>4. 元语言抽象</h5><h5 id="5-寄存器机器里的计算"><a href="#5-寄存器机器里的计算" class="headerlink" title="5. 寄存器机器里的计算"></a>5. 寄存器机器里的计算</h5><h2 id="Chapter-2"><a href="#Chapter-2" class="headerlink" title="Chapter 2"></a><strong><font color="red">Chapter 2</font></strong></h2><ul>
+<li>构造数据对象</li>
 </ul>
-<h5 id="练习答案"><a href="#练习答案" class="headerlink" title="练习答案"></a><a href="https://github.com/dejavudwh/SICP-Exercise" target="_blank" rel="noopener">练习答案</a></h5><h3 id="并发：时间是一个本质问题"><a href="#并发：时间是一个本质问题" class="headerlink" title="并发：时间是一个本质问题"></a>并发：时间是一个本质问题</h3><blockquote>
-<p>在引入赋值后，迫使我们需要关心事件发生的顺序，从而引发了并发的问题</p>
+<h5 id="练习答案"><a href="#练习答案" class="headerlink" title="练习答案"></a><a href="https://github.com/dejavudwh/SICP-Exercise" target="_blank" rel="noopener">练习答案</a></h5><h4 id="抽象数据的多重表示"><a href="#抽象数据的多重表示" class="headerlink" title="抽象数据的多重表示"></a>抽象数据的多重表示</h4><blockquote>
+<p>在这一节里，我们将学习如何去处理数据，是他们可能在一个程序的不同部分中采用不同的表示方式。这就需要我们去构造通用型过程</p>
+</blockquote>
+<h5 id="复数的表示"><a href="#复数的表示" class="headerlink" title="复数的表示"></a>复数的表示</h5><p><em>复数有两种不一样的表示方式，也同样更合适不一样的操作</em></p>
+<blockquote>
+<p>而重要的是，如何让这两种表示方式共存一个系统，并能够在合适的地方调用合适的方法</p>
 </blockquote>
 <a id="more"></a>
 
-<p><em>限制并行进程之间的交错情况</em></p>
-<h6 id="对共享变量的串行访问"><a href="#对共享变量的串行访问" class="headerlink" title="对共享变量的串行访问"></a>对共享变量的串行访问</h6><blockquote>
-<p>创建一些不同过程的集合，并且保证在每个个串行化集合中至多只有一个过程的执行</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(parallel-execute &lt;p1&gt;&lt;p2&gt;&lt;p3&gt;) ;;并发的过程集</span><br><span class="line"></span><br><span class="line">;;加入串行化就可以保证独立&lt;p&gt;的运行</span><br><span class="line">(define s (make-serializer))</span><br><span class="line">(parallel-execute &lt;s p1&gt; &lt;s p2&gt;)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">;;存取款</span><br><span class="line">(define (make-account balance)</span><br><span class="line">  (define (withdraw amount)</span><br><span class="line">    (if (&gt;= balance amount)</span><br><span class="line">        (begin (set! balance (- balance amount))</span><br><span class="line">               balance)</span><br><span class="line">        &quot;Insufficient funds&quot;))</span><br><span class="line">  (define (deposit amount)</span><br><span class="line">    (set! balance (+ balance amount))</span><br><span class="line">    balance)</span><br><span class="line">  (let ((protected (make-serializer)))</span><br><span class="line">    (define (dispatch m)</span><br><span class="line">      (cond ((eq? m &apos;withdraw) (protected withdraw))</span><br><span class="line">            ((eq? m &apos;deposit) (protected deposit))</span><br><span class="line">            ((eq? m &apos;balance) balance)</span><br><span class="line">            (else (error &quot;Unknown request -- MAKE-ACCOUNT&quot;</span><br><span class="line">                         m))))</span><br><span class="line">    dispatch))</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>使用多重共享资源的复杂性</li>
-</ul>
-<p><em>如果希望交换两个账户的余额就需要对整个过程进行串行化</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">(define (make-account-and-serializer balance)</span><br><span class="line">  (define (withdraw amount)</span><br><span class="line">    (if (&gt;= balance amount)</span><br><span class="line">        (begin (set! balance (- balance amount))</span><br><span class="line">               balance)</span><br><span class="line">        &quot;Insufficient funds&quot;))</span><br><span class="line">  (define (deposit amount)</span><br><span class="line">    (set! balance (+ balance amount))</span><br><span class="line">    balance)</span><br><span class="line">  (let ((balance-serializer (make-serializer)))</span><br><span class="line">    (define (dispatch m)</span><br><span class="line">      (cond ((eq? m &apos;withdraw) withdraw)</span><br><span class="line">            ((eq? m &apos;deposit) deposit)</span><br><span class="line">            ((eq? m &apos;balance) balance)</span><br><span class="line">            ((eq? m &apos;serializer) balance-serializer)</span><br><span class="line">            (else (error &quot;Unknown request -- MAKE-ACCOUNT&quot;</span><br><span class="line">                         m))))</span><br><span class="line">    dispatch))</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(define (deposit account amount)</span><br><span class="line">  (let ((s (account &apos;serializer))</span><br><span class="line">        (d (account &apos;deposit)))</span><br><span class="line">    ((s d) amount)))</span><br><span class="line"></span><br><span class="line">(define (serialized-exchange account1 account2)</span><br><span class="line">  (let ((serializer1 (account1 &apos;serializer))</span><br><span class="line">        (serializer2 (account2 &apos;serializer)))</span><br><span class="line">    ((serializer1 (serializer2 exchange))</span><br><span class="line">     account1</span><br><span class="line">     account2)))</span><br></pre></td></tr></table></figure>
-
-<h6 id="串行化的实现"><a href="#串行化的实现" class="headerlink" title="串行化的实现"></a>串行化的实现</h6><blockquote>
-<p>通过基本的互斥元的同步机制来实现串行化。互斥元是一种对象，有两种基本的操作，获取和释放，一旦互斥元被获取后，任一获取互斥元的操作都需要等到该互斥元被释放</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(define (make-serializer)</span><br><span class="line">  (let ((mutex (make-mutex)))</span><br><span class="line">    (lambda (p)</span><br><span class="line">      (define (serialized-p . args)</span><br><span class="line">        (mutex &apos;acquire)</span><br><span class="line">        (let ((val (apply p args)))</span><br><span class="line">          (mutex &apos;release)</span><br><span class="line">          val))</span><br><span class="line">      serialized-p)))</span><br></pre></td></tr></table></figure>
-
-<p><em>互斥元的实现</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(define (make-mutex)</span><br><span class="line">  (let ((cell (list false)))            </span><br><span class="line">    (define (the-mutex m)</span><br><span class="line">      (cond ((eq? m &apos;acquire)</span><br><span class="line">             (if (test-and-set! cell) ;;如果mutex已经被获取了那么就持续获取这个互斥元直到它被释放</span><br><span class="line">                 (the-mutex &apos;acquire)))</span><br><span class="line">            ((eq? m &apos;release) (clear! cell))))</span><br><span class="line">    the-mutex))</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(define (clear! cell)</span><br><span class="line">  (set-car! cell false))</span><br><span class="line"></span><br><span class="line">(define (test-and-set! cell)  ;;必须支持原子操作才可能正确</span><br><span class="line">  (if (car cell)</span><br><span class="line">      true</span><br><span class="line">      (begin (set-car! cell true)</span><br><span class="line">             false)))</span><br></pre></td></tr></table></figure>
-
-<h6 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h6><blockquote>
-<p>发生在获取线程时产生冲突时，每个进程都需要无穷无尽的等待另一个进程的活动</p>
-</blockquote>
-<p><em>避免死锁</em></p>
-<p>在进行串行化时，为每个进程都安排一个唯一标识，使每个进程都优先进去较低标识标号的账户。这一就不会产生一个交错的冲突，但是还是存在一些情况，需要更复杂的技术</p>
-<h6 id="并发性、时间和通信"><a href="#并发性、时间和通信" class="headerlink" title="并发性、时间和通信"></a>并发性、时间和通信</h6><blockquote>
-<p>在如今，为了实现高速处理器，出现了流水线、缓存技术，所以并不能保证存储器每刻都保持一致，但像test-and-set!这样的操作都需要检查一个全局变量，所以串行化技术已经被其他新技术代替了</p>
-</blockquote>
+<p><strong>带标识数据</strong></p>
 <blockquote>
-<p>在分布式系统中，基本的现象是不同进程之间的同步，建立起共享状态，或迫使进程之间通信所产生的事件都按照某种特定的顺序进行。从本质上看，在并发控制中，任何时间概念都和通信有着内在的密切联系。</p>
+<p>可以将数据抽象看作为“最小允诺原则”的一个应用</p>
 </blockquote>
-<hr>
+<p><em>如何使两种不同的表示方法共存一个系统的方法就是使用类型标识，在构造数据时为不同表示方式加上类型标识，在进行操作时，根据不同的操作，剖去标识选择合适的操作</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">;; Ben (rectangular)</span><br><span class="line"></span><br><span class="line">(define (real-part-rectangular z) (car z))</span><br><span class="line"></span><br><span class="line">(define (imag-part-rectangular z) (cdr z))</span><br><span class="line"></span><br><span class="line">(define (magnitude-rectangular z)</span><br><span class="line">  (sqrt (+ (square (real-part-rectangular z))</span><br><span class="line">           (square (imag-part-rectangular z)))))</span><br><span class="line"></span><br><span class="line">(define (angle-rectangular z)</span><br><span class="line">  (atan (imag-part-rectangular z)</span><br><span class="line">        (real-part-rectangular z)))</span><br><span class="line"></span><br><span class="line">(define (make-from-real-imag-rectangular x y)</span><br><span class="line">  (attach-tag &apos;rectangular (cons x y)))</span><br><span class="line"></span><br><span class="line">(define (make-from-mag-ang-rectangular r a)</span><br><span class="line">  (attach-tag &apos;rectangular</span><br><span class="line">              (cons (* r (cos a)) (* r (sin a)))))</span><br><span class="line"></span><br><span class="line">;; Alyssa (polar)</span><br><span class="line"></span><br><span class="line">(define (real-part-polar z)</span><br><span class="line">  (* (magnitude-polar z) (cos (angle-polar z))))</span><br><span class="line"></span><br><span class="line">(define (imag-part-polar z)</span><br><span class="line">  (* (magnitude-polar z) (sin (angle-polar z))))</span><br><span class="line"></span><br><span class="line">(define (magnitude-polar z) (car z))</span><br><span class="line"></span><br><span class="line">(define (angle-polar z) (cdr z))</span><br><span class="line"></span><br><span class="line">(define (make-from-real-imag-polar x y)</span><br><span class="line">  (attach-tag &apos;polar</span><br><span class="line">               (cons (sqrt (+ (square x) (square y)))</span><br><span class="line">                     (atan y x))))</span><br><span class="line"></span><br><span class="line">(define (make-from-mag-ang-polar r a)</span><br><span class="line">  (attach-tag &apos;polar (cons r a)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;; Generic selectors</span><br><span class="line"></span><br><span class="line">(define (real-part z)</span><br><span class="line">  (cond ((rectangular? z)</span><br><span class="line">         (real-part-rectangular (contents z)))</span><br><span class="line">        ((polar? z)</span><br><span class="line">         (real-part-polar (contents z)))</span><br><span class="line">        (else (error &quot;Unknown type -- REAL-PART&quot; z))))</span><br><span class="line"></span><br><span class="line">(define (imag-part z)</span><br><span class="line">  (cond ((rectangular? z)</span><br><span class="line">         (imag-part-rectangular (contents z)))</span><br><span class="line">        ((polar? z)</span><br><span class="line">         (imag-part-polar (contents z)))</span><br><span class="line">        (else (error &quot;Unknown type -- IMAG-PART&quot; z))))</span><br><span class="line"></span><br><span class="line">(define (magnitude z)</span><br><span class="line">  (cond ((rectangular? z)</span><br><span class="line">         (magnitude-rectangular (contents z)))</span><br><span class="line">        ((polar? z)</span><br><span class="line">         (magnitude-polar (contents z)))</span><br><span class="line">        (else (error &quot;Unknown type -- MAGNITUDE&quot; z))))</span><br><span class="line"></span><br><span class="line">(define (angle z)</span><br><span class="line">  (cond ((rectangular? z)</span><br><span class="line">         (angle-rectangular (contents z)))</span><br><span class="line">        ((polar? z)</span><br><span class="line">         (angle-polar (contents z)))</span><br><span class="line">        (else (error &quot;Unknown type -- ANGLE&quot; z))))</span><br></pre></td></tr></table></figure>
+
+<p><strong>数据导向的程序设计和可加性</strong></p>
+<p><em>在上面的标识类型最大的问题就是不具备可加性，当我需要再加入另外一种表示方式的时候，我就需要修改类型分派的所以地方，第二不是不允许重名</em></p>
 <blockquote>
-<p>这一节主要讲的是在引入了赋值后，有关并发的概念，提出了一种解决方法：串行化，有关串行化的关键应该是持有的互斥元。最后作者提出了在有关并发的问题中，任何的时间概念都必然和通信存在着内在的密切联系，个人理解也就是说并发实际是在控制事件的发生和对象与对象之间的通信顺序。</p>
+<p>这时就引进了一种新技术：数据导向。我们以一种具有操作名字，数据类型，实际过程为信息的表格为基础。其中所有的操作都应该到这个表格中查询，所以再增加新操作时也只需要像表格中加入信息。</p>
+</blockquote>
+<p>操作表格：</p>
+<p><code>(put &lt;op&gt;&lt;type&gt;&lt;item&gt;)</code></p>
+<p><code>(get &lt;op&gt;&lt;type&gt;)</code></p>
+<ol>
+<li>首先是先安装操作包</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">(define (install-rectangular-package)</span><br><span class="line">  ;; internal procedures</span><br><span class="line">  (define (real-part z) (car z))</span><br><span class="line">  (define (imag-part z) (cdr z))</span><br><span class="line">  (define (make-from-real-imag x y) (cons x y))</span><br><span class="line">  (define (magnitude z)</span><br><span class="line">    (sqrt (+ (square (real-part z))</span><br><span class="line">             (square (imag-part z)))))</span><br><span class="line">  (define (angle z)</span><br><span class="line">    (atan (imag-part z) (real-part z)))</span><br><span class="line">  (define (make-from-mag-ang r a)</span><br><span class="line">    (cons (* r (cos a)) (* r (sin a))))</span><br><span class="line"></span><br><span class="line">  ;; interface to the rest of the system</span><br><span class="line">  (define (tag x) (attach-tag &apos;rectangular x))</span><br><span class="line">  (put &apos;real-part &apos;(rectangular) real-part)</span><br><span class="line">  (put &apos;imag-part &apos;(rectangular) imag-part)</span><br><span class="line">  (put &apos;magnitude &apos;(rectangular) magnitude)</span><br><span class="line">  (put &apos;angle &apos;(rectangular) angle)</span><br><span class="line">  (put &apos;make-from-real-imag &apos;rectangular</span><br><span class="line">       (lambda (x y) (tag (make-from-real-imag x y))))</span><br><span class="line">  (put &apos;make-from-mag-ang &apos;rectangular</span><br><span class="line">       (lambda (r a) (tag (make-from-mag-ang r a))))</span><br><span class="line">  &apos;done)</span><br><span class="line"></span><br><span class="line">(define (install-polar-package)</span><br><span class="line">  ;; internal procedures</span><br><span class="line">  (define (magnitude z) (car z))</span><br><span class="line">  (define (angle z) (cdr z))</span><br><span class="line">  (define (make-from-mag-ang r a) (cons r a))</span><br><span class="line">  (define (real-part z)</span><br><span class="line">    (* (magnitude z) (cos (angle z))))</span><br><span class="line">  (define (imag-part z)</span><br><span class="line">    (* (magnitude z) (sin (angle z))))</span><br><span class="line">  (define (make-from-real-imag x y)</span><br><span class="line">    (cons (sqrt (+ (square x) (square y)))</span><br><span class="line">          (atan y x)))</span><br><span class="line"></span><br><span class="line">  ;; interface to the rest of the system</span><br><span class="line">  (define (tag x) (attach-tag &apos;polar x))</span><br><span class="line">  (put &apos;real-part &apos;(polar) real-part)</span><br><span class="line">  (put &apos;imag-part &apos;(polar) imag-part)</span><br><span class="line">  (put &apos;magnitude &apos;(polar) magnitude)</span><br><span class="line">  (put &apos;angle &apos;(polar) angle)</span><br><span class="line">  (put &apos;make-from-real-imag &apos;polar</span><br><span class="line">       (lambda (x y) (tag (make-from-real-imag x y))))</span><br><span class="line">  (put &apos;make-from-mag-ang &apos;polar</span><br><span class="line">       (lambda (r a) (tag (make-from-mag-ang r a))))</span><br><span class="line">  &apos;done)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>还是需要进行类型分派</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">(define (apply-generic op . args)</span><br><span class="line">  (let ((type-tags (map type-tag args)))</span><br><span class="line">    (let ((proc (get op type-tags)))</span><br><span class="line">      (if proc</span><br><span class="line">          (apply proc (map contents args))</span><br><span class="line">          (error</span><br><span class="line">            &quot;No method for these types -- APPLY-GENERIC&quot;</span><br><span class="line">            (list op type-tags))))))</span><br><span class="line"></span><br><span class="line">;; Generic selectors</span><br><span class="line"></span><br><span class="line">(define (real-part z) (apply-generic &apos;real-part z))</span><br><span class="line">(define (imag-part z) (apply-generic &apos;imag-part z))</span><br><span class="line">(define (magnitude z) (apply-generic &apos;magnitude z))</span><br><span class="line">(define (angle z) (apply-generic &apos;angle z))</span><br></pre></td></tr></table></figure>
+
+<p><strong>消息传递</strong></p>
+<blockquote>
+<p>类似面向对象，也就是让每一个操作管理自己的分派</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(define (make-from-real-imag x y)</span><br><span class="line">  (define (dispatch op)</span><br><span class="line">    (cond ((eq? op &apos;real-part) x)</span><br><span class="line">          ((eq? op &apos;imag-part) y)</span><br><span class="line">          ((eq? op &apos;magnitude)</span><br><span class="line">           (sqrt (+ (square x) (square y))))</span><br><span class="line">          ((eq? op &apos;angle) (atan y x))</span><br><span class="line">          (else</span><br><span class="line">           (error &quot;Unknown op -- MAKE-FROM-REAL-IMAG&quot; op))))</span><br><span class="line">  dispatch)</span><br><span class="line"></span><br><span class="line">(define (apply-generic op arg) (arg op))</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这一小节或许已经能够体现这本书为什么会被人誉为圣经，层层深入，思想毫不过时。这一节里在数据抽象里更深入一层，虽然我们不管数据底层如何实现，但是如果在底层的实现里我们需要更加灵活更加通用又要怎么做呢？书里提到几种技术，类型标识，数据导向，消息传递，而其中所谓的数据导向会不会是在面向对象语言里实现重载的方法呢？而消息传递或许也是面向对象的雏形吧。所以在这更加之上的是，它们都是为了更加通用的系统的目标</p>
 </blockquote>
 
       
@@ -553,8 +550,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/12/Chapter 2.5/" rel="next" title="Chapter 2.5">
-                <i class="fa fa-chevron-left"></i> Chapter 2.5
+              <a href="/Chapter 1.1.html" rel="next" title="Chapter 1.1">
+                <i class="fa fa-chevron-left"></i> Chapter 1.1
               </a>
             
           </div>
@@ -562,10 +559,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/12/Chapter 3.1/" rel="prev" title="Chapter 3.1">
-                Chapter 3.1 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -639,7 +632,7 @@
               <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="dejavudwh">
             
               <p class="site-author-name" itemprop="name">dejavudwh</p>
-              <p class="site-description motion-element" itemprop="description">a sophomore majoring in software engineering</p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           <nav class="site-state motion-element">
@@ -733,7 +726,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SICP-CONCLUSION"><span class="nav-number">1.</span> <span class="nav-text">SICP CONCLUSION</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-构造过程抽象"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">1. 构造过程抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-构造数据抽象"><span class="nav-number">1.1.0.0.2.</span> <span class="nav-text">2. 构造数据抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-模块化、对象和状态"><span class="nav-number">1.1.0.0.3.</span> <span class="nav-text">3. 模块化、对象和状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-元语言抽象"><span class="nav-number">1.1.0.0.4.</span> <span class="nav-text">4. 元语言抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-寄存器机器里的计算"><span class="nav-number">1.1.0.0.5.</span> <span class="nav-text">5. 寄存器机器里的计算</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-3"><span class="nav-number">1.2.</span> <span class="nav-text">Chapter 3</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#练习答案"><span class="nav-number">1.2.0.0.1.</span> <span class="nav-text">练习答案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发：时间是一个本质问题"><span class="nav-number">1.2.1.</span> <span class="nav-text">并发：时间是一个本质问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#对共享变量的串行访问"><span class="nav-number">1.2.1.0.0.1.</span> <span class="nav-text">对共享变量的串行访问</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#串行化的实现"><span class="nav-number">1.2.1.0.0.2.</span> <span class="nav-text">串行化的实现</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#死锁"><span class="nav-number">1.2.1.0.0.3.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#并发性、时间和通信"><span class="nav-number">1.2.1.0.0.4.</span> <span class="nav-text">并发性、时间和通信</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SICP-CONCLUSION"><span class="nav-number">1.</span> <span class="nav-text">SICP CONCLUSION</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-构造过程抽象"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">1. 构造过程抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-构造数据抽象"><span class="nav-number">1.1.0.0.2.</span> <span class="nav-text">2. 构造数据抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-模块化、对象和状态"><span class="nav-number">1.1.0.0.3.</span> <span class="nav-text">3. 模块化、对象和状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-元语言抽象"><span class="nav-number">1.1.0.0.4.</span> <span class="nav-text">4. 元语言抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-寄存器机器里的计算"><span class="nav-number">1.1.0.0.5.</span> <span class="nav-text">5. 寄存器机器里的计算</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-2"><span class="nav-number">1.2.</span> <span class="nav-text">Chapter 2</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#练习答案"><span class="nav-number">1.2.0.0.1.</span> <span class="nav-text">练习答案</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象数据的多重表示"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">抽象数据的多重表示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#复数的表示"><span class="nav-number">1.2.0.1.1.</span> <span class="nav-text">复数的表示</span></a></li></ol></li></div>
             
 
           </div>
@@ -1393,6 +1386,21 @@
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
   

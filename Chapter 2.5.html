@@ -81,25 +81,25 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="dejavudwh Blog" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="dejavudwh's Blog" type="application/atom+xml">
 
 
 
 
 
 
-<meta name="description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 1 构造过程对象  练习答案用高阶函数做抽象或许这就是函数式和面向对象各有吸引人的地方吧，函数式的硬通货是过程，面向对象">
+<meta name="description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 2 构造数据对象  练习答案带有通用型操作系统 这里讲会实现一个通用型的算术包，大概可以分为几个抽象层   add su">
 <meta name="keywords" content="SICP,计算机科学,解释器,Lisp,Scheme,大二期间">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Chapter 1.3">
-<meta property="og:url" content="https://dejavudwh.cn/2019/06/12/Chapter 1.3/index.html">
-<meta property="og:site_name" content="dejavudwh Blog">
-<meta property="og:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 1 构造过程对象  练习答案用高阶函数做抽象或许这就是函数式和面向对象各有吸引人的地方吧，函数式的硬通货是过程，面向对象">
+<meta property="og:title" content="Chapter 2.5">
+<meta property="og:url" content="https://dejavudwh.cn/Chapter 2.5.html">
+<meta property="og:site_name" content="dejavudwh&#39;s Blog">
+<meta property="og:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 2 构造数据对象  练习答案带有通用型操作系统 这里讲会实现一个通用型的算术包，大概可以分为几个抽象层   add su">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-06-12T11:26:27.030Z">
+<meta property="og:updated_time" content="2019-06-12T11:27:10.178Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 1.3">
-<meta name="twitter:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 1 构造过程对象  练习答案用高阶函数做抽象或许这就是函数式和面向对象各有吸引人的地方吧，函数式的硬通货是过程，面向对象">
+<meta name="twitter:title" content="Chapter 2.5">
+<meta name="twitter:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 2 构造数据对象  练习答案带有通用型操作系统 这里讲会实现一个通用型的算术包，大概可以分为几个抽象层   add su">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://dejavudwh.cn/2019/06/12/Chapter 1.3/">
+  <link rel="canonical" href="https://dejavudwh.cn/Chapter 2.5.html">
 
 
 
 
 
-  <title>Chapter 1.3 | dejavudwh Blog</title>
+  <title>Chapter 2.5 | dejavudwh's Blog</title>
   
 
 
@@ -171,12 +171,12 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">dejavudwh Blog</span>
+        <span class="site-title">dejavudwh's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <h1 class="site-subtitle" itemprop="description">开发日记</h1>
       
   </div>
 
@@ -320,7 +320,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/2019/06/12/Chapter 1.3/">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/Chapter 2.5.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dejavudwh">
@@ -329,7 +329,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="dejavudwh Blog">
+      <meta itemprop="name" content="dejavudwh's Blog">
     </span>
 
     
@@ -337,7 +337,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Chapter 1.3</h1>
+          <h2 class="post-title" itemprop="name headline">Chapter 2.5</h2>
         
 
         <div class="post-meta">
@@ -389,7 +389,7 @@
 
           
           
-             <span id="/2019/06/12/Chapter 1.3/" class="leancloud_visitors" data-flag-title="Chapter 1.3">
+             <span id="/Chapter 2.5.html" class="leancloud_visitors" data-flag-title="Chapter 2.5">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -414,7 +414,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.3k
+                  2.2k
                 </span>
               
 
@@ -430,7 +430,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  5
+                  9
                 </span>
               
             </div>
@@ -457,97 +457,86 @@
 <blockquote>
 <p>祝我能够突破层层代码，找到住在里计算机的神灵！</p>
 </blockquote>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a><strong><font color="green">目录</font></strong></h2><h5 id="1-构造过程抽象"><a href="#1-构造过程抽象" class="headerlink" title="1. 构造过程抽象"></a>1. 构造过程抽象</h5><h5 id="2-构造数据抽象"><a href="#2-构造数据抽象" class="headerlink" title="2. 构造数据抽象"></a>2. 构造数据抽象</h5><h5 id="3-模块化、对象和状态"><a href="#3-模块化、对象和状态" class="headerlink" title="3. 模块化、对象和状态"></a>3. 模块化、对象和状态</h5><h5 id="4-元语言抽象"><a href="#4-元语言抽象" class="headerlink" title="4. 元语言抽象"></a>4. 元语言抽象</h5><h5 id="5-寄存器机器里的计算"><a href="#5-寄存器机器里的计算" class="headerlink" title="5. 寄存器机器里的计算"></a>5. 寄存器机器里的计算</h5><h2 id="Chapter-1"><a href="#Chapter-1" class="headerlink" title="Chapter 1"></a><strong><font color="red">Chapter 1</font></strong></h2><ul>
-<li>构造过程对象</li>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a><strong><font color="green">目录</font></strong></h2><h5 id="1-构造过程抽象"><a href="#1-构造过程抽象" class="headerlink" title="1. 构造过程抽象"></a>1. 构造过程抽象</h5><h5 id="2-构造数据抽象"><a href="#2-构造数据抽象" class="headerlink" title="2. 构造数据抽象"></a>2. 构造数据抽象</h5><h5 id="3-模块化、对象和状态"><a href="#3-模块化、对象和状态" class="headerlink" title="3. 模块化、对象和状态"></a>3. 模块化、对象和状态</h5><h5 id="4-元语言抽象"><a href="#4-元语言抽象" class="headerlink" title="4. 元语言抽象"></a>4. 元语言抽象</h5><h5 id="5-寄存器机器里的计算"><a href="#5-寄存器机器里的计算" class="headerlink" title="5. 寄存器机器里的计算"></a>5. 寄存器机器里的计算</h5><h2 id="Chapter-2"><a href="#Chapter-2" class="headerlink" title="Chapter 2"></a><strong><font color="red">Chapter 2</font></strong></h2><ul>
+<li>构造数据对象</li>
 </ul>
-<h3 id="练习答案"><a href="#练习答案" class="headerlink" title="练习答案"></a><a href="https://github.com/dejavudwh/SICP-Exercise" target="_blank" rel="noopener">练习答案</a></h3><h4 id="用高阶函数做抽象"><a href="#用高阶函数做抽象" class="headerlink" title="用高阶函数做抽象"></a>用高阶函数做抽象</h4><p><font color="pink"><em>或许这就是函数式和面向对象各有吸引人的地方吧，函数式的硬通货是过程，面向对象则是对象</em></font></p>
-<blockquote>
-<p>人们对功能强大的程序设计有一个必然要求，就是能为公共模式命名，建立抽象，而后直接在抽象的层次上工作</p>
+<h5 id="练习答案"><a href="#练习答案" class="headerlink" title="练习答案"></a><a href="https://github.com/dejavudwh/SICP-Exercise" target="_blank" rel="noopener">练习答案</a></h5><h3 id="带有通用型操作系统"><a href="#带有通用型操作系统" class="headerlink" title="带有通用型操作系统"></a>带有通用型操作系统</h3><blockquote>
+<p>这里讲会实现一个通用型的算术包，大概可以分为几个抽象层</p>
 </blockquote>
+<ul>
+<li>add sub mul div四个操作，支持所有这个算术包里所有支持的数据</li>
+<li>有理数算术 复数算术 常规算术</li>
+<li>最底层的各自实现</li>
+</ul>
 <a id="more"></a>
 
-<ul>
-<li><h6 id="过程作为参数"><a href="#过程作为参数" class="headerlink" title="过程作为参数"></a>过程作为参数</h6></li>
-</ul>
-<p>三个例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(define (sum-integers a b)</span><br><span class="line">  (if (&gt; a b)</span><br><span class="line">      0</span><br><span class="line">      (+ a (sum-integers (+ a 1) b))))</span><br><span class="line"></span><br><span class="line">(define (sum-cubes a b)</span><br><span class="line">  (if (&gt; a b)</span><br><span class="line">      0</span><br><span class="line">      (+ (cube a) (sum-cubes (+ a 1) b))))</span><br><span class="line"></span><br><span class="line">(define (pi-sum a b)</span><br><span class="line">  (if (&gt; a b)</span><br><span class="line">      0</span><br><span class="line">      (+ (/ 1.0 (* a (+ a 2))) (pi-sum (+ a 4) b))))</span><br></pre></td></tr></table></figure>
+<h4 id="使用前一节的数据导向"><a href="#使用前一节的数据导向" class="headerlink" title="使用前一节的数据导向"></a>使用前一节的数据导向</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">(define (add x y) (apply-generic &apos;add x y))</span><br><span class="line">(define (sub x y) (apply-generic &apos;sub x y))</span><br><span class="line">(define (mul x y) (apply-generic &apos;mul x y))</span><br><span class="line">(define (div x y) (apply-generic &apos;div x y))</span><br><span class="line"></span><br><span class="line">(define (install-scheme-number-package)</span><br><span class="line">  (define (tag x)</span><br><span class="line">    (attach-tag &apos;scheme-number x))</span><br><span class="line">  (put &apos;add &apos;(scheme-number scheme-number)</span><br><span class="line">       (lambda (x y) (tag (+ x y))))</span><br><span class="line">  (put &apos;sub &apos;(scheme-number scheme-number)</span><br><span class="line">       (lambda (x y) (tag (- x y))))</span><br><span class="line">  (put &apos;mul &apos;(scheme-number scheme-number)</span><br><span class="line">       (lambda (x y) (tag (* x y))))</span><br><span class="line">  (put &apos;div &apos;(scheme-number scheme-number)</span><br><span class="line">       (lambda (x y) (tag (/ x y))))</span><br><span class="line">  (put &apos;make &apos;scheme-number</span><br><span class="line">       (lambda (x) (tag x)))</span><br><span class="line">  &apos;done)</span><br><span class="line"></span><br><span class="line">(define (make-scheme-number n)</span><br><span class="line">  ((get &apos;make &apos;scheme-number) n))</span><br><span class="line"></span><br><span class="line">(define (install-rational-package)</span><br><span class="line">  ;; internal procedures</span><br><span class="line">  (define (numer x) (car x))</span><br><span class="line">  (define (denom x) (cdr x))</span><br><span class="line">  (define (make-rat n d)</span><br><span class="line">    (let ((g (gcd n d)))</span><br><span class="line">      (cons (/ n g) (/ d g))))</span><br><span class="line">  (define (add-rat x y)</span><br><span class="line">    (make-rat (+ (* (numer x) (denom y))</span><br><span class="line">                 (* (numer y) (denom x)))</span><br><span class="line">              (* (denom x) (denom y))))</span><br><span class="line">  (define (sub-rat x y)</span><br><span class="line">    (make-rat (- (* (numer x) (denom y))</span><br><span class="line">                 (* (numer y) (denom x)))</span><br><span class="line">              (* (denom x) (denom y))))</span><br><span class="line">  (define (mul-rat x y)</span><br><span class="line">    (make-rat (* (numer x) (numer y))</span><br><span class="line">              (* (denom x) (denom y))))</span><br><span class="line">  (define (div-rat x y)</span><br><span class="line">    (make-rat (* (numer x) (denom y))</span><br><span class="line">              (* (denom x) (numer y))))</span><br><span class="line">  ;; interface to rest of the system</span><br><span class="line">  (define (tag x) (attach-tag &apos;rational x))</span><br><span class="line">  (put &apos;add &apos;(rational rational)</span><br><span class="line">       (lambda (x y) (tag (add-rat x y))))</span><br><span class="line">  (put &apos;sub &apos;(rational rational)</span><br><span class="line">       (lambda (x y) (tag (sub-rat x y))))</span><br><span class="line">  (put &apos;mul &apos;(rational rational)</span><br><span class="line">       (lambda (x y) (tag (mul-rat x y))))</span><br><span class="line">  (put &apos;div &apos;(rational rational)</span><br><span class="line">       (lambda (x y) (tag (div-rat x y))))</span><br><span class="line"></span><br><span class="line">  (put &apos;make &apos;rational</span><br><span class="line">       (lambda (n d) (tag (make-rat n d))))</span><br><span class="line">  &apos;done)</span><br><span class="line"></span><br><span class="line">(define (make-rational n d)</span><br><span class="line">  ((get &apos;make &apos;rational) n d))</span><br></pre></td></tr></table></figure>
 
-<p><em>三个例子存在着很明显的公共模式，也即说明可以建立非常强大的抽象</em></p>
-<ol>
-<li>需要进行加法的操作函数</li>
-<li>获得下一个值的函数</li>
-<li>对两个参数的特定操作，+ ？</li>
-</ol>
-<blockquote>
-<p>在思考的是，面向对象中，相关的想法是怎么样的。如果在一个类中，会存在许多可以提取公共模式的方法吗？或者说这是Java中许多类共有的方法的思想来源，在操作时传递有相同方法的类，但方法中又有类型参数的限制，所以？继承or多态等等吗… 工具函数</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">;; 扩展到积分操作</span><br><span class="line">(define (integral f a b dx)</span><br><span class="line">  (define (add-dx x) (+ x dx))</span><br><span class="line">  (* (sum f (+ a (/ dx 2)) add-dx b)</span><br><span class="line">     dx))</span><br><span class="line"></span><br><span class="line">;: (integral cube 0 1 0.01)</span><br><span class="line"></span><br><span class="line">;: (integral cube 0 1 0.001)</span><br></pre></td></tr></table></figure>
+<p><em>特殊的在复数算术包中，它构造了两层标志的抽象系统，首先由complex标志引导到复数包，再由rectangular引导到两种表示</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(define (make-complex-from-real-imag x y)</span><br><span class="line">  ((get &apos;make-from-real-imag &apos;complex) x y))</span><br><span class="line"></span><br><span class="line">(define (make-complex-from-mag-ang r a)</span><br><span class="line">  ((get &apos;make-from-mag-ang &apos;complex) r a))</span><br></pre></td></tr></table></figure>
 
-<p><em>练习中的过滤器</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(define (filtered-accumulate combiner null-value term a next b filter)</span><br><span class="line">  (if (&gt; a b)</span><br><span class="line">      null-value</span><br><span class="line">      (if (filter a)</span><br><span class="line">          (combiner (term a) (filtered-accumulate combiner null-value term (next a) next b filter))</span><br><span class="line">          (combiner null-value (filtered-accumulate combiner null-value term (next a) next b filter)))))</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><h6 id="用lambda构造过程"><a href="#用lambda构造过程" class="headerlink" title="用lambda构造过程"></a>用lambda构造过程</h6></li>
-</ul>
-<blockquote>
-<p>作为一个匿名函数去传递</p>
+<h5 id="不同类型的数据组合"><a href="#不同类型的数据组合" class="headerlink" title="不同类型的数据组合"></a>不同类型的数据组合</h5><blockquote>
+<p>到目前为止，我们都把算术操作看作是不同类型的单独操作，现在我们要来实现的是跨类型操作</p>
 </blockquote>
 <ol>
-<li>用let创建局部变量</li>
+<li>把每个不同类型的操作都安装到表格种</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(let ((&lt;var&gt;&lt;exp&gt;)</span><br><span class="line">       &lt;var&gt;&lt;exp&gt;))</span><br><span class="line">       body)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">;: (define (add-complex-to-schemenum z x)</span><br><span class="line">;:   (make-from-real-imag (+ (real-part z) x)</span><br><span class="line">;:                        (imag-part z)))</span><br><span class="line">;:</span><br><span class="line">;: (put &apos;add &apos;(complex scheme-number)</span><br><span class="line">;:      (lambda (z x) (tag (add-complex-to-schemenum z x))))</span><br></pre></td></tr></table></figure>
 
-<p><em>但其实是作为lambda的语法糖而已</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">((lambda (&lt;var1&gt;&lt;var2&gt;)</span><br><span class="line">  &lt;body&gt;)</span><br><span class="line">  &lt;exp&gt;</span><br><span class="line">  &lt;exp&gt;)</span><br></pre></td></tr></table></figure>
-
+<blockquote>
+<p>这一方法的局限非常明显，太复杂，太麻烦</p>
+</blockquote>
 <ol start="2">
-<li>过程作为一般性的方法</li>
+<li>强制类型转换</li>
 </ol>
 <blockquote>
-<p>更高级的抽象：描述一般性的方法，不依赖特定的数值或者函数</p>
+<p>用一个特殊的强制表格存储我们的强制类型变换操作</p>
 </blockquote>
-<ul>
-<li>通过区间折半寻找方程的跟</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(define (search f neg-point pos-point)</span><br><span class="line">  (let ((midpoint (average neg-point pos-point)))</span><br><span class="line">    (if (close-enough? neg-point pos-point)</span><br><span class="line">        midpoint</span><br><span class="line">        (let ((test-value (f midpoint)))</span><br><span class="line">          (cond ((positive? test-value)</span><br><span class="line">                 (search f neg-point midpoint))</span><br><span class="line">                ((negative? test-value)</span><br><span class="line">                 (search f midpoint pos-point))</span><br><span class="line">                (else midpoint))))))</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">;; 抽象出来的作为基本的谓词过程</span><br><span class="line">(define (close-enough? x y)</span><br><span class="line">  (&lt; (abs (- x y)) 0.001))</span><br></pre></td></tr></table></figure>
-
-<p><em>改进这个方法，如果同号就无法使用折半</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(define (half-interval-method f a b)</span><br><span class="line">  (let ((a-value (f a))</span><br><span class="line">        (b-value (f b)))</span><br><span class="line">    (cond ((and (negative? a-value) (positive? b-value))</span><br><span class="line">           (search f a b))</span><br><span class="line">          ((and (negative? b-value) (positive? a-value))</span><br><span class="line">           (search f b a))</span><br><span class="line">          (else</span><br><span class="line">           (error &quot;Values are not of opposite sign&quot; a b)))))</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>找出函数不动点</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(define (fixed-point f first-guess)</span><br><span class="line">  (define (close-enough? v1 v2)</span><br><span class="line">    (&lt; (abs (- v1 v2)) tolerance))</span><br><span class="line">  (define (try guess)</span><br><span class="line">    (let ((next (f guess)))</span><br><span class="line">      (if (close-enough? guess next)</span><br><span class="line">          next</span><br><span class="line">          (try next))))</span><br><span class="line">  (try first-guess))</span><br></pre></td></tr></table></figure>
-
-<p><em>回想到之前讲的求平方根，一样可重新用这个一般性方法实现</em></p>
-<ol start="3">
-<li>过程作为返回值</li>
-</ol>
-<p>书上这里用的是平均阻尼和之前的不动点一起构成作为例子，但是核心点还是构造更加抽象更加一般性的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(define (average-damp f)</span><br><span class="line">  (lambda (x) (average x (f x))))</span><br><span class="line"></span><br><span class="line">;: ((average-damp square) 10)</span><br><span class="line"></span><br><span class="line">(define (sqrt x)</span><br><span class="line">  (fixed-point (average-damp (lambda (y) (/ x y)))</span><br><span class="line">               1.0))</span><br><span class="line"></span><br><span class="line">(define (cube-root x)</span><br><span class="line">  (fixed-point (average-damp (lambda (y) (/ x (square y))))</span><br><span class="line">               1.0))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(define (scheme-number-&gt;complex n)</span><br><span class="line">  (make-complex-from-real-imag (contents n) 0))</span><br><span class="line"></span><br><span class="line">;: (put-coercion &apos;scheme-number &apos;complex scheme-number-&gt;complex)</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>将一个计算过程形式化为一个过程，一般说，存在着许多不同的方式，有经验的程序员知道如何选择过程的形式，使其特别清晰且易理解，使该计算过程中有用的元素能表现为一些相互分离的个体，并使他们可能重新用于其他的应用</p>
+<p>在惊醒操作分派的时候，需要先判断是否需要强制类型转换</p>
 </blockquote>
-<ol start="4">
-<li>抽象和第一级过程</li>
-</ol>
-<ul>
-<li><p>第四小节主要是在先前的一般性方法继续进行抽象，使之成为更加一般的操作</p>
-</li>
-<li><p>在不同的程序设计语言中，第一级都可能有所不同，而第一级元素也正是一个语言中最具魅力也是最不同的地方，也是因为它被赋予的某些特权：</p>
-<ol>
-<li>可以用变量命名</li>
-<li>可以提供给过程作为参数</li>
-<li>可以由过程作为结果返回</li>
-<li>可以包含在数据结构中</li>
-</ol>
-</li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">(define (apply-generic op . args)</span><br><span class="line">  (let ((type-tags (map type-tag args)))</span><br><span class="line">    (let ((proc (get op type-tags)))</span><br><span class="line">      (if proc</span><br><span class="line">          (apply proc (map contents args))</span><br><span class="line">          (if (= (length args) 2)</span><br><span class="line">              (let ((type1 (car type-tags))</span><br><span class="line">                    (type2 (cadr type-tags))</span><br><span class="line">                    (a1 (car args))</span><br><span class="line">                    (a2 (cadr args)))</span><br><span class="line">                (let ((t1-&gt;t2 (get-coercion type1 type2))</span><br><span class="line">                      (t2-&gt;t1 (get-coercion type2 type1)))</span><br><span class="line">                  (cond (t1-&gt;t2</span><br><span class="line">                         (apply-generic op (t1-&gt;t2 a1) a2))</span><br><span class="line">                        (t2-&gt;t1</span><br><span class="line">                         (apply-generic op a1 (t2-&gt;t1 a2)))</span><br><span class="line">                        (else</span><br><span class="line">                         (error &quot;No method for these types&quot;</span><br><span class="line">                                (list op type-tags))))))</span><br><span class="line">              (error &quot;No method for these types&quot;</span><br><span class="line">                     (list op type-tags)))))))</span><br></pre></td></tr></table></figure>
+
+<p><em>但是这个方法还是由它的局限，如果我们考虑在转换失败的时候，可以通过第三种类型来转换成功。所以就要建立类型的层次结构</em></p>
+<h6 id="类型的层次结构"><a href="#类型的层次结构" class="headerlink" title="类型的层次结构"></a>类型的层次结构</h6><blockquote>
+<p>结构大至是所有的整数都可以看作有理数，有理数又可以看作是实数，实数又可以看作复数</p>
+</blockquote>
+<p>在面对一个类型塔结构的时候，我们在增加新类型时就非常的方便，只要让它作为是谁的超类或者子类，这时也不需要直接定义整数到复数的转换，只需要在每个层次种增加一个转换就可以了。而对于每个类型，都会有一个自己的raise方法。而这里体现的另一种思想就是继承，每个类型都可以继承它的超类所有的方法，也就是说，如果所需操作在给定类型里没有定义，那么我们就开始向塔顶爬升。</p>
+<p>但类型层次结构也有它的不足，每个类型可能是多个类型的子类型，也可能是多个类型的超类型</p>
+<h6 id="实例：符号代数"><a href="#实例：符号代数" class="headerlink" title="实例：符号代数"></a>实例：符号代数</h6><ul>
+<li>多项式算术</li>
 </ul>
+<p>递归：在多项式计算中，多项式的系数也可能是一个多项式</p>
+<p>数据抽象，先提供一套操作函数去进行操作，之后再实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">(define (add-poly p1 p2)</span><br><span class="line">  (if (same-variable? (variable p1) (variable p2))</span><br><span class="line">      (make-poly (variable p1)</span><br><span class="line">                 (add-terms (term-list p1)</span><br><span class="line">                            (term-list p2)))</span><br><span class="line">      (error &quot;Polys not in same var -- ADD-POLY&quot;</span><br><span class="line">             (list p1 p2))))</span><br><span class="line"></span><br><span class="line">(define (mul-poly p1 p2)</span><br><span class="line">  (if (same-variable? (variable p1) (variable p2))</span><br><span class="line">      (make-poly (variable p1)</span><br><span class="line">                 (mul-terms (term-list p1)</span><br><span class="line">                            (term-list p2)))</span><br><span class="line">      (error &quot;Polys not in same var -- MUL-POLY&quot;</span><br><span class="line">             (list p1 p2))))</span><br></pre></td></tr></table></figure>
+
+<p>考虑项表的操作(惯例操作，先提供一套操作函数)：</p>
+<ul>
+<li>empty-termlist?</li>
+<li>adjoin-term</li>
+<li>order</li>
+<li>coeff</li>
+<li>make-term</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">(define (add-terms L1 L2)</span><br><span class="line">  (cond ((empty-termlist? L1) L2)</span><br><span class="line">        ((empty-termlist? L2) L1)</span><br><span class="line">        (else</span><br><span class="line">         (let ((t1 (first-term L1)) (t2 (first-term L2)))</span><br><span class="line">           (cond ((&gt; (order t1) (order t2))</span><br><span class="line">                  (adjoin-term</span><br><span class="line">                   t1 (add-terms (rest-terms L1) L2)))</span><br><span class="line">                 ((&lt; (order t1) (order t2))</span><br><span class="line">                  (adjoin-term</span><br><span class="line">                   t2 (add-terms L1 (rest-terms L2))))</span><br><span class="line">                 (else</span><br><span class="line">                  (adjoin-term</span><br><span class="line">                   (make-term (order t1)</span><br><span class="line">                              (add (coeff t1) (coeff t2))) ;;注意这里使用的是add</span><br><span class="line">                   (add-terms (rest-terms L1)</span><br><span class="line">                              (rest-terms L2)))))))))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(define (mul-terms L1 L2)</span><br><span class="line">  (if (empty-termlist? L1)</span><br><span class="line">      (the-empty-termlist)</span><br><span class="line">      (add-terms (mul-term-by-all-terms (first-term L1) L2)</span><br><span class="line">                 (mul-terms (rest-terms L1) L2))))</span><br><span class="line"></span><br><span class="line">(define (mul-term-by-all-terms t1 L)</span><br><span class="line">  (if (empty-termlist? L)</span><br><span class="line">      (the-empty-termlist)</span><br><span class="line">      (let ((t2 (first-term L)))</span><br><span class="line">        (adjoin-term</span><br><span class="line">         (make-term (+ (order t1) (order t2))</span><br><span class="line">                    (mul (coeff t1) (coeff t2)))</span><br><span class="line">         (mul-term-by-all-terms t1 (rest-terms L))))))</span><br></pre></td></tr></table></figure>
+
 <blockquote>
-<p>这一节里，应该可以说是字字不离抽象了。从一开始的过程作为参数，作为返回值，匿名过程，到最后的构建更具有一般性的方法。都是为了使之更具有模块化、通用性。而在思考到面向对象中，它的第一级元素肯定是对象，万物皆过程，万物皆对象可能就是他们之间各具魅力的地方吧，而其中的继承、多态、重载是不是都为了更好的获得一般性方法的描述呢？</p>
+<p>这里使用add，提现了数据抽象和通用型操作的的威力，这里的多项式的系数可以是任何算术系统里所拥有的，如果将这个多项式计算安装到系统中，系数也就同样支持多项式看，产生一个深度递归</p>
+</blockquote>
+<p>项表的表示</p>
+<p>表示形式的选择<br>  稠密多项式：直接采用其系数作为表<br>  稀疏多项式：次数和系数的对应作为表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(define (adjoin-term term term-list)</span><br><span class="line">  (if (=zero? (coeff term))</span><br><span class="line">      term-list</span><br><span class="line">      (cons term term-list)))</span><br><span class="line"></span><br><span class="line">(define (the-empty-termlist) &apos;())</span><br><span class="line">(define (first-term term-list) (car term-list))</span><br><span class="line">(define (rest-terms term-list) (cdr term-list))</span><br><span class="line">(define (empty-termlist? term-list) (null? term-list))</span><br><span class="line"></span><br><span class="line">(define (make-term order coeff) (list order coeff))</span><br><span class="line">(define (order term) (car term))</span><br><span class="line">(define (coeff term) (cadr term))</span><br></pre></td></tr></table></figure>
+
+<p><strong>一个多项式可能有由许多不一样的对象组成的，但是这并不会给算术系统造成多大的麻烦，因为在算术系统中使用的数据导向方法会帮我们做出各种正确操作，只需要我们实现了各部分的操作，并且安装到算术系统中</strong></p>
+<blockquote>
+<p>这一节里讲的是通过层层的数据抽象来实现更通用型的系统，在解决底层数据不同表示上，给出了两种方法，一种是类型标识，一种是数据导向。在这个系统中，抽象是层层递进的关系，最顶部的通用操作到每一层的分派到具体操作中。在之后的跨类型操作，提出了继承的概念</p>
+</blockquote>
+<blockquote>
+<p>这一章里主要提出的是数据抽象的概念和构造数据抽象，并利用数据抽象去构造更通用型的操作。其中在Scheme里构造数据抽象依托的是CONS，而其中的关键思想应该是闭包性质，在基于数据抽象的概念上，提出了一个非常有用的概念，就是以数据抽象作为程序中的介质，提高程序的模块性，降低程序的耦合性，把各个模块的依赖性降低到对数据结构的操作，再之后就是引入了符号数据。然后通过层层的丑行构造更通用的算术系统，其中介绍了两种非常有用的方法，类型标识、消息传递和数据导向。其中一样是运用之前所讲的分层思想，每一个层次都有自己的基本元素和组合方法抽象方法，最后就是再进行跨类型操作引入的类型塔中提到的继承概念，旨在建立对象和对象之间的联系</p>
 </blockquote>
 
       
@@ -596,8 +585,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/12/Chapter 2.2/" rel="next" title="Chapter 2.2">
-                <i class="fa fa-chevron-left"></i> Chapter 2.2
+              <a href="/Chapter 4.1.html" rel="next" title="Chapter 4.1">
+                <i class="fa fa-chevron-left"></i> Chapter 4.1
               </a>
             
           </div>
@@ -606,8 +595,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/12/Chapter 3.2/" rel="prev" title="Chapter 3.2">
-                Chapter 3.2 <i class="fa fa-chevron-right"></i>
+              <a href="/Chapter 3.4.html" rel="prev" title="Chapter 3.4">
+                Chapter 3.4 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -682,7 +671,7 @@
               <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="dejavudwh">
             
               <p class="site-author-name" itemprop="name">dejavudwh</p>
-              <p class="site-description motion-element" itemprop="description">a sophomore majoring in software engineering</p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           <nav class="site-state motion-element">
@@ -776,7 +765,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SICP-CONCLUSION"><span class="nav-number">1.</span> <span class="nav-text">SICP CONCLUSION</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-构造过程抽象"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">1. 构造过程抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-构造数据抽象"><span class="nav-number">1.1.0.0.2.</span> <span class="nav-text">2. 构造数据抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-模块化、对象和状态"><span class="nav-number">1.1.0.0.3.</span> <span class="nav-text">3. 模块化、对象和状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-元语言抽象"><span class="nav-number">1.1.0.0.4.</span> <span class="nav-text">4. 元语言抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-寄存器机器里的计算"><span class="nav-number">1.1.0.0.5.</span> <span class="nav-text">5. 寄存器机器里的计算</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-1"><span class="nav-number">1.2.</span> <span class="nav-text">Chapter 1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#练习答案"><span class="nav-number">1.2.1.</span> <span class="nav-text">练习答案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用高阶函数做抽象"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">用高阶函数做抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#过程作为参数"><span class="nav-number">1.2.1.1.0.1.</span> <span class="nav-text">过程作为参数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#用lambda构造过程"><span class="nav-number">1.2.1.1.0.2.</span> <span class="nav-text">用lambda构造过程</span></a></li></ol></li></ol></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SICP-CONCLUSION"><span class="nav-number">1.</span> <span class="nav-text">SICP CONCLUSION</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-构造过程抽象"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">1. 构造过程抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-构造数据抽象"><span class="nav-number">1.1.0.0.2.</span> <span class="nav-text">2. 构造数据抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-模块化、对象和状态"><span class="nav-number">1.1.0.0.3.</span> <span class="nav-text">3. 模块化、对象和状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-元语言抽象"><span class="nav-number">1.1.0.0.4.</span> <span class="nav-text">4. 元语言抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-寄存器机器里的计算"><span class="nav-number">1.1.0.0.5.</span> <span class="nav-text">5. 寄存器机器里的计算</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-2"><span class="nav-number">1.2.</span> <span class="nav-text">Chapter 2</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#练习答案"><span class="nav-number">1.2.0.0.1.</span> <span class="nav-text">练习答案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#带有通用型操作系统"><span class="nav-number">1.2.1.</span> <span class="nav-text">带有通用型操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用前一节的数据导向"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">使用前一节的数据导向</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#不同类型的数据组合"><span class="nav-number">1.2.1.1.1.</span> <span class="nav-text">不同类型的数据组合</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#类型的层次结构"><span class="nav-number">1.2.1.1.1.1.</span> <span class="nav-text">类型的层次结构</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#实例：符号代数"><span class="nav-number">1.2.1.1.1.2.</span> <span class="nav-text">实例：符号代数</span></a></li></ol></li></ol></li></ol></li></div>
             
 
           </div>
@@ -1436,6 +1425,21 @@
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
   
