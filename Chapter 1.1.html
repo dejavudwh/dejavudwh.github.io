@@ -488,7 +488,7 @@
 <li>描述事情的解决思路：给出猜测，不断改进这个猜测，直到觉得满足</li>
 <li>直接描述方法和各个部件，不管具体实现，抽象思想</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(define (sqrt-iter guess x)</span><br><span class="line">  (if (good-enough? guess x)</span><br><span class="line">    guess</span><br><span class="line">    (sqrt-iter (improve guess x)</span><br><span class="line">                              x)))</span><br></pre></td></tr></table></figure>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">sqrt-iter</span> guess x)</span><br><span class="line">  (<span class="name"><span class="builtin-name">if</span></span> (<span class="name">good-enough?</span> guess x)</span><br><span class="line">    guess</span><br><span class="line">    (<span class="name">sqrt-iter</span> (<span class="name">improve</span> guess x)</span><br><span class="line">                              x)))</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
 <li>实现各个部件的细节 good-enough? improve</li>
@@ -588,8 +588,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Chapter 2.1.html" rel="next" title="Chapter 2.1">
-                <i class="fa fa-chevron-left"></i> Chapter 2.1
+              <a href="/Chapter 2.5.html" rel="next" title="Chapter 2.5">
+                <i class="fa fa-chevron-left"></i> Chapter 2.5
               </a>
             
           </div>
@@ -598,8 +598,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/Chapter 2.4.html" rel="prev" title="Chapter 2.4">
-                Chapter 2.4 <i class="fa fa-chevron-right"></i>
+              <a href="/Chapter 3.4.html" rel="prev" title="Chapter 3.4">
+                Chapter 3.4 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -684,7 +684,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -706,7 +706,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -804,7 +804,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">20.3k</span>
+    <span title="Site words total count">20.1k</span>
   
 </div>
 

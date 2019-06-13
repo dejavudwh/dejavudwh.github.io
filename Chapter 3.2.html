@@ -470,7 +470,7 @@
 <p>在求值的环境模型中，一个过程总是一个对偶，由一些代码和一个指向环境的指针组成。过程只能由lambda创建。</p>
 <a id="more"></a>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(define (square x)</span><br><span class="line">  (* x x))</span><br><span class="line"></span><br><span class="line">(define square ;;将新的约束square加入框架中</span><br><span class="line">  (lambda (x) (* x x)))</span><br></pre></td></tr></table></figure>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">square</span> x)</span><br><span class="line">  (<span class="name"><span class="builtin-name">*</span></span> x x))</span><br><span class="line"></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> square <span class="comment">;;将新的约束square加入框架中</span></span><br><span class="line">  (<span class="name"><span class="builtin-name">lambda</span></span> (x) (<span class="name"><span class="builtin-name">*</span></span> x x)))</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>将一个过程对象应用于一集实际参数，将构造出一个新框架，其中将过程的形式参数约束到调用时的实际参数，而后在构造起的这一新环境的上下文中求值过程体。这个新框架的外围环境就是作为被应用的那个过程对象的一部分的环境</p>
@@ -525,8 +525,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Chapter 1.3.html" rel="next" title="Chapter 1.3">
-                <i class="fa fa-chevron-left"></i> Chapter 1.3
+              <a href="/Chapter 4.1.html" rel="next" title="Chapter 4.1">
+                <i class="fa fa-chevron-left"></i> Chapter 4.1
               </a>
             
           </div>
@@ -621,7 +621,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -643,7 +643,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -741,7 +741,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">20.3k</span>
+    <span title="Site words total count">20.1k</span>
   
 </div>
 
