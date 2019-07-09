@@ -1,8 +1,8 @@
+https://dejavudwh.cn/JavaScriptNinja/读Secrets of the JavaScript Ninja（二）.html
 https://dejavudwh.cn/JavaScriptNinja/读Secrets of the JavaScript Ninja（一）.html
 https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（五）.html
 https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（四）.html
 https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（三）.html
 https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（二）.html
 https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（一）.html
-https://dejavudwh.cn/SICP/Chapter 2.3.html
-https://dejavudwh.cn/SICP/Chapter 3.3.html
+https://dejavudwh.cn/SICP/Chapter 3.1.html
