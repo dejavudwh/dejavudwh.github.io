@@ -1,3 +1,4 @@
+https://dejavudwh.cn/compiler/从零写一个编译器（九）.html
 https://dejavudwh.cn/compiler/从零写一个编译器（八）.html
 https://dejavudwh.cn/compiler/从零写一个编译器（七）.html
 https://dejavudwh.cn/compiler/从零写一个编译器（六）.html
@@ -5,4 +6,3 @@ https://dejavudwh.cn/compiler/从零写一个编译器（五）.html
 https://dejavudwh.cn/compiler/从零写一个编译器（四）.html
 https://dejavudwh.cn/compiler/从零写一个编译器（三）.html
 https://dejavudwh.cn/compiler/从零写一个编译器（二）.html
-https://dejavudwh.cn/compiler/从零写一个编译器（一）.html
