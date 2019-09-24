@@ -82,7 +82,7 @@
 
 
 
-  <meta name="keywords" content="大二期间,Node.js,React,Electron,Socket,">
+  <meta name="keywords" content="有限状态自动机,正则表达式引擎,">
 
 
 
@@ -95,18 +95,25 @@
 
 
 
-<meta name="description" content="Github StackChatRedux学习回顾Redux的主要功能就是管理复杂交错的State，比如需要讲state提升到顶层组件的场景中，使用Redux就很合适Redux主要提供三个东西来进行状态管理1. Action表达要进行的动作，也就是通过view层触发，来进行派发来改变全局stateaction创建函数也就是只返回一个action的函数1234export const SignUpE">
-<meta name="keywords" content="大二期间,Node.js,React,Electron,Socket">
+<meta name="description" content="前言项目地址：Regex in Python 开学摸鱼了几个礼拜，最近几天用Python造了一个正则表达式引擎的轮子，在这里记录分享一下。 实现目标实现了所有基本语法 123456st = &apos;AS342abcdefg234aaaaabccccczczxczcasdzxc&apos;pattern = &apos;([A-Z]+[0-9]*abcdefg)([0-9]*)(\*?|a+)(zx|bc*)([a-z]+|">
+<meta name="keywords" content="有限状态自动机,正则表达式引擎">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Node.js实现PC端类微信聊天软件（三）">
-<meta property="og:url" content="https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（三）.html">
+<meta property="og:title" content="实现一个正则表达式引擎in Python(一)">
+<meta property="og:url" content="https://dejavudwh.cn/Regex/实现正则表达式引擎（一）.html">
 <meta property="og:site_name" content="dejavudwh&#39;s Blog">
-<meta property="og:description" content="Github StackChatRedux学习回顾Redux的主要功能就是管理复杂交错的State，比如需要讲state提升到顶层组件的场景中，使用Redux就很合适Redux主要提供三个东西来进行状态管理1. Action表达要进行的动作，也就是通过view层触发，来进行派发来改变全局stateaction创建函数也就是只返回一个action的函数1234export const SignUpE">
+<meta property="og:description" content="前言项目地址：Regex in Python 开学摸鱼了几个礼拜，最近几天用Python造了一个正则表达式引擎的轮子，在这里记录分享一下。 实现目标实现了所有基本语法 123456st = &apos;AS342abcdefg234aaaaabccccczczxczcasdzxc&apos;pattern = &apos;([A-Z]+[0-9]*abcdefg)([0-9]*)(\*?|a+)(zx|bc*)([a-z]+|">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-07-09T09:54:38.009Z">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/NFAexample.svg/1024px-NFAexample.svg.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/6OnJcZFRzCqXjYU.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/9oXisBmJRk2GljF.png">
+<meta property="og:image" content="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/regex1.png">
+<meta property="og:image" content="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/regex1.png">
+<meta property="og:image" content="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/regex1.png">
+<meta property="og:updated_time" content="2019-09-24T02:21:59.800Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Node.js实现PC端类微信聊天软件（三）">
-<meta name="twitter:description" content="Github StackChatRedux学习回顾Redux的主要功能就是管理复杂交错的State，比如需要讲state提升到顶层组件的场景中，使用Redux就很合适Redux主要提供三个东西来进行状态管理1. Action表达要进行的动作，也就是通过view层触发，来进行派发来改变全局stateaction创建函数也就是只返回一个action的函数1234export const SignUpE">
+<meta name="twitter:title" content="实现一个正则表达式引擎in Python(一)">
+<meta name="twitter:description" content="前言项目地址：Regex in Python 开学摸鱼了几个礼拜，最近几天用Python造了一个正则表达式引擎的轮子，在这里记录分享一下。 实现目标实现了所有基本语法 123456st = &apos;AS342abcdefg234aaaaabccccczczxczcasdzxc&apos;pattern = &apos;([A-Z]+[0-9]*abcdefg)([0-9]*)(\*?|a+)(zx|bc*)([a-z]+|">
+<meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/NFAexample.svg/1024px-NFAexample.svg.png">
 
 
 
@@ -136,13 +143,13 @@
 
 
 
-  <link rel="canonical" href="https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（三）.html">
+  <link rel="canonical" href="https://dejavudwh.cn/Regex/实现正则表达式引擎（一）.html">
 
 
 
 
 
-  <title>Node.js实现PC端类微信聊天软件（三） | dejavudwh's Blog</title>
+  <title>实现一个正则表达式引擎in Python(一) | dejavudwh's Blog</title>
   
 
 
@@ -321,7 +328,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（三）.html">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/Regex/实现正则表达式引擎（一）.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dejavudwh">
@@ -338,7 +345,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Node.js实现PC端类微信聊天软件（三）</h2>
+          <h2 class="post-title" itemprop="name headline">实现一个正则表达式引擎in Python(一)</h2>
         
 
         <div class="post-meta">
@@ -350,8 +357,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-28T23:20:25+08:00">
-                2019-06-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-23T17:32:25+08:00">
+                2019-09-23
               </time>
             
 
@@ -384,8 +391,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/开发日记/StackChat开发记录/" itemprop="url" rel="index">
-                    <span itemprop="name">StackChat开发记录</span>
+                  <a href="/categories/开发日记/实现正则表达式引擎/" itemprop="url" rel="index">
+                    <span itemprop="name">实现正则表达式引擎</span>
                   </a>
                 </span>
 
@@ -401,7 +408,7 @@
 
           
           
-             <span id="/StackChat/Node.js实现PC端类微信聊天软件（三）.html" class="leancloud_visitors" data-flag-title="Node.js实现PC端类微信聊天软件（三）">
+             <span id="/Regex/实现正则表达式引擎（一）.html" class="leancloud_visitors" data-flag-title="实现一个正则表达式引擎in Python(一)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -431,7 +438,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.1k
+                  1.9k
                 </span>
               
 
@@ -447,7 +454,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  4
+                  7
                 </span>
               
             </div>
@@ -468,7 +475,111 @@
       
 
       
-        <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><blockquote><p><a href="https://github.com/dejavudwh/StackChat" target="_blank" rel="noopener">Github StackChat</a></p></blockquote><h2 id="Redux学习回顾"><a href="#Redux学习回顾" class="headerlink" title="Redux学习回顾"></a>Redux学习回顾</h2><blockquote><p>Redux的主要功能就是管理复杂交错的State，比如需要讲state提升到顶层组件的场景中，使用Redux就很合适</p></blockquote><p>Redux主要提供三个东西来进行状态管理</p><h3 id="1-Action"><a href="#1-Action" class="headerlink" title="1. Action"></a>1. Action</h3><blockquote><p>表达要进行的动作，也就是通过view层触发，来进行派发来改变全局state</p></blockquote><h4 id="action创建函数"><a href="#action创建函数" class="headerlink" title="action创建函数"></a>action创建函数</h4><p>也就是只返回一个action的函数</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SignUpEmailChange = <span class="function">(<span class="params">value</span>) =&gt;</span> (&#123;</span><br><span class="line">  type: <span class="string">'SIGNUP_EMAIL_CHANGE'</span>,</span><br><span class="line">  value: value,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><a id="more"></a><p>action通常有一个type来进行判断要进行的动作，和任意其它的字段</p><h3 id="2-Reducer"><a href="#2-Reducer" class="headerlink" title="2. Reducer"></a>2. Reducer</h3><blockquote><p>主要进行接收action根据其中的type来进行更改state</p></blockquote><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> registerChange = <span class="function">(<span class="params">state, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> state === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> initialState</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span>(action.type === <span class="string">'SIGNUP_NAME_CHANGE'</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.assign(&#123;&#125;, state, &#123;</span><br><span class="line">      signUpForm: &#123;</span><br><span class="line">        signup: <span class="literal">true</span>,</span><br><span class="line">        signupUsername: action.value,</span><br><span class="line">        signupEmail: state.signUpForm.signupEmail,</span><br><span class="line">        signupPwd: state.signUpForm.signupPwd,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="Reducer拆分"><a href="#Reducer拆分" class="headerlink" title="Reducer拆分"></a>Reducer拆分</h4><p>当reducer膨胀时还可以进行拆分再用Redux提供的combineReducers进行组合</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Reducer = combineReducers(&#123;</span><br><span class="line">  ChatBar,</span><br><span class="line">  Message,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><h3 id="3-Store"><a href="#3-Store" class="headerlink" title="3. Store"></a>3. Store</h3><blockquote><p>Store作为全局的state</p></blockquote><h4 id="使用createStore来创建Store"><a href="#使用createStore来创建Store" class="headerlink" title="使用createStore来创建Store"></a>使用createStore来创建Store</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store = createStore(</span><br><span class="line">  Reducer,</span><br><span class="line">  Initialize,</span><br><span class="line">  applyMiddleware(thunk)</span><br><span class="line">);</span><br></pre></td></tr></table></figure><p>第二个第三个参数都是可选的，第一个参数就是进行执行动作的Reducer,第二个是初始化state,第三个为中间件</p><h4 id="通过Provider组件来进行分发组件"><a href="#通过Provider组件来进行分发组件" class="headerlink" title="通过Provider组件来进行分发组件"></a>通过Provider组件来进行分发组件</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Provider</span> <span class="attr">store</span>=<span class="string">&#123;store&#125;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Router</span> <span class="attr">history</span>=<span class="string">&#123;browserHistory&#125;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">component</span>=<span class="string">&#123;App&#125;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">IndexRoute</span> <span class="attr">component</span>=<span class="string">&#123;Login&#125;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"/home"</span> <span class="attr">component</span>=<span class="string">&#123;MainPanel&#125;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Router</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Provider</span>&gt;</span></span><br></pre></td></tr></table></figure><h4 id="dispatch函数"><a href="#dispatch函数" class="headerlink" title="dispatch函数"></a>dispatch函数</h4><p>store通过提供dispatch函数来对action的派发，流程也就是</p><blockquote><p>view -&gt; action -&gt; reducer -&gt; store -&gt; view</p></blockquote><p>dispatch接收一个action创建函数</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dispatch(onSignup())</span><br></pre></td></tr></table></figure><h3 id="React-Redux"><a href="#React-Redux" class="headerlink" title="React-Redux"></a>React-Redux</h3><blockquote><p>Redux的一个React绑定库</p></blockquote><blockquote><p>主要提供的是connect把组件包装成容器</p></blockquote><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Login = connect(</span><br><span class="line">  mapStateToProps,</span><br><span class="line">  mapDispatchToProps</span><br><span class="line">)(SigninCmpt);</span><br></pre></td></tr></table></figure><p>接收两个函数参数</p><h4 id="mapStateToProps"><a href="#mapStateToProps" class="headerlink" title="mapStateToProps"></a>mapStateToProps</h4><p>主要负责把store映射到组件的props上</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function">(<span class="params">state</span>) =&gt;</span> (&#123;</span><br><span class="line">  signup: state.signup,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><h4 id="mapDispatchToProps"><a href="#mapDispatchToProps" class="headerlink" title="mapDispatchToProps"></a>mapDispatchToProps</h4><p>一样是负责映射，把分发函数映射到组件的props上</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mapDispatchToProps = <span class="function">(<span class="params">dispatch</span>) =&gt;</span> (&#123;</span><br><span class="line">  onSignup: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    dispatch(onSignup())</span><br><span class="line">  &#125;,</span><br><span class="line">  closeSignup: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    dispatch(closeSignup())</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><h3 id="Redux-thunk"><a href="#Redux-thunk" class="headerlink" title="Redux-thunk"></a>Redux-thunk</h3><blockquote><p>一个action异步处理库，主要功能是能够接收一个返回函数的action创建函数</p></blockquote><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fetchSignUp = <span class="function">(<span class="params">username, email, password</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> url = <span class="string">'http://localhost:8008/api/signup'</span>;</span><br><span class="line">  <span class="keyword">const</span> data = &#123;</span><br><span class="line">    username: username,</span><br><span class="line">    email: email,</span><br><span class="line">    password: password,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'fetch'</span>, data)</span><br><span class="line">  <span class="keyword">return</span> fetch(url, &#123;</span><br><span class="line">    method: <span class="string">'POST'</span>, <span class="comment">// or 'PUT'</span></span><br><span class="line">    body: <span class="built_in">JSON</span>.stringify(data), <span class="comment">// data can be `string` or &#123;object&#125;!</span></span><br><span class="line">    headers: <span class="keyword">new</span> Headers(&#123;</span><br><span class="line">      <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> res.json())</span><br><span class="line">  .then(<span class="function"><span class="params">response</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'Success:'</span>, response));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SignUpUser = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">dispatch, getState</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// TODO fix parameters</span></span><br><span class="line">    fetchSignUp(getState().signUpForm.signupUsername, getState().signUpForm.signupEmail, getState().signUpForm.signupPwd)</span><br><span class="line">    .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      dispatch(&#123;</span><br><span class="line">        type: <span class="string">'SIGNUP_USER'</span>,</span><br><span class="line">        sign: <span class="literal">false</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>thunk的在于能够将异步执行逻辑内聚在action中，其中实现利用的是Redux的中间件</p><h2 id="MongoDB学习回顾"><a href="#MongoDB学习回顾" class="headerlink" title="MongoDB学习回顾"></a>MongoDB学习回顾</h2><h3 id="数据库类型"><a href="#数据库类型" class="headerlink" title="数据库类型"></a>数据库类型</h3><blockquote><p>作为有别于关系型数据库的文档型数据库，其中集合对应于表，行对应与文档，列对应于字段</p></blockquote><blockquote><p>主要应用场景</p></blockquote><ul><li>游戏场景，使用 MongoDB 存储游戏用户信息，用户的装备、积分等直接以内嵌文档的形式存储.方便查询、更新- 物流场景，使用 MongoDB 存储订单信息，订单状态在运送过程中会不断更新，以 MongoDB 内嵌数组的形式来存储，一次查询就能将订单所有的变更读取出来。</li><li>社交场景，使用 MongoDB 存储存储用户信息，以及用户发表的朋友圈信息，通过地理位置索引实现附近的人、地点等功能</li><li>物联网场景，使用 MongoDB 存储所有接入的智能设备信息，以及设备汇报的日志信息，并对这些信息进行多维度的分析</li><li>视频直播，使用 MongoDB 存储用户信息、礼物信息等</li></ul><p>安装驱动包 &amp;&amp; 看文档</p><h2 id="今日完成"><a href="#今日完成" class="headerlink" title="今日完成"></a>今日完成</h2><p>今天主要完成的就是在注册窗口的信息录入状态更改和到后台的验证录入响应</p><ol><li><p>注册输入框的状态onChange进行接收action派发更改state更新每个输入框的内容</p></li><li><p>发送注册请求，利用redux-thunk先进行服务器请求，再进行dispatch</p></li><li><p>服务器端的接收请求和数据库的添加</p></li></ol><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  MongoClient.connect(url, &#123; <span class="attr">useNewUrlParser</span>: <span class="literal">true</span> &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err, db</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line">    <span class="keyword">var</span> dbo = db.db(<span class="string">"stackchat"</span>);</span><br><span class="line">    dbo.collection(<span class="string">"user"</span>).insertOne(user, <span class="function"><span class="keyword">function</span>(<span class="params">err, res</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"insert success"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><!-- rebuild by neat -->
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>项目地址：<a href="https://github.com/dejavudwh/Regex" target="_blank" rel="noopener">Regex in Python</a></strong></p>
+<p>开学摸鱼了几个礼拜，最近几天用Python造了一个正则表达式引擎的轮子，在这里记录分享一下。</p>
+<h3 id="实现目标"><a href="#实现目标" class="headerlink" title="实现目标"></a>实现目标</h3><p>实现了所有基本语法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">st = <span class="string">'AS342abcdefg234aaaaabccccczczxczcasdzxc'</span></span><br><span class="line">pattern = <span class="string">'([A-Z]+[0-9]*abcdefg)([0-9]*)(\*?|a+)(zx|bc*)([a-z]+|[0-9]*)(asd|fgh)(zxc)'</span></span><br><span class="line"></span><br><span class="line">regex = Regex(st, pattern)</span><br><span class="line">result = regex.match()</span><br><span class="line">log(result)</span><br></pre></td></tr></table></figure>
+
+<p>更多示例可以在<a href="https://github.com/dejavudwh/Regex/blob/master/sample.py" target="_blank" rel="noopener">github</a>上看到</p>
+<a id="more"></a>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>其实正则表达式的引擎完全可以看作是一个小型的编译器，所以完全可以按之前写的那个C语言的编译器的思路来，只是没有那么复杂而已</p>
+<ol start="0">
+<li>首先进行词法分析</li>
+<li>语法分析（这里用自顶向下）</li>
+<li>语义分析 <em>（因为正则的表达能力非常弱，所以可以省略生成AST的部分直接进行代码生成）</em></li>
+<li>代码生成，这里也就是进行NFA的生成</li>
+<li>NFA到DFA的转换，这里开始就是正则和状态机的相关的知识了</li>
+<li>DFA的最小化</li>
+</ol>
+<h3 id="NFA和DFA"><a href="#NFA和DFA" class="headerlink" title="NFA和DFA"></a>NFA和DFA</h3><blockquote>
+<p>有限状态机可以看作是一个有向图，状态机中有若干个节点，每个节点都可以根据输入字符来跳转到下一个节点，而区别NFA((非确定性有限状态自动机)和DFA(确定性有限状态自动机)的是DFA的下一个跳转状态是唯一确定的)</p>
+</blockquote>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/NFAexample.svg/1024px-NFAexample.svg.png" alt></p>
+<p>有限状态自动机从开始的初始状态开始读取输入的字符串，自动机使用状态转移函数move根据当前状态和当前的输入字符来判断下一个状态，但是NFA的下一个状态不是唯一确定的，所以只能确定的是下一个状态集合，这个状态集合还需要依赖之后的输入才能确定唯一所处的状态。如果当自动机完成读取的时候，它处于接收状态的话，则说明NFA可以接收这个输入字符串</p>
+<p>对于所有的NFA最后都可以转换为对应的DFA</p>
+<p><code>NFA构造O(n)，匹配O(nm)</code></p>
+<p><code>DFA构造O(2^n)，最小化O(kn&#39;logn&#39;)（N&#39;=O(2^n)），匹配O(m)</code></p>
+<p><code>n=regex长度，m=串长，k=字母表大小，n&#39;=原始的dfa大小</code></p>
+<p>NFA接受的所有字符串的集合是NFA接受的语言。这个语言是正则语言。</p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>对于正则表达式：<code>[0-9]*[A-Z]+</code>，对应的NFA就是将下面两个NFA的节点3和节点4连接起来</p>
+<p><img src="https://i.loli.net/2019/09/23/6OnJcZFRzCqXjYU.png" alt="image.png"><br><img src="https://i.loli.net/2019/09/23/9oXisBmJRk2GljF.png" alt="image.png"></p>
+<h2 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h2><blockquote>
+<p>对于NFA和DFA其实只要知道这么多和一些相应的算法就已经足够了，相应的算法在后面提及，先完成词法分析的部分，</p>
+</blockquote>
+<p>这个词法分析比之前C语言编译器的语法分析要简单许多，只要处理几种可能性</p>
+<ol>
+<li>普通字符</li>
+<li>含有语义的字符</li>
+<li>转义字符</li>
+</ol>
+<h3 id="token"><a href="#token" class="headerlink" title="token"></a>token</h3><p>token没什么好说的，就是对应正则里的语法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Tokens = &#123;</span><br><span class="line">    <span class="string">'.'</span>: Token.ANY,</span><br><span class="line">    <span class="string">'^'</span>: Token.AT_BOL,</span><br><span class="line">    <span class="string">'$'</span>: Token.AT_EOL,</span><br><span class="line">    <span class="string">']'</span>: Token.CCL_END,</span><br><span class="line">    <span class="string">'['</span>: Token.CCL_START,</span><br><span class="line">    <span class="string">'&#125;'</span>: Token.CLOSE_CURLY,</span><br><span class="line">    <span class="string">')'</span>: Token.CLOSE_PAREN,</span><br><span class="line">    <span class="string">'*'</span>: Token.CLOSURE,</span><br><span class="line">    <span class="string">'-'</span>: Token.DASH,</span><br><span class="line">    <span class="string">'&#123;'</span>: Token.OPEN_CURLY,</span><br><span class="line">    <span class="string">'('</span>: Token.OPEN_PAREN,</span><br><span class="line">    <span class="string">'?'</span>: Token.OPTIONAL,</span><br><span class="line">    <span class="string">'|'</span>: Token.OR,</span><br><span class="line">    <span class="string">'+'</span>: Token.PLUS_CLOSE,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="advance"><a href="#advance" class="headerlink" title="advance"></a>advance</h3><p>advance是词法分析里最主要的函数，用来返回当前输入字符的Token类型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">advance</span><span class="params">(self)</span>:</span></span><br><span class="line">    pos = self.pos</span><br><span class="line">    pattern = self.pattern</span><br><span class="line">    <span class="keyword">if</span> pos &gt; len(pattern) - <span class="number">1</span>:</span><br><span class="line">        self.current_token = Token.EOS</span><br><span class="line">        <span class="keyword">return</span> Token.EOS</span><br><span class="line"></span><br><span class="line">    text = self.lexeme = pattern[pos]</span><br><span class="line">    <span class="keyword">if</span> text == <span class="string">'\\'</span>:</span><br><span class="line">        self.isescape = <span class="keyword">not</span> self.isescape</span><br><span class="line">        self.pos = self.pos + <span class="number">1</span></span><br><span class="line">        self.current_token = self.handle_escape()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        self.current_token = self.handle_semantic_l(text)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> self.current_token</span><br></pre></td></tr></table></figure>
+
+<p><strong>advance</strong>的主要逻辑就是读入当前字符，再来判断是否是转义字符或者是其它字符</p>
+<p><strong>handle_escape</strong>用来处理转义字符，当然转义字符最后本质上返回的还是普通字符类型，这个函数的主要功能就是来记录当前转义后的字符，然后赋值给lexem，供之后构造自动机使用</p>
+<p><strong>handle_semantic_l</strong>只有两行，一是查表，这个表保存了所有的拥有语义的字符，如果查不到就直接返回普通字符类型了</p>
+<p><em>完整代码就不放上来了，都在<a href="https://github.com/dejavudwh/Regex/blob/master/sample.py" target="_blank" rel="noopener">github</a>上</em></p>
+<h2 id="构造NFA"><a href="#构造NFA" class="headerlink" title="构造NFA"></a>构造NFA</h2><blockquote>
+<p>构造NFA的主要文件都在nfa包下，nfa.py是NFA节点的定义，construction.py是实现对NFA的构造</p>
+</blockquote>
+<h3 id="NFA节点定义"><a href="#NFA节点定义" class="headerlink" title="NFA节点定义"></a>NFA节点定义</h3><p>NFA节点的定义也很简单，其实这个正则表达式引擎完整的实现只有900行左右，每一部分拆开看都非常简单</p>
+<ul>
+<li><p><strong>edge和input_set</strong>都是用来指示边的，边一共可能有四种种可能的属性</p>
+<ul>
+<li>对应的节点有两个出去的ε边<br>edge = PSILON = -1</li>
+<li>边对应的是字符集<br>edge = CCL = -2<br>input_set = 相应字符集</li>
+<li>一条ε边<br>edge = EMPTY = -3</li>
+<li>边对应的是单独的一个输入字符c<br>edge = c</li>
+</ul>
+</li>
+<li><p><strong>status_num</strong>每个节点都有唯一的一个标识</p>
+</li>
+<li><p><strong>visited</strong>则是为了debug用来遍历NFA</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Nfa</span><span class="params">(object)</span>:</span></span><br><span class="line">    STATUS_NUM = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.edge = EPSILON</span><br><span class="line">        self.next_1 = <span class="literal">None</span></span><br><span class="line">        self.next_2 = <span class="literal">None</span></span><br><span class="line">        self.visited = <span class="literal">False</span></span><br><span class="line">        self.input_set = set()</span><br><span class="line">        self.set_status_num()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set_status_num</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.status_num = Nfa.STATUS_NUM</span><br><span class="line">        Nfa.STATUS_NUM = Nfa.STATUS_NUM + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set_input_set</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.input_set = set()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(ASCII_COUNT):</span><br><span class="line">            self.input_set.add(chr(i))</span><br></pre></td></tr></table></figure>
+
+<h3 id="简单节点的构造"><a href="#简单节点的构造" class="headerlink" title="简单节点的构造"></a>简单节点的构造</h3><p>节点的构造在nfa.construction下，这里为了简化代码把Lexer作为全局变量，让所有函数共享</p>
+<p>正则表达式的BNF范式如下，这样我们可以采用自顶向下来分析，从最顶层的group开始向下递归</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">group ::= (<span class="string">"("</span> expr <span class="string">")"</span>)*</span><br><span class="line">expr ::= factor_conn (<span class="string">"|"</span> factor_conn)*</span><br><span class="line">factor_conn ::= factor | factor factor*</span><br><span class="line">factor ::= (term | term (<span class="string">"*"</span> | <span class="string">"+"</span> | <span class="string">"?"</span>))*</span><br><span class="line">term ::= char | <span class="string">"["</span> char <span class="string">"-"</span> char <span class="string">"]"</span> | .</span><br></pre></td></tr></table></figure>
+
+<p>BNF在之前写C语言编译器的时候有提到：<a href="https://dejavudwh.cn/compiler/%E4%BB%8E%E9%9B%B6%E5%86%99%E4%B8%80%E4%B8%AA%E7%BC%96%E8%AF%91%E5%99%A8%EF%BC%88%E4%BA%8C%EF%BC%89.html">从零写一个编译器（二）</a></p>
+<h4 id="主入口"><a href="#主入口" class="headerlink" title="主入口"></a>主入口</h4><p>这里为了简化代码，就把词法分析器作为全局变量，让所有函数共享</p>
+<p>主要逻辑非常简单，就是初始化词法分析器，然后传入NFA头节点开始进行递归创建节点</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pattern</span><span class="params">(pattern_string)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> lexer</span><br><span class="line">    lexer = Lexer(pattern_string)</span><br><span class="line">    lexer.advance()</span><br><span class="line">    nfa_pair = NfaPair()</span><br><span class="line">    group(nfa_pair)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> nfa_pair.start_node</span><br></pre></td></tr></table></figure>
+
+<h4 id="term"><a href="#term" class="headerlink" title="term"></a>term</h4><p>虽然是采用的是自顶向下的语法分析，但是从自底向上看会更容易理解，term是最底部的构建，也就是像单个字符、字符集、.符号的节点的构建</p>
+<p><code>term ::= char | &quot;[&quot; char &quot;-&quot; char &quot;]&quot; | | .</code></p>
+<p>term的主要逻辑就是根据当前读入的字符来判断应该构建什么节点</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">term</span><span class="params">(pair_out)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> lexer.match(Token.L):</span><br><span class="line">        nfa_single_char(pair_out)</span><br><span class="line">    <span class="keyword">elif</span> lexer.match(Token.ANY):</span><br><span class="line">        nfa_dot_char(pair_out)</span><br><span class="line">    <span class="keyword">elif</span> lexer.match(Token.CCL_START):</span><br><span class="line">        nfa_set_nega_char(pair_out)</span><br></pre></td></tr></table></figure>
+
+<p>三种节点的构造函数都很简单，下面图都是用markdown的mermaid随便画画的</p>
+<ul>
+<li><strong>nfa_single_char</strong></li>
+</ul>
+<p>单个字符的NFA构造就是创建两个节点然后把当前匹配的字符作为edge</p>
+<p><img src="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/regex1.png" alt="a"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nfa_single_char</span><span class="params">(pair_out)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> lexer.match(Token.L):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    start = pair_out.start_node = Nfa()</span><br><span class="line">    pair_out.end_node = pair_out.start_node.next_1 = Nfa()</span><br><span class="line">    start.edge = lexer.lexeme</span><br><span class="line">    lexer.advance()</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>nfa_dot_char</strong></li>
+</ul>
+<p>. 这个的NFA和上面单字符的唯一区别就是它的edge被设置为CCL，并且设置了input_set</p>
+<p><img src="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/regex1.png" alt="a"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># . 匹配任意单个字符</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nfa_dot_char</span><span class="params">(pair_out)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> lexer.match(Token.ANY):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    start = pair_out.start_node = Nfa()</span><br><span class="line">    pair_out.end_node = pair_out.start_node.next_1 = Nfa()</span><br><span class="line">    start.edge = CCL</span><br><span class="line">    start.set_input_set()</span><br><span class="line"></span><br><span class="line">    lexer.advance()</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>nfa_set_nega_char</strong></li>
+</ul>
+<p>这个函数逻辑上只比上面的多了一个处理input_set</p>
+<p><img src="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/regex1.png" alt="a"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nfa_set_nega_char</span><span class="params">(pair_out)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> lexer.match(Token.CCL_START):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    </span><br><span class="line">    neagtion = <span class="literal">False</span></span><br><span class="line">    lexer.advance()</span><br><span class="line">    <span class="keyword">if</span> lexer.match(Token.AT_BOL):</span><br><span class="line">        neagtion = <span class="literal">True</span></span><br><span class="line">    </span><br><span class="line">    start = pair_out.start_node = Nfa()</span><br><span class="line">    start.next_1 = pair_out.end_node = Nfa()</span><br><span class="line">    start.edge = CCL</span><br><span class="line">    dodash(start.input_set)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> neagtion:</span><br><span class="line">        char_set_inversion(start.input_set)</span><br><span class="line"></span><br><span class="line">    lexer.advance()</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>篇幅原因，现在已经写到了三百多行，所以就分篇写，准备在三篇内完成。下一篇写构造更复杂的NFA和通过构造的NFA来分析输入字符串。最后写从NFA转换到DFA，再最后用DFA分析输入的字符串</p>
+
       
     </div>
     
@@ -488,7 +599,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（三）.html" title="Node.js实现PC端类微信聊天软件（三）">https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（三）.html</a>
+    <a href="https://dejavudwh.cn/Regex/实现正则表达式引擎（一）.html" title="实现一个正则表达式引擎in Python(一)">https://dejavudwh.cn/Regex/实现正则表达式引擎（一）.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -503,15 +614,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/大二期间/" rel="tag"><i class="fa fa-tag"></i> 大二期间</a>
+            <a href="/tags/有限状态自动机/" rel="tag"><i class="fa fa-tag"></i> 有限状态自动机</a>
           
-            <a href="/tags/Node-js/" rel="tag"><i class="fa fa-tag"></i> Node.js</a>
-          
-            <a href="/tags/React/" rel="tag"><i class="fa fa-tag"></i> React</a>
-          
-            <a href="/tags/Electron/" rel="tag"><i class="fa fa-tag"></i> Electron</a>
-          
-            <a href="/tags/Socket/" rel="tag"><i class="fa fa-tag"></i> Socket</a>
+            <a href="/tags/正则表达式引擎/" rel="tag"><i class="fa fa-tag"></i> 正则表达式引擎</a>
           
         </div>
       
@@ -524,8 +629,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/StackChat/Node.js实现PC端类微信聊天软件（二）.html" rel="next" title="Node.js实现PC端类微信聊天软件（二）">
-                <i class="fa fa-chevron-left"></i> Node.js实现PC端类微信聊天软件（二）
+              <a href="/os/从零写一个操作系统（十）.html" rel="next" title="我是如何学习写一个操作系统（完结）：总结和系列索引">
+                <i class="fa fa-chevron-left"></i> 我是如何学习写一个操作系统（完结）：总结和系列索引
               </a>
             
           </div>
@@ -533,10 +638,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/StackChat/Node.js实现PC端类微信聊天软件（四）.html" rel="prev" title="Node.js实现PC端类微信聊天软件（四）">
-                Node.js实现PC端类微信聊天软件（四） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -719,7 +820,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux学习回顾"><span class="nav-number">1.</span> <span class="nav-text">Redux学习回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Action"><span class="nav-number">1.1.</span> <span class="nav-text">1. Action</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#action创建函数"><span class="nav-number">1.1.1.</span> <span class="nav-text">action创建函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Reducer"><span class="nav-number">1.2.</span> <span class="nav-text">2. Reducer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Reducer拆分"><span class="nav-number">1.2.1.</span> <span class="nav-text">Reducer拆分</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Store"><span class="nav-number">1.3.</span> <span class="nav-text">3. Store</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用createStore来创建Store"><span class="nav-number">1.3.1.</span> <span class="nav-text">使用createStore来创建Store</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过Provider组件来进行分发组件"><span class="nav-number">1.3.2.</span> <span class="nav-text">通过Provider组件来进行分发组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dispatch函数"><span class="nav-number">1.3.3.</span> <span class="nav-text">dispatch函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Redux"><span class="nav-number">1.4.</span> <span class="nav-text">React-Redux</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mapStateToProps"><span class="nav-number">1.4.1.</span> <span class="nav-text">mapStateToProps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mapDispatchToProps"><span class="nav-number">1.4.2.</span> <span class="nav-text">mapDispatchToProps</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux-thunk"><span class="nav-number">1.5.</span> <span class="nav-text">Redux-thunk</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB学习回顾"><span class="nav-number">2.</span> <span class="nav-text">MongoDB学习回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库类型"><span class="nav-number">2.1.</span> <span class="nav-text">数据库类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#今日完成"><span class="nav-number">3.</span> <span class="nav-text">今日完成</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现目标"><span class="nav-number">1.1.</span> <span class="nav-text">实现目标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前置知识"><span class="nav-number">2.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NFA和DFA"><span class="nav-number">2.1.</span> <span class="nav-text">NFA和DFA</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">2.1.1.</span> <span class="nav-text">例子</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词法分析"><span class="nav-number">3.</span> <span class="nav-text">词法分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#token"><span class="nav-number">3.1.</span> <span class="nav-text">token</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#advance"><span class="nav-number">3.2.</span> <span class="nav-text">advance</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造NFA"><span class="nav-number">4.</span> <span class="nav-text">构造NFA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NFA节点定义"><span class="nav-number">4.1.</span> <span class="nav-text">NFA节点定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单节点的构造"><span class="nav-number">4.2.</span> <span class="nav-text">简单节点的构造</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主入口"><span class="nav-number">4.2.1.</span> <span class="nav-text">主入口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#term"><span class="nav-number">4.2.2.</span> <span class="nav-text">term</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>

@@ -1,1 +1,1386 @@
-<!-- build time:Mon Sep 02 2019 09:03:23 GMT+0800 (GMT+08:00) --><!DOCTYPE html><html class="theme-next mist use-motion" lang="en"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#222"><script src="/lib/pace/pace.min.js?v=1.0.2"></script><link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="google-site-verification" content="dV7XCUPOyL1PUcHvSDhTDv-2rdeeFWm2Eb6K6WhZysY"><meta name="baidu-site-verification" content="omULaEGgAa"><link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css"><link href="https://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png?v=5.1.4"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=5.1.4"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=5.1.4"><link rel="mask-icon" href="/images/favicon.png?v=5.1.4" color="#222"><meta name="keywords" content="操作系统,从零写一个操作系统,"><link rel="alternate" href="/atom.xml" title="dejavudwh's Blog" type="application/atom+xml"><meta name="description" content="前言这个应该是这个系列的尾声了，一个完整的操作系统可能最主要的也就是分成这几大模块：进程管理、内存管理和文件系统。计算机以进程为基本单位进行资源的调度和分配；而与用户的交互，基本单位则是文件生磁盘文件正是对生磁盘的抽象磁盘的组成一个磁盘由多个盘面串联而成，而一个盘面又被分为磁道，磁道又由扇区组成。磁盘的访问单元就是扇区，一个扇区为512字节"><meta name="keywords" content="操作系统,从零写一个操作系统"><meta property="og:type" content="article"><meta property="og:title" content="我是如何学习写一个操作系统（九）：文件系统"><meta property="og:url" content="https://dejavudwh.cn/os/从零写一个操作系统（九）.html"><meta property="og:site_name" content="dejavudwh&#39;s Blog"><meta property="og:description" content="前言这个应该是这个系列的尾声了，一个完整的操作系统可能最主要的也就是分成这几大模块：进程管理、内存管理和文件系统。计算机以进程为基本单位进行资源的调度和分配；而与用户的交互，基本单位则是文件生磁盘文件正是对生磁盘的抽象磁盘的组成一个磁盘由多个盘面串联而成，而一个盘面又被分为磁道，磁道又由扇区组成。磁盘的访问单元就是扇区，一个扇区为512字节"><meta property="og:locale" content="en"><meta property="og:image" content="https://i.loli.net/2019/08/31/PpeWD3bOVnZLytC.jpg"><meta property="og:image" content="https://i.loli.net/2019/08/31/PA9cBRCUHFpSkjh.png"><meta property="og:image" content="https://i.loli.net/2019/08/31/CVaqyEcslr5bjTt.png"><meta property="og:updated_time" content="2019-09-01T08:14:02.590Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="我是如何学习写一个操作系统（九）：文件系统"><meta name="twitter:description" content="前言这个应该是这个系列的尾声了，一个完整的操作系统可能最主要的也就是分成这几大模块：进程管理、内存管理和文件系统。计算机以进程为基本单位进行资源的调度和分配；而与用户的交互，基本单位则是文件生磁盘文件正是对生磁盘的抽象磁盘的组成一个磁盘由多个盘面串联而成，而一个盘面又被分为磁道，磁道又由扇区组成。磁盘的访问单元就是扇区，一个扇区为512字节"><meta name="twitter:image" content="https://i.loli.net/2019/08/31/PpeWD3bOVnZLytC.jpg"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Mist",version:"5.1.4",sidebar:{position:"left",display:"hide",offset:12,b2t:!0,scrollpercent:!0,onmobile:!1},fancybox:!0,tabs:!0,motion:{enable:!0,async:!0,transition:{post_block:"fadeIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},duoshuo:{userId:"0",author:"Author"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="https://dejavudwh.cn/os/从零写一个操作系统（九）.html"><title>我是如何学习写一个操作系统（九）：文件系统 | dejavudwh's Blog</title></head><body itemscope itemtype="http://schema.org/WebPage" lang="en"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">dejavudwh's Blog</span> <span class="logo-line-after"><i></i></span></a></div><h1 class="site-subtitle" itemprop="description">开发日记和无聊琐碎</h1></div><div class="site-nav-toggle"><button><span class="btn-bar"></span> <span class="btn-bar"></span> <span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>Archives</a></li><li class="menu-item menu-item-top"><a href="/top/" rel="section"><i class="menu-item-icon fa fa-fw fa-signal"></i><br>top</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br>Categories</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br>About</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br>Search</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i> </span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"><input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/os/从零写一个操作系统（九）.html"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="dejavudwh"><meta itemprop="description" content><meta itemprop="image" content="/images/avatar.png"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="dejavudwh's Blog"></span><header class="post-header"><h2 class="post-title" itemprop="name headline">我是如何学习写一个操作系统（九）：文件系统</h2><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">Posted on</span> <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-31T15:42:25+08:00">2019-08-31 </time></span><span class="post-category"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-folder-o"></i> </span><span class="post-meta-item-text">In</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span> </a></span>, <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/我是如何学习写一个操作系统/" itemprop="url" rel="index"><span itemprop="name">我是如何学习写一个操作系统</span> </a></span></span><span id="/os/从零写一个操作系统（九）.html" class="leancloud_visitors" data-flag-title="我是如何学习写一个操作系统（九）：文件系统"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-eye"></i> </span><span class="post-meta-item-text">Visitors&#58;</span> <span class="leancloud-visitors-count"></span> </span><span class="post-meta-divider">|</span> <span class="page-pv"><i class="fa fa-file-o"></i> <span class="busuanzi-value" id="busuanzi_value_page_pv"></span></span><div class="post-wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i> </span><span class="post-meta-item-text">Words count in article&#58;</span> <span title="Words count in article">3k </span><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-clock-o"></i> </span><span class="post-meta-item-text">Reading time &asymp;</span> <span title="Reading time">12</span></div></div></header><div class="post-body" itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个应该是这个系列的尾声了，一个完整的操作系统可能最主要的也就是分成这几大模块：进程管理、内存管理和文件系统。计算机以进程为基本单位进行资源的调度和分配；而与用户的交互，基本单位则是文件</p><h2 id="生磁盘"><a href="#生磁盘" class="headerlink" title="生磁盘"></a>生磁盘</h2><blockquote><p>文件正是对生磁盘的抽象</p></blockquote><h3 id="磁盘的组成"><a href="#磁盘的组成" class="headerlink" title="磁盘的组成"></a>磁盘的组成</h3><p>一个磁盘由多个盘面串联而成，而一个盘面又被分为磁道，磁道又由扇区组成。</p><p>磁盘的访问单元就是扇区，一个扇区为512字节</p><a id="more"></a><h3 id="磁盘的使用"><a href="#磁盘的使用" class="headerlink" title="磁盘的使用"></a>磁盘的使用</h3><ul><li>CPU向磁盘的控制器发出一个指令</li><li>控制器开始进行寻道、旋转和传输</li><li>最后完成后向CPU发送一个中断</li></ul><p>也就是向控制器发送柱面磁头扇区等信息，然后等待回应</p><h4 id="盘块"><a href="#盘块" class="headerlink" title="盘块"></a>盘块</h4><blockquote><p>盘块是对扇区的抽象</p></blockquote><p>程序负责提高盘块block，而磁盘驱动负责从block计算出cyl，head，sec(CHS)，最后传递到磁盘控制器上</p><p><code>磁盘访问时间 = 写入控制器时间 + 寻道时间 + 旋转时间 + 传输时间</code></p><p>其中主要的时间都在寻道时间和旋转时间，所以对扇区抽象成盘块就可以一次访问多个扇区来节省磁盘的访问时间</p><h4 id="磁盘调度"><a href="#磁盘调度" class="headerlink" title="磁盘调度"></a>磁盘调度</h4><blockquote><p>既然有多进程交替执行，就有可能多个进程同时访问相同磁盘的情况，就需要一个请求队列来处理所有请求，就会涉及到调度算法了</p></blockquote><p><strong>FCFS调度</strong></p><p>FCFS是最公平最直观的算法，也就是按照队列顺序来访问磁盘，但是效率也很低下，磁头会在不规律的磁道长途奔袭</p><p><strong>SSTF调度</strong></p><p>SSTF算法就类似短作业优先算法，先寻找更近距离的磁道，但是SSTF算法可能会产生饥饿问题，过长距离的磁道可能一直得不到处理</p><p><strong>SCAN调度</strong></p><p>SCAN算法就是SSTF算法的改良版，也就是进行SSTF，但是在中途不会折返去寻找更短距离的磁道，这样就避免了饥饿问题</p><p><strong>C-SCAN调度(电梯算法)</strong></p><p>把扫描限定在一个方向，当访问到某个方向的最后一个磁道时，磁道返回磁盘相反方向磁道的末端，并再次开始扫描。</p><p><img src="https://i.loli.net/2019/08/31/PpeWD3bOVnZLytC.jpg" alt></p><h2 id="文件和文件系统"><a href="#文件和文件系统" class="headerlink" title="文件和文件系统"></a>文件和文件系统</h2><blockquote><p>文件是对磁盘的第三层抽象，扇区和盘块分别是前两层抽象。之所以有文件这层抽象是为了方便用户的使用，在用户的眼里，磁盘上的信息都可以看作是字符流。所以文件的抽象九可以看作是字符流到盘块集合的映射关系</p></blockquote><h3 id="文件的逻辑结构"><a href="#文件的逻辑结构" class="headerlink" title="文件的逻辑结构"></a>文件的逻辑结构</h3><p>从文件到盘块的映射来看，一般有这几种组织方式</p><ul><li><h4 id="顺序文件"><a href="#顺序文件" class="headerlink" title="顺序文件"></a>顺序文件</h4><p>记录是定长的且按关键字顺序排列。可以顺序存储或以链表形势存储，在访问时需要顺序搜索文件。顺序文件有以下两种结构：</p><ol><li><p>第一种是串结构，各记录之间的顺序与关键字无关。通常的办法是由时间来决定，即按存入时间的先后排列，最先存入的记录作为第一个记录，其次存入的为第二个记录，以此类推。</p></li><li><p>第二种是顺序结构，指文件中所有记录按关键字顺序排列。<br>在对记录进行批量操作时，即每次要读或写一大批记录，对顺序文件的效率是所有逻辑文件中最高的；此外，也只有顺序文件才能存储在磁带上，并能有效的工作。但顺序文件对查找、修改、增加或删除单个记录的操作比较困难。</p></li></ol></li><li><h4 id="索引文件"><a href="#索引文件" class="headerlink" title="索引文件"></a>索引文件</h4><p>对于可变长记录的文件只能顺序查找，系统开销较大，为此可以建立一张索引表以加快检索速度，索引表本身是顺序文件。在记录很多或是访问要求高的文件中，需要引入索引以提供有效的访问，实际中，通过索引可以成百上千倍的提高访问速度。</p></li><li><h4 id="索引顺序表"><a href="#索引顺序表" class="headerlink" title="索引顺序表"></a>索引顺序表</h4><p>索引顺序表是顺序和索引两种组织形势的结合。索引顺序文件将顺序文件中所有记录分为若干个组，为顺序文件建立一张索引表，在索引表中为每组中的第一个记录建立一个索引项，其中含有该记录的关键字值和指向该记录的指针。</p></li></ul><p>在实际的操作系统实现中，一般是采用多级索引</p><p><img src="https://i.loli.net/2019/08/31/PA9cBRCUHFpSkjh.png" alt></p><h3 id="目录和文件系统"><a href="#目录和文件系统" class="headerlink" title="目录和文件系统"></a>目录和文件系统</h3><blockquote><p>文件系统或者说目录是对磁盘的第四个抽象，也就是抽象了整个磁盘</p></blockquote><p>操作系统为了实现文件目录，引入了称为文件控制块的数据结构。</p><h4 id="文件控制块。"><a href="#文件控制块。" class="headerlink" title="文件控制块。"></a>文件控制块。</h4><p>文件控制块（FCB）是用来存放控制文件需要的各种信息的数据结构，以实现“按名存取”。FCB的有序集合称为文件目录，一个FCB就是一个文件目录项。为了创建一个新文件，系统将分配一个FCB并存放在文件目录中，称为目录项。</p><p>FCB主要包含以下信息：</p><ol><li>基本信息，如文件名、文件的物理位置、文件的逻辑结构、文件的物理结构等。</li><li>存取控制信息，如文件的存取权限等。</li><li>使用信息，如文件建立时间、修改时间等。</li></ol><h4 id="文件目录树"><a href="#文件目录树" class="headerlink" title="文件目录树"></a>文件目录树</h4><p>在多级目录下一般对磁盘就可以抽象为</p><ul><li><p>FCB数组</p><p>FCB数组就是将所有盘块的FCB信息都集中到一个数组中</p></li><li><p>数据盘块集合</p><p>在每个数据盘块里都包含一些目录项用来找到子目录，目录项也就是文件名+对应的FCB的“地址”，也就是去之前的FCB数组中找到相应的FCB</p></li></ul><p>在磁盘进行格式化的时候，会存放一些信息用来知道一些磁盘信息和找到根目录</p><p><img src="https://i.loli.net/2019/08/31/CVaqyEcslr5bjTt.png" alt="fx.png"></p><ul><li><p>inode位图: 哪些inode空闲，哪些被占用</p></li><li><p>超级块:记录两个位图有多大等信息</p></li><li><p>盘块位图: 哪些盘块是空闲的，硬盘大小不同这个位图的大小也不同</p></li></ul><h2 id="文件的实现"><a href="#文件的实现" class="headerlink" title="文件的实现"></a>文件的实现</h2><blockquote><p>在我之前实现的<a href="https://github.com/dejavudwh/FragileOS" target="_blank" rel="noopener">FragileOS</a>里文件系统非常简陋，基本没有什么好说的。这其实也是为什么之前把这个系列改了一个方向来结合的看Linux0.11的代码。所以来看一下Linux0.11里是怎么使用和实现文件系统的，</p></blockquote><h3 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h3><ul><li>这是读取文件的系统调用</li><li>函数首先对参数有效性进行判断</li><li>之后对文件的类型进行判断</li><li>如果是目录文件或者是常规文件就执行读取操作</li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sys_read</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> fd,<span class="keyword">char</span> * buf,<span class="keyword">int</span> count)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">file</span> * <span class="title">file</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">m_inode</span> * <span class="title">inode</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (fd&gt;=NR_OPEN || count&lt;<span class="number">0</span> || !(file=current-&gt;filp[fd]))</span><br><span class="line">		<span class="keyword">return</span> -EINVAL;</span><br><span class="line">	<span class="keyword">if</span> (!count)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	verify_area(buf,count);</span><br><span class="line">	inode = file-&gt;f_inode;</span><br><span class="line">	<span class="keyword">if</span> (inode-&gt;i_pipe)</span><br><span class="line">		<span class="keyword">return</span> (file-&gt;f_mode&amp;<span class="number">1</span>)?read_pipe(inode,buf,count):-EIO;</span><br><span class="line">	<span class="keyword">if</span> (S_ISCHR(inode-&gt;i_mode))</span><br><span class="line">		<span class="keyword">return</span> rw_char(READ,inode-&gt;i_zone[<span class="number">0</span>],buf,count,&amp;file-&gt;f_pos);</span><br><span class="line">	<span class="keyword">if</span> (S_ISBLK(inode-&gt;i_mode))</span><br><span class="line">		<span class="keyword">return</span> block_read(inode-&gt;i_zone[<span class="number">0</span>],&amp;file-&gt;f_pos,buf,count);</span><br><span class="line">	<span class="keyword">if</span> (S_ISDIR(inode-&gt;i_mode) || S_ISREG(inode-&gt;i_mode)) &#123;</span><br><span class="line">		<span class="keyword">if</span> (count+file-&gt;f_pos &gt; inode-&gt;i_size)</span><br><span class="line">			count = inode-&gt;i_size - file-&gt;f_pos;</span><br><span class="line">		<span class="keyword">if</span> (count&lt;=<span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span> file_read(inode,file,buf,count);</span><br><span class="line">	&#125;</span><br><span class="line">	printk(<span class="string">"(Read)inode-&gt;i_mode=%06o\n\r"</span>,inode-&gt;i_mode);</span><br><span class="line">	<span class="keyword">return</span> -EINVAL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li>根据i节点和文件结构，读取文件中数据。</li><li>首先判断参数的有效性</li><li>之后循环的调用bread来读取数据</li><li>之后复制chars字节到用户缓冲区buf中</li><li>最后是修改该i节点的访问时间为当前时间和返回读取的字节数</li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">file_read</span><span class="params">(struct m_inode * inode, struct file * filp, <span class="keyword">char</span> * buf, <span class="keyword">int</span> count)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> left,chars,nr;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">buffer_head</span> * <span class="title">bh</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> ((left=count)&lt;=<span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (left) &#123;</span><br><span class="line">		<span class="keyword">if</span> ((nr = bmap(inode,(filp-&gt;f_pos)/BLOCK_SIZE))) &#123;</span><br><span class="line">			<span class="keyword">if</span> (!(bh=bread(inode-&gt;i_dev,nr)))</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span></span><br><span class="line">			bh = <span class="literal">NULL</span>;</span><br><span class="line">		nr = filp-&gt;f_pos % BLOCK_SIZE;</span><br><span class="line">		chars = MIN( BLOCK_SIZE-nr , left );</span><br><span class="line">		filp-&gt;f_pos += chars;</span><br><span class="line">		left -= chars;</span><br><span class="line">		<span class="keyword">if</span> (bh) &#123;</span><br><span class="line">			<span class="keyword">char</span> * p = nr + bh-&gt;b_data;</span><br><span class="line">			<span class="keyword">while</span> (chars--&gt;<span class="number">0</span>)</span><br><span class="line">				put_fs_byte(*(p++),buf++);</span><br><span class="line">			brelse(bh);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">while</span> (chars--&gt;<span class="number">0</span>)</span><br><span class="line">				put_fs_byte(<span class="number">0</span>,buf++);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	inode-&gt;i_atime = CURRENT_TIME;</span><br><span class="line">	<span class="keyword">return</span> (count-left)?(count-left):-ERROR;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="文件写入"><a href="#文件写入" class="headerlink" title="文件写入"></a>文件写入</h3><ul><li>根据i节点和文件结构信息，将用户数据写入文件中</li><li>首先确定数据写入文件的位置</li><li>然后算出对应的盘块</li><li>然后用户缓冲区buf中复制c个字节到告诉缓冲块中p指向的开始位置处</li><li>最后是修改该i节点的访问时间为当前时间和返回读取的字节数</li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">file_write</span><span class="params">(struct m_inode * inode, struct file * filp, <span class="keyword">char</span> * buf, <span class="keyword">int</span> count)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">off_t</span> pos;</span><br><span class="line">	<span class="keyword">int</span> block,c;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">buffer_head</span> * <span class="title">bh</span>;</span></span><br><span class="line">	<span class="keyword">char</span> * p;</span><br><span class="line">	<span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * ok, append may not work when many processes are writing at the same time</span></span><br><span class="line"><span class="comment"> * but so what. That way leads to madness anyway.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">	<span class="keyword">if</span> (filp-&gt;f_flags &amp; O_APPEND)</span><br><span class="line">		pos = inode-&gt;i_size;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		pos = filp-&gt;f_pos;</span><br><span class="line">	<span class="keyword">while</span> (i&lt;count) &#123;</span><br><span class="line">		<span class="keyword">if</span> (!(block = create_block(inode,pos/BLOCK_SIZE)))</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">if</span> (!(bh=bread(inode-&gt;i_dev,block)))</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		c = pos % BLOCK_SIZE;</span><br><span class="line">		p = c + bh-&gt;b_data;</span><br><span class="line">		bh-&gt;b_dirt = <span class="number">1</span>;</span><br><span class="line">		c = BLOCK_SIZE-c;</span><br><span class="line">		<span class="keyword">if</span> (c &gt; count-i) c = count-i;</span><br><span class="line">		pos += c;</span><br><span class="line">		<span class="keyword">if</span> (pos &gt; inode-&gt;i_size) &#123;</span><br><span class="line">			inode-&gt;i_size = pos;</span><br><span class="line">			inode-&gt;i_dirt = <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		i += c;</span><br><span class="line">		<span class="keyword">while</span> (c--&gt;<span class="number">0</span>)</span><br><span class="line">			*(p++) = get_fs_byte(buf++);</span><br><span class="line">		brelse(bh);</span><br><span class="line">	&#125;</span><br><span class="line">	inode-&gt;i_mtime = CURRENT_TIME;</span><br><span class="line">	<span class="keyword">if</span> (!(filp-&gt;f_flags &amp; O_APPEND)) &#123;</span><br><span class="line">		filp-&gt;f_pos = pos;</span><br><span class="line">		inode-&gt;i_ctime = CURRENT_TIME;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> (i?i:<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="文件目录的实现"><a href="#文件目录的实现" class="headerlink" title="文件目录的实现"></a>文件目录的实现</h2><h3 id="打开创建文件"><a href="#打开创建文件" class="headerlink" title="打开创建文件"></a>打开创建文件</h3><ul><li>首先对参数进行处理，然后搜索进程结构中文件结构指针数组一个空闲的文件句柄</li><li>接着为打开文件在文件表中寻找一个空闲结构项</li><li>然后调用函数open_namei()执行打开操作，若返回值小于0，则说明出错，就释放刚申请到的文件结构</li><li>然后为不同的文件类型做一些特殊的处理</li><li>最后初始化打开文件的文件结构，然后返回文件句柄</li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sys_open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> * filename,<span class="keyword">int</span> flag,<span class="keyword">int</span> mode)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">m_inode</span> * <span class="title">inode</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">file</span> * <span class="title">f</span>;</span></span><br><span class="line">	<span class="keyword">int</span> i,fd;</span><br><span class="line"></span><br><span class="line">	mode &amp;= <span class="number">0777</span> &amp; ~current-&gt;umask;</span><br><span class="line">	<span class="keyword">for</span>(fd=<span class="number">0</span> ; fd&lt;NR_OPEN ; fd++)</span><br><span class="line">		<span class="keyword">if</span> (!current-&gt;filp[fd])</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">if</span> (fd&gt;=NR_OPEN)</span><br><span class="line">		<span class="keyword">return</span> -EINVAL;</span><br><span class="line">	current-&gt;close_on_exec &amp;= ~(<span class="number">1</span>&lt;&lt;fd);</span><br><span class="line">	f=<span class="number">0</span>+file_table;</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span> ; i&lt;NR_FILE ; i++,f++)</span><br><span class="line">		<span class="keyword">if</span> (!f-&gt;f_count) <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">if</span> (i&gt;=NR_FILE)</span><br><span class="line">		<span class="keyword">return</span> -EINVAL;</span><br><span class="line">	(current-&gt;filp[fd]=f)-&gt;f_count++;</span><br><span class="line">	<span class="keyword">if</span> ((i=open_namei(filename,flag,mode,&amp;inode))&lt;<span class="number">0</span>) &#123;</span><br><span class="line">		current-&gt;filp[fd]=<span class="literal">NULL</span>;</span><br><span class="line">		f-&gt;f_count=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span> i;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">/* ttys are somewhat special (ttyxx major==4, tty major==5) */</span></span><br><span class="line">	<span class="keyword">if</span> (S_ISCHR(inode-&gt;i_mode)) &#123;</span><br><span class="line">		<span class="keyword">if</span> (MAJOR(inode-&gt;i_zone[<span class="number">0</span>])==<span class="number">4</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (current-&gt;leader &amp;&amp; current-&gt;tty&lt;<span class="number">0</span>) &#123;</span><br><span class="line">				current-&gt;tty = MINOR(inode-&gt;i_zone[<span class="number">0</span>]);</span><br><span class="line">				tty_table[current-&gt;tty].pgrp = current-&gt;pgrp;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (MAJOR(inode-&gt;i_zone[<span class="number">0</span>])==<span class="number">5</span>)</span><br><span class="line">			<span class="keyword">if</span> (current-&gt;tty&lt;<span class="number">0</span>) &#123;</span><br><span class="line">				iput(inode);</span><br><span class="line">				current-&gt;filp[fd]=<span class="literal">NULL</span>;</span><br><span class="line">				f-&gt;f_count=<span class="number">0</span>;</span><br><span class="line">				<span class="keyword">return</span> -EPERM;</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">/* Likewise with block-devices: check for floppy_change */</span></span><br><span class="line">	<span class="keyword">if</span> (S_ISBLK(inode-&gt;i_mode))</span><br><span class="line">		check_disk_change(inode-&gt;i_zone[<span class="number">0</span>]);</span><br><span class="line">	f-&gt;f_mode = inode-&gt;i_mode;</span><br><span class="line">	f-&gt;f_flags = flag;</span><br><span class="line">	f-&gt;f_count = <span class="number">1</span>;</span><br><span class="line">	f-&gt;f_inode = inode;</span><br><span class="line">	f-&gt;f_pos = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> (fd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="解析目录"><a href="#解析目录" class="headerlink" title="解析目录"></a>解析目录</h3><ul><li>先根据当前路径的第一个字符来判断当前路径是绝对路径还是相对路径</li><li>然后进循环处理过程，分割每个目录名</li><li>得到这个目录名后，调用查找目录项函数find_entry()在当前处理的目录中寻找指定名称的目录</li><li>如果找到这个目录，就设置一些信息，然后继续以该目录项为当前目录继续循环处理路径名中的下一目录名部分（或文件名）</li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> struct m_inode * <span class="title">get_dir</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> * pathname)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> c;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span> * thisname;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">m_inode</span> * <span class="title">inode</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">buffer_head</span> * <span class="title">bh</span>;</span></span><br><span class="line">	<span class="keyword">int</span> namelen,inr,idev;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">dir_entry</span> * <span class="title">de</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!current-&gt;root || !current-&gt;root-&gt;i_count)</span><br><span class="line">		panic(<span class="string">"No root inode"</span>);</span><br><span class="line">	<span class="keyword">if</span> (!current-&gt;pwd || !current-&gt;pwd-&gt;i_count)</span><br><span class="line">		panic(<span class="string">"No cwd inode"</span>);</span><br><span class="line">	<span class="keyword">if</span> ((c=get_fs_byte(pathname))==<span class="string">'/'</span>) &#123;</span><br><span class="line">		inode = current-&gt;root;</span><br><span class="line">		pathname++;</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> (c)</span><br><span class="line">		inode = current-&gt;pwd;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;	<span class="comment">/* empty name is bad */</span></span><br><span class="line">	inode-&gt;i_count++;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">		thisname = pathname;</span><br><span class="line">		<span class="keyword">if</span> (!S_ISDIR(inode-&gt;i_mode) || !permission(inode,MAY_EXEC)) &#123;</span><br><span class="line">			iput(inode);</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(namelen=<span class="number">0</span>;(c=get_fs_byte(pathname++))&amp;&amp;(c!=<span class="string">'/'</span>);namelen++)</span><br><span class="line">			<span class="comment">/* nothing */</span> ;</span><br><span class="line">		<span class="keyword">if</span> (!c)</span><br><span class="line">			<span class="keyword">return</span> inode;</span><br><span class="line">		<span class="keyword">if</span> (!(bh = find_entry(&amp;inode,thisname,namelen,&amp;de))) &#123;</span><br><span class="line">			iput(inode);</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		inr = de-&gt;inode;</span><br><span class="line">		idev = inode-&gt;i_dev;</span><br><span class="line">		brelse(bh);</span><br><span class="line">		iput(inode);</span><br><span class="line">		<span class="keyword">if</span> (!(inode = iget(idev,inr)))</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author:</strong> dejavudwh</li><li class="post-copyright-link"><strong>Post link:</strong> <a href="https://dejavudwh.cn/os/从零写一个操作系统（九）.html" title="我是如何学习写一个操作系统（九）：文件系统">https://dejavudwh.cn/os/从零写一个操作系统（九）.html</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</li></ul></div><footer class="post-footer"><div class="post-tags"><a href="/tags/操作系统/" rel="tag"><i class="fa fa-tag"></i> 操作系统</a> <a href="/tags/从零写一个操作系统/" rel="tag"><i class="fa fa-tag"></i> 从零写一个操作系统</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/os/从零写一个操作系统（八）.html" rel="next" title="我是如何学习写一个操作系统（八）：内存管理和段页机制"><i class="fa fa-chevron-left"></i> 我是如何学习写一个操作系统（八）：内存管理和段页机制</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"><a href="/os/从零写一个操作系统（十）.html" rel="prev" title="我是如何学习写一个操作系统（完结）：总结和系列索引">我是如何学习写一个操作系统（完结）：总结和系列索引 <i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"></div></div></div><div class="comments" id="comments"></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span> <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span> <span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">Table of Contents</li><li class="sidebar-nav-overview" data-target="site-overview-wrap">Overview</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="dejavudwh"><p class="site-author-name" itemprop="name">dejavudwh</p><p class="site-description motion-element" itemprop="description"></p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href="/archives/"><span class="site-state-item-count">58</span> <span class="site-state-item-name">posts</span></a></div><div class="site-state-item site-state-categories"><a href="/categories/index.html"><span class="site-state-item-count">9</span> <span class="site-state-item-name">categories</span></a></div><div class="site-state-item site-state-tags"><a href="/tags/index.html"><span class="site-state-item-count">37</span> <span class="site-state-item-name">tags</span></a></div></nav><div class="feed-link motion-element"><a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i> RSS</a></div><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/dejavudwh" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a> </span><span class="links-of-author-item"><a href="mailto:494319000@qq.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a> </span><span class="links-of-author-item"><a href="https://www.cnblogs.com/secoding" target="_blank" title="cnblogs"><i class="fa fa-fw fa-align-center"></i>cnblogs</a></span></div><script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script><script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script><div class="widget-wrap"><h3 class="widget-title">Tag Cloud</h3><div id="myCanvasContainer" class="widget tagcloud"><canvas width="250" height="250" id="resCanvas"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST/">AST</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LALR-1/">LALR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LL-1/">LL(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR-1/">LR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lisp/">Lisp</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SICP/">SICP</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scheme/">Scheme</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Secrets-of-the-JavaScript-Ninja/">Secrets of the JavaScript Ninja</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上下文无关文法/">上下文无关文法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个操作系统/">从零写一个操作系统</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个编译器/">从零写一个编译器</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码生成/">代码生成</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大二期间/">大二期间</a><span class="tag-list-count">48</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字节码/">字节码</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抽象语法树/">抽象语法树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限状态自动机/">有限状态自动机</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限自动机/">有限自动机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/符号表/">符号表</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自底向上/">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解释器/">解释器</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词法分析/">词法分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语义分析/">语义分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析/">语法分析</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析表/">语法分析表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/输入系统/">输入系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归下降/">递归下降</a><span class="tag-list-count">1</span></li></ul></canvas></div></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生磁盘"><span class="nav-number">2.</span> <span class="nav-text">生磁盘</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#磁盘的组成"><span class="nav-number">2.1.</span> <span class="nav-text">磁盘的组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#磁盘的使用"><span class="nav-number">2.2.</span> <span class="nav-text">磁盘的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#盘块"><span class="nav-number">2.2.1.</span> <span class="nav-text">盘块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#磁盘调度"><span class="nav-number">2.2.2.</span> <span class="nav-text">磁盘调度</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件和文件系统"><span class="nav-number">3.</span> <span class="nav-text">文件和文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件的逻辑结构"><span class="nav-number">3.1.</span> <span class="nav-text">文件的逻辑结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#顺序文件"><span class="nav-number">3.1.1.</span> <span class="nav-text">顺序文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引文件"><span class="nav-number">3.1.2.</span> <span class="nav-text">索引文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引顺序表"><span class="nav-number">3.1.3.</span> <span class="nav-text">索引顺序表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录和文件系统"><span class="nav-number">3.2.</span> <span class="nav-text">目录和文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件控制块。"><span class="nav-number">3.2.1.</span> <span class="nav-text">文件控制块。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件目录树"><span class="nav-number">3.2.2.</span> <span class="nav-text">文件目录树</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件的实现"><span class="nav-number">4.</span> <span class="nav-text">文件的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#读取文件"><span class="nav-number">4.1.</span> <span class="nav-text">读取文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件写入"><span class="nav-number">4.2.</span> <span class="nav-text">文件写入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件目录的实现"><span class="nav-number">5.</span> <span class="nav-text">文件目录的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开创建文件"><span class="nav-number">5.1.</span> <span class="nav-text">打开创建文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析目录"><span class="nav-number">5.2.</span> <span class="nav-text">解析目录</span></a></li></ol></li></ol></div></div></section><div class="back-to-top"><i class="fa fa-arrow-up"></i> <span id="scrollpercent"><span>0</span>%</span></div></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright">&copy; <span itemprop="copyrightYear">2019</span> <span class="with-love"><i class="fa fa-user"></i> </span><span class="author" itemprop="copyrightHolder">dejavudwh</span> <span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-area-chart"></i> </span><span class="post-meta-item-text">Site words total count&#58;</span> <span title="Site words total count">87.7k</span></div><div class="busuanzi-count"><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span class="site-uv"><i class="fa fa-user">本站访客数</i> <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> </span><span class="site-pv"><i class="fa fa-eye">本站访问数</i> <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span></div></div></footer></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script><script type="text/javascript" src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script><script type="text/javascript" src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script><script type="text/javascript" src="https://cdn.bootcss.com/velocity/1.2.1/velocity.min.js"></script><script type="text/javascript" src="https://cdn.bootcss.com/velocity/1.2.1/velocity.ui.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><script type="text/javascript">function proceedsearch(){$("body").append('<div class="search-popup-overlay local-search-pop-overlay"></div>').css("overflow","hidden"),$(".search-popup-overlay").click(onPopupClose),$(".popup").toggle();var t=$("#local-search-input");t.attr("autocapitalize","none"),t.attr("autocorrect","off"),t.focus()}var isfetched=!1,isXml=!0,search_path="search.xml";0===search_path.length?search_path="search.xml":/json$/i.test(search_path)&&(isXml=!1);var path="/"+search_path,onPopupClose=function(t){$(".popup").hide(),$("#local-search-input").val(""),$(".search-result-list").remove(),$("#no-result").remove(),$(".local-search-pop-overlay").remove(),$("body").css("overflow","")},searchFunc=function(t,e,o){"use strict";$("body").append('<div class="search-popup-overlay local-search-pop-overlay"><div id="search-loading-icon"><i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i></div></div>').css("overflow","hidden"),$("#search-loading-icon").css("margin","20% auto 0 auto").css("text-align","center"),$.ajax({url:t,dataType:isXml?"xml":"json",async:!0,success:function(t){isfetched=!0,$(".popup").detach().appendTo(".header-inner");var n=isXml?$("entry",t).map(function(){return{title:$("title",this).text(),content:$("content",this).text(),url:$("url",this).text()}}).get():t,r=document.getElementById(e),s=document.getElementById(o),a=function(){var t=r.value.trim().toLowerCase(),e=t.split(/[\s\-]+/);e.length>1&&e.push(t);var o=[];if(t.length>0&&n.forEach(function(n){function r(e,o,n,r){for(var s=r[r.length-1],a=s.position,i=s.word,l=[],h=0;a+i.length<=n&&0!=r.length;){i===t&&h++,l.push({position:a,length:i.length});var p=a+i.length;for(r.pop();0!=r.length&&(s=r[r.length-1],a=s.position,i=s.word,p>a);)r.pop()}return c+=h,{hits:l,start:o,end:n,searchTextCount:h}}function s(t,e){var o="",n=e.start;return e.hits.forEach(function(e){o+=t.substring(n,e.position);var r=e.position+e.length;o+='<b class="search-keyword">'+t.substring(e.position,r)+"</b>",n=r}),o+=t.substring(n,e.end)}var a=!1,i=0,c=0,l=n.title.trim(),h=l.toLowerCase(),p=n.content.trim().replace(/<[^>]+>/g,""),u=p.toLowerCase(),f=decodeURIComponent(n.url),d=[],g=[];if(""!=l&&(e.forEach(function(t){function e(t,e,o){var n=t.length;if(0===n)return[];var r=0,s=[],a=[];for(o||(e=e.toLowerCase(),t=t.toLowerCase());(s=e.indexOf(t,r))>-1;)a.push({position:s,word:t}),r=s+n;return a}d=d.concat(e(t,h,!1)),g=g.concat(e(t,u,!1))}),(d.length>0||g.length>0)&&(a=!0,i=d.length+g.length)),a){[d,g].forEach(function(t){t.sort(function(t,e){return e.position!==t.position?e.position-t.position:t.word.length-e.word.length})});var v=[];0!=d.length&&v.push(r(l,0,l.length,d));for(var $=[];0!=g.length;){var C=g[g.length-1],m=C.position,x=C.word,w=m-20,y=m+80;w<0&&(w=0),y<m+x.length&&(y=m+x.length),y>p.length&&(y=p.length),$.push(r(p,w,y,g))}$.sort(function(t,e){return t.searchTextCount!==e.searchTextCount?e.searchTextCount-t.searchTextCount:t.hits.length!==e.hits.length?e.hits.length-t.hits.length:t.start-e.start});var T=parseInt("1");T>=0&&($=$.slice(0,T));var b="";b+=0!=v.length?"<li><a href='"+f+"' class='search-result-title'>"+s(l,v[0])+"</a>":"<li><a href='"+f+"' class='search-result-title'>"+l+"</a>",$.forEach(function(t){b+="<a href='"+f+'\'><p class="search-result">'+s(p,t)+"...</p></a>"}),b+="</li>",o.push({item:b,searchTextCount:c,hitCount:i,id:o.length})}}),1===e.length&&""===e[0])s.innerHTML='<div id="no-result"><i class="fa fa-search fa-5x" /></div>';else if(0===o.length)s.innerHTML='<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>';else{o.sort(function(t,e){return t.searchTextCount!==e.searchTextCount?e.searchTextCount-t.searchTextCount:t.hitCount!==e.hitCount?e.hitCount-t.hitCount:e.id-t.id});var a='<ul class="search-result-list">';o.forEach(function(t){a+=t.item}),a+="</ul>",s.innerHTML=a}};r.addEventListener("input",a),$(".local-search-pop-overlay").remove(),$("body").css("overflow",""),proceedsearch()}})};$(".popup-trigger").click(function(t){t.stopPropagation(),isfetched===!1?searchFunc(path,"local-search-input","local-search-result"):proceedsearch()}),$(".popup-btn-close").click(onPopupClose),$(".popup").click(function(t){t.stopPropagation()}),$(document).on("keyup",function(t){var e=27===t.which&&$(".search-popup").is(":visible");e&&onPopupClose()})</script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script><script>AV.initialize("a6l4GEYGNJelI48YNons47yE-gzGzoHsz","IrvJk6mHmoPN99oAXBvlATap")</script><script>function showTime(e){var t=new AV.Query(e),n=[],o=$(".leancloud_visitors");o.each(function(){n.push($(this).attr("id").trim())}),t.containedIn("url",n),t.find().done(function(e){var t=".leancloud-visitors-count";if(0===e.length)return void o.find(t).text(0);for(var i=0;i<e.length;i++){var r=e[i],s=r.get("url"),l=r.get("time"),c=document.getElementById(s);$(c).find(t).text(l)}for(var i=0;i<n.length;i++){var s=n[i],c=document.getElementById(s),u=$(c).find(t);""==u.text()&&u.text(0)}}).fail(function(e,t){console.log("Error: "+t.code+" "+t.message)})}function addCount(e){var t=$(".leancloud_visitors"),n=t.attr("id").trim(),o=t.attr("data-flag-title").trim(),i=new AV.Query(e);i.equalTo("url",n),i.find({success:function(t){if(t.length>0){var i=t[0];i.fetchWhenSave(!0),i.increment("time"),i.save(null,{success:function(e){var t=$(document.getElementById(n));t.find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var r=new e,s=new AV.ACL;s.setPublicReadAccess(!0),s.setPublicWriteAccess(!0),r.setACL(s),r.set("title",o),r.set("url",n),r.set("time",1),r.save(null,{success:function(e){var t=$(document.getElementById(n));t.find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):$(".post-title-link").length>1&&showTime(e)})</script><script>!function(){var t=document.createElement("script"),s=window.location.protocol.split(":")[0];"https"===s?t.src="https://zz.bdstatic.com/linksubmit/push.js":t.src="http://push.zhanzhang.baidu.com/push.js";var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}()</script></body></html><!-- rebuild by neat -->
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="dV7XCUPOyL1PUcHvSDhTDv-2rdeeFWm2Eb6K6WhZysY">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="omULaEGgAa">
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="操作系统,从零写一个操作系统,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="dejavudwh's Blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="前言这个应该是这个系列的尾声了，一个完整的操作系统可能最主要的也就是分成这几大模块：进程管理、内存管理和文件系统。计算机以进程为基本单位进行资源的调度和分配；而与用户的交互，基本单位则是文件生磁盘文件正是对生磁盘的抽象磁盘的组成一个磁盘由多个盘面串联而成，而一个盘面又被分为磁道，磁道又由扇区组成。磁盘的访问单元就是扇区，一个扇区为512字节">
+<meta name="keywords" content="操作系统,从零写一个操作系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我是如何学习写一个操作系统（九）：文件系统">
+<meta property="og:url" content="https://dejavudwh.cn/os/从零写一个操作系统（九）.html">
+<meta property="og:site_name" content="dejavudwh&#39;s Blog">
+<meta property="og:description" content="前言这个应该是这个系列的尾声了，一个完整的操作系统可能最主要的也就是分成这几大模块：进程管理、内存管理和文件系统。计算机以进程为基本单位进行资源的调度和分配；而与用户的交互，基本单位则是文件生磁盘文件正是对生磁盘的抽象磁盘的组成一个磁盘由多个盘面串联而成，而一个盘面又被分为磁道，磁道又由扇区组成。磁盘的访问单元就是扇区，一个扇区为512字节">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.loli.net/2019/08/31/PpeWD3bOVnZLytC.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/31/PA9cBRCUHFpSkjh.png">
+<meta property="og:image" content="https://i.loli.net/2019/08/31/CVaqyEcslr5bjTt.png">
+<meta property="og:updated_time" content="2019-09-01T08:14:02.590Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我是如何学习写一个操作系统（九）：文件系统">
+<meta name="twitter:description" content="前言这个应该是这个系列的尾声了，一个完整的操作系统可能最主要的也就是分成这几大模块：进程管理、内存管理和文件系统。计算机以进程为基本单位进行资源的调度和分配；而与用户的交互，基本单位则是文件生磁盘文件正是对生磁盘的抽象磁盘的组成一个磁盘由多个盘面串联而成，而一个盘面又被分为磁道，磁道又由扇区组成。磁盘的访问单元就是扇区，一个扇区为512字节">
+<meta name="twitter:image" content="https://i.loli.net/2019/08/31/PpeWD3bOVnZLytC.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dejavudwh.cn/os/从零写一个操作系统（九）.html">
+
+
+
+
+
+  <title>我是如何学习写一个操作系统（九）：文件系统 | dejavudwh's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">dejavudwh's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">开发日记和无聊琐碎</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            top
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/os/从零写一个操作系统（九）.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dejavudwh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dejavudwh's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">我是如何学习写一个操作系统（九）：文件系统</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-31T15:42:25+08:00">
+                2019-08-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/我是如何学习写一个操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">我是如何学习写一个操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/os/从零写一个操作系统（九）.html" class="leancloud_visitors" data-flag-title="我是如何学习写一个操作系统（九）：文件系统">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个应该是这个系列的尾声了，一个完整的操作系统可能最主要的也就是分成这几大模块：进程管理、内存管理和文件系统。计算机以进程为基本单位进行资源的调度和分配；而与用户的交互，基本单位则是文件</p><h2 id="生磁盘"><a href="#生磁盘" class="headerlink" title="生磁盘"></a>生磁盘</h2><blockquote><p>文件正是对生磁盘的抽象</p></blockquote><h3 id="磁盘的组成"><a href="#磁盘的组成" class="headerlink" title="磁盘的组成"></a>磁盘的组成</h3><p>一个磁盘由多个盘面串联而成，而一个盘面又被分为磁道，磁道又由扇区组成。</p><p>磁盘的访问单元就是扇区，一个扇区为512字节</p><a id="more"></a><h3 id="磁盘的使用"><a href="#磁盘的使用" class="headerlink" title="磁盘的使用"></a>磁盘的使用</h3><ul><li>CPU向磁盘的控制器发出一个指令</li><li>控制器开始进行寻道、旋转和传输</li><li>最后完成后向CPU发送一个中断</li></ul><p>也就是向控制器发送柱面磁头扇区等信息，然后等待回应</p><h4 id="盘块"><a href="#盘块" class="headerlink" title="盘块"></a>盘块</h4><blockquote><p>盘块是对扇区的抽象</p></blockquote><p>程序负责提高盘块block，而磁盘驱动负责从block计算出cyl，head，sec(CHS)，最后传递到磁盘控制器上</p><p><code>磁盘访问时间 = 写入控制器时间 + 寻道时间 + 旋转时间 + 传输时间</code></p><p>其中主要的时间都在寻道时间和旋转时间，所以对扇区抽象成盘块就可以一次访问多个扇区来节省磁盘的访问时间</p><h4 id="磁盘调度"><a href="#磁盘调度" class="headerlink" title="磁盘调度"></a>磁盘调度</h4><blockquote><p>既然有多进程交替执行，就有可能多个进程同时访问相同磁盘的情况，就需要一个请求队列来处理所有请求，就会涉及到调度算法了</p></blockquote><p><strong>FCFS调度</strong></p><p>FCFS是最公平最直观的算法，也就是按照队列顺序来访问磁盘，但是效率也很低下，磁头会在不规律的磁道长途奔袭</p><p><strong>SSTF调度</strong></p><p>SSTF算法就类似短作业优先算法，先寻找更近距离的磁道，但是SSTF算法可能会产生饥饿问题，过长距离的磁道可能一直得不到处理</p><p><strong>SCAN调度</strong></p><p>SCAN算法就是SSTF算法的改良版，也就是进行SSTF，但是在中途不会折返去寻找更短距离的磁道，这样就避免了饥饿问题</p><p><strong>C-SCAN调度(电梯算法)</strong></p><p>把扫描限定在一个方向，当访问到某个方向的最后一个磁道时，磁道返回磁盘相反方向磁道的末端，并再次开始扫描。</p><p><img src="https://i.loli.net/2019/08/31/PpeWD3bOVnZLytC.jpg" alt></p><h2 id="文件和文件系统"><a href="#文件和文件系统" class="headerlink" title="文件和文件系统"></a>文件和文件系统</h2><blockquote><p>文件是对磁盘的第三层抽象，扇区和盘块分别是前两层抽象。之所以有文件这层抽象是为了方便用户的使用，在用户的眼里，磁盘上的信息都可以看作是字符流。所以文件的抽象九可以看作是字符流到盘块集合的映射关系</p></blockquote><h3 id="文件的逻辑结构"><a href="#文件的逻辑结构" class="headerlink" title="文件的逻辑结构"></a>文件的逻辑结构</h3><p>从文件到盘块的映射来看，一般有这几种组织方式</p><ul><li><h4 id="顺序文件"><a href="#顺序文件" class="headerlink" title="顺序文件"></a>顺序文件</h4><p>记录是定长的且按关键字顺序排列。可以顺序存储或以链表形势存储，在访问时需要顺序搜索文件。顺序文件有以下两种结构：</p><ol><li><p>第一种是串结构，各记录之间的顺序与关键字无关。通常的办法是由时间来决定，即按存入时间的先后排列，最先存入的记录作为第一个记录，其次存入的为第二个记录，以此类推。</p></li><li><p>第二种是顺序结构，指文件中所有记录按关键字顺序排列。<br>在对记录进行批量操作时，即每次要读或写一大批记录，对顺序文件的效率是所有逻辑文件中最高的；此外，也只有顺序文件才能存储在磁带上，并能有效的工作。但顺序文件对查找、修改、增加或删除单个记录的操作比较困难。</p></li></ol></li><li><h4 id="索引文件"><a href="#索引文件" class="headerlink" title="索引文件"></a>索引文件</h4><p>对于可变长记录的文件只能顺序查找，系统开销较大，为此可以建立一张索引表以加快检索速度，索引表本身是顺序文件。在记录很多或是访问要求高的文件中，需要引入索引以提供有效的访问，实际中，通过索引可以成百上千倍的提高访问速度。</p></li><li><h4 id="索引顺序表"><a href="#索引顺序表" class="headerlink" title="索引顺序表"></a>索引顺序表</h4><p>索引顺序表是顺序和索引两种组织形势的结合。索引顺序文件将顺序文件中所有记录分为若干个组，为顺序文件建立一张索引表，在索引表中为每组中的第一个记录建立一个索引项，其中含有该记录的关键字值和指向该记录的指针。</p></li></ul><p>在实际的操作系统实现中，一般是采用多级索引</p><p><img src="https://i.loli.net/2019/08/31/PA9cBRCUHFpSkjh.png" alt></p><h3 id="目录和文件系统"><a href="#目录和文件系统" class="headerlink" title="目录和文件系统"></a>目录和文件系统</h3><blockquote><p>文件系统或者说目录是对磁盘的第四个抽象，也就是抽象了整个磁盘</p></blockquote><p>操作系统为了实现文件目录，引入了称为文件控制块的数据结构。</p><h4 id="文件控制块。"><a href="#文件控制块。" class="headerlink" title="文件控制块。"></a>文件控制块。</h4><p>文件控制块（FCB）是用来存放控制文件需要的各种信息的数据结构，以实现“按名存取”。FCB的有序集合称为文件目录，一个FCB就是一个文件目录项。为了创建一个新文件，系统将分配一个FCB并存放在文件目录中，称为目录项。</p><p>FCB主要包含以下信息：</p><ol><li>基本信息，如文件名、文件的物理位置、文件的逻辑结构、文件的物理结构等。</li><li>存取控制信息，如文件的存取权限等。</li><li>使用信息，如文件建立时间、修改时间等。</li></ol><h4 id="文件目录树"><a href="#文件目录树" class="headerlink" title="文件目录树"></a>文件目录树</h4><p>在多级目录下一般对磁盘就可以抽象为</p><ul><li><p>FCB数组</p><p>FCB数组就是将所有盘块的FCB信息都集中到一个数组中</p></li><li><p>数据盘块集合</p><p>在每个数据盘块里都包含一些目录项用来找到子目录，目录项也就是文件名+对应的FCB的“地址”，也就是去之前的FCB数组中找到相应的FCB</p></li></ul><p>在磁盘进行格式化的时候，会存放一些信息用来知道一些磁盘信息和找到根目录</p><p><img src="https://i.loli.net/2019/08/31/CVaqyEcslr5bjTt.png" alt="fx.png"></p><ul><li><p>inode位图: 哪些inode空闲，哪些被占用</p></li><li><p>超级块:记录两个位图有多大等信息</p></li><li><p>盘块位图: 哪些盘块是空闲的，硬盘大小不同这个位图的大小也不同</p></li></ul><h2 id="文件的实现"><a href="#文件的实现" class="headerlink" title="文件的实现"></a>文件的实现</h2><blockquote><p>在我之前实现的<a href="https://github.com/dejavudwh/FragileOS" target="_blank" rel="noopener">FragileOS</a>里文件系统非常简陋，基本没有什么好说的。这其实也是为什么之前把这个系列改了一个方向来结合的看Linux0.11的代码。所以来看一下Linux0.11里是怎么使用和实现文件系统的，</p></blockquote><h3 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h3><ul><li>这是读取文件的系统调用</li><li>函数首先对参数有效性进行判断</li><li>之后对文件的类型进行判断</li><li>如果是目录文件或者是常规文件就执行读取操作</li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sys_read</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> fd,<span class="keyword">char</span> * buf,<span class="keyword">int</span> count)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">file</span> * <span class="title">file</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">m_inode</span> * <span class="title">inode</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (fd&gt;=NR_OPEN || count&lt;<span class="number">0</span> || !(file=current-&gt;filp[fd]))</span><br><span class="line">		<span class="keyword">return</span> -EINVAL;</span><br><span class="line">	<span class="keyword">if</span> (!count)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	verify_area(buf,count);</span><br><span class="line">	inode = file-&gt;f_inode;</span><br><span class="line">	<span class="keyword">if</span> (inode-&gt;i_pipe)</span><br><span class="line">		<span class="keyword">return</span> (file-&gt;f_mode&amp;<span class="number">1</span>)?read_pipe(inode,buf,count):-EIO;</span><br><span class="line">	<span class="keyword">if</span> (S_ISCHR(inode-&gt;i_mode))</span><br><span class="line">		<span class="keyword">return</span> rw_char(READ,inode-&gt;i_zone[<span class="number">0</span>],buf,count,&amp;file-&gt;f_pos);</span><br><span class="line">	<span class="keyword">if</span> (S_ISBLK(inode-&gt;i_mode))</span><br><span class="line">		<span class="keyword">return</span> block_read(inode-&gt;i_zone[<span class="number">0</span>],&amp;file-&gt;f_pos,buf,count);</span><br><span class="line">	<span class="keyword">if</span> (S_ISDIR(inode-&gt;i_mode) || S_ISREG(inode-&gt;i_mode)) &#123;</span><br><span class="line">		<span class="keyword">if</span> (count+file-&gt;f_pos &gt; inode-&gt;i_size)</span><br><span class="line">			count = inode-&gt;i_size - file-&gt;f_pos;</span><br><span class="line">		<span class="keyword">if</span> (count&lt;=<span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span> file_read(inode,file,buf,count);</span><br><span class="line">	&#125;</span><br><span class="line">	printk(<span class="string">"(Read)inode-&gt;i_mode=%06o\n\r"</span>,inode-&gt;i_mode);</span><br><span class="line">	<span class="keyword">return</span> -EINVAL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li>根据i节点和文件结构，读取文件中数据。</li><li>首先判断参数的有效性</li><li>之后循环的调用bread来读取数据</li><li>之后复制chars字节到用户缓冲区buf中</li><li>最后是修改该i节点的访问时间为当前时间和返回读取的字节数</li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">file_read</span><span class="params">(struct m_inode * inode, struct file * filp, <span class="keyword">char</span> * buf, <span class="keyword">int</span> count)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> left,chars,nr;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">buffer_head</span> * <span class="title">bh</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> ((left=count)&lt;=<span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (left) &#123;</span><br><span class="line">		<span class="keyword">if</span> ((nr = bmap(inode,(filp-&gt;f_pos)/BLOCK_SIZE))) &#123;</span><br><span class="line">			<span class="keyword">if</span> (!(bh=bread(inode-&gt;i_dev,nr)))</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span></span><br><span class="line">			bh = <span class="literal">NULL</span>;</span><br><span class="line">		nr = filp-&gt;f_pos % BLOCK_SIZE;</span><br><span class="line">		chars = MIN( BLOCK_SIZE-nr , left );</span><br><span class="line">		filp-&gt;f_pos += chars;</span><br><span class="line">		left -= chars;</span><br><span class="line">		<span class="keyword">if</span> (bh) &#123;</span><br><span class="line">			<span class="keyword">char</span> * p = nr + bh-&gt;b_data;</span><br><span class="line">			<span class="keyword">while</span> (chars--&gt;<span class="number">0</span>)</span><br><span class="line">				put_fs_byte(*(p++),buf++);</span><br><span class="line">			brelse(bh);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">while</span> (chars--&gt;<span class="number">0</span>)</span><br><span class="line">				put_fs_byte(<span class="number">0</span>,buf++);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	inode-&gt;i_atime = CURRENT_TIME;</span><br><span class="line">	<span class="keyword">return</span> (count-left)?(count-left):-ERROR;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="文件写入"><a href="#文件写入" class="headerlink" title="文件写入"></a>文件写入</h3><ul><li>根据i节点和文件结构信息，将用户数据写入文件中</li><li>首先确定数据写入文件的位置</li><li>然后算出对应的盘块</li><li>然后用户缓冲区buf中复制c个字节到告诉缓冲块中p指向的开始位置处</li><li>最后是修改该i节点的访问时间为当前时间和返回读取的字节数</li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">file_write</span><span class="params">(struct m_inode * inode, struct file * filp, <span class="keyword">char</span> * buf, <span class="keyword">int</span> count)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">off_t</span> pos;</span><br><span class="line">	<span class="keyword">int</span> block,c;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">buffer_head</span> * <span class="title">bh</span>;</span></span><br><span class="line">	<span class="keyword">char</span> * p;</span><br><span class="line">	<span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * ok, append may not work when many processes are writing at the same time</span></span><br><span class="line"><span class="comment"> * but so what. That way leads to madness anyway.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">	<span class="keyword">if</span> (filp-&gt;f_flags &amp; O_APPEND)</span><br><span class="line">		pos = inode-&gt;i_size;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		pos = filp-&gt;f_pos;</span><br><span class="line">	<span class="keyword">while</span> (i&lt;count) &#123;</span><br><span class="line">		<span class="keyword">if</span> (!(block = create_block(inode,pos/BLOCK_SIZE)))</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">if</span> (!(bh=bread(inode-&gt;i_dev,block)))</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		c = pos % BLOCK_SIZE;</span><br><span class="line">		p = c + bh-&gt;b_data;</span><br><span class="line">		bh-&gt;b_dirt = <span class="number">1</span>;</span><br><span class="line">		c = BLOCK_SIZE-c;</span><br><span class="line">		<span class="keyword">if</span> (c &gt; count-i) c = count-i;</span><br><span class="line">		pos += c;</span><br><span class="line">		<span class="keyword">if</span> (pos &gt; inode-&gt;i_size) &#123;</span><br><span class="line">			inode-&gt;i_size = pos;</span><br><span class="line">			inode-&gt;i_dirt = <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		i += c;</span><br><span class="line">		<span class="keyword">while</span> (c--&gt;<span class="number">0</span>)</span><br><span class="line">			*(p++) = get_fs_byte(buf++);</span><br><span class="line">		brelse(bh);</span><br><span class="line">	&#125;</span><br><span class="line">	inode-&gt;i_mtime = CURRENT_TIME;</span><br><span class="line">	<span class="keyword">if</span> (!(filp-&gt;f_flags &amp; O_APPEND)) &#123;</span><br><span class="line">		filp-&gt;f_pos = pos;</span><br><span class="line">		inode-&gt;i_ctime = CURRENT_TIME;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> (i?i:<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="文件目录的实现"><a href="#文件目录的实现" class="headerlink" title="文件目录的实现"></a>文件目录的实现</h2><h3 id="打开创建文件"><a href="#打开创建文件" class="headerlink" title="打开创建文件"></a>打开创建文件</h3><ul><li>首先对参数进行处理，然后搜索进程结构中文件结构指针数组一个空闲的文件句柄</li><li>接着为打开文件在文件表中寻找一个空闲结构项</li><li>然后调用函数open_namei()执行打开操作，若返回值小于0，则说明出错，就释放刚申请到的文件结构</li><li>然后为不同的文件类型做一些特殊的处理</li><li>最后初始化打开文件的文件结构，然后返回文件句柄</li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sys_open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> * filename,<span class="keyword">int</span> flag,<span class="keyword">int</span> mode)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">m_inode</span> * <span class="title">inode</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">file</span> * <span class="title">f</span>;</span></span><br><span class="line">	<span class="keyword">int</span> i,fd;</span><br><span class="line"></span><br><span class="line">	mode &amp;= <span class="number">0777</span> &amp; ~current-&gt;umask;</span><br><span class="line">	<span class="keyword">for</span>(fd=<span class="number">0</span> ; fd&lt;NR_OPEN ; fd++)</span><br><span class="line">		<span class="keyword">if</span> (!current-&gt;filp[fd])</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">if</span> (fd&gt;=NR_OPEN)</span><br><span class="line">		<span class="keyword">return</span> -EINVAL;</span><br><span class="line">	current-&gt;close_on_exec &amp;= ~(<span class="number">1</span>&lt;&lt;fd);</span><br><span class="line">	f=<span class="number">0</span>+file_table;</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span> ; i&lt;NR_FILE ; i++,f++)</span><br><span class="line">		<span class="keyword">if</span> (!f-&gt;f_count) <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">if</span> (i&gt;=NR_FILE)</span><br><span class="line">		<span class="keyword">return</span> -EINVAL;</span><br><span class="line">	(current-&gt;filp[fd]=f)-&gt;f_count++;</span><br><span class="line">	<span class="keyword">if</span> ((i=open_namei(filename,flag,mode,&amp;inode))&lt;<span class="number">0</span>) &#123;</span><br><span class="line">		current-&gt;filp[fd]=<span class="literal">NULL</span>;</span><br><span class="line">		f-&gt;f_count=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span> i;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">/* ttys are somewhat special (ttyxx major==4, tty major==5) */</span></span><br><span class="line">	<span class="keyword">if</span> (S_ISCHR(inode-&gt;i_mode)) &#123;</span><br><span class="line">		<span class="keyword">if</span> (MAJOR(inode-&gt;i_zone[<span class="number">0</span>])==<span class="number">4</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (current-&gt;leader &amp;&amp; current-&gt;tty&lt;<span class="number">0</span>) &#123;</span><br><span class="line">				current-&gt;tty = MINOR(inode-&gt;i_zone[<span class="number">0</span>]);</span><br><span class="line">				tty_table[current-&gt;tty].pgrp = current-&gt;pgrp;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (MAJOR(inode-&gt;i_zone[<span class="number">0</span>])==<span class="number">5</span>)</span><br><span class="line">			<span class="keyword">if</span> (current-&gt;tty&lt;<span class="number">0</span>) &#123;</span><br><span class="line">				iput(inode);</span><br><span class="line">				current-&gt;filp[fd]=<span class="literal">NULL</span>;</span><br><span class="line">				f-&gt;f_count=<span class="number">0</span>;</span><br><span class="line">				<span class="keyword">return</span> -EPERM;</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">/* Likewise with block-devices: check for floppy_change */</span></span><br><span class="line">	<span class="keyword">if</span> (S_ISBLK(inode-&gt;i_mode))</span><br><span class="line">		check_disk_change(inode-&gt;i_zone[<span class="number">0</span>]);</span><br><span class="line">	f-&gt;f_mode = inode-&gt;i_mode;</span><br><span class="line">	f-&gt;f_flags = flag;</span><br><span class="line">	f-&gt;f_count = <span class="number">1</span>;</span><br><span class="line">	f-&gt;f_inode = inode;</span><br><span class="line">	f-&gt;f_pos = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> (fd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="解析目录"><a href="#解析目录" class="headerlink" title="解析目录"></a>解析目录</h3><ul><li>先根据当前路径的第一个字符来判断当前路径是绝对路径还是相对路径</li><li>然后进循环处理过程，分割每个目录名</li><li>得到这个目录名后，调用查找目录项函数find_entry()在当前处理的目录中寻找指定名称的目录</li><li>如果找到这个目录，就设置一些信息，然后继续以该目录项为当前目录继续循环处理路径名中的下一目录名部分（或文件名）</li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> struct m_inode * <span class="title">get_dir</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> * pathname)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> c;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span> * thisname;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">m_inode</span> * <span class="title">inode</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">buffer_head</span> * <span class="title">bh</span>;</span></span><br><span class="line">	<span class="keyword">int</span> namelen,inr,idev;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">dir_entry</span> * <span class="title">de</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!current-&gt;root || !current-&gt;root-&gt;i_count)</span><br><span class="line">		panic(<span class="string">"No root inode"</span>);</span><br><span class="line">	<span class="keyword">if</span> (!current-&gt;pwd || !current-&gt;pwd-&gt;i_count)</span><br><span class="line">		panic(<span class="string">"No cwd inode"</span>);</span><br><span class="line">	<span class="keyword">if</span> ((c=get_fs_byte(pathname))==<span class="string">'/'</span>) &#123;</span><br><span class="line">		inode = current-&gt;root;</span><br><span class="line">		pathname++;</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> (c)</span><br><span class="line">		inode = current-&gt;pwd;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;	<span class="comment">/* empty name is bad */</span></span><br><span class="line">	inode-&gt;i_count++;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">		thisname = pathname;</span><br><span class="line">		<span class="keyword">if</span> (!S_ISDIR(inode-&gt;i_mode) || !permission(inode,MAY_EXEC)) &#123;</span><br><span class="line">			iput(inode);</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(namelen=<span class="number">0</span>;(c=get_fs_byte(pathname++))&amp;&amp;(c!=<span class="string">'/'</span>);namelen++)</span><br><span class="line">			<span class="comment">/* nothing */</span> ;</span><br><span class="line">		<span class="keyword">if</span> (!c)</span><br><span class="line">			<span class="keyword">return</span> inode;</span><br><span class="line">		<span class="keyword">if</span> (!(bh = find_entry(&amp;inode,thisname,namelen,&amp;de))) &#123;</span><br><span class="line">			iput(inode);</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		inr = de-&gt;inode;</span><br><span class="line">		idev = inode-&gt;i_dev;</span><br><span class="line">		brelse(bh);</span><br><span class="line">		iput(inode);</span><br><span class="line">		<span class="keyword">if</span> (!(inode = iget(idev,inr)))</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><!-- rebuild by neat -->
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    dejavudwh
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://dejavudwh.cn/os/从零写一个操作系统（九）.html" title="我是如何学习写一个操作系统（九）：文件系统">https://dejavudwh.cn/os/从零写一个操作系统（九）.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/操作系统/" rel="tag"><i class="fa fa-tag"></i> 操作系统</a>
+          
+            <a href="/tags/从零写一个操作系统/" rel="tag"><i class="fa fa-tag"></i> 从零写一个操作系统</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/os/从零写一个操作系统（八）.html" rel="next" title="我是如何学习写一个操作系统（八）：内存管理和段页机制">
+                <i class="fa fa-chevron-left"></i> 我是如何学习写一个操作系统（八）：内存管理和段页机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/os/从零写一个操作系统（十）.html" rel="prev" title="我是如何学习写一个操作系统（完结）：总结和系列索引">
+                我是如何学习写一个操作系统（完结）：总结和系列索引 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="dejavudwh">
+            
+              <p class="site-author-name" itemprop="name">dejavudwh</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dejavudwh" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:494319000@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/secoding" target="_blank" title="cnblogs">
+                      
+                        <i class="fa fa-fw fa-align-center"></i>cnblogs</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b72ded8e51d45664c23a662" target="_blank" title="Juejin">
+                      
+                        <i class="fa fa-fw fa-book"></i>Juejin</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST/">AST</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LALR-1/">LALR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LL-1/">LL(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR-1/">LR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lisp/">Lisp</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SICP/">SICP</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scheme/">Scheme</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Secrets-of-the-JavaScript-Ninja/">Secrets of the JavaScript Ninja</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上下文无关文法/">上下文无关文法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个操作系统/">从零写一个操作系统</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个编译器/">从零写一个编译器</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码生成/">代码生成</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大二期间/">大二期间</a><span class="tag-list-count">48</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字节码/">字节码</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抽象语法树/">抽象语法树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限状态自动机/">有限状态自动机</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限自动机/">有限自动机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式引擎/">正则表达式引擎</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/符号表/">符号表</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自底向上/">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解释器/">解释器</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词法分析/">词法分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语义分析/">语义分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析/">语法分析</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析表/">语法分析表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/输入系统/">输入系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归下降/">递归下降</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生磁盘"><span class="nav-number">2.</span> <span class="nav-text">生磁盘</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#磁盘的组成"><span class="nav-number">2.1.</span> <span class="nav-text">磁盘的组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#磁盘的使用"><span class="nav-number">2.2.</span> <span class="nav-text">磁盘的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#盘块"><span class="nav-number">2.2.1.</span> <span class="nav-text">盘块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#磁盘调度"><span class="nav-number">2.2.2.</span> <span class="nav-text">磁盘调度</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件和文件系统"><span class="nav-number">3.</span> <span class="nav-text">文件和文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件的逻辑结构"><span class="nav-number">3.1.</span> <span class="nav-text">文件的逻辑结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#顺序文件"><span class="nav-number">3.1.1.</span> <span class="nav-text">顺序文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引文件"><span class="nav-number">3.1.2.</span> <span class="nav-text">索引文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引顺序表"><span class="nav-number">3.1.3.</span> <span class="nav-text">索引顺序表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录和文件系统"><span class="nav-number">3.2.</span> <span class="nav-text">目录和文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件控制块。"><span class="nav-number">3.2.1.</span> <span class="nav-text">文件控制块。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件目录树"><span class="nav-number">3.2.2.</span> <span class="nav-text">文件目录树</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件的实现"><span class="nav-number">4.</span> <span class="nav-text">文件的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#读取文件"><span class="nav-number">4.1.</span> <span class="nav-text">读取文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件写入"><span class="nav-number">4.2.</span> <span class="nav-text">文件写入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件目录的实现"><span class="nav-number">5.</span> <span class="nav-text">文件目录的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开创建文件"><span class="nav-number">5.1.</span> <span class="nav-text">打开创建文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析目录"><span class="nav-number">5.2.</span> <span class="nav-text">解析目录</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dejavudwh</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">89.6k</span>
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">本站访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">本站访问数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="https://cdn.bootcss.com/velocity/1.2.1/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="https://cdn.bootcss.com/velocity/1.2.1/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("a6l4GEYGNJelI48YNons47yE-gzGzoHsz", "IrvJk6mHmoPN99oAXBvlATap");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
