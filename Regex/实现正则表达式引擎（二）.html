@@ -82,7 +82,7 @@
 
 
 
-  <meta name="keywords" content="大二期间,SICP,计算机科学,解释器,Lisp,Scheme,">
+  <meta name="keywords" content="正则表达式引擎,有限状态自动机,">
 
 
 
@@ -95,18 +95,25 @@
 
 
 
-<meta name="description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 1 构造过程对象  练习答案用高阶函数做抽象或许这就是函数式和面向对象各有吸引人的地方吧，函数式的硬通货是过程，面向对象">
-<meta name="keywords" content="大二期间,SICP,计算机科学,解释器,Lisp,Scheme">
+<meta name="description" content="项目地址：Regex in Python 在看一下之前正则的语法的 BNF 范式 12345group ::= (&quot;(&quot; expr &quot;)&quot;)*expr ::= factor_conn (&quot;|&quot; factor_conn)*factor_conn ::= factor | factor factor*factor ::= (term | term (&quot;*&quot; | &quot;+&quot; | &quot;?&quot;))*term ::=">
+<meta name="keywords" content="正则表达式引擎,有限状态自动机">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SICP Chapter 1.3">
-<meta property="og:url" content="https://dejavudwh.cn/SICP/Chapter 1.3.html">
+<meta property="og:title" content="实现一个正则表达式引擎in Python(二)">
+<meta property="og:url" content="https://dejavudwh.cn/Regex/实现正则表达式引擎（二）.html">
 <meta property="og:site_name" content="dejavudwh&#39;s Blog">
-<meta property="og:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 1 构造过程对象  练习答案用高阶函数做抽象或许这就是函数式和面向对象各有吸引人的地方吧，函数式的硬通货是过程，面向对象">
+<meta property="og:description" content="项目地址：Regex in Python 在看一下之前正则的语法的 BNF 范式 12345group ::= (&quot;(&quot; expr &quot;)&quot;)*expr ::= factor_conn (&quot;|&quot; factor_conn)*factor_conn ::= factor | factor factor*factor ::= (term | term (&quot;*&quot; | &quot;+&quot; | &quot;?&quot;))*term ::=">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-06-14T08:27:29.670Z">
+<meta property="og:image" content="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/mermaid-diagram-20190924110015.svg">
+<meta property="og:image" content="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/mermaid-diagram-20190924110822.svg">
+<meta property="og:image" content="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/mermaid-diagram-20190924111131.svg">
+<meta property="og:image" content="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/mermaid-diagram-20190924111808.svg">
+<meta property="og:image" content="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/mermaid-diagram-20190924131048.svg">
+<meta property="og:image" content="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/mermaid-diagram-20190924131048.svg">
+<meta property="og:updated_time" content="2019-09-24T09:30:42.106Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SICP Chapter 1.3">
-<meta name="twitter:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 1 构造过程对象  练习答案用高阶函数做抽象或许这就是函数式和面向对象各有吸引人的地方吧，函数式的硬通货是过程，面向对象">
+<meta name="twitter:title" content="实现一个正则表达式引擎in Python(二)">
+<meta name="twitter:description" content="项目地址：Regex in Python 在看一下之前正则的语法的 BNF 范式 12345group ::= (&quot;(&quot; expr &quot;)&quot;)*expr ::= factor_conn (&quot;|&quot; factor_conn)*factor_conn ::= factor | factor factor*factor ::= (term | term (&quot;*&quot; | &quot;+&quot; | &quot;?&quot;))*term ::=">
+<meta name="twitter:image" content="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/mermaid-diagram-20190924110015.svg">
 
 
 
@@ -136,13 +143,13 @@
 
 
 
-  <link rel="canonical" href="https://dejavudwh.cn/SICP/Chapter 1.3.html">
+  <link rel="canonical" href="https://dejavudwh.cn/Regex/实现正则表达式引擎（二）.html">
 
 
 
 
 
-  <title>SICP Chapter 1.3 | dejavudwh's Blog</title>
+  <title>实现一个正则表达式引擎in Python(二) | dejavudwh's Blog</title>
   
 
 
@@ -321,7 +328,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/SICP/Chapter 1.3.html">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/Regex/实现正则表达式引擎（二）.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dejavudwh">
@@ -338,7 +345,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">SICP Chapter 1.3</h2>
+          <h2 class="post-title" itemprop="name headline">实现一个正则表达式引擎in Python(二)</h2>
         
 
         <div class="post-meta">
@@ -350,8 +357,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-12T18:54:25+08:00">
-                2019-06-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-24T10:36:25+08:00">
+                2019-09-24
               </time>
             
 
@@ -373,8 +380,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
+                  <a href="/categories/开发日记/" itemprop="url" rel="index">
+                    <span itemprop="name">开发日记</span>
                   </a>
                 </span>
 
@@ -384,8 +391,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/SICP/" itemprop="url" rel="index">
-                    <span itemprop="name">SICP</span>
+                  <a href="/categories/开发日记/实现正则表达式引擎/" itemprop="url" rel="index">
+                    <span itemprop="name">实现正则表达式引擎</span>
                   </a>
                 </span>
 
@@ -401,7 +408,7 @@
 
           
           
-             <span id="/SICP/Chapter 1.3.html" class="leancloud_visitors" data-flag-title="SICP Chapter 1.3">
+             <span id="/Regex/实现正则表达式引擎（二）.html" class="leancloud_visitors" data-flag-title="实现一个正则表达式引擎in Python(二)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -431,7 +438,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.3k
+                  1.4k
                 </span>
               
 
@@ -447,7 +454,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  5
+                  6
                 </span>
               
             </div>
@@ -468,104 +475,97 @@
       
 
       
-        <h1 id="SICP-CONCLUSION"><a href="#SICP-CONCLUSION" class="headerlink" title="SICP CONCLUSION"></a><strong>SICP CONCLUSION</strong></h1><blockquote>
-<p>让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！</p>
-</blockquote>
-<blockquote>
-<p>祝我能够突破层层代码，找到住在里计算机的神灵！</p>
-</blockquote>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a><strong><font color="green">目录</font></strong></h2><h5 id="1-构造过程抽象"><a href="#1-构造过程抽象" class="headerlink" title="1. 构造过程抽象"></a>1. 构造过程抽象</h5><h5 id="2-构造数据抽象"><a href="#2-构造数据抽象" class="headerlink" title="2. 构造数据抽象"></a>2. 构造数据抽象</h5><h5 id="3-模块化、对象和状态"><a href="#3-模块化、对象和状态" class="headerlink" title="3. 模块化、对象和状态"></a>3. 模块化、对象和状态</h5><h5 id="4-元语言抽象"><a href="#4-元语言抽象" class="headerlink" title="4. 元语言抽象"></a>4. 元语言抽象</h5><h5 id="5-寄存器机器里的计算"><a href="#5-寄存器机器里的计算" class="headerlink" title="5. 寄存器机器里的计算"></a>5. 寄存器机器里的计算</h5><h2 id="Chapter-1"><a href="#Chapter-1" class="headerlink" title="Chapter 1"></a><strong><font color="red">Chapter 1</font></strong></h2><ul>
-<li>构造过程对象</li>
-</ul>
-<h3 id="练习答案"><a href="#练习答案" class="headerlink" title="练习答案"></a><a href="https://github.com/dejavudwh/SICP-Exercise" target="_blank" rel="noopener">练习答案</a></h3><h4 id="用高阶函数做抽象"><a href="#用高阶函数做抽象" class="headerlink" title="用高阶函数做抽象"></a>用高阶函数做抽象</h4><p><font color="pink"><em>或许这就是函数式和面向对象各有吸引人的地方吧，函数式的硬通货是过程，面向对象则是对象</em></font></p>
-<blockquote>
-<p>人们对功能强大的程序设计有一个必然要求，就是能为公共模式命名，建立抽象，而后直接在抽象的层次上工作</p>
-</blockquote>
+        <p><strong>项目地址：<a href="https://github.com/dejavudwh/Regex" target="_blank" rel="noopener">Regex in Python</a></strong></p>
+<p>在看一下之前正则的语法的 BNF 范式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">group ::= (<span class="string">"("</span> expr <span class="string">")"</span>)*</span><br><span class="line">expr ::= factor_conn (<span class="string">"|"</span> factor_conn)*</span><br><span class="line">factor_conn ::= factor | factor factor*</span><br><span class="line">factor ::= (term | term (<span class="string">"*"</span> | <span class="string">"+"</span> | <span class="string">"?"</span>))*</span><br><span class="line">term ::= char | <span class="string">"["</span> char <span class="string">"-"</span> char <span class="string">"]"</span> | .</span><br></pre></td></tr></table></figure>
+
+<p>上一篇构造了 term 的简单 NFA</p>
+<h2 id="构造复杂的-NFA"><a href="#构造复杂的-NFA" class="headerlink" title="构造复杂的 NFA"></a>构造复杂的 NFA</h2><h2 id="factor"><a href="#factor" class="headerlink" title="factor"></a>factor</h2><p>根据上面的<code>factor ::= (term | term (&quot;*&quot; | &quot;+&quot; | &quot;?&quot;))*</code>，先进行 term 的 NFA 的生成，然后根据词法分析器来判断要进行哪个 factor 的 NFA 的构造</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">factor</span><span class="params">(pair_out)</span>:</span></span><br><span class="line">    term(pair_out)</span><br><span class="line">    <span class="keyword">if</span> lexer.match(Token.CLOSURE):</span><br><span class="line">        nfa_star_closure(pair_out)</span><br><span class="line">    <span class="keyword">elif</span> lexer.match(Token.PLUS_CLOSE):</span><br><span class="line">        nfa_plus_closure(pair_out)</span><br><span class="line">    <span class="keyword">elif</span> lexer.match(Token.OPTIONAL):</span><br><span class="line">        nfa_option_closure(pair_out)</span><br></pre></td></tr></table></figure>
+
 <a id="more"></a>
+<h3 id="nfa-star-closure"><a href="#nfa-star-closure" class="headerlink" title="nfa_star_closure"></a>nfa_star_closure</h3><p><img src="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/mermaid-diagram-20190924110015.svg" alt></p>
+<p>*操作就是对之前的 term 再生成两个节点进行连接</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nfa_star_closure</span><span class="params">(pair_out)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> lexer.match(Token.CLOSURE):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    start = Nfa()</span><br><span class="line">    end = Nfa()</span><br><span class="line">    start.next_1 = pair_out.start_node</span><br><span class="line">    start.next_2 = end</span><br><span class="line"></span><br><span class="line">    pair_out.end_node.next_1 = pair_out.start_node</span><br><span class="line">    pair_out.end_node.next_2 = end</span><br><span class="line"></span><br><span class="line">    pair_out.start_node = start</span><br><span class="line">    pair_out.end_node = end</span><br><span class="line"></span><br><span class="line">    lexer.advance()</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
 
-<ul>
-<li><h6 id="过程作为参数"><a href="#过程作为参数" class="headerlink" title="过程作为参数"></a>过程作为参数</h6></li>
-</ul>
-<p>三个例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(define (sum-integers a b)</span><br><span class="line">  (if (&gt; a b)</span><br><span class="line">      0</span><br><span class="line">      (+ a (sum-integers (+ a 1) b))))</span><br><span class="line"></span><br><span class="line">(define (sum-cubes a b)</span><br><span class="line">  (if (&gt; a b)</span><br><span class="line">      0</span><br><span class="line">      (+ (cube a) (sum-cubes (+ a 1) b))))</span><br><span class="line"></span><br><span class="line">(define (pi-sum a b)</span><br><span class="line">  (if (&gt; a b)</span><br><span class="line">      0</span><br><span class="line">      (+ (/ 1.0 (* a (+ a 2))) (pi-sum (+ a 4) b))))</span><br></pre></td></tr></table></figure>
+<h3 id="nfa-plus-closure"><a href="#nfa-plus-closure" class="headerlink" title="nfa_plus_closure"></a>nfa_plus_closure</h3><p><img src="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/mermaid-diagram-20190924110822.svg" alt></p>
+<p>+和*的唯一区别就是必须至少匹配一个字符，所以不能从节点 2 直接跳转到节点 4</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nfa_plus_closure</span><span class="params">(pair_out)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> lexer.match(Token.PLUS_CLOSE):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    start = Nfa()</span><br><span class="line">    end = Nfa()</span><br><span class="line">    start.next_1 = pair_out.start_node</span><br><span class="line"></span><br><span class="line">    pair_out.end_node.next_1 = pair_out.start_node</span><br><span class="line">    pair_out.end_node.next_2 = end</span><br><span class="line"></span><br><span class="line">    pair_out.start_node = start</span><br><span class="line">    pair_out.end_node = end</span><br><span class="line"></span><br><span class="line">    lexer.advance()</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
 
-<p><em>三个例子存在着很明显的公共模式，也即说明可以建立非常强大的抽象</em></p>
-<ol>
-<li>需要进行加法的操作函数</li>
-<li>获得下一个值的函数</li>
-<li>对两个参数的特定操作，+ ？</li>
-</ol>
+<h3 id="nfa-option-closure"><a href="#nfa-option-closure" class="headerlink" title="nfa_option_closure"></a>nfa_option_closure</h3><p><img src="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/mermaid-diagram-20190924111131.svg" alt></p>
+<p>?对应的则是只能输入 0 个或 1 个的匹配字符，所以相对于*就不能再次从节点 1 跳转会节点 0</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nfa_option_closure</span><span class="params">(pair_out)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> lexer.match(Token.OPTIONAL):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    start = Nfa()</span><br><span class="line">    end = Nfa()</span><br><span class="line"></span><br><span class="line">    start.next_1 = pair_out.start_node</span><br><span class="line">    start.next_2 = end</span><br><span class="line">    pair_out.end_node.next_1 = end</span><br><span class="line"></span><br><span class="line">    pair_out.start_node = start</span><br><span class="line">    pair_out.end_node = end</span><br><span class="line"></span><br><span class="line">    lexer.advance()</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="factor-conn"><a href="#factor-conn" class="headerlink" title="factor_conn"></a>factor_conn</h2><p><code>factor_conn ::= factor | factor factor*</code></p>
 <blockquote>
-<p>在思考的是，面向对象中，相关的想法是怎么样的。如果在一个类中，会存在许多可以提取公共模式的方法吗？或者说这是Java中许多类共有的方法的思想来源，在操作时传递有相同方法的类，但方法中又有类型参数的限制，所以？继承or多态等等吗… 工具函数</p>
+<p>对于 factor_conn 就是一个或者多个 factor 相连接，也就是说如果有多个 factor，只要将它们的头尾节点相连接</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">;; 扩展到积分操作</span><br><span class="line">(define (integral f a b dx)</span><br><span class="line">  (define (add-dx x) (+ x dx))</span><br><span class="line">  (* (sum f (+ a (/ dx 2)) add-dx b)</span><br><span class="line">     dx))</span><br><span class="line"></span><br><span class="line">;: (integral cube 0 1 0.01)</span><br><span class="line"></span><br><span class="line">;: (integral cube 0 1 0.001)</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/mermaid-diagram-20190924111808.svg" alt></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">factor_conn</span><span class="params">(pair_out)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> is_conn(lexer.current_token):</span><br><span class="line">        factor(pair_out)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> is_conn(lexer.current_token):</span><br><span class="line">        pair = NfaPair()</span><br><span class="line">        factor(pair)</span><br><span class="line">        pair_out.end_node.next_1 = pair.start_node</span><br><span class="line">        pair_out.end_node = pair.end_node</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
 
-<p><em>练习中的过滤器</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(define (filtered-accumulate combiner null-value term a next b filter)</span><br><span class="line">  (if (&gt; a b)</span><br><span class="line">      null-value</span><br><span class="line">      (if (filter a)</span><br><span class="line">          (combiner (term a) (filtered-accumulate combiner null-value term (next a) next b filter))</span><br><span class="line">          (combiner null-value (filtered-accumulate combiner null-value term (next a) next b filter)))))</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><h6 id="用lambda构造过程"><a href="#用lambda构造过程" class="headerlink" title="用lambda构造过程"></a>用lambda构造过程</h6></li>
-</ul>
+<h2 id="expr"><a href="#expr" class="headerlink" title="expr"></a>expr</h2><p><code>expr ::= factor_conn (&quot;|&quot; factor_conn)*</code></p>
 <blockquote>
-<p>作为一个匿名函数去传递</p>
+<p>对于 expr 就是一个 factor_conn 或者多个 factor_conn 用|相连接</p>
 </blockquote>
-<ol>
-<li>用let创建局部变量</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(let ((&lt;var&gt;&lt;exp&gt;)</span><br><span class="line">       &lt;var&gt;&lt;exp&gt;))</span><br><span class="line">       body)</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/mermaid-diagram-20190924131048.svg" alt></p>
+<p>构建|的 NFA 就是生成两个新节点，新生成的头节点有两条边分别连接到 factor_conn 的头节点，对于两个 factor_conn 的尾节点分别生成一条边连接到新生成的尾节点</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">expr</span><span class="params">(pair_out)</span>:</span></span><br><span class="line">    factor_conn(pair_out)</span><br><span class="line">    pair = NfaPair()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> lexer.match(Token.OR):</span><br><span class="line">        lexer.advance()</span><br><span class="line">        factor_conn(pair)</span><br><span class="line">        start = Nfa()</span><br><span class="line">        start.next_1 = pair.start_node</span><br><span class="line">        start.next_2 = pair_out.start_node</span><br><span class="line">        pair_out.start_node = start</span><br><span class="line"></span><br><span class="line">        end = Nfa()</span><br><span class="line">        pair.end_node.next_1 = end</span><br><span class="line">        pair_out.end_node.next_2 = end</span><br><span class="line">        pair_out.end_node = end</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
 
-<p><em>但其实是作为lambda的语法糖而已</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">((lambda (&lt;var1&gt;&lt;var2&gt;)</span><br><span class="line">  &lt;body&gt;)</span><br><span class="line">  &lt;exp&gt;</span><br><span class="line">  &lt;exp&gt;)</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>过程作为一般性的方法</li>
-</ol>
-<blockquote>
-<p>更高级的抽象：描述一般性的方法，不依赖特定的数值或者函数</p>
+<h2 id="group"><a href="#group" class="headerlink" title="group"></a>group</h2><blockquote>
+<p>group 其实就是在 expr 上加了两个括号，完全可以去掉</p>
 </blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">group</span><span class="params">(pair_out)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> lexer.match(Token.OPEN_PAREN):</span><br><span class="line">        lexer.advance()</span><br><span class="line">        expr(pair_out)</span><br><span class="line">        <span class="keyword">if</span> lexer.match(Token.CLOSE_PAREN):</span><br><span class="line">            lexer.advance()</span><br><span class="line">    <span class="keyword">elif</span> lexer.match(Token.EOS):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        expr(pair_out)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        pair = NfaPair()</span><br><span class="line">        <span class="keyword">if</span> lexer.match(Token.OPEN_PAREN):</span><br><span class="line">            lexer.advance()</span><br><span class="line">            expr(pair)</span><br><span class="line">            pair_out.end_node.next_1 = pair.start_node</span><br><span class="line">            pair_out.end_node = pair.end_node</span><br><span class="line">            <span class="keyword">if</span> lexer.match(Token.CLOSE_PAREN):</span><br><span class="line">                lexer.advance()</span><br><span class="line">        <span class="keyword">elif</span> lexer.match(Token.EOS):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            expr(pair)</span><br><span class="line">            pair_out.end_node.next_1 = pair.start_node</span><br><span class="line">            pair_out.end_node = pair.end_node</span><br></pre></td></tr></table></figure>
+
+<h2 id="构造-NFA-总结"><a href="#构造-NFA-总结" class="headerlink" title="构造 NFA 总结"></a>构造 NFA 总结</h2><p>可以看到对于整个 NFA 的构造，其实就是从最顶部开始向下递归，整个过程大概是：</p>
 <ul>
-<li>通过区间折半寻找方程的跟</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(define (search f neg-point pos-point)</span><br><span class="line">  (let ((midpoint (average neg-point pos-point)))</span><br><span class="line">    (if (close-enough? neg-point pos-point)</span><br><span class="line">        midpoint</span><br><span class="line">        (let ((test-value (f midpoint)))</span><br><span class="line">          (cond ((positive? test-value)</span><br><span class="line">                 (search f neg-point midpoint))</span><br><span class="line">                ((negative? test-value)</span><br><span class="line">                 (search f midpoint pos-point))</span><br><span class="line">                (else midpoint))))))</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">;; 抽象出来的作为基本的谓词过程</span><br><span class="line">(define (close-enough? x y)</span><br><span class="line">  (&lt; (abs (- x y)) 0.001))</span><br></pre></td></tr></table></figure>
-
-<p><em>改进这个方法，如果同号就无法使用折半</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(define (half-interval-method f a b)</span><br><span class="line">  (let ((a-value (f a))</span><br><span class="line">        (b-value (f b)))</span><br><span class="line">    (cond ((and (negative? a-value) (positive? b-value))</span><br><span class="line">           (search f a b))</span><br><span class="line">          ((and (negative? b-value) (positive? a-value))</span><br><span class="line">           (search f b a))</span><br><span class="line">          (else</span><br><span class="line">           (error &quot;Values are not of opposite sign&quot; a b)))))</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>找出函数不动点</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(define (fixed-point f first-guess)</span><br><span class="line">  (define (close-enough? v1 v2)</span><br><span class="line">    (&lt; (abs (- v1 v2)) tolerance))</span><br><span class="line">  (define (try guess)</span><br><span class="line">    (let ((next (f guess)))</span><br><span class="line">      (if (close-enough? guess next)</span><br><span class="line">          next</span><br><span class="line">          (try next))))</span><br><span class="line">  (try first-guess))</span><br></pre></td></tr></table></figure>
-
-<p><em>回想到之前讲的求平方根，一样可重新用这个一般性方法实现</em></p>
-<ol start="3">
-<li>过程作为返回值</li>
-</ol>
-<p>书上这里用的是平均阻尼和之前的不动点一起构成作为例子，但是核心点还是构造更加抽象更加一般性的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(define (average-damp f)</span><br><span class="line">  (lambda (x) (average x (f x))))</span><br><span class="line"></span><br><span class="line">;: ((average-damp square) 10)</span><br><span class="line"></span><br><span class="line">(define (sqrt x)</span><br><span class="line">  (fixed-point (average-damp (lambda (y) (/ x y)))</span><br><span class="line">               1.0))</span><br><span class="line"></span><br><span class="line">(define (cube-root x)</span><br><span class="line">  (fixed-point (average-damp (lambda (y) (/ x (square y))))</span><br><span class="line">               1.0))</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>将一个计算过程形式化为一个过程，一般说，存在着许多不同的方式，有经验的程序员知道如何选择过程的形式，使其特别清晰且易理解，使该计算过程中有用的元素能表现为一些相互分离的个体，并使他们可能重新用于其他的应用</p>
-</blockquote>
-<ol start="4">
-<li>抽象和第一级过程</li>
-</ol>
-<ul>
-<li><p>第四小节主要是在先前的一般性方法继续进行抽象，使之成为更加一般的操作</p>
+<li><p><code>expr -&gt; factor_conn -&gt; factor -&gt; term</code></p>
 </li>
-<li><p>在不同的程序设计语言中，第一级都可能有所不同，而第一级元素也正是一个语言中最具魅力也是最不同的地方，也是因为它被赋予的某些特权：</p>
-<ol>
-<li>可以用变量命名</li>
-<li>可以提供给过程作为参数</li>
-<li>可以由过程作为结果返回</li>
-<li>可以包含在数据结构中</li>
-</ol>
+<li><p>当递归过程回到factor_conn会根据<code>factor_conn ::= factor | factor factor*</code>判断可不可以继续构造下一个factor</p>
+</li>
+<li><p>如果不可以就返回到expr，expr则根据<code>expr ::= factor_conn (&quot;|&quot; factor_conn)*</code><br>判断能不能继续构造下一个factor_conn</p>
+</li>
+<li><p>重复上面的过程</p>
 </li>
 </ul>
-<blockquote>
-<p>这一节里，应该可以说是字字不离抽象了。从一开始的过程作为参数，作为返回值，匿名过程，到最后的构建更具有一般性的方法。都是为了使之更具有模块化、通用性。而在思考到面向对象中，它的第一级元素肯定是对象，万物皆过程，万物皆对象可能就是他们之间各具魅力的地方吧，而其中的继承、多态、重载是不是都为了更好的获得一般性方法的描述呢？</p>
+<h2 id="匹配输入字符串"><a href="#匹配输入字符串" class="headerlink" title="匹配输入字符串"></a>匹配输入字符串</h2><blockquote>
+<p>现在已经完成了NFA的构造，接下来就是通过这个NFA来对输入的字符串进行分析</p>
 </blockquote>
+<h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><p><img src="https://gitee.com/dejavudwh/Figurebed/raw/master/regex/mermaid-diagram-20190924131048.svg" alt></p>
+<p>以刚刚的图作为演示，假设0-1节点的边是字符集0-9，4-5节点的边是字符集a-z，其它都是空</p>
+<p>所以这个图表示的正则表达式<code>[0-9]*[a-z]+</code></p>
+<p>假设对于分析字符串123a</p>
+<ul>
+<li><h4 id="closure"><a href="#closure" class="headerlink" title="closure"></a>closure</h4></li>
+</ul>
+<p>从开始节点8进行分析，我们要做的第一个操作就是算出在节点8时不需要任何输入就可以到达的节点，这个操作称为closure，得到closure集合</p>
+<ul>
+<li><h4 id="move"><a href="#move" class="headerlink" title="move"></a>move</h4></li>
+</ul>
+<p>之后我们就需要根据NFA和当前的输入字符来进行节点间的跳转，得到的自然也是一个集合</p>
+<h3 id="closure操作"><a href="#closure操作" class="headerlink" title="closure操作"></a>closure操作</h3><p>我们利用一个栈来实现closure操作</p>
+<ul>
+<li>把传入集合里的所有节点压入栈中</li>
+<li>然后对这个栈的所有节点进行判断是否有可以直接跳转的节点</li>
+<li>如果有的话直接压入栈中</li>
+<li>直到栈为空则结束操作</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">closure</span><span class="params">(input_set)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(input_set) &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    nfa_stack = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> input_set:</span><br><span class="line">        nfa_stack.append(i)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> len(nfa_stack) &gt; <span class="number">0</span>:</span><br><span class="line">        nfa = nfa_stack.pop()</span><br><span class="line">        next1 = nfa.next_1</span><br><span class="line">        next2 = nfa.next_2</span><br><span class="line">        <span class="keyword">if</span> next1 <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> nfa.edge == EPSILON:</span><br><span class="line">            <span class="keyword">if</span> next1 <span class="keyword">not</span> <span class="keyword">in</span> input_set:</span><br><span class="line">                input_set.append(next1)</span><br><span class="line">                nfa_stack.append(next1)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> next2 <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> nfa.edge == EPSILON:</span><br><span class="line">            <span class="keyword">if</span> next2 <span class="keyword">not</span> <span class="keyword">in</span> input_set:</span><br><span class="line">                input_set.append(next2)</span><br><span class="line">                nfa_stack.append(next2)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> input_set</span><br></pre></td></tr></table></figure>
+
+<h3 id="move操作"><a href="#move操作" class="headerlink" title="move操作"></a>move操作</h3><ul>
+<li>move操作就是遍历当前的状态节点集合，如果符合的edge的条件的话</li>
+<li>就加入到下一个状态集合中</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">move</span><span class="params">(input_set, ch)</span>:</span></span><br><span class="line">    out_set = []</span><br><span class="line">    <span class="keyword">for</span> nfa <span class="keyword">in</span> input_set:</span><br><span class="line">        <span class="keyword">if</span> nfa.edge == ch <span class="keyword">or</span> (nfa.edge == CCL <span class="keyword">and</span> ch <span class="keyword">in</span> nfa.input_set):</span><br><span class="line">            out_set.append(nfa.next_1)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> out_set</span><br></pre></td></tr></table></figure>
+
+<h3 id="match"><a href="#match" class="headerlink" title="match"></a>match</h3><p>现在最后一步就是根据上面的两个操作进行字符串的分析了</p>
+<ul>
+<li>首先先计算出开始节点的closure集合</li>
+<li>开始遍历输入的字符串，从刚刚的closure集合开始做move操作</li>
+<li>然后判断当前的集合是不是可以作为接收状态，只要当前集合有某个状态节点没有连接到其它节点，它就是一个可接收的状态节点，能被当前NFA接收还需要一个条件就是当前字符已经全匹配完了</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">match</span><span class="params">(input_string, nfa_machine)</span>:</span></span><br><span class="line">    start_node = nfa_machine</span><br><span class="line"></span><br><span class="line">    current_nfa_set = [start_node]</span><br><span class="line">    next_nfa_set = closure(current_nfa_set)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i, ch <span class="keyword">in</span> enumerate(input_string):</span><br><span class="line">        current_nfa_set = move(next_nfa_set, ch)</span><br><span class="line">        next_nfa_set = closure(current_nfa_set)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> next_nfa_set <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> has_accepted_state(next_nfa_set) <span class="keyword">and</span> i == len(input_string) - <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这篇主要讲了复杂一点的NFA节点的构建方法，和对利用构造的NFA来对输入自负床进行分析。到目前为止，其实一个完整的正则表达式引擎已经完成了，但是如果想更近一步的话，还需要将NFA转换成DFA，再进行DFA的最小化</p>
 
       
     </div>
@@ -586,7 +586,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="https://dejavudwh.cn/SICP/Chapter 1.3.html" title="SICP Chapter 1.3">https://dejavudwh.cn/SICP/Chapter 1.3.html</a>
+    <a href="https://dejavudwh.cn/Regex/实现正则表达式引擎（二）.html" title="实现一个正则表达式引擎in Python(二)">https://dejavudwh.cn/Regex/实现正则表达式引擎（二）.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -601,17 +601,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/大二期间/" rel="tag"><i class="fa fa-tag"></i> 大二期间</a>
+            <a href="/tags/正则表达式引擎/" rel="tag"><i class="fa fa-tag"></i> 正则表达式引擎</a>
           
-            <a href="/tags/SICP/" rel="tag"><i class="fa fa-tag"></i> SICP</a>
-          
-            <a href="/tags/计算机科学/" rel="tag"><i class="fa fa-tag"></i> 计算机科学</a>
-          
-            <a href="/tags/解释器/" rel="tag"><i class="fa fa-tag"></i> 解释器</a>
-          
-            <a href="/tags/Lisp/" rel="tag"><i class="fa fa-tag"></i> Lisp</a>
-          
-            <a href="/tags/Scheme/" rel="tag"><i class="fa fa-tag"></i> Scheme</a>
+            <a href="/tags/有限状态自动机/" rel="tag"><i class="fa fa-tag"></i> 有限状态自动机</a>
           
         </div>
       
@@ -624,8 +616,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/SICP/Chapter 2.4.html" rel="next" title="SICP Chapter 2.4">
-                <i class="fa fa-chevron-left"></i> SICP Chapter 2.4
+              <a href="/Regex/实现正则表达式引擎（一）.html" rel="next" title="实现一个正则表达式引擎in Python(一)">
+                <i class="fa fa-chevron-left"></i> 实现一个正则表达式引擎in Python(一)
               </a>
             
           </div>
@@ -633,10 +625,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/SICP/Chapter 3.5.html" rel="prev" title="SICP Chapter 3.5">
-                SICP Chapter 3.5 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -819,7 +807,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SICP-CONCLUSION"><span class="nav-number">1.</span> <span class="nav-text">SICP CONCLUSION</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-构造过程抽象"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">1. 构造过程抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-构造数据抽象"><span class="nav-number">1.1.0.0.2.</span> <span class="nav-text">2. 构造数据抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-模块化、对象和状态"><span class="nav-number">1.1.0.0.3.</span> <span class="nav-text">3. 模块化、对象和状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-元语言抽象"><span class="nav-number">1.1.0.0.4.</span> <span class="nav-text">4. 元语言抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-寄存器机器里的计算"><span class="nav-number">1.1.0.0.5.</span> <span class="nav-text">5. 寄存器机器里的计算</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-1"><span class="nav-number">1.2.</span> <span class="nav-text">Chapter 1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#练习答案"><span class="nav-number">1.2.1.</span> <span class="nav-text">练习答案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用高阶函数做抽象"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">用高阶函数做抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#过程作为参数"><span class="nav-number">1.2.1.1.0.1.</span> <span class="nav-text">过程作为参数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#用lambda构造过程"><span class="nav-number">1.2.1.1.0.2.</span> <span class="nav-text">用lambda构造过程</span></a></li></ol></li></ol></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#构造复杂的-NFA"><span class="nav-number">1.</span> <span class="nav-text">构造复杂的 NFA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#factor"><span class="nav-number">2.</span> <span class="nav-text">factor</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nfa-star-closure"><span class="nav-number">2.1.</span> <span class="nav-text">nfa_star_closure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nfa-plus-closure"><span class="nav-number">2.2.</span> <span class="nav-text">nfa_plus_closure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nfa-option-closure"><span class="nav-number">2.3.</span> <span class="nav-text">nfa_option_closure</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#factor-conn"><span class="nav-number">3.</span> <span class="nav-text">factor_conn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#expr"><span class="nav-number">4.</span> <span class="nav-text">expr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#group"><span class="nav-number">5.</span> <span class="nav-text">group</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造-NFA-总结"><span class="nav-number">6.</span> <span class="nav-text">构造 NFA 总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配输入字符串"><span class="nav-number">7.</span> <span class="nav-text">匹配输入字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个例子"><span class="nav-number">7.1.</span> <span class="nav-text">一个例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#closure"><span class="nav-number">7.1.1.</span> <span class="nav-text">closure</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#move"><span class="nav-number">7.1.2.</span> <span class="nav-text">move</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#closure操作"><span class="nav-number">7.2.</span> <span class="nav-text">closure操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#move操作"><span class="nav-number">7.3.</span> <span class="nav-text">move操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#match"><span class="nav-number">7.4.</span> <span class="nav-text">match</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">8.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
