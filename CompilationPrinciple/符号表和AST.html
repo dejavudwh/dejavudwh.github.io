@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="符号表符号表本质上就是在编译过程中的一种数据结构，用来标识和存储源代码的变量、函数等。在符号表中，源程序中的每个标识符都和它的声明或使用信息绑定在一起，比如其数据类型、作用域以及内存地址。符号表一般使用用哈希表来实现，实现的作用域的问题一般用链表就可以解决一般在语法分析阶段生成AST抽象语法树抽象语法树（abstract syntax tree 或者缩写为 AST），是源代码的抽象语法结构的树状表">
+<meta name="description" content="符号表 符号表本质上就是在编译过程中的一种数据结构，用来标识和存储源代码的变量、函数等。在符号表中，源程序中的每个标识符都和它的声明或使用信息绑定在一起，比如其数据类型、作用域以及内存地址。  符号表一般使用用哈希表来实现，实现的作用域的问题一般用链表就可以解决 一般在语法分析阶段生成 AST抽象语法树 抽象语法树（abstract syntax tree 或者缩写为 AST），是源代码的抽象语法">
 <meta name="keywords" content="编译原理,符号表,AST,大二期间">
 <meta property="og:type" content="article">
 <meta property="og:title" content="符号表和AST">
 <meta property="og:url" content="https://dejavudwh.cn/CompilationPrinciple/符号表和AST.html">
 <meta property="og:site_name" content="dejavudwh&#39;s Blog">
-<meta property="og:description" content="符号表符号表本质上就是在编译过程中的一种数据结构，用来标识和存储源代码的变量、函数等。在符号表中，源程序中的每个标识符都和它的声明或使用信息绑定在一起，比如其数据类型、作用域以及内存地址。符号表一般使用用哈希表来实现，实现的作用域的问题一般用链表就可以解决一般在语法分析阶段生成AST抽象语法树抽象语法树（abstract syntax tree 或者缩写为 AST），是源代码的抽象语法结构的树状表">
+<meta property="og:description" content="符号表 符号表本质上就是在编译过程中的一种数据结构，用来标识和存储源代码的变量、函数等。在符号表中，源程序中的每个标识符都和它的声明或使用信息绑定在一起，比如其数据类型、作用域以及内存地址。  符号表一般使用用哈希表来实现，实现的作用域的问题一般用链表就可以解决 一般在语法分析阶段生成 AST抽象语法树 抽象语法树（abstract syntax tree 或者缩写为 AST），是源代码的抽象语法">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2019-07-21T07:01:55.715Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="符号表和AST">
-<meta name="twitter:description" content="符号表符号表本质上就是在编译过程中的一种数据结构，用来标识和存储源代码的变量、函数等。在符号表中，源程序中的每个标识符都和它的声明或使用信息绑定在一起，比如其数据类型、作用域以及内存地址。符号表一般使用用哈希表来实现，实现的作用域的问题一般用链表就可以解决一般在语法分析阶段生成AST抽象语法树抽象语法树（abstract syntax tree 或者缩写为 AST），是源代码的抽象语法结构的树状表">
+<meta name="twitter:description" content="符号表 符号表本质上就是在编译过程中的一种数据结构，用来标识和存储源代码的变量、函数等。在符号表中，源程序中的每个标识符都和它的声明或使用信息绑定在一起，比如其数据类型、作用域以及内存地址。  符号表一般使用用哈希表来实现，实现的作用域的问题一般用链表就可以解决 一般在语法分析阶段生成 AST抽象语法树 抽象语法树（abstract syntax tree 或者缩写为 AST），是源代码的抽象语法">
 
 
 
@@ -431,7 +431,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  279
+                  280
                 </span>
               
 
@@ -468,7 +468,19 @@
       
 
       
-        <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><h1 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h1><blockquote><p>符号表本质上就是在编译过程中的一种数据结构，用来标识和存储源代码的变量、函数等。在符号表中，源程序中的每个标识符都和它的声明或使用信息绑定在一起，比如其数据类型、作用域以及内存地址。</p></blockquote><p>符号表一般使用用哈希表来实现，实现的作用域的问题一般用链表就可以解决</p><p>一般在语法分析阶段生成</p><h1 id="AST抽象语法树"><a href="#AST抽象语法树" class="headerlink" title="AST抽象语法树"></a>AST抽象语法树</h1><blockquote><p>抽象语法树（abstract syntax tree 或者缩写为 AST），是源代码的抽象语法结构的树状表现形式，这里特指编程语言的源代码。树上的每个节点都表示源代码中的一种结构。</p></blockquote><p>和符号表一样在编译过程都不一定是必须的结构</p><p>对于解释型的语言可以不生成中间代码来让虚拟机执行，可以直接根据AST直接解释</p><p>编译型语言一般通过AST来生成IR</p><p>一般在语法分析阶段生成</p><!-- rebuild by neat -->
+        <h1 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h1><blockquote>
+<p>符号表本质上就是在编译过程中的一种数据结构，用来标识和存储源代码的变量、函数等。在符号表中，源程序中的每个标识符都和它的声明或使用信息绑定在一起，比如其数据类型、作用域以及内存地址。</p>
+</blockquote>
+<p>符号表一般使用用哈希表来实现，实现的作用域的问题一般用链表就可以解决</p>
+<p>一般在语法分析阶段生成</p>
+<h1 id="AST抽象语法树"><a href="#AST抽象语法树" class="headerlink" title="AST抽象语法树"></a>AST抽象语法树</h1><blockquote>
+<p>抽象语法树（abstract syntax tree 或者缩写为 AST），是源代码的抽象语法结构的树状表现形式，这里特指编程语言的源代码。树上的每个节点都表示源代码中的一种结构。</p>
+</blockquote>
+<p>和符号表一样在编译过程都不一定是必须的结构</p>
+<p>对于解释型的语言可以不生成中间代码来让虚拟机执行，可以直接根据AST直接解释</p>
+<p>编译型语言一般通过AST来生成IR</p>
+<p>一般在语法分析阶段生成</p>
+
       
     </div>
     
@@ -758,7 +770,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">89.6k</span>
+    <span title="Site words total count">90.2k</span>
   
 </div>
 

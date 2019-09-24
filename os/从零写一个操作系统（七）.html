@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="前言在多进程的运行环境下，进程是并发执行的，不同进程间存在着不同的相互制约关系。为了协调进程之间的相互制约关系，达到资源共享和进程协作，避免进程之间的冲突，引入了进程同步的概念。临界资源多个进程可以共享系统中的各种资源，但其中许多资源一次只能为一个进程所使用，我们把一次只允许一个进程使用的资源成为临界资源。对临界资源的访问，必须互斥的进行。每个进程中，访问临界资源的那段代码成为临界区。">
+<meta name="description" content="前言在多进程的运行环境下，进程是并发执行的，不同进程间存在着不同的相互制约关系。为了协调进程之间的相互制约关系，达到资源共享和进程协作，避免进程之间的冲突，引入了进程同步的概念。 临界资源多个进程可以共享系统中的各种资源，但其中许多资源一次只能为一个进程所使用，我们把一次只允许一个进程使用的资源成为临界资源。对临界资源的访问，必须互斥的进行。每个进程中，访问临界资源的那段代码成为临界区。">
 <meta name="keywords" content="操作系统,从零写一个操作系统">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我是如何学习写一个操作系统（七）：进程的同步与信号量">
 <meta property="og:url" content="https://dejavudwh.cn/os/从零写一个操作系统（七）.html">
 <meta property="og:site_name" content="dejavudwh&#39;s Blog">
-<meta property="og:description" content="前言在多进程的运行环境下，进程是并发执行的，不同进程间存在着不同的相互制约关系。为了协调进程之间的相互制约关系，达到资源共享和进程协作，避免进程之间的冲突，引入了进程同步的概念。临界资源多个进程可以共享系统中的各种资源，但其中许多资源一次只能为一个进程所使用，我们把一次只允许一个进程使用的资源成为临界资源。对临界资源的访问，必须互斥的进行。每个进程中，访问临界资源的那段代码成为临界区。">
+<meta property="og:description" content="前言在多进程的运行环境下，进程是并发执行的，不同进程间存在着不同的相互制约关系。为了协调进程之间的相互制约关系，达到资源共享和进程协作，避免进程之间的冲突，引入了进程同步的概念。 临界资源多个进程可以共享系统中的各种资源，但其中许多资源一次只能为一个进程所使用，我们把一次只允许一个进程使用的资源成为临界资源。对临界资源的访问，必须互斥的进行。每个进程中，访问临界资源的那段代码成为临界区。">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2019-08-29T03:28:46.216Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我是如何学习写一个操作系统（七）：进程的同步与信号量">
-<meta name="twitter:description" content="前言在多进程的运行环境下，进程是并发执行的，不同进程间存在着不同的相互制约关系。为了协调进程之间的相互制约关系，达到资源共享和进程协作，避免进程之间的冲突，引入了进程同步的概念。临界资源多个进程可以共享系统中的各种资源，但其中许多资源一次只能为一个进程所使用，我们把一次只允许一个进程使用的资源成为临界资源。对临界资源的访问，必须互斥的进行。每个进程中，访问临界资源的那段代码成为临界区。">
+<meta name="twitter:description" content="前言在多进程的运行环境下，进程是并发执行的，不同进程间存在着不同的相互制约关系。为了协调进程之间的相互制约关系，达到资源共享和进程协作，避免进程之间的冲突，引入了进程同步的概念。 临界资源多个进程可以共享系统中的各种资源，但其中许多资源一次只能为一个进程所使用，我们把一次只允许一个进程使用的资源成为临界资源。对临界资源的访问，必须互斥的进行。每个进程中，访问临界资源的那段代码成为临界区。">
 
 
 
@@ -468,7 +468,74 @@
       
 
       
-        <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在多进程的运行环境下，进程是并发执行的，不同进程间存在着不同的相互制约关系。为了协调进程之间的相互制约关系，达到资源共享和进程协作，避免进程之间的冲突，引入了进程同步的概念。</p><h2 id="临界资源"><a href="#临界资源" class="headerlink" title="临界资源"></a>临界资源</h2><p>多个进程可以共享系统中的各种资源，但其中许多资源一次只能为一个进程所使用，我们把一次只允许一个进程使用的资源成为临界资源。<br>对临界资源的访问，必须互斥的进行。每个进程中，访问临界资源的那段代码成为临界区。</p><a id="more"></a><p>为了保证临界资源的正确使用，可以把临界资源的访问过程分为四个部分。</p><ul><li>进入区。为了进入临界区使用临界资源，在进入去要检查可否进入临界区。</li><li>临界区。进程中访问临界资源的那段代码。</li><li>退出区。将正在访问临界区的标志清除。</li><li>剩余区。代码中的其余部分。</li></ul><p>一般实现进程的同步有这几种方法：</p><ul><li>提过硬件提供的实现</li><li>信号量</li><li>管程</li></ul><h2 id="生产者-消费者实例"><a href="#生产者-消费者实例" class="headerlink" title="生产者-消费者实例"></a>生产者-消费者实例</h2><p>下面的代码就分别是生产者进程和消费者进程，而buffer就是临界资源</p><ul><li><p>当生产者要访问临界资源时，会先判断buffer是不是已经满了，而消费者则判断buffer是不是空的，这就是访问临界资源的进入区</p></li><li><p>而中间对buffer的操作就是临界区</p></li><li><p>最后对counter的加减就是设置对临界区访问的标志</p></li><li><p>但是这里依旧也有可能出现问题，比如当进程走到in = (in + 1) % BUFFER_SIZE;的时候，这时候操作系统进行调度，这时候的counter的值可能还是0，所以消费者进程可能就会出现问题</p></li></ul><p><em>这里的处理可以是利用关闭中断来限制进程的切换，但是在多核CPU下一样不管用</em></p><p><em>这里就涉及到了临界区的保护了</em></p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BUFFER_SIZE 10</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span>  . . . &#125; item;</span><br><span class="line">item buffer[BUFFER_SIZE];</span><br><span class="line"><span class="keyword">int</span> in = out = counter = <span class="number">0</span></span><br></pre></td></tr></table></figure><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">while</span>(counter== BUFFER_SIZE)</span><br><span class="line">    ; </span><br><span class="line">  buffer[in] = item;</span><br><span class="line">  in = (in + <span class="number">1</span>) % BUFFER_SIZE;</span><br><span class="line">  counter++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">while</span>(counter== <span class="number">0</span>) </span><br><span class="line">    ;   </span><br><span class="line">  item = buffer[out];</span><br><span class="line">  out = (out + <span class="number">1</span>) % BUFFER_SIZE;</span><br><span class="line">  counter--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><h3 id="什么是信号量"><a href="#什么是信号量" class="headerlink" title="什么是信号量"></a>什么是信号量</h3><p>为了防止出现因多个程序同时访问一个共享资源而引发的一系列问题，我们需要一种方法，它可以通过生成并使用令牌来授权，在任一时刻只能有一个执行线程访问代码的临界区。</p><p>为了避免像上面一样会发生竞争条件，程序对信号量访问都是原子操作，且只允许对它进行等待（即P(信号变量))和发送（即V(信号变量))信息操作。</p><h3 id="信号量的工作原理"><a href="#信号量的工作原理" class="headerlink" title="信号量的工作原理"></a>信号量的工作原理</h3><p>由于信号量只能进行两种操作等待和发送信号，即P(sv)和V(sv),他们的行为是这样的：</p><ul><li>P(sv)：如果sv的值大于零，就给它减1；如果它的值为零，就挂起该进程的执行</li><li>V(sv)：如果有其他进程因等待sv而被挂起，就让它恢复运行，如果没有进程因等待sv而挂起，就给它加1.</li></ul><p>举个例子，就是两个进程共享信号量sv，一旦其中一个进程执行了P(sv)操作，它将得到信号量，并可以进入临界区，使sv减1。而第二个进程将被阻止进入临界区，因为当它试图执行P(sv)时，sv为0，它会被挂起以等待第一个进程离开临界区域并执行V(sv)释放信号量，这时第二个进程就可以恢复执行。</p><h2 id="Linux-0-11的进程同步"><a href="#Linux-0-11的进程同步" class="headerlink" title="Linux 0.11的进程同步"></a>Linux 0.11的进程同步</h2><blockquote><p>在Linux 0.11里是没有实现信号量的，考虑后面会自己实现一个。这里先看一下Linux 0.11里用来进行进程同步的两个函数</p></blockquote><h3 id="sleep-on"><a href="#sleep-on" class="headerlink" title="sleep_on"></a>sleep_on</h3><ul><li><p>p实际上指的是一个等待队列</p></li><li><p>如果当前进程是进程0或者无效，就直接退出</p></li><li><p>然后把要等待的进程放到等待队列的头节点，把状态设置为不可中断的等待状态</p><p>这里队列的形成非常非常的隐蔽，首先把用tmp指向之前的进程，在把当前要睡眠的进程放入，而之所以能形成队列，<strong>是因为现在放入队列的进程的tmp作为局部变量是保存在这个进程的堆栈中的</strong>，这样在把进程切换回来的时候，tmp就自然的指向上一个进程了。</p></li><li><p>最后当这个进程被唤醒的时候，会回到if语句唤醒等待队列中所有进程</p></li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sleep_on</span><span class="params">(struct task_struct **p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">tmp</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!p)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span> (current == &amp;(init_task.task))</span><br><span class="line">		panic(<span class="string">"task[0] trying to sleep"</span>);</span><br><span class="line">	tmp = *p;</span><br><span class="line">	*p = current;</span><br><span class="line">	current-&gt;state = TASK_UNINTERRUPTIBLE;</span><br><span class="line">	schedule();</span><br><span class="line">	<span class="keyword">if</span> (tmp)</span><br><span class="line">		tmp-&gt;state=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="wake-up"><a href="#wake-up" class="headerlink" title="wake_up"></a>wake_up</h3><ul><li>唤醒 *p 指向的任务。 *p是任务等待队列头指针。由于新等待任务是插入在等待队列头指针处的，<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">wake_up</span><span class="params">(struct task_struct **p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (p &amp;&amp; *p) &#123;</span><br><span class="line">		(**p).state=<span class="number">0</span>;          <span class="comment">// 置为就绪(可运行)状态TASK_RUNNING.</span></span><br><span class="line">		*p=<span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>首先竟然有了多进程，那在访问共享资源的时候自然就会发生制约关系，所以才引入了进程同步的概念。</p><p>而进程同步的关键就是对临界区的保护，信号量就是一种可以很好的实现对临界区保护的方法</p><!-- rebuild by neat -->
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在多进程的运行环境下，进程是并发执行的，不同进程间存在着不同的相互制约关系。为了协调进程之间的相互制约关系，达到资源共享和进程协作，避免进程之间的冲突，引入了进程同步的概念。</p>
+<h2 id="临界资源"><a href="#临界资源" class="headerlink" title="临界资源"></a>临界资源</h2><p>多个进程可以共享系统中的各种资源，但其中许多资源一次只能为一个进程所使用，我们把一次只允许一个进程使用的资源成为临界资源。<br>对临界资源的访问，必须互斥的进行。每个进程中，访问临界资源的那段代码成为临界区。</p>
+<a id="more"></a>
+
+<p>为了保证临界资源的正确使用，可以把临界资源的访问过程分为四个部分。</p>
+<ul>
+<li>进入区。为了进入临界区使用临界资源，在进入去要检查可否进入临界区。</li>
+<li>临界区。进程中访问临界资源的那段代码。</li>
+<li>退出区。将正在访问临界区的标志清除。</li>
+<li>剩余区。代码中的其余部分。</li>
+</ul>
+<p>一般实现进程的同步有这几种方法：</p>
+<ul>
+<li>提过硬件提供的实现</li>
+<li>信号量</li>
+<li>管程</li>
+</ul>
+<h2 id="生产者-消费者实例"><a href="#生产者-消费者实例" class="headerlink" title="生产者-消费者实例"></a>生产者-消费者实例</h2><p>下面的代码就分别是生产者进程和消费者进程，而buffer就是临界资源</p>
+<ul>
+<li><p>当生产者要访问临界资源时，会先判断buffer是不是已经满了，而消费者则判断buffer是不是空的，这就是访问临界资源的进入区</p>
+</li>
+<li><p>而中间对buffer的操作就是临界区</p>
+</li>
+<li><p>最后对counter的加减就是设置对临界区访问的标志</p>
+</li>
+<li><p>但是这里依旧也有可能出现问题，比如当进程走到in = (in + 1) % BUFFER_SIZE;的时候，这时候操作系统进行调度，这时候的counter的值可能还是0，所以消费者进程可能就会出现问题</p>
+</li>
+</ul>
+<p><em>这里的处理可以是利用关闭中断来限制进程的切换，但是在多核CPU下一样不管用</em></p>
+<p><em>这里就涉及到了临界区的保护了</em></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BUFFER_SIZE 10</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span>  . . . &#125; item;</span><br><span class="line">item buffer[BUFFER_SIZE];</span><br><span class="line"><span class="keyword">int</span> in = out = counter = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">while</span>(counter== BUFFER_SIZE)</span><br><span class="line">    ; </span><br><span class="line">  buffer[in] = item;</span><br><span class="line">  in = (in + <span class="number">1</span>) % BUFFER_SIZE;</span><br><span class="line">  counter++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">while</span>(counter== <span class="number">0</span>) </span><br><span class="line">    ;   </span><br><span class="line">  item = buffer[out];</span><br><span class="line">  out = (out + <span class="number">1</span>) % BUFFER_SIZE;</span><br><span class="line">  counter--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><h3 id="什么是信号量"><a href="#什么是信号量" class="headerlink" title="什么是信号量"></a>什么是信号量</h3><p>为了防止出现因多个程序同时访问一个共享资源而引发的一系列问题，我们需要一种方法，它可以通过生成并使用令牌来授权，在任一时刻只能有一个执行线程访问代码的临界区。</p>
+<p>为了避免像上面一样会发生竞争条件，程序对信号量访问都是原子操作，且只允许对它进行等待（即P(信号变量))和发送（即V(信号变量))信息操作。</p>
+<h3 id="信号量的工作原理"><a href="#信号量的工作原理" class="headerlink" title="信号量的工作原理"></a>信号量的工作原理</h3><p>由于信号量只能进行两种操作等待和发送信号，即P(sv)和V(sv),他们的行为是这样的：</p>
+<ul>
+<li>P(sv)：如果sv的值大于零，就给它减1；如果它的值为零，就挂起该进程的执行</li>
+<li>V(sv)：如果有其他进程因等待sv而被挂起，就让它恢复运行，如果没有进程因等待sv而挂起，就给它加1.</li>
+</ul>
+<p>举个例子，就是两个进程共享信号量sv，一旦其中一个进程执行了P(sv)操作，它将得到信号量，并可以进入临界区，使sv减1。而第二个进程将被阻止进入临界区，因为当它试图执行P(sv)时，sv为0，它会被挂起以等待第一个进程离开临界区域并执行V(sv)释放信号量，这时第二个进程就可以恢复执行。</p>
+<h2 id="Linux-0-11的进程同步"><a href="#Linux-0-11的进程同步" class="headerlink" title="Linux 0.11的进程同步"></a>Linux 0.11的进程同步</h2><blockquote>
+<p>在Linux 0.11里是没有实现信号量的，考虑后面会自己实现一个。这里先看一下Linux 0.11里用来进行进程同步的两个函数</p>
+</blockquote>
+<h3 id="sleep-on"><a href="#sleep-on" class="headerlink" title="sleep_on"></a>sleep_on</h3><ul>
+<li><p>p实际上指的是一个等待队列</p>
+</li>
+<li><p>如果当前进程是进程0或者无效，就直接退出</p>
+</li>
+<li><p>然后把要等待的进程放到等待队列的头节点，把状态设置为不可中断的等待状态</p>
+<p>这里队列的形成非常非常的隐蔽，首先把用tmp指向之前的进程，在把当前要睡眠的进程放入，而之所以能形成队列，<strong>是因为现在放入队列的进程的tmp作为局部变量是保存在这个进程的堆栈中的</strong>，这样在把进程切换回来的时候，tmp就自然的指向上一个进程了。</p>
+</li>
+<li><p>最后当这个进程被唤醒的时候，会回到if语句唤醒等待队列中所有进程</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sleep_on</span><span class="params">(struct task_struct **p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">tmp</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!p)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span> (current == &amp;(init_task.task))</span><br><span class="line">		panic(<span class="string">"task[0] trying to sleep"</span>);</span><br><span class="line">	tmp = *p;</span><br><span class="line">	*p = current;</span><br><span class="line">	current-&gt;state = TASK_UNINTERRUPTIBLE;</span><br><span class="line">	schedule();</span><br><span class="line">	<span class="keyword">if</span> (tmp)</span><br><span class="line">		tmp-&gt;state=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="wake-up"><a href="#wake-up" class="headerlink" title="wake_up"></a>wake_up</h3><ul>
+<li>唤醒 *p 指向的任务。 *p是任务等待队列头指针。由于新等待任务是插入在等待队列头指针处的，<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">wake_up</span><span class="params">(struct task_struct **p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (p &amp;&amp; *p) &#123;</span><br><span class="line">		(**p).state=<span class="number">0</span>;          <span class="comment">// 置为就绪(可运行)状态TASK_RUNNING.</span></span><br><span class="line">		*p=<span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>首先竟然有了多进程，那在访问共享资源的时候自然就会发生制约关系，所以才引入了进程同步的概念。</p>
+<p>而进程同步的关键就是对临界区的保护，信号量就是一种可以很好的实现对临界区保护的方法</p>
+
       
     </div>
     
@@ -518,8 +585,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/os/从零写一个操作系统（六）.html" rel="next" title="我是如何学习写一个操作系统（六）：进程的调度">
-                <i class="fa fa-chevron-left"></i> 我是如何学习写一个操作系统（六）：进程的调度
+              <a href="/os/从零写一个操作系统（五）.html" rel="next" title="我是如何学习写一个操作系统（五）：故事的高潮之进程和线程1">
+                <i class="fa fa-chevron-left"></i> 我是如何学习写一个操作系统（五）：故事的高潮之进程和线程1
               </a>
             
           </div>
@@ -754,7 +821,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">89.6k</span>
+    <span title="Site words total count">90.2k</span>
   
 </div>
 

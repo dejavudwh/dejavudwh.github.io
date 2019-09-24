@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="不相交集合等价关系满足三个性质- 自反性 - 对称性 - 传递性基本数据结构基本思路使用一个数组，下标表示该集合，内容表示指向的父亲实现类型声明">
+<meta name="description" content="不相交集合等价关系 满足三个性质  - 自反性 - 对称性 - 传递性基本数据结构基本思路 使用一个数组，下标表示该集合，内容表示指向的父亲  实现 类型声明">
 <meta name="keywords" content="大二期间,计算机科学,数据结构,C">
 <meta property="og:type" content="article">
 <meta property="og:title" content="不相交集合">
 <meta property="og:url" content="https://dejavudwh.cn/datastructure/不相交集合.html">
 <meta property="og:site_name" content="dejavudwh&#39;s Blog">
-<meta property="og:description" content="不相交集合等价关系满足三个性质- 自反性 - 对称性 - 传递性基本数据结构基本思路使用一个数组，下标表示该集合，内容表示指向的父亲实现类型声明">
+<meta property="og:description" content="不相交集合等价关系 满足三个性质  - 自反性 - 对称性 - 传递性基本数据结构基本思路 使用一个数组，下标表示该集合，内容表示指向的父亲  实现 类型声明">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2019-06-14T08:57:30.032Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="不相交集合">
-<meta name="twitter:description" content="不相交集合等价关系满足三个性质- 自反性 - 对称性 - 传递性基本数据结构基本思路使用一个数组，下标表示该集合，内容表示指向的父亲实现类型声明">
+<meta name="twitter:description" content="不相交集合等价关系 满足三个性质  - 自反性 - 对称性 - 传递性基本数据结构基本思路 使用一个数组，下标表示该集合，内容表示指向的父亲  实现 类型声明">
 
 
 
@@ -431,7 +431,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  273
+                  277
                 </span>
               
 
@@ -468,9 +468,40 @@
       
 
       
-        <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><h1 id="不相交集合"><a href="#不相交集合" class="headerlink" title="不相交集合"></a>不相交集合</h1><h2 id="等价关系"><a href="#等价关系" class="headerlink" title="等价关系"></a>等价关系</h2><blockquote><p>满足三个性质</p></blockquote><pre><code>- 自反性
+        <h1 id="不相交集合"><a href="#不相交集合" class="headerlink" title="不相交集合"></a>不相交集合</h1><h2 id="等价关系"><a href="#等价关系" class="headerlink" title="等价关系"></a>等价关系</h2><blockquote>
+<p>满足三个性质</p>
+</blockquote>
+<pre><code>- 自反性
 - 对称性
-- 传递性</code></pre><h1 id="基本数据结构"><a href="#基本数据结构" class="headerlink" title="基本数据结构"></a>基本数据结构</h1><h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><blockquote><p>使用一个数组，下标表示该集合，内容表示指向的父亲</p></blockquote><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="类型声明"><a href="#类型声明" class="headerlink" title=" 类型声明 "></a><center><font color="#A52A2A">类型声明</font></center></h3><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">typedef int DisjSet[NumSets + 1] ;</span><br><span class="line">typedef int SetType ;</span><br><span class="line">typedef int ElementsType ;</span><br><span class="line"></span><br><span class="line">void Intialize(DisjSet S) ;</span><br><span class="line">void SetUnion(DisjSet S,SetType Root1,SetType Root2) ;</span><br><span class="line">SetType Find(ElementType X,DisjSet S) ;</span><br></pre></td></tr></table></figure><h3 id="初始化"><a href="#初始化" class="headerlink" title=" 初始化 "></a><center><font color="#A52A2A">初始化</font></center></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void Intialize(DisjSet S)</span><br><span class="line">&#123;</span><br><span class="line">    int i ;</span><br><span class="line"></span><br><span class="line">    for(i = NumSets; i &gt; 0;i--)</span><br><span class="line">        S[i] = 0 ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Union操作"><a href="#Union操作" class="headerlink" title=" Union操作 "></a><center><font color="#A52A2A">Union操作</font></center></h3><blockquote><p>不是最好的方法</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">void Union(DisjSet S,SetType Root1,SetType Root2)</span><br><span class="line">&#123;</span><br><span class="line">    S[Root2] = Root1 ;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Find操作"><a href="#Find操作" class="headerlink" title=" Find操作 "></a><center><font color="#A52A2A">Find操作</font></center></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SetType Find(ElementType X, DisjSet S)</span><br><span class="line">&#123;</span><br><span class="line">    if(S[X] &lt;= 0)</span><br><span class="line">        return X ;</span><br><span class="line">    else</span><br><span class="line">        return Find(S[X],S) ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="更好的Find操作"><a href="#更好的Find操作" class="headerlink" title=" 更好的Find操作 "></a><center><font color="#A52A2A">更好的Find操作</font></center></h3><blockquote><p>让根节点的数组内容为高度的相反数，也就是用负数表示</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">void SetUnion(DisjSet S,SetType Root1,SetType Root2)</span><br><span class="line">&#123;</span><br><span class="line">    if(S[Root2] &lt; S[Root1]) //R2高</span><br><span class="line">        S[Root1] = Roo2 ;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        if(S[Root1] == S[Root2])</span><br><span class="line">            S[Root1]-- ;</span><br><span class="line">        S[Root2] = Root1 ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="路径压缩"><a href="#路径压缩" class="headerlink" title="路径压缩"></a>路径压缩</h2><blockquote><p>执行Union操作最终都会形成最坏情形的树</p></blockquote><blockquote><p>改进Find方法</p></blockquote><h3 id="改进的Find函数"><a href="#改进的Find函数" class="headerlink" title="改进的Find函数"></a><font color="#FF8247">改进的Find函数</font></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SetType Find(ElementType X,DisjSet S)</span><br><span class="line">&#123;</span><br><span class="line">    if(S[X] &lt;= 0)</span><br><span class="line">        return X ;</span><br><span class="line">    else</span><br><span class="line">        return S[X] = Find(S[X],S) ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><!-- rebuild by neat -->
+- 传递性</code></pre><h1 id="基本数据结构"><a href="#基本数据结构" class="headerlink" title="基本数据结构"></a>基本数据结构</h1><h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><blockquote>
+<p>使用一个数组，下标表示该集合，内容表示指向的父亲</p>
+</blockquote>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="类型声明"><a href="#类型声明" class="headerlink" title=" 类型声明 "></a><center><font color="#A52A2A"> 类型声明 </font></center></h3><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">typedef int DisjSet[NumSets + 1] ;</span><br><span class="line">typedef int SetType ;</span><br><span class="line">typedef int ElementsType ;</span><br><span class="line"></span><br><span class="line">void Intialize(DisjSet S) ;</span><br><span class="line">void SetUnion(DisjSet S,SetType Root1,SetType Root2) ;</span><br><span class="line">SetType Find(ElementType X,DisjSet S) ;</span><br></pre></td></tr></table></figure>
+
+<h3 id="初始化"><a href="#初始化" class="headerlink" title=" 初始化 "></a><center><font color="#A52A2A"> 初始化 </font></center></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void Intialize(DisjSet S)</span><br><span class="line">&#123;</span><br><span class="line">    int i ;</span><br><span class="line"></span><br><span class="line">    for(i = NumSets; i &gt; 0;i--)</span><br><span class="line">        S[i] = 0 ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Union操作"><a href="#Union操作" class="headerlink" title=" Union操作 "></a><center><font color="#A52A2A"> Union操作 </font></center></h3><blockquote>
+<p>不是最好的方法</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">void Union(DisjSet S,SetType Root1,SetType Root2)</span><br><span class="line">&#123;</span><br><span class="line">    S[Root2] = Root1 ;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Find操作"><a href="#Find操作" class="headerlink" title=" Find操作 "></a><center><font color="#A52A2A"> Find操作 </font></center></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SetType Find(ElementType X, DisjSet S)</span><br><span class="line">&#123;</span><br><span class="line">    if(S[X] &lt;= 0)</span><br><span class="line">        return X ;</span><br><span class="line">    else</span><br><span class="line">        return Find(S[X],S) ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="更好的Find操作"><a href="#更好的Find操作" class="headerlink" title=" 更好的Find操作 "></a><center><font color="#A52A2A"> 更好的Find操作 </font></center></h3><blockquote>
+<p>让根节点的数组内容为高度的相反数，也就是用负数表示</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">void SetUnion(DisjSet S,SetType Root1,SetType Root2)</span><br><span class="line">&#123;</span><br><span class="line">    if(S[Root2] &lt; S[Root1]) //R2高</span><br><span class="line">        S[Root1] = Roo2 ;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        if(S[Root1] == S[Root2])</span><br><span class="line">            S[Root1]-- ;</span><br><span class="line">        S[Root2] = Root1 ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="路径压缩"><a href="#路径压缩" class="headerlink" title="路径压缩"></a>路径压缩</h2><blockquote>
+<p>执行Union操作最终都会形成最坏情形的树</p>
+</blockquote>
+<blockquote>
+<p>改进Find方法</p>
+</blockquote>
+<h3 id="改进的Find函数"><a href="#改进的Find函数" class="headerlink" title="改进的Find函数"></a><font color="#FF8247">改进的Find函数</font></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SetType Find(ElementType X,DisjSet S)</span><br><span class="line">&#123;</span><br><span class="line">    if(S[X] &lt;= 0)</span><br><span class="line">        return X ;</span><br><span class="line">    else</span><br><span class="line">        return S[X] = Find(S[X],S) ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
       
     </div>
     
@@ -524,8 +555,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/datastructure/排序.html" rel="next" title="排序">
-                <i class="fa fa-chevron-left"></i> 排序
+              <a href="/datastructure/优先队列（堆）.html" rel="next" title="优先队列（堆）">
+                <i class="fa fa-chevron-left"></i> 优先队列（堆）
               </a>
             
           </div>
@@ -534,8 +565,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/datastructure/哈希表.html" rel="prev" title="哈希表">
-                哈希表 <i class="fa fa-chevron-right"></i>
+              <a href="/datastructure/排序.html" rel="prev" title="排序">
+                排序 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -719,7 +750,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#不相交集合"><span class="nav-number">1.</span> <span class="nav-text">不相交集合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#等价关系"><span class="nav-number">1.1.</span> <span class="nav-text">等价关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本数据结构"><span class="nav-number">2.</span> <span class="nav-text">基本数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思路"><span class="nav-number">2.1.</span> <span class="nav-text">基本思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">2.2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类型声明"><span class="nav-number">2.2.1.</span> <span class="nav-text">类型声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">2.2.2.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Union操作"><span class="nav-number">2.2.3.</span> <span class="nav-text">Union操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Find操作"><span class="nav-number">2.2.4.</span> <span class="nav-text">Find操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更好的Find操作"><span class="nav-number">2.2.5.</span> <span class="nav-text">更好的Find操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路径压缩"><span class="nav-number">2.3.</span> <span class="nav-text">路径压缩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改进的Find函数"><span class="nav-number">2.3.1.</span> <span class="nav-text">改进的Find函数</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#不相交集合"><span class="nav-number">1.</span> <span class="nav-text">不相交集合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#等价关系"><span class="nav-number">1.1.</span> <span class="nav-text">等价关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本数据结构"><span class="nav-number">2.</span> <span class="nav-text">基本数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思路"><span class="nav-number">2.1.</span> <span class="nav-text">基本思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">2.2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类型声明"><span class="nav-number">2.2.1.</span> <span class="nav-text"> 类型声明 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">2.2.2.</span> <span class="nav-text"> 初始化 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Union操作"><span class="nav-number">2.2.3.</span> <span class="nav-text"> Union操作 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Find操作"><span class="nav-number">2.2.4.</span> <span class="nav-text"> Find操作 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更好的Find操作"><span class="nav-number">2.2.5.</span> <span class="nav-text"> 更好的Find操作 </span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路径压缩"><span class="nav-number">2.3.</span> <span class="nav-text">路径压缩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改进的Find函数"><span class="nav-number">2.3.1.</span> <span class="nav-text">改进的Find函数</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -760,7 +791,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">89.6k</span>
+    <span title="Site words total count">90.2k</span>
   
 </div>
 

@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="Github StackChat用到的React-RouterReact-Router是React路由的解决方案之一，也可以使用别的库安装1npm install react-router --save-dev路由配置react-router主要提供了几个组件来进行路由之间结构的组织Router 所有路由组件的根Route 路由组件path属性 匹配路径component属性 匹配路径渲染的组件I">
+<meta name="description" content="Github StackChat  用到的React-Router React-Router是React路由的解决方案之一，也可以使用别的库  安装1npm install react-router --save-dev  路由配置 react-router主要提供了几个组件来进行路由之间结构的组织   Router 所有路由组件的根 Route 路由组件 path属性 匹配路径 compone">
 <meta name="keywords" content="大二期间,Node.js,React,Electron,Socket">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node.js实现PC端类微信聊天软件（二）">
 <meta property="og:url" content="https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（二）.html">
 <meta property="og:site_name" content="dejavudwh&#39;s Blog">
-<meta property="og:description" content="Github StackChat用到的React-RouterReact-Router是React路由的解决方案之一，也可以使用别的库安装1npm install react-router --save-dev路由配置react-router主要提供了几个组件来进行路由之间结构的组织Router 所有路由组件的根Route 路由组件path属性 匹配路径component属性 匹配路径渲染的组件I">
+<meta property="og:description" content="Github StackChat  用到的React-Router React-Router是React路由的解决方案之一，也可以使用别的库  安装1npm install react-router --save-dev  路由配置 react-router主要提供了几个组件来进行路由之间结构的组织   Router 所有路由组件的根 Route 路由组件 path属性 匹配路径 compone">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2019-07-09T09:54:42.669Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node.js实现PC端类微信聊天软件（二）">
-<meta name="twitter:description" content="Github StackChat用到的React-RouterReact-Router是React路由的解决方案之一，也可以使用别的库安装1npm install react-router --save-dev路由配置react-router主要提供了几个组件来进行路由之间结构的组织Router 所有路由组件的根Route 路由组件path属性 匹配路径component属性 匹配路径渲染的组件I">
+<meta name="twitter:description" content="Github StackChat  用到的React-Router React-Router是React路由的解决方案之一，也可以使用别的库  安装1npm install react-router --save-dev  路由配置 react-router主要提供了几个组件来进行路由之间结构的组织   Router 所有路由组件的根 Route 路由组件 path属性 匹配路径 compone">
 
 
 
@@ -431,7 +431,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  433
+                  440
                 </span>
               
 
@@ -468,7 +468,56 @@
       
 
       
-        <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><blockquote><p><a href="https://github.com/dejavudwh/StackChat" target="_blank" rel="noopener">Github StackChat</a></p></blockquote><h2 id="用到的React-Router"><a href="#用到的React-Router" class="headerlink" title="用到的React-Router"></a>用到的React-Router</h2><blockquote><p>React-Router是React路由的解决方案之一，也可以使用别的库</p></blockquote><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install react-router --save-dev</span><br></pre></td></tr></table></figure><h3 id="路由配置"><a href="#路由配置" class="headerlink" title="路由配置"></a>路由配置</h3><blockquote><p>react-router主要提供了几个组件来进行路由之间结构的组织</p></blockquote><ol><li>Router 所有路由组件的根</li><li>Route 路由组件<ul><li>path属性 匹配路径</li><li>component属性 匹配路径渲染的组件</li></ul></li><li>IndexRoute 配置默认页面<ul><li>component 渲染的组件</li></ul></li></ol><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">React.render((</span><br><span class="line">  <span class="tag">&lt;<span class="name">Router</span> <span class="attr">history</span>=<span class="string">&#123;browserHistory&#125;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">component</span>=<span class="string">&#123;App&#125;</span>&gt;</span></span><br><span class="line">      &#123;/* 当 url 为/时渲染 Dashboard */&#125;</span><br><span class="line">      <span class="tag">&lt;<span class="name">IndexRoute</span> <span class="attr">component</span>=<span class="string">&#123;Dashboard&#125;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"about"</span> <span class="attr">component</span>=<span class="string">&#123;About&#125;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"inbox"</span> <span class="attr">component</span>=<span class="string">&#123;Inbox&#125;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"messages/:id"</span> <span class="attr">component</span>=<span class="string">&#123;Message&#125;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Router</span>&gt;</span></span><br><span class="line">), document.body)</span><br></pre></td></tr></table></figure><a id="more"></a><ol start="5"><li>根据路由的之间的嵌套关系和匹配路径，每个组件里都会有一个children属性来对应路由下的子组件</li></ol><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  this.props.children</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure><ol start="6"><li>如果一个路由要同时更新多个组件</li></ol><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">component=&#123;&#123;<span class="attr">component1</span>:xxx,<span class="attr">component2</span>:xxx&#125;&#125;</span><br></pre></td></tr></table></figure><h3 id="History"><a href="#History" class="headerlink" title="History"></a>History</h3><blockquote><p>React Router 是建立在 history 之上的。一个 history 知道如何去监听浏览器地址栏的变化</p></blockquote><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; browserHistory &#125; <span class="keyword">from</span> <span class="string">'react-router'</span></span><br></pre></td></tr></table></figure><h3 id="组件生命周期"><a href="#组件生命周期" class="headerlink" title="组件生命周期"></a>组件生命周期</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount() <span class="comment">//渲染组件</span></span><br><span class="line">componentWillUnmount() <span class="comment">//卸载组件</span></span><br></pre></td></tr></table></figure><h2 id="今日完成"><a href="#今日完成" class="headerlink" title="今日完成"></a>今日完成</h2><blockquote><p>今天在使用React-Router发现比较不适合之前UI的设计，折腾了一会选择放弃Router，直接使用最顶层的State来进行切换渲染组件</p></blockquote><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">      return (</span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">LeftNav</span> <span class="attr">onChangeLeft</span>=<span class="string">&#123;this.changeLeftSidebar&#125;</span> <span class="attr">onChangeRight</span>=<span class="string">&#123;this.changeRightSidebar&#125;/</span>&gt;</span></span><br><span class="line">          &#123;this.componentMap[this.state.LeftSidebar]&#125;</span><br><span class="line">          <span class="tag">&lt;<span class="name">ChatBar</span> /&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">Sidebar</span> <span class="attr">species</span>=<span class="string">&#123;this.state.RightSidebar&#125;/</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      )</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure><p>将顶层组件内部的State修改方法传递给子组件通过回调进行修改和直接传递要渲染组件的信息</p><!-- rebuild by neat -->
+        <blockquote>
+<p><a href="https://github.com/dejavudwh/StackChat" target="_blank" rel="noopener">Github StackChat</a></p>
+</blockquote>
+<h2 id="用到的React-Router"><a href="#用到的React-Router" class="headerlink" title="用到的React-Router"></a>用到的React-Router</h2><blockquote>
+<p>React-Router是React路由的解决方案之一，也可以使用别的库</p>
+</blockquote>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install react-router --save-dev</span><br></pre></td></tr></table></figure>
+
+<h3 id="路由配置"><a href="#路由配置" class="headerlink" title="路由配置"></a>路由配置</h3><blockquote>
+<p>react-router主要提供了几个组件来进行路由之间结构的组织</p>
+</blockquote>
+<ol>
+<li>Router 所有路由组件的根</li>
+<li>Route 路由组件<ul>
+<li>path属性 匹配路径</li>
+<li>component属性 匹配路径渲染的组件</li>
+</ul>
+</li>
+<li>IndexRoute 配置默认页面<ul>
+<li>component 渲染的组件</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">React.render((</span><br><span class="line">  <span class="tag">&lt;<span class="name">Router</span> <span class="attr">history</span>=<span class="string">&#123;browserHistory&#125;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">component</span>=<span class="string">&#123;App&#125;</span>&gt;</span></span><br><span class="line">      &#123;/* 当 url 为/时渲染 Dashboard */&#125;</span><br><span class="line">      <span class="tag">&lt;<span class="name">IndexRoute</span> <span class="attr">component</span>=<span class="string">&#123;Dashboard&#125;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"about"</span> <span class="attr">component</span>=<span class="string">&#123;About&#125;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"inbox"</span> <span class="attr">component</span>=<span class="string">&#123;Inbox&#125;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"messages/:id"</span> <span class="attr">component</span>=<span class="string">&#123;Message&#125;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Router</span>&gt;</span></span><br><span class="line">), document.body)</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<ol start="5">
+<li>根据路由的之间的嵌套关系和匹配路径，每个组件里都会有一个children属性来对应路由下的子组件</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  this.props.children</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>如果一个路由要同时更新多个组件</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">component=&#123;&#123;<span class="attr">component1</span>:xxx,<span class="attr">component2</span>:xxx&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="History"><a href="#History" class="headerlink" title="History"></a>History</h3><blockquote>
+<p>React Router 是建立在 history 之上的。一个 history 知道如何去监听浏览器地址栏的变化</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; browserHistory &#125; <span class="keyword">from</span> <span class="string">'react-router'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="组件生命周期"><a href="#组件生命周期" class="headerlink" title="组件生命周期"></a>组件生命周期</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount() <span class="comment">//渲染组件</span></span><br><span class="line">componentWillUnmount() <span class="comment">//卸载组件</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="今日完成"><a href="#今日完成" class="headerlink" title="今日完成"></a>今日完成</h2><blockquote>
+<p>今天在使用React-Router发现比较不适合之前UI的设计，折腾了一会选择放弃Router，直接使用最顶层的State来进行切换渲染组件</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">      return (</span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">LeftNav</span> <span class="attr">onChangeLeft</span>=<span class="string">&#123;this.changeLeftSidebar&#125;</span> <span class="attr">onChangeRight</span>=<span class="string">&#123;this.changeRightSidebar&#125;/</span>&gt;</span></span><br><span class="line">          &#123;this.componentMap[this.state.LeftSidebar]&#125;</span><br><span class="line">          <span class="tag">&lt;<span class="name">ChatBar</span> /&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">Sidebar</span> <span class="attr">species</span>=<span class="string">&#123;this.state.RightSidebar&#125;/</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      )</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>将顶层组件内部的State修改方法传递给子组件通过回调进行修改和直接传递要渲染组件的信息</p>
+
       
     </div>
     
@@ -760,7 +809,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">89.6k</span>
+    <span title="Site words total count">90.2k</span>
   
 </div>
 

@@ -465,7 +465,16 @@
 
       
         
-          <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><blockquote><p>项目的完整代码在 <a href="https://github.com/dejavudwh/C2j-Compiler" target="_blank" rel="noopener">C2j-Compiler</a></p></blockquote><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在上一篇，已经成功的构建了有限状态自动机，但是这个自动机还存在两个问题：</p><ul><li>无法处理shift/reduce矛盾</li><li>状态节点太多，导致自动机过大，效率较低</li></ul><p>这一节就要解决这两个问题</p><h1 id="shift-reduce矛盾"><a href="#shift-reduce矛盾" class="headerlink" title="shift/reduce矛盾"></a>shift/reduce矛盾</h1><p>看上一节那个例子的一个节点</p>
+          <blockquote>
+<p>项目的完整代码在 <a href="https://github.com/dejavudwh/C2j-Compiler" target="_blank" rel="noopener">C2j-Compiler</a></p>
+</blockquote>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在上一篇，已经成功的构建了有限状态自动机，但是这个自动机还存在两个问题：</p>
+<ul>
+<li>无法处理shift/reduce矛盾</li>
+<li>状态节点太多，导致自动机过大，效率较低  </li>
+</ul>
+<p>这一节就要解决这两个问题</p>
+<h1 id="shift-reduce矛盾"><a href="#shift-reduce矛盾" class="headerlink" title="shift/reduce矛盾"></a>shift/reduce矛盾</h1><p>看上一节那个例子的一个节点</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/compiler/从零写一个编译器（五）.html#more" rel="contents">
@@ -664,7 +673,12 @@
 
       
         
-          <!-- build time:Mon Sep 23 2019 16:03:14 GMT+0800 (GMT+08:00) --><blockquote><p>项目的完整代码在 <a href="https://github.com/dejavudwh/C2j-Compiler" target="_blank" rel="noopener">C2j-Compiler</a></p></blockquote><p>通过上一篇对几个构造自动机的基础数据结构的描述，现在就可以正式来构造有限状态自动机</p><p>我们先用一个小一点的语法推导式来描述这个过程</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s -&gt; e</span><br><span class="line">e -&gt; e + t</span><br><span class="line">e -&gt; t</span><br><span class="line">t -&gt; t * f</span><br><span class="line">t -&gt; f</span><br><span class="line">f -&gt; ( e )</span><br><span class="line">f -&gt; NUM</span><br></pre></td></tr></table></figure>
+          <blockquote>
+<p>项目的完整代码在 <a href="https://github.com/dejavudwh/C2j-Compiler" target="_blank" rel="noopener">C2j-Compiler</a></p>
+</blockquote>
+<p>通过上一篇对几个构造自动机的基础数据结构的描述，现在就可以正式来构造有限状态自动机</p>
+<p>我们先用一个小一点的语法推导式来描述这个过程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s -&gt; e</span><br><span class="line">e -&gt; e + t</span><br><span class="line">e -&gt; t</span><br><span class="line">t -&gt; t * f</span><br><span class="line">t -&gt; f</span><br><span class="line">f -&gt; ( e )</span><br><span class="line">f -&gt; NUM</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/compiler/从零写一个编译器（四）.html#more" rel="contents">
@@ -863,7 +877,15 @@
 
       
         
-          <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><blockquote><p>项目的完整代码在 <a href="https://github.com/dejavudwh/C2j-Compiler" target="_blank" rel="noopener">C2j-Compiler</a></p></blockquote><h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>这个系列算作为我自己在学习写一个编译器的过程的一些记录，算法之类的都没有记录原理性的东西，想知道原理的在龙书里都写得非常清楚，但是我自己一开始是不怎么看得下来，到现在都还没有完整的看完，它像是一本给已经有基础的人写的书。</p><p>在parse包里一共有8个文件，就是语法分析阶段写的所有东西啦</p><ul><li>Symbols.java</li><li>Production.java</li><li>SyntaxProductionInit.java
+          <blockquote>
+<p>项目的完整代码在 <a href="https://github.com/dejavudwh/C2j-Compiler" target="_blank" rel="noopener">C2j-Compiler</a></p>
+</blockquote>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>这个系列算作为我自己在学习写一个编译器的过程的一些记录，算法之类的都没有记录原理性的东西，想知道原理的在龙书里都写得非常清楚，但是我自己一开始是不怎么看得下来，到现在都还没有完整的看完，它像是一本给已经有基础的人写的书。</p>
+<p>在parse包里一共有8个文件，就是语法分析阶段写的所有东西啦</p>
+<ul>
+<li>Symbols.java</li>
+<li>Production.java</li>
+<li>SyntaxProductionInit.java
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/compiler/从零写一个编译器（三）.html#more" rel="contents">
@@ -1062,7 +1084,13 @@
 
       
         
-          <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在之前完成了词法分析之后，得到了Token流，那么接下来就是实现语法分析器来输入Token流得到抽象语法树 <em>（Abstract Syntax Tree，AST）</em>。但是在完成这个语法分析器不像词法分析器，直接手撸就好了，还是需要一些前置的知识。</p><p>这些前置知识在之前的博文都有提起过</p><p><a href="https://dejavudwh.cn/categories/学习笔记/编译原理">之前的博文目录</a></p><blockquote><p>项目的完整代码在 <a href="https://github.com/dejavudwh/C2j-Complier" target="_blank" rel="noopener">C2j-Compiler</a></p></blockquote><h1 id="什么是语法分析？"><a href="#什么是语法分析？" class="headerlink" title="什么是语法分析？"></a>什么是语法分析？</h1>
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在之前完成了词法分析之后，得到了Token流，那么接下来就是实现语法分析器来输入Token流得到抽象语法树 <em>（Abstract Syntax Tree，AST）</em>。但是在完成这个语法分析器不像词法分析器，直接手撸就好了，还是需要一些前置的知识。</p>
+<p>这些前置知识在之前的博文都有提起过</p>
+<p><a href="https://dejavudwh.cn/categories/学习笔记/编译原理">之前的博文目录</a></p>
+<blockquote>
+<p>项目的完整代码在 <a href="https://github.com/dejavudwh/C2j-Complier" target="_blank" rel="noopener">C2j-Compiler</a></p>
+</blockquote>
+<h1 id="什么是语法分析？"><a href="#什么是语法分析？" class="headerlink" title="什么是语法分析？"></a>什么是语法分析？</h1>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/compiler/从零写一个编译器（二）.html#more" rel="contents">
@@ -1261,7 +1289,12 @@
 
       
         
-          <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><blockquote><p>项目的完整代码在 <a href="https://github.com/dejavudwh/C2j-Compiler" target="_blank" rel="noopener">C2j-Compiler</a></p></blockquote><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>从半抄半改的完成一个把C语言编译到Java字节码到现在也有些时间，一直想写一个系列来<strong>回顾整理一下写一个编译器的过程</strong>，也算是学习笔记吧。就从今天开始动笔吧。</p><p>一开始会先写一个C语言的解释器，直接遍历AST直接执行，再之后会加入生成代码部分，也就是编译成Java字节码</p><p>支持C语言的大部分使用，具体可以到上面的链接去看，当然依旧是比玩具级还玩具级的编译器。</p>
+          <blockquote>
+<p>项目的完整代码在 <a href="https://github.com/dejavudwh/C2j-Compiler" target="_blank" rel="noopener">C2j-Compiler</a></p>
+</blockquote>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>从半抄半改的完成一个把C语言编译到Java字节码到现在也有些时间，一直想写一个系列来<strong>回顾整理一下写一个编译器的过程</strong>，也算是学习笔记吧。就从今天开始动笔吧。</p>
+<p>一开始会先写一个C语言的解释器，直接遍历AST直接执行，再之后会加入生成代码部分，也就是编译成Java字节码</p>
+<p>支持C语言的大部分使用，具体可以到上面的链接去看，当然依旧是比玩具级还玩具级的编译器。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/compiler/从零写一个编译器（一）.html#more" rel="contents">
@@ -1422,7 +1455,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  279
+                  280
                 </span>
               
 
@@ -1461,7 +1494,19 @@
       
         
           
-            <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><h1 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h1><blockquote><p>符号表本质上就是在编译过程中的一种数据结构，用来标识和存储源代码的变量、函数等。在符号表中，源程序中的每个标识符都和它的声明或使用信息绑定在一起，比如其数据类型、作用域以及内存地址。</p></blockquote><p>符号表一般使用用哈希表来实现，实现的作用域的问题一般用链表就可以解决</p><p>一般在语法分析阶段生成</p><h1 id="AST抽象语法树"><a href="#AST抽象语法树" class="headerlink" title="AST抽象语法树"></a>AST抽象语法树</h1><blockquote><p>抽象语法树（abstract syntax tree 或者缩写为 AST），是源代码的抽象语法结构的树状表现形式，这里特指编程语言的源代码。树上的每个节点都表示源代码中的一种结构。</p></blockquote><p>和符号表一样在编译过程都不一定是必须的结构</p><p>对于解释型的语言可以不生成中间代码来让虚拟机执行，可以直接根据AST直接解释</p><p>编译型语言一般通过AST来生成IR</p><p>一般在语法分析阶段生成</p><!-- rebuild by neat -->
+            <h1 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h1><blockquote>
+<p>符号表本质上就是在编译过程中的一种数据结构，用来标识和存储源代码的变量、函数等。在符号表中，源程序中的每个标识符都和它的声明或使用信息绑定在一起，比如其数据类型、作用域以及内存地址。</p>
+</blockquote>
+<p>符号表一般使用用哈希表来实现，实现的作用域的问题一般用链表就可以解决</p>
+<p>一般在语法分析阶段生成</p>
+<h1 id="AST抽象语法树"><a href="#AST抽象语法树" class="headerlink" title="AST抽象语法树"></a>AST抽象语法树</h1><blockquote>
+<p>抽象语法树（abstract syntax tree 或者缩写为 AST），是源代码的抽象语法结构的树状表现形式，这里特指编程语言的源代码。树上的每个节点都表示源代码中的一种结构。</p>
+</blockquote>
+<p>和符号表一样在编译过程都不一定是必须的结构</p>
+<p>对于解释型的语言可以不生成中间代码来让虚拟机执行，可以直接根据AST直接解释</p>
+<p>编译型语言一般通过AST来生成IR</p>
+<p>一般在语法分析阶段生成</p>
+
           
         
       
@@ -1616,7 +1661,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  2k
+                  2.1k
                 </span>
               
 
@@ -1654,7 +1699,72 @@
 
       
         
-          <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><h1 id="什么是自底向上的语法分析"><a href="#什么是自底向上的语法分析" class="headerlink" title="什么是自底向上的语法分析"></a>什么是自底向上的语法分析</h1><blockquote><p>一个自底向上的语法分析过程对应为一个输入串构造语法分析书的过程，它从叶子节点开始，通过shift和reduce操作逐渐向上到达根节点</p></blockquote><p>自底向上的语法分析需要一个堆栈来存放解析的符号，例如对于如下语法：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.</span>	statement -&gt; expr</span><br><span class="line"><span class="number">1.</span>	expr -&gt; expr + factor</span><br><span class="line"><span class="number">2.</span>	         | factor</span><br><span class="line"><span class="number">3.</span>	factor -&gt;  ( expr )</span><br><span class="line"><span class="number">4.</span>	         | NUM</span><br></pre></td></tr></table></figure><p>来解析1+2</p><table><thead><tr><th>stack</th><th>input</th><th></th></tr></thead><tbody><tr><td>null</td><td>1 + 2</td><td></td></tr><tr><td>NUM</td><td>+ 2</td><td>开始读入一个字符，并把对应的token放入解析堆栈，称为shift操作</td></tr><tr><td>factor</td><td>+ 2</td><td>根据语法推导式，factor -&gt; NUM,将NUM出栈，factor入栈，这个操作称为reduce</td></tr><tr><td>expr</td><td>+ 2</td><td>这里继续做reduce操作，但是由于语法推导式有两个产生式，所以需要向前看一个符合才能判断是进行shift还是reduce，也就是语法解析的LA</td></tr><tr><td>expr +</td><td>2</td><td>shift操作</td></tr><tr><td>expr + NUM</td><td>null</td><td>shift操作</td></tr><tr><td>expr + factor</td><td>null</td><td>根据fator的产生式进行reduce</td></tr><tr><td>expr</td><td>null</td><td>reduce操作</td></tr><tr><td>statement</td><td>null</td><td>reduce操作</td></tr><tr><td>此时规约到开始符号，并且输入串也为空，代表语法解析成功</td><td></td><td></td></tr></tbody></table>
+          <h1 id="什么是自底向上的语法分析"><a href="#什么是自底向上的语法分析" class="headerlink" title="什么是自底向上的语法分析"></a>什么是自底向上的语法分析</h1><blockquote>
+<p>一个自底向上的语法分析过程对应为一个输入串构造语法分析书的过程，它从叶子节点开始，通过shift和reduce操作逐渐向上到达根节点</p>
+</blockquote>
+<p>自底向上的语法分析需要一个堆栈来存放解析的符号，例如对于如下语法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.</span>	statement -&gt; expr</span><br><span class="line"><span class="number">1.</span>	expr -&gt; expr + factor</span><br><span class="line"><span class="number">2.</span>	         | factor</span><br><span class="line"><span class="number">3.</span>	factor -&gt;  ( expr )</span><br><span class="line"><span class="number">4.</span>	         | NUM</span><br></pre></td></tr></table></figure>
+
+<p>来解析1+2</p>
+<table>
+<thead>
+<tr>
+<th>stack</th>
+<th>input</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>null</td>
+<td>1 + 2</td>
+<td></td>
+</tr>
+<tr>
+<td>NUM</td>
+<td>+ 2</td>
+<td>开始读入一个字符，并把对应的token放入解析堆栈，称为shift操作</td>
+</tr>
+<tr>
+<td>factor</td>
+<td>+ 2</td>
+<td>根据语法推导式，factor -&gt; NUM,将NUM出栈，factor入栈，这个操作称为reduce</td>
+</tr>
+<tr>
+<td>expr</td>
+<td>+ 2</td>
+<td>这里继续做reduce操作，但是由于语法推导式有两个产生式，所以需要向前看一个符合才能判断是进行shift还是reduce，也就是语法解析的LA</td>
+</tr>
+<tr>
+<td>expr +</td>
+<td>2</td>
+<td>shift操作</td>
+</tr>
+<tr>
+<td>expr + NUM</td>
+<td>null</td>
+<td>shift操作</td>
+</tr>
+<tr>
+<td>expr + factor</td>
+<td>null</td>
+<td>根据fator的产生式进行reduce</td>
+</tr>
+<tr>
+<td>expr</td>
+<td>null</td>
+<td>reduce操作</td>
+</tr>
+<tr>
+<td>statement</td>
+<td>null</td>
+<td>reduce操作</td>
+</tr>
+<tr>
+<td>此时规约到开始符号，并且输入串也为空，代表语法解析成功</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/CompilationPrinciple/自底向上语法分析.html#more" rel="contents">
@@ -1853,7 +1963,16 @@
 
       
         
-          <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><h1 id="什么是自顶向下分析法"><a href="#什么是自顶向下分析法" class="headerlink" title="什么是自顶向下分析法"></a>什么是自顶向下分析法</h1><blockquote><p>在语法分析过程中一般有两种语法分析方法，自顶向下和自底向上，递归下降分析和LL(1)都属于是自顶向下的语法分析</p></blockquote><p>自顶向下分析法的过程就像从第一个非终结符作为根节点开始根据产生式进行树的构建</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">S -&gt; AB</span><br><span class="line">A -&gt; Cb | c</span><br><span class="line">B -&gt; f</span><br><span class="line">C -&gt; de</span><br></pre></td></tr></table></figure><p>对输入字符串debf的分析过程</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">S -&gt; CbB -&gt; debf</span><br><span class="line">S -&gt; cf   x</span><br></pre></td></tr></table></figure><p>整个过程就是对通过非终结符的不断替换，所以当我们从左往右匹配这个句子的时候，需要找到合适的产生式，所以在自顶向下语法分析过程中作出正确的推导有两种方法，一是递归下降，二是表驱动的语法分析，也就是LL(1)</p>
+          <h1 id="什么是自顶向下分析法"><a href="#什么是自顶向下分析法" class="headerlink" title="什么是自顶向下分析法"></a>什么是自顶向下分析法</h1><blockquote>
+<p>在语法分析过程中一般有两种语法分析方法，自顶向下和自底向上，递归下降分析和LL(1)都属于是自顶向下的语法分析</p>
+</blockquote>
+<p>自顶向下分析法的过程就像从第一个非终结符作为根节点开始根据产生式进行树的构建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">S -&gt; AB</span><br><span class="line">A -&gt; Cb | c</span><br><span class="line">B -&gt; f</span><br><span class="line">C -&gt; de</span><br></pre></td></tr></table></figure>
+
+<p>对输入字符串debf的分析过程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">S -&gt; CbB -&gt; debf</span><br><span class="line">S -&gt; cf   x</span><br></pre></td></tr></table></figure>
+
+<p>整个过程就是对通过非终结符的不断替换，所以当我们从左往右匹配这个句子的时候，需要找到合适的产生式，所以在自顶向下语法分析过程中作出正确的推导有两种方法，一是递归下降，二是表驱动的语法分析，也就是LL(1)</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/CompilationPrinciple/递归下降和LL(1)语法分析.html#more" rel="contents">
@@ -2014,7 +2133,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.7k
+                  1.8k
                 </span>
               
 
@@ -2052,7 +2171,29 @@
 
       
         
-          <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><h1 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h1><blockquote><p>词法分析器事作为编译的第一阶段，词法分析器的主要任务是读入源程序的输入字符，将他们组成词素，生成并输出一个词法单元token序列</p></blockquote><p>一个计算器的主要token序列 词法分析器的主要功能就是读入源程序，再作为统一的token序列输出</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  EOI = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  SEMI = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  PLUS = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  TIMES = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  LP = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  RP = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  NUM_OR_ID = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  WHITE_SPACE = <span class="number">7</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  UNKNOWN_SYMBOL = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  SUB = <span class="number">9</span>;</span><br></pre></td></tr></table></figure><h1 id="文法"><a href="#文法" class="headerlink" title="文法"></a>文法</h1><blockquote><p>文法用来描述语言的规则，文法G定义为一个四元组（VN,VT,P,S），其中，VN为非终结符集合，VT终结符集合；P是产生式结合；S称为识别符或开始符号，也是一个非终结符，至少要在一条产生式的左边出现。</p></blockquote><blockquote><p>产生式的形式是α → β，α称为产生式左部，β称为产生式右部，α属于VN，β∈(VN∪VT)*，α∉ε</p></blockquote><h2 id="上下文无关语法"><a href="#上下文无关语法" class="headerlink" title="上下文无关语法"></a>上下文无关语法</h2><p>上下文无关语法中产生式的左边只有一个符号，只要文法的定义里有某个产生式，不管一个非终结符前后的串是什么，就可以应用相应的产生式进行推导</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">S -&gt; dc <span class="comment">// 上下文无关，即用S就可以推出dc</span></span><br><span class="line">aSb -&gt; dc <span class="comment">// 上下文相关，即还需要确定ab才能确定推出dc</span></span><br></pre></td></tr></table></figure><h2 id="左递归"><a href="#左递归" class="headerlink" title="左递归"></a>左递归</h2><p>一个文法形似</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A -&gt; Aα | B</span><br></pre></td></tr></table></figure><p>就称为左递归</p><blockquote><p>左递归文法是不能用自顶向下分析的，需要改变语法消除左递归</p></blockquote><h2 id="语法的歧义性"><a href="#语法的歧义性" class="headerlink" title="语法的歧义性"></a>语法的歧义性</h2>
+          <h1 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h1><blockquote>
+<p>词法分析器事作为编译的第一阶段，词法分析器的主要任务是读入源程序的输入字符，将他们组成词素，生成并输出一个词法单元token序列</p>
+</blockquote>
+<p>一个计算器的主要token序列 词法分析器的主要功能就是读入源程序，再作为统一的token序列输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  EOI = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  SEMI = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  PLUS = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  TIMES = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  LP = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  RP = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  NUM_OR_ID = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  WHITE_SPACE = <span class="number">7</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  UNKNOWN_SYMBOL = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>  SUB = <span class="number">9</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="文法"><a href="#文法" class="headerlink" title="文法"></a>文法</h1><blockquote>
+<p>文法用来描述语言的规则，文法G定义为一个四元组（VN,VT,P,S），其中，VN为非终结符集合，VT终结符集合；P是产生式结合；S称为识别符或开始符号，也是一个非终结符，至少要在一条产生式的左边出现。</p>
+</blockquote>
+<blockquote>
+<p>产生式的形式是α → β，α称为产生式左部，β称为产生式右部，α属于VN，β∈(VN∪VT)*，α∉ε</p>
+</blockquote>
+<h2 id="上下文无关语法"><a href="#上下文无关语法" class="headerlink" title="上下文无关语法"></a>上下文无关语法</h2><p>上下文无关语法中产生式的左边只有一个符号，只要文法的定义里有某个产生式，不管一个非终结符前后的串是什么，就可以应用相应的产生式进行推导</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">S -&gt; dc <span class="comment">// 上下文无关，即用S就可以推出dc</span></span><br><span class="line">aSb -&gt; dc <span class="comment">// 上下文相关，即还需要确定ab才能确定推出dc</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="左递归"><a href="#左递归" class="headerlink" title="左递归"></a>左递归</h2><p>一个文法形似</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A -&gt; Aα | B</span><br></pre></td></tr></table></figure>
+
+<p>就称为左递归</p>
+<blockquote>
+<p>左递归文法是不能用自顶向下分析的，需要改变语法消除左递归</p>
+</blockquote>
+<h2 id="语法的歧义性"><a href="#语法的歧义性" class="headerlink" title="语法的歧义性"></a>语法的歧义性</h2>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/CompilationPrinciple/编译原理初解.html#more" rel="contents">
@@ -2251,7 +2392,22 @@
 
       
         
-          <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><h1 id="面向对象和原型"><a href="#面向对象和原型" class="headerlink" title="面向对象和原型"></a>面向对象和原型</h1><h2 id="理解原型"><a href="#理解原型" class="headerlink" title="理解原型"></a>理解原型</h2><blockquote><p>在JavaScript中，可通过原型实现继承。原型的概念很简单。每个对象都含有原型的引用，当查找属性时，若对象本身不具有该属性，则会查找原型上是否有该属性。</p></blockquote><blockquote><p>每个对象都可以有一个原型，每个对象的原型也可以拥有一个原型，以此类推，形成一个原型链。查找特定属性将会被委托在整个原型链上，只有当没有更多的原型可以进行查找时，才会停止查找。</p></blockquote><h2 id="对象构造器与原型"><a href="#对象构造器与原型" class="headerlink" title="对象构造器与原型"></a>对象构造器与原型</h2><p>当用作为函数调用Ninja时，什么都不会做。在用new操作符时返回一个对象，并且设置了它的原型为Ninja，所以ninja2可以调用swingSword方法。但swingSword方法是Ninja的原型属性， 而不是ninja实例的属性</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">Ninja.prototype.swingSword = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;;  </span><br><span class="line"><span class="keyword">const</span> ninja1 = Ninja();</span><br><span class="line">assert(ninja1 === <span class="literal">undefined</span>,</span><br><span class="line"><span class="string">"No instance of Ninja created."</span>);  </span><br><span class="line"><span class="keyword">const</span> ninja2 = <span class="keyword">new</span> Ninja();</span><br><span class="line">assert(ninja2 &amp;&amp;</span><br><span class="line">ninja2.swingSword &amp;&amp;</span><br><span class="line">ninja2.swingSword(),</span><br><span class="line"><span class="string">"Instance exists and method is callable."</span> );</span><br></pre></td></tr></table></figure><h2 id="实例属性"><a href="#实例属性" class="headerlink" title="实例属性"></a>实例属性</h2><ol><li>当在原型和实例中有重名属性时，实例属性优先级比原型属性高</li><li>创建了多个实例，每个实例都是独立的拷贝，但是原型引用的是同一个方法</li></ol><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.swung = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">this</span>.swingSword = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> !<span class="keyword">this</span>.swung;  </span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">Ninja.prototype.swingSword = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.swung;</span><br><span class="line">&#125;;  </span><br><span class="line"><span class="keyword">const</span> ninja = <span class="keyword">new</span> Ninja();</span><br><span class="line">assert(ninja.swingSword(),</span><br><span class="line"><span class="string">"Called the instance method, not the prototype method."</span>);</span><br></pre></td></tr></table></figure><h2 id="通过构造函数实现对象类型"><a href="#通过构造函数实现对象类型" class="headerlink" title="通过构造函数实现对象类型"></a>通过构造函数实现对象类型</h2><h3 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h3>
+          <h1 id="面向对象和原型"><a href="#面向对象和原型" class="headerlink" title="面向对象和原型"></a>面向对象和原型</h1><h2 id="理解原型"><a href="#理解原型" class="headerlink" title="理解原型"></a>理解原型</h2><blockquote>
+<p>在JavaScript中，可通过原型实现继承。原型的概念很简单。每个对象都含有原型的引用，当查找属性时，若对象本身不具有该属性，则会查找原型上是否有该属性。</p>
+</blockquote>
+<blockquote>
+<p>每个对象都可以有一个原型，每个对象的原型也可以拥有一个原型，以此类推，形成一个原型链。查找特定属性将会被委托在整个原型链上，只有当没有更多的原型可以进行查找时，才会停止查找。</p>
+</blockquote>
+<h2 id="对象构造器与原型"><a href="#对象构造器与原型" class="headerlink" title="对象构造器与原型"></a>对象构造器与原型</h2><p>当用作为函数调用Ninja时，什么都不会做。在用new操作符时返回一个对象，并且设置了它的原型为Ninja，所以ninja2可以调用swingSword方法。但swingSword方法是Ninja的原型属性， 而不是ninja实例的属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">Ninja.prototype.swingSword = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;;  </span><br><span class="line"><span class="keyword">const</span> ninja1 = Ninja();</span><br><span class="line">assert(ninja1 === <span class="literal">undefined</span>,</span><br><span class="line"><span class="string">"No instance of Ninja created."</span>);  </span><br><span class="line"><span class="keyword">const</span> ninja2 = <span class="keyword">new</span> Ninja();</span><br><span class="line">assert(ninja2 &amp;&amp;</span><br><span class="line">ninja2.swingSword &amp;&amp;</span><br><span class="line">ninja2.swingSword(),</span><br><span class="line"><span class="string">"Instance exists and method is callable."</span> );</span><br></pre></td></tr></table></figure>
+
+<h2 id="实例属性"><a href="#实例属性" class="headerlink" title="实例属性"></a>实例属性</h2><ol>
+<li>当在原型和实例中有重名属性时，实例属性优先级比原型属性高</li>
+<li>创建了多个实例，每个实例都是独立的拷贝，但是原型引用的是同一个方法</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.swung = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">this</span>.swingSword = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> !<span class="keyword">this</span>.swung;  </span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">Ninja.prototype.swingSword = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.swung;</span><br><span class="line">&#125;;  </span><br><span class="line"><span class="keyword">const</span> ninja = <span class="keyword">new</span> Ninja();</span><br><span class="line">assert(ninja.swingSword(),</span><br><span class="line"><span class="string">"Called the instance method, not the prototype method."</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="通过构造函数实现对象类型"><a href="#通过构造函数实现对象类型" class="headerlink" title="通过构造函数实现对象类型"></a>通过构造函数实现对象类型</h2><h3 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h3>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/JavaScriptNinja/读Secrets of the JavaScript Ninja（二）.html#more" rel="contents">
@@ -2470,7 +2626,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">89.6k</span>
+    <span title="Site words total count">90.2k</span>
   
 </div>
 

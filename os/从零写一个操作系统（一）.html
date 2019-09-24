@@ -95,19 +95,19 @@
 
 
 
-<meta name="description" content="前言有人说程序员的三大浪漫分别是编译原理、操作系统和计算机网络在之前完成了一两个小软件和网站后遇见了编译原理，也不知道为什么就傻傻的学，还写了一个从零写编译器的系列学习笔记，不过都是小打小闹，只能算作摸到了一点点入门的门槛。再后来想深入学习的时候，因为暑假在家很多书买来的话再带去学校很麻烦，就索性找了一本操作系统的书，也不懂原理就撸了一个玩具型的操作系统几句感概">
+<meta name="description" content="前言 有人说程序员的三大浪漫分别是编译原理、操作系统和计算机网络  在之前完成了一两个小软件和网站后遇见了编译原理，也不知道为什么就傻傻的学，还写了一个从零写编译器的系列学习笔记，不过都是小打小闹，只能算作摸到了一点点入门的门槛。再后来想深入学习的时候，因为暑假在家很多书买来的话再带去学校很麻烦，就索性找了一本操作系统的书，也不懂原理就撸了一个玩具型的操作系统 几句感概">
 <meta name="keywords" content="操作系统,从零写一个操作系统">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我是如何学习写一个操作系统（一）：开篇">
 <meta property="og:url" content="https://dejavudwh.cn/os/从零写一个操作系统（一）.html">
 <meta property="og:site_name" content="dejavudwh&#39;s Blog">
-<meta property="og:description" content="前言有人说程序员的三大浪漫分别是编译原理、操作系统和计算机网络在之前完成了一两个小软件和网站后遇见了编译原理，也不知道为什么就傻傻的学，还写了一个从零写编译器的系列学习笔记，不过都是小打小闹，只能算作摸到了一点点入门的门槛。再后来想深入学习的时候，因为暑假在家很多书买来的话再带去学校很麻烦，就索性找了一本操作系统的书，也不懂原理就撸了一个玩具型的操作系统几句感概">
+<meta property="og:description" content="前言 有人说程序员的三大浪漫分别是编译原理、操作系统和计算机网络  在之前完成了一两个小软件和网站后遇见了编译原理，也不知道为什么就傻傻的学，还写了一个从零写编译器的系列学习笔记，不过都是小打小闹，只能算作摸到了一点点入门的门槛。再后来想深入学习的时候，因为暑假在家很多书买来的话再带去学校很麻烦，就索性找了一本操作系统的书，也不懂原理就撸了一个玩具型的操作系统 几句感概">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/secoding/1532276/o_osjpg.png">
 <meta property="og:updated_time" content="2019-08-23T13:58:19.519Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我是如何学习写一个操作系统（一）：开篇">
-<meta name="twitter:description" content="前言有人说程序员的三大浪漫分别是编译原理、操作系统和计算机网络在之前完成了一两个小软件和网站后遇见了编译原理，也不知道为什么就傻傻的学，还写了一个从零写编译器的系列学习笔记，不过都是小打小闹，只能算作摸到了一点点入门的门槛。再后来想深入学习的时候，因为暑假在家很多书买来的话再带去学校很麻烦，就索性找了一本操作系统的书，也不懂原理就撸了一个玩具型的操作系统几句感概">
+<meta name="twitter:description" content="前言 有人说程序员的三大浪漫分别是编译原理、操作系统和计算机网络  在之前完成了一两个小软件和网站后遇见了编译原理，也不知道为什么就傻傻的学，还写了一个从零写编译器的系列学习笔记，不过都是小打小闹，只能算作摸到了一点点入门的门槛。再后来想深入学习的时候，因为暑假在家很多书买来的话再带去学校很麻烦，就索性找了一本操作系统的书，也不懂原理就撸了一个玩具型的操作系统 几句感概">
 <meta name="twitter:image" content="https://images.cnblogs.com/cnblogs_com/secoding/1532276/o_osjpg.png">
 
 
@@ -433,7 +433,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  658
+                  660
                 </span>
               
 
@@ -470,7 +470,41 @@
       
 
       
-        <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote><p>有人说程序员的三大浪漫分别是编译原理、操作系统和计算机网络</p></blockquote><p>在之前完成了一两个小软件和网站后遇见了编译原理，也不知道为什么就傻傻的学，还写了一个<a href="https://www.cnblogs.com/secoding/p/11393720.html" target="_blank" rel="noopener">从零写编译器的系列学习笔记</a>，不过都是小打小闹，只能算作摸到了一点点入门的门槛。再后来想深入学习的时候，因为暑假在家很多书买来的话再带去学校很麻烦，就索性找了一本操作系统的书，也不懂原理就撸了一个玩具型的操作系统</p><h3 id="几句感概"><a href="#几句感概" class="headerlink" title="几句感概"></a>几句感概</h3><a id="more"></a><p>在身边同学都在埋头在各种Web方向，做出各种酷炫的东西，也深深觉得自己Web方向的技术栈太浅浅，之前利用React全家桶+Electron和node做后台的一个<a href="https://github.com/dejavudwh/StackChat" target="_blank" rel="noopener">聊天软件</a>，以现在来看略显幼稚，另外的Java虽然是我的第二门语言可是到现在也不算上得台面。下学期就大三了，越临近就业就越焦虑，下学期可能会更侧重应用方向吧。</p><h3 id="写这个系列的原因"><a href="#写这个系列的原因" class="headerlink" title="写这个系列的原因"></a>写这个系列的原因</h3><p>因为跟着书上撸的操作系统属于小的玩具型的操作系统，所以很多涉及到操作系统比较深入的原理都没有进行学习，所以这个系列想作为自己学习操作系统的记录，也就是对原理性的学习和结合实现一个玩具型的操作系统</p><h3 id="FragileOS"><a href="#FragileOS" class="headerlink" title="FragileOS"></a>FragileOS</h3><p>FragileOS就是之前实现的一个玩具型操作系统，之前叫这个名字是因为它真的很Fragile，代码结构不好，功能不多，原型基本是来自别人的（后面会提到）</p><p>代码在github上已经分享出来了：<a href="https://github.com/dejavudwh/FragileOS" target="_blank" rel="noopener">FragileOS</a></p><p><img src="https://images.cnblogs.com/cnblogs_com/secoding/1532276/o_osjpg.png" alt></p><p><em>主要界面</em></p><h2 id="正式开始"><a href="#正式开始" class="headerlink" title="正式开始"></a>正式开始</h2><p>这个学习笔记可能用到的有四本书：</p><ul><li>《x86汇编语言：从实模式到保护模式》</li><li>《操作系统：精髓与设计原理》</li><li>《OrangeS：一个操作系统的实现》</li><li>《30天自制操作系统》</li></ul><p>第一本和第三本第四本在之前实现那个玩具型操作系统起了很大的作用，但是第三本只看了一点，第二本则是根据别人的推荐来的。所以战线很长很长，希望能坚持下来</p><h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><ul><li><p>VirtualBox 6.0</p><p>一个开源的虚拟机，开发的操作系统就运行在这之上</p></li><li><p>GCC 8.1.0</p></li><li><p>NASM 2.07</p><p>汇编器</p></li><li><p>objconv</p><p>反汇编器</p></li></ul><p>希望能够坚持下去吧</p><!-- rebuild by neat -->
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>有人说程序员的三大浪漫分别是编译原理、操作系统和计算机网络</p>
+</blockquote>
+<p>在之前完成了一两个小软件和网站后遇见了编译原理，也不知道为什么就傻傻的学，还写了一个<a href="https://www.cnblogs.com/secoding/p/11393720.html" target="_blank" rel="noopener">从零写编译器的系列学习笔记</a>，不过都是小打小闹，只能算作摸到了一点点入门的门槛。再后来想深入学习的时候，因为暑假在家很多书买来的话再带去学校很麻烦，就索性找了一本操作系统的书，也不懂原理就撸了一个玩具型的操作系统</p>
+<h3 id="几句感概"><a href="#几句感概" class="headerlink" title="几句感概"></a>几句感概</h3><a id="more"></a>
+
+<p>在身边同学都在埋头在各种Web方向，做出各种酷炫的东西，也深深觉得自己Web方向的技术栈太浅浅，之前利用React全家桶+Electron和node做后台的一个<a href="https://github.com/dejavudwh/StackChat" target="_blank" rel="noopener">聊天软件</a>，以现在来看略显幼稚，另外的Java虽然是我的第二门语言可是到现在也不算上得台面。下学期就大三了，越临近就业就越焦虑，下学期可能会更侧重应用方向吧。</p>
+<h3 id="写这个系列的原因"><a href="#写这个系列的原因" class="headerlink" title="写这个系列的原因"></a>写这个系列的原因</h3><p>因为跟着书上撸的操作系统属于小的玩具型的操作系统，所以很多涉及到操作系统比较深入的原理都没有进行学习，所以这个系列想作为自己学习操作系统的记录，也就是对原理性的学习和结合实现一个玩具型的操作系统</p>
+<h3 id="FragileOS"><a href="#FragileOS" class="headerlink" title="FragileOS"></a>FragileOS</h3><p>FragileOS就是之前实现的一个玩具型操作系统，之前叫这个名字是因为它真的很Fragile，代码结构不好，功能不多，原型基本是来自别人的（后面会提到）</p>
+<p>代码在github上已经分享出来了：<a href="https://github.com/dejavudwh/FragileOS" target="_blank" rel="noopener">FragileOS</a></p>
+<p><img src="https://images.cnblogs.com/cnblogs_com/secoding/1532276/o_osjpg.png" alt></p>
+<p><em>主要界面</em></p>
+<h2 id="正式开始"><a href="#正式开始" class="headerlink" title="正式开始"></a>正式开始</h2><p>这个学习笔记可能用到的有四本书：</p>
+<ul>
+<li>《x86汇编语言：从实模式到保护模式》</li>
+<li>《操作系统：精髓与设计原理》</li>
+<li>《OrangeS：一个操作系统的实现》</li>
+<li>《30天自制操作系统》</li>
+</ul>
+<p>第一本和第三本第四本在之前实现那个玩具型操作系统起了很大的作用，但是第三本只看了一点，第二本则是根据别人的推荐来的。所以战线很长很长，希望能坚持下来</p>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><ul>
+<li><p>VirtualBox 6.0</p>
+<p>  一个开源的虚拟机，开发的操作系统就运行在这之上</p>
+</li>
+<li><p>GCC 8.1.0   </p>
+</li>
+<li><p>NASM 2.07    </p>
+<p>  汇编器    </p>
+</li>
+<li><p>objconv</p>
+<p>  反汇编器</p>
+</li>
+</ul>
+<p>希望能够坚持下去吧</p>
+
       
     </div>
     
@@ -756,7 +790,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">89.6k</span>
+    <span title="Site words total count">90.2k</span>
   
 </div>
 

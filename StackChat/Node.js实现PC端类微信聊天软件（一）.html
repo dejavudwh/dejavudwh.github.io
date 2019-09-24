@@ -95,19 +95,19 @@
 
 
 
-<meta name="description" content="Github StackChat技术栈写这个软件StackChat的主要目的是巩固练习Node和对React的实践，也是为了学习东西，所以选用了这些自己还没在项目里使用过的技术,边学变写ElectronReactMaterial-UIReact-RouterReduxExpressSocket.ioMongoDB现在已完成前端大部分界面的构建(无状态)，所以记录一下环境搭建Create-React">
+<meta name="description" content="Github StackChat  技术栈 写这个软件StackChat的主要目的是巩固练习Node和对React的实践，也是为了学习东西，所以选用了这些自己还没在项目里使用过的技术,边学变写   Electron React Material-UI React-Router Redux Express Socket.io MongoDB  现在已完成前端大部分界面的构建(无状态)，所以记录一下">
 <meta name="keywords" content="大二期间,Node.js,React,Electron,Socket">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node.js实现PC端类微信聊天软件（一）">
 <meta property="og:url" content="https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（一）.html">
 <meta property="og:site_name" content="dejavudwh&#39;s Blog">
-<meta property="og:description" content="Github StackChat技术栈写这个软件StackChat的主要目的是巩固练习Node和对React的实践，也是为了学习东西，所以选用了这些自己还没在项目里使用过的技术,边学变写ElectronReactMaterial-UIReact-RouterReduxExpressSocket.ioMongoDB现在已完成前端大部分界面的构建(无状态)，所以记录一下环境搭建Create-React">
+<meta property="og:description" content="Github StackChat  技术栈 写这个软件StackChat的主要目的是巩固练习Node和对React的实践，也是为了学习东西，所以选用了这些自己还没在项目里使用过的技术,边学变写   Electron React Material-UI React-Router Redux Express Socket.io MongoDB  现在已完成前端大部分界面的构建(无状态)，所以记录一下">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://tvax1.sinaimg.cn/large/005BYqpggy1g4ckk2e5v7j31c00o647d.jpg">
 <meta property="og:updated_time" content="2019-07-09T09:54:33.558Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node.js实现PC端类微信聊天软件（一）">
-<meta name="twitter:description" content="Github StackChat技术栈写这个软件StackChat的主要目的是巩固练习Node和对React的实践，也是为了学习东西，所以选用了这些自己还没在项目里使用过的技术,边学变写ElectronReactMaterial-UIReact-RouterReduxExpressSocket.ioMongoDB现在已完成前端大部分界面的构建(无状态)，所以记录一下环境搭建Create-React">
+<meta name="twitter:description" content="Github StackChat  技术栈 写这个软件StackChat的主要目的是巩固练习Node和对React的实践，也是为了学习东西，所以选用了这些自己还没在项目里使用过的技术,边学变写   Electron React Material-UI React-Router Redux Express Socket.io MongoDB  现在已完成前端大部分界面的构建(无状态)，所以记录一下">
 <meta name="twitter:image" content="https://tvax1.sinaimg.cn/large/005BYqpggy1g4ckk2e5v7j31c00o647d.jpg">
 
 
@@ -433,7 +433,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  561
+                  578
                 </span>
               
 
@@ -470,7 +470,72 @@
       
 
       
-        <!-- build time:Mon Sep 23 2019 16:03:13 GMT+0800 (GMT+08:00) --><blockquote><p><a href="https://github.com/dejavudwh/StackChat" target="_blank" rel="noopener">Github StackChat</a></p></blockquote><h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><blockquote><p>写这个软件StackChat的主要目的是巩固练习Node和对React的实践，也是为了学习东西，所以选用了这些自己还没在项目里使用过的技术,边学变写</p></blockquote><ul><li>Electron</li><li>React</li><li>Material-UI</li><li>React-Router</li><li>Redux</li><li>Express</li><li>Socket.io</li><li>MongoDB</li></ul><p><strong>现在已完成前端大部分界面的构建(无状态)，所以记录一下</strong></p><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h3 id="Create-React-App"><a href="#Create-React-App" class="headerlink" title="Create-React-App"></a>Create-React-App</h3><p>利用React脚手架Create-React-App,再写入依赖npm install</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">    <span class="string">"@material-ui/core"</span>: <span class="string">"^4.1.1"</span>,</span><br><span class="line">    <span class="string">"electron"</span>: <span class="string">"^5.0.4"</span>,</span><br><span class="line">    <span class="string">"react-router"</span>: <span class="string">"^3.2.1"</span>,</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure><p><em>material-ui最新版本需要react 16.8.0以上</em></p><h3 id="安装配置electron"><a href="#安装配置electron" class="headerlink" title="安装配置electron"></a>安装配置electron</h3><p>在package.json里配置入口</p><a id="more"></a><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"main"</span>: <span class="string">"electron ./src/main.js"</span></span><br></pre></td></tr></table></figure><h3 id="热加载"><a href="#热加载" class="headerlink" title="热加载"></a>热加载</h3><p>Electron加载页面的两个方法</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// win.loadFile('index.html')</span></span><br><span class="line">win.loadURL(<span class="string">'http://localhost:3000'</span>)</span><br></pre></td></tr></table></figure><p>配合Create-React-App就可以直接在窗口里热加载</p><h2 id="UI设计（无状态）"><a href="#UI设计（无状态）" class="headerlink" title="UI设计（无状态）"></a>UI设计（无状态）</h2><p><img src="https://tvax1.sinaimg.cn/large/005BYqpggy1g4ckk2e5v7j31c00o647d.jpg" alt></p><p><em>完成大部分后的UI</em></p><h3 id="组件的划分"><a href="#组件的划分" class="headerlink" title="组件的划分"></a>组件的划分</h3><p><strong>因为先写了静态的组件，还没有加入状态，所以还没遇到什么难点</strong></p><ol><li><p>最顶层的组件是App</p></li><li><p>四个主要组件 LeftNav, SocialBar, ChatBar, SideBar，后期加入Redux可能要划分容器组件</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div className=<span class="string">"AppContainer"</span>&gt;</span><br><span class="line">          &lt;LeftNav /&gt;</span><br><span class="line">          &lt;SocialBar /&gt;</span><br><span class="line">          &lt;ChatBar /&gt;</span><br><span class="line">          &lt;Sidebar /&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure></li><li><p>四个主要组件下分别划分了各个小组件</p></li></ol><h3 id="Material-UI和React的使用"><a href="#Material-UI和React的使用" class="headerlink" title="Material-UI和React的使用"></a>Material-UI和React的使用</h3><blockquote><p>Material-UI是现在React非常流行的一个组件库，基于Material Design</p></blockquote><p>Material-UI主要有三种添加样式的方法（CSS in JS)<br><a href="https://material-ui.com/zh/styles/api/" target="_blank" rel="noopener">https://material-ui.com/zh/styles/api/</a></p><ul><li><p>makeStyles</p><p>自己的例子，第一个参数可以是生成样式或样式对象的函数</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; makeStyles &#125; <span class="keyword">from</span> <span class="string">'@material-ui/core/styles'</span>;</span><br><span class="line"><span class="keyword">const</span> useStyles = makeStyles(<span class="function"><span class="params">theme</span> =&gt;</span> (&#123;</span><br><span class="line">LeftNav: &#123;</span><br><span class="line">  float: <span class="string">'left'</span>,</span><br><span class="line">  ...</span><br><span class="line">&#125;,</span><br><span class="line">LogoText: &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;,</span><br><span class="line">...</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure><p>useStyles返回CSS中的类名对象</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">LeftNav</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> classes = useStyles();</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>withStyles</p></li></ul><p>第一个参数是生成样式或样式对象的函数，第二个是可选参数</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; withStyles &#125; <span class="keyword">from</span> <span class="string">'@material-ui/core/styles'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> styles = &#123;</span><br><span class="line">  root: &#123;</span><br><span class="line">    float: <span class="string">'left'</span>,</span><br><span class="line">    width: <span class="number">263</span>,</span><br><span class="line">    height: <span class="number">564</span>,</span><br><span class="line">    backgroundColor: <span class="string">'rgba(255, 250, 250)'</span>,</span><br><span class="line">    margin: <span class="string">'0px 0px'</span>,</span><br><span class="line">    padding: <span class="string">'8px 0px'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>返回的是一个higher-order component，用来包装组件，返回一个带有之前传入的对象属性的新组件</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> withStyles(styles)(Sidebar);</span><br></pre></td></tr></table></figure><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><blockquote><p>主要注意的是组件之间的拆分，在Material-UI样式的应用时，用function写的组件不能使用makeStyles，会违反钩子规则</p></blockquote><!-- rebuild by neat -->
+        <blockquote>
+<p><a href="https://github.com/dejavudwh/StackChat" target="_blank" rel="noopener">Github StackChat</a></p>
+</blockquote>
+<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><blockquote>
+<p>写这个软件StackChat的主要目的是巩固练习Node和对React的实践，也是为了学习东西，所以选用了这些自己还没在项目里使用过的技术,边学变写</p>
+</blockquote>
+<ul>
+<li>Electron</li>
+<li>React</li>
+<li>Material-UI</li>
+<li>React-Router</li>
+<li>Redux</li>
+<li>Express</li>
+<li>Socket.io</li>
+<li>MongoDB</li>
+</ul>
+<p><strong>现在已完成前端大部分界面的构建(无状态)，所以记录一下</strong></p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h3 id="Create-React-App"><a href="#Create-React-App" class="headerlink" title="Create-React-App"></a>Create-React-App</h3><p>利用React脚手架Create-React-App,再写入依赖npm install</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">    <span class="string">"@material-ui/core"</span>: <span class="string">"^4.1.1"</span>,</span><br><span class="line">    <span class="string">"electron"</span>: <span class="string">"^5.0.4"</span>,</span><br><span class="line">    <span class="string">"react-router"</span>: <span class="string">"^3.2.1"</span>,</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p><em>material-ui最新版本需要react 16.8.0以上</em></p>
+<h3 id="安装配置electron"><a href="#安装配置electron" class="headerlink" title="安装配置electron"></a>安装配置electron</h3><p>在package.json里配置入口</p>
+<a id="more"></a>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"main"</span>: <span class="string">"electron ./src/main.js"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="热加载"><a href="#热加载" class="headerlink" title="热加载"></a>热加载</h3><p>Electron加载页面的两个方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// win.loadFile('index.html')</span></span><br><span class="line">win.loadURL(<span class="string">'http://localhost:3000'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>配合Create-React-App就可以直接在窗口里热加载</p>
+<h2 id="UI设计（无状态）"><a href="#UI设计（无状态）" class="headerlink" title="UI设计（无状态）"></a>UI设计（无状态）</h2><p><img src="https://tvax1.sinaimg.cn/large/005BYqpggy1g4ckk2e5v7j31c00o647d.jpg" alt></p>
+<p><em>完成大部分后的UI</em></p>
+<h3 id="组件的划分"><a href="#组件的划分" class="headerlink" title="组件的划分"></a>组件的划分</h3><p><strong>因为先写了静态的组件，还没有加入状态，所以还没遇到什么难点</strong></p>
+<ol>
+<li><p>最顶层的组件是App</p>
+</li>
+<li><p>四个主要组件 LeftNav, SocialBar, ChatBar, SideBar，后期加入Redux可能要划分容器组件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div className=<span class="string">"AppContainer"</span>&gt;</span><br><span class="line">          &lt;LeftNav /&gt;</span><br><span class="line">          &lt;SocialBar /&gt;</span><br><span class="line">          &lt;ChatBar /&gt;</span><br><span class="line">          &lt;Sidebar /&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>四个主要组件下分别划分了各个小组件</p>
+</li>
+</ol>
+<h3 id="Material-UI和React的使用"><a href="#Material-UI和React的使用" class="headerlink" title="Material-UI和React的使用"></a>Material-UI和React的使用</h3><blockquote>
+<p>Material-UI是现在React非常流行的一个组件库，基于Material Design</p>
+</blockquote>
+<p>Material-UI主要有三种添加样式的方法（CSS in JS)<br><a href="https://material-ui.com/zh/styles/api/" target="_blank" rel="noopener">https://material-ui.com/zh/styles/api/</a></p>
+<ul>
+<li><p>makeStyles</p>
+<p>自己的例子，第一个参数可以是生成样式或样式对象的函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; makeStyles &#125; <span class="keyword">from</span> <span class="string">'@material-ui/core/styles'</span>;</span><br><span class="line"><span class="keyword">const</span> useStyles = makeStyles(<span class="function"><span class="params">theme</span> =&gt;</span> (&#123;</span><br><span class="line">LeftNav: &#123;</span><br><span class="line">  float: <span class="string">'left'</span>,</span><br><span class="line">  ...</span><br><span class="line">&#125;,</span><br><span class="line">LogoText: &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;,</span><br><span class="line">...</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+<p>useStyles返回CSS中的类名对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">LeftNav</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> classes = useStyles();</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>withStyles</p>
+</li>
+</ul>
+<p>第一个参数是生成样式或样式对象的函数，第二个是可选参数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; withStyles &#125; <span class="keyword">from</span> <span class="string">'@material-ui/core/styles'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> styles = &#123;</span><br><span class="line">  root: &#123;</span><br><span class="line">    float: <span class="string">'left'</span>,</span><br><span class="line">    width: <span class="number">263</span>,</span><br><span class="line">    height: <span class="number">564</span>,</span><br><span class="line">    backgroundColor: <span class="string">'rgba(255, 250, 250)'</span>,</span><br><span class="line">    margin: <span class="string">'0px 0px'</span>,</span><br><span class="line">    padding: <span class="string">'8px 0px'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>返回的是一个higher-order component，用来包装组件，返回一个带有之前传入的对象属性的新组件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> withStyles(styles)(Sidebar);</span><br></pre></td></tr></table></figure>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><blockquote>
+<p>主要注意的是组件之间的拆分，在Material-UI样式的应用时，用function写的组件不能使用makeStyles，会违反钩子规则</p>
+</blockquote>
+
       
     </div>
     
@@ -526,8 +591,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/SICP/Chapter 3.5.html" rel="next" title="SICP Chapter 3.5">
-                <i class="fa fa-chevron-left"></i> SICP Chapter 3.5
+              <a href="/SICP/Chapter 2.5.html" rel="next" title="SICP Chapter 2.5">
+                <i class="fa fa-chevron-left"></i> SICP Chapter 2.5
               </a>
             
           </div>
@@ -762,7 +827,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">89.6k</span>
+    <span title="Site words total count">90.2k</span>
   
 </div>
 
