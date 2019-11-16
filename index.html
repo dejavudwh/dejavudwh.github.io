@@ -320,6 +320,214 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/os/lab2：menman.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dejavudwh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dejavudwh's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/os/lab2：menman.html" itemprop="url">Lab2：物理内存管理</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-15T22:22:25+08:00">
+                2019-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/ucore/" itemprop="url" rel="index">
+                    <span itemprop="name">ucore</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/os/lab2：menman.html" class="leancloud_visitors" data-flag-title="Lab2：物理内存管理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现在内存管理的方法都是非连续内存管理，也就是结合段机制和分页机制</p>
+<h2 id="段机制"><a href="#段机制" class="headerlink" title="段机制"></a>段机制</h2><h3 id="段地址空间"><a href="#段地址空间" class="headerlink" title="段地址空间"></a>段地址空间</h3><ul>
+<li><p>进程的段地址空间由多个段组成，比如代码段、堆栈段和符号表段等等</p>
+</li>
+<li><p>段对应一个连续的内存“块”</p>
+</li>
+<li><p>不同段在物理内存中是分散的二维结构</p>
+</li>
+</ul>
+<h3 id="段访问"><a href="#段访问" class="headerlink" title="段访问"></a>段访问</h3>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/os/lab2：menman.html#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/os/lab1：bootloader.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -465,60 +673,18 @@
 
       
         
-          
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近接了一个外包项目再加上填一些之前立的flag，发现好像很久没有发博客了。现在编译原理操作系统算法方面都还有大坑没有填，加上离实习越来越近，应用层方面的学习也要加强了，但反倒是压力越大越想摸鱼</p>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近接了一个外包项目再加上填一些之前立的flag，发现好像很久没有发博客了。现在编译原理操作系统算法方面都还有大坑没有填，加上离实习越来越近，应用层方面的学习也要加强了，但反倒是压力越大越想摸鱼</p>
 <p>之前暑假的时候跟着书上写过一个<a href="https://github.com/dejavudwh/FragileOS" target="_blank" rel="noopener">玩具操作系统</a>，然后之后还翻了一下Linux0.11一起写了一个<a href="https://dejavudwh.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%88%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E5%86%99%E4%B8%80%E4%B8%AA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">系列的博客</a>，但是还是觉得认识的太浅薄，然后最近发现清华大学的一个操作系统课程，就跟着了。准备用博客来记录一下，虽然会和之前的那个系列有些重复，但是也算是加强巩固了</p>
 <h2 id="BIOS"><a href="#BIOS" class="headerlink" title="BIOS"></a>BIOS</h2><p>对于所有寄存器开机时都有各自的初始值，在X86中，CS和EIP寄存器分别是F000H,0000FFF0H，所以X86开机执行的第一条指令就是位于这个位置的指令，一般这条指令都是长跳转指令，从这里跳到BIOS程序的起始位置。</p>
 <p>BIOS的工作是硬件自检和初始化，并且读取该设备的第一扇区，并且转交CPU控制权</p>
 <h2 id="bootloader"><a href="#bootloader" class="headerlink" title="bootloader"></a>bootloader</h2><p>由BIOS加载的第一扇区一般放的都是bootloader，bootloader的工作就是</p>
-<ul>
-<li>切换到保护模式，启用分段机制</li>
-<li>读取磁盘中的操作系统内核</li>
-<li>将CPU控制权转交到操作系统</li>
-</ul>
-<h3 id="实模式"><a href="#实模式" class="headerlink" title="实模式"></a>实模式</h3><p>实模式的存在主要是为了兼容老的操作系统（16bit)，在这种状态下软件可访问的物理内存空间不能超过1MB，主要的区别就是实模式的寻址能力和方式，实模式将整个物理内存看成分段的区域，程序代码和数据位于不同区域，操作系统和用户程序并没有区别对待，而且每一个指针都是指向实际的物理地址。</p>
-<p><code>段基址 &lt;&lt; 4 + 段内偏移</code></p>
-<p>所以对于32位的处理器就有了保护模式。bootloader的一个工作就是将实模式切换为保护模式</p>
-<h3 id="保护模式"><a href="#保护模式" class="headerlink" title="保护模式"></a>保护模式</h3><p>在保护模式下，对内存的管理就采用了分段机制，当然在后面还会有分页机制</p>
-<p>分段机制将内存划分成以起始地址和长度限制这两个二维参数表示的内存块，这些内存块就称之为段</p>
-<p>段机制里会有四个概念：</p>
-<ul>
-<li>段选择子</li>
-</ul>
-<p>在实模式下，段寄存器原本存放的是段基址，但在保护模式下存放的是段选择子，段选择子的本质其实是一个索引，在全局描述符表的索引，但是它还包含其它信息，比如特权级信息</p>
-<ul>
-<li><p>全局描述符表</p>
-<p>全局描述符表，其实就是一个保存着段描述符的数组</p>
-</li>
-<li><p>段描述符</p>
-<p>至于段描述符就是真正描述物理地址的数据结构了，每个段由如下三个参数进行定义：段基地址(Base Address)、段界限(Limit)和段属性(Attributes)。段属性里包含了一个特权级信息等等</p>
-</li>
-<li><p>特权级</p>
-<p>至于保护模式为什么叫做保护模式，可能就是因为它指定了代码都是在一个特定的特权级下运行的，从而决定了代码可以做什么，不可以做什么</p>
-</li>
-</ul>
-<ol>
-<li>CPL：当前特权级（Current Privilege Level) 保存在CS段寄存器（选择子）的最低两位，CPL就是当前活动代码段的特权级，并且它定义了当前所执行程序的特权级别）</li>
-<li>DPL：描述符特权（Descriptor Privilege Level） 存储在段描述符中的权限位，用于描述对应段所属的特权等级，也就是段本身能被访问的真正特权级。</li>
-</ol>
-<ul>
-<li><p>地址转换</p>
-<p>在没有进入到保护模式的时候，对应的地址就是相应的物理地址，但是在启动了保护模式下，逻辑地址–&gt; (分段地址转换) –&gt;线性地址 == 物理地址</p>
-</li>
-</ul>
-<h2 id="bootloader主要代码"><a href="#bootloader主要代码" class="headerlink" title="bootloader主要代码"></a>bootloader主要代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span></span><br><span class="line">bootmain(<span class="keyword">void</span>) &#123;</span><br><span class="line">    <span class="comment">// 读取第一扇区</span></span><br><span class="line">    readseg((<span class="keyword">uintptr_t</span>)ELFHDR, SECTSIZE * <span class="number">8</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断操作系统内核编译后的文件是不是有效的ELF文件</span></span><br><span class="line">    <span class="keyword">if</span> (ELFHDR-&gt;e_magic != ELF_MAGIC) &#123;</span><br><span class="line">        <span class="keyword">goto</span> bad;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proghdr</span> *<span class="title">ph</span>, *<span class="title">eph</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 加载内核</span></span><br><span class="line">    ph = (struct proghdr *)((<span class="keyword">uintptr_t</span>)ELFHDR + ELFHDR-&gt;e_phoff);</span><br><span class="line">    eph = ph + ELFHDR-&gt;e_phnum;</span><br><span class="line">    <span class="keyword">for</span> (; ph &lt; eph; ph ++) &#123;</span><br><span class="line">        readseg(ph-&gt;p_va &amp; <span class="number">0xFFFFFF</span>, ph-&gt;p_memsz, ph-&gt;p_offset);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 启动内核</span></span><br><span class="line">    ((<span class="keyword">void</span> (*)(<span class="keyword">void</span>))(ELFHDR-&gt;e_entry &amp; <span class="number">0xFFFFFF</span>))();</span><br><span class="line"></span><br><span class="line">bad:</span><br><span class="line">    outw(<span class="number">0x8A00</span>, <span class="number">0x8A00</span>);</span><br><span class="line">    outw(<span class="number">0x8A00</span>, <span class="number">0x8E00</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* do nothing */</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="中断和异常"><a href="#中断和异常" class="headerlink" title="中断和异常"></a>中断和异常</h2><p>操作系统和CPU一起提供了一种能够打断操作系统和应用的正常执行，让操作系统完成相关处理，然后在恢复操作系统和应用的正常执行。在操作系统中，这种机制称为中断机制。</p>
-<p>当CPU收到中断（通过8259A完成）或者异常的事件时，它会暂停执行当前的程序或任务，通过一定的机制跳转到负责处理这个信号的相关处理例程中，在完成对这个事件的处理后再跳回到刚才被打断的程序或任务中。</p>
-<p>中断向量和中断服务例程的对应关系主要是由IDT（中断描述符表）负责。操作系统在IDT中设置好各种中断向量对应的中断描述符，留待CPU在产生中断后查询对应中断服务例程的起始地址。而IDT本身的起始地址保存在idtr寄存器中。</p>
-<h2 id="IDT的代码实现"><a href="#IDT的代码实现" class="headerlink" title="IDT的代码实现"></a>IDT的代码实现</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span></span><br><span class="line">idt_init(<span class="keyword">void</span>) &#123;</span><br><span class="line">    <span class="comment">// __vectors中存放的就是所有的中断处理程序</span></span><br><span class="line">    <span class="keyword">extern</span> <span class="keyword">uintptr_t</span> __vectors[];</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="keyword">sizeof</span>(idt) / <span class="keyword">sizeof</span>(struct gatedesc); i ++) &#123;</span><br><span class="line">        <span class="comment">// 设置中断门</span></span><br><span class="line">        SETGATE(idt[i], <span class="number">0</span>, GD_KTEXT, __vectors[i], DPL_KERNEL);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 加载进寄存器中</span></span><br><span class="line">    lidt(&amp;idt_pd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>所有的中断处理程序最后都是进行一些寄存器的保存然后最后交由__alltraps调用trap</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">.globl vector0</span><br><span class="line">vector0:</span><br><span class="line">  pushl $0</span><br><span class="line">  pushl $0</span><br><span class="line">  jmp __alltraps</span><br><span class="line">.globl vector1</span><br><span class="line">vector1:</span><br><span class="line">  pushl $0</span><br><span class="line">  pushl $1</span><br><span class="line">  jmp __alltraps</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">__alltraps:</span><br><span class="line">    pushl %ds</span><br><span class="line">    pushl %es</span><br><span class="line">    pushl %fs</span><br><span class="line">    pushl %gs</span><br><span class="line">    pushal</span><br><span class="line"></span><br><span class="line">    movl $GD_KDATA, %eax</span><br><span class="line">    movw %ax, %ds</span><br><span class="line">    movw %ax, %es</span><br><span class="line"></span><br><span class="line">    pushl %esp</span><br><span class="line"></span><br><span class="line">    call trap</span><br><span class="line"></span><br><span class="line">    popl %esp</span><br><span class="line"></span><br><span class="line">.globl __trapret</span><br><span class="line">__trapret:</span><br><span class="line">    popal</span><br><span class="line"></span><br><span class="line">    popl %gs</span><br><span class="line">    popl %fs</span><br><span class="line">    popl %es</span><br><span class="line">    popl %ds</span><br><span class="line"></span><br><span class="line">    addl $0x8, %esp</span><br><span class="line">    iret</span><br></pre></td></tr></table></figure>
-
-<p>最后trap调用trap_dispatch根据不同的服务来执行相关代码</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span></span><br><span class="line">trap(struct trapframe *tf) &#123;</span><br><span class="line">    trap_dispatch(tf);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/os/lab1：bootloader.html#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2159,207 +2325,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/os/从零写一个操作系统（五）.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="dejavudwh">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="dejavudwh's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/os/从零写一个操作系统（五）.html" itemprop="url">我是如何学习写一个操作系统（五）：故事的高潮之进程和线程1</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-27T00:22:25+08:00">
-                2019-08-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/我是如何学习写一个操作系统/" itemprop="url" rel="index">
-                    <span itemprop="name">我是如何学习写一个操作系统</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/os/从零写一个操作系统（五）.html" class="leancloud_visitors" data-flag-title="我是如何学习写一个操作系统（五）：故事的高潮之进程和线程1">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1.9k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  6
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>为什么取这个标题呢？一是进程和线程是作为操作系统里最重要最核心的一部分。二是确实吃冰棍拉冰棍，没话，强行凑标题和之前的标题差不多字数。</p>
-<p>前一章写了系统调用的过程，算是一个小插曲，这个部分不管在哪里应该都是可以的。</p>
-<p>现在的这个系列已经和之前的标题渐行渐远了，原本是想以之前写的一个玩具型操作系统<a href="https://github.com/dejavudwh/FragileOS" target="_blank" rel="noopener">FragileOS</a>为主线，但是在看书学习的过程中稍微改了一下方向，已经不是特别关注一个操作系统的实现的完整流程和内部的联系，更多的是想系统的学习操作系统的各个模块然后辅以一些代码，但是不管怎么样，都是属于自己在学习操作系统的过程的一个记录</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/os/从零写一个操作系统（五）.html#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2412,7 +2377,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2494,7 +2459,7 @@
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST/">AST</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LALR-1/">LALR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LL-1/">LL(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR-1/">LR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lisp/">Lisp</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SICP/">SICP</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scheme/">Scheme</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Secrets-of-the-JavaScript-Ninja/">Secrets of the JavaScript Ninja</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ucore/">ucore</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上下文无关文法/">上下文无关文法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个操作系统/">从零写一个操作系统</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个编译器/">从零写一个编译器</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码生成/">代码生成</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大二期间/">大二期间</a><span class="tag-list-count">48</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字节码/">字节码</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抽象语法树/">抽象语法树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限状态自动机/">有限状态自动机</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限自动机/">有限自动机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式引擎/">正则表达式引擎</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/符号表/">符号表</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自底向上/">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解释器/">解释器</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词法分析/">词法分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语义分析/">语义分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析/">语法分析</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析表/">语法分析表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/输入系统/">输入系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归下降/">递归下降</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST/">AST</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LALR-1/">LALR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LL-1/">LL(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR-1/">LR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lisp/">Lisp</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SICP/">SICP</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scheme/">Scheme</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Secrets-of-the-JavaScript-Ninja/">Secrets of the JavaScript Ninja</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ucore/">ucore</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上下文无关文法/">上下文无关文法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个操作系统/">从零写一个操作系统</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个编译器/">从零写一个编译器</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码生成/">代码生成</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大二期间/">大二期间</a><span class="tag-list-count">48</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字节码/">字节码</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抽象语法树/">抽象语法树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限状态自动机/">有限状态自动机</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限自动机/">有限自动机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式引擎/">正则表达式引擎</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/符号表/">符号表</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自底向上/">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解释器/">解释器</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词法分析/">词法分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语义分析/">语义分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析/">语法分析</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析表/">语法分析表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/输入系统/">输入系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归下降/">递归下降</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -2538,7 +2503,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">94.9k</span>
+    <span title="Site words total count">96.6k</span>
   
 </div>
 

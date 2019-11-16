@@ -82,7 +82,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="操作系统,ucore,">
 
 
 
@@ -95,16 +95,18 @@
 
 
 
-<meta name="description" content="a sophomore majoring in software engineering">
-<meta property="og:type" content="website">
-<meta property="og:title" content="dejavudwh&#39;s Blog">
-<meta property="og:url" content="https://dejavudwh.cn/tags/操作系统/page/2/index.html">
+<meta name="description" content="前言现在内存管理的方法都是非连续内存管理，也就是结合段机制和分页机制 段机制段地址空间 进程的段地址空间由多个段组成，比如代码段、堆栈段和符号表段等等  段对应一个连续的内存“块”  不同段在物理内存中是分散的二维结构   段访问">
+<meta name="keywords" content="操作系统,ucore">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lab2：物理内存管理">
+<meta property="og:url" content="https://dejavudwh.cn/os/lab2：menman.html">
 <meta property="og:site_name" content="dejavudwh&#39;s Blog">
-<meta property="og:description" content="a sophomore majoring in software engineering">
+<meta property="og:description" content="前言现在内存管理的方法都是非连续内存管理，也就是结合段机制和分页机制 段机制段地址空间 进程的段地址空间由多个段组成，比如代码段、堆栈段和符号表段等等  段对应一个连续的内存“块”  不同段在物理内存中是分散的二维结构   段访问">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-16T04:27:54.675Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dejavudwh&#39;s Blog">
-<meta name="twitter:description" content="a sophomore majoring in software engineering">
+<meta name="twitter:title" content="Lab2：物理内存管理">
+<meta name="twitter:description" content="前言现在内存管理的方法都是非连续内存管理，也就是结合段机制和分页机制 段机制段地址空间 进程的段地址空间由多个段组成，比如代码段、堆栈段和符号表段等等  段对应一个连续的内存“块”  不同段在物理内存中是分散的二维结构   段访问">
 
 
 
@@ -134,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://dejavudwh.cn/tags/操作系统/page/2/">
+  <link rel="canonical" href="https://dejavudwh.cn/os/lab2：menman.html">
 
 
 
 
 
-  <title>Tag: 操作系统 | dejavudwh's Blog</title>
+  <title>Lab2：物理内存管理 | dejavudwh's Blog</title>
   
 
 
@@ -159,7 +161,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -305,108 +307,303 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>操作系统<small>Tag</small>
-        </h2>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/os/lab2：menman.html">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dejavudwh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dejavudwh's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/os/从零写一个操作系统（三）.html" itemprop="url">
-              
-                <span itemprop="name">我是如何学习写一个操作系统（三）：操作系统的启动之保护模式</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">Lab2：物理内存管理</h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-08-24T23:22:25+08:00" content="2019-08-24">
-          08-24
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-15T22:22:25+08:00">
+                2019-11-15
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/ucore/" itemprop="url" rel="index">
+                    <span itemprop="name">ucore</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/os/lab2：menman.html" class="leancloud_visitors" data-flag-title="Lab2：物理内存管理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/os/从零写一个操作系统（二）.html" itemprop="url">
-              
-                <span itemprop="name">我是如何学习写一个操作系统（二）：操作系统的启动之Bootloader</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-08-23T22:22:25+08:00" content="2019-08-23">
-          08-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现在内存管理的方法都是非连续内存管理，也就是结合段机制和分页机制</p>
+<h2 id="段机制"><a href="#段机制" class="headerlink" title="段机制"></a>段机制</h2><h3 id="段地址空间"><a href="#段地址空间" class="headerlink" title="段地址空间"></a>段地址空间</h3><ul>
+<li><p>进程的段地址空间由多个段组成，比如代码段、堆栈段和符号表段等等</p>
+</li>
+<li><p>段对应一个连续的内存“块”</p>
+</li>
+<li><p>不同段在物理内存中是分散的二维结构</p>
+</li>
+</ul>
+<h3 id="段访问"><a href="#段访问" class="headerlink" title="段访问"></a>段访问</h3><a id="more"></a>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<ul>
+<li><p>首先由CPU读取逻辑地址，逻辑地址由段号和段内偏移组成</p>
+</li>
+<li><p>通过段寄存器找到相应的段描述符获得段基址</p>
+</li>
+<li><p>然后由MMU判断长度是否符合，否则就引发内存异常</p>
+</li>
+<li><p>最后通过段基址和段内偏移找到真实的物理内存</p>
+</li>
+</ul>
+<h2 id="页机制"><a href="#页机制" class="headerlink" title="页机制"></a>页机制</h2><p>页机制把真实的物理内存分为大小相同的基本分配单位，叫做页帧，再接着把逻辑地址空间也划分为大小相同的基本分配单位，页和帧的大小必须是一致的，最后再完成从页面到页帧的映射，也就是逻辑地址到物理地址的转换</p>
+<h3 id="页和页帧"><a href="#页和页帧" class="headerlink" title="页和页帧"></a>页和页帧</h3><p>页帧和段的寻址方式有点像，也就是当前帧的基地址再加上帧内偏移，当前帧的基地址也是由当前的帧号和每一帧的大小确定的</p>
+<p>页的寻址也是相同，但是页号不一定等于帧号，所以也就是在页和帧之间还有一层地址映射</p>
+<h3 id="页表"><a href="#页表" class="headerlink" title="页表"></a>页表</h3><p>页表就是保存了逻辑地址到物理地址之间的映射关系，逻辑地址中保存着页号和页内偏移，到页表中查询页帧最后得到真实的物理地址</p>
+<p>每一个页面都会对应一个页表项，页表会随着进程的变化而变化，页表项不仅记录对应的页帧还保存了一些标志：存在位、修改位和引用位</p>
+<h2 id="页机制的性能问题"><a href="#页机制的性能问题" class="headerlink" title="页机制的性能问题"></a>页机制的性能问题</h2><p>页机制存储管理机制在访问性能方面可能因为每一次的访问地址需要两次访问而造成低效，并且如果页表过大也会造成性能问题</p>
+<h3 id="快表"><a href="#快表" class="headerlink" title="快表"></a>快表</h3><p>快表就是类似一个缓存机制，将最近访问的页表项缓存到TLB中，这样每次访问都可以先到快表中查询，如果TLB命中就会节省非常大的时间</p>
+<h3 id="多级页表"><a href="#多级页表" class="headerlink" title="多级页表"></a>多级页表</h3><p>多级页表就是将页表分为树状结构，通过级级查询找到最后的结果，这样就可以减少每级页表的长度</p>
+<h2 id="段页式存储管理"><a href="#段页式存储管理" class="headerlink" title="段页式存储管理"></a>段页式存储管理</h2><p>段页式顾名思义也就是结合了段机制和页机制，这样就可以结合段机制在内存保护方面的优势和页机制在内存利用率上面的优势</p>
+<p>段页式其实也就是在中间多加了一层映射，由段机制产生的线性地址到页表的映射，这样在逻辑地址中存储着段表和页表的偏移地址，也就是段号和页号，然后通过段表查询到页表的地址，再通过页号查询 到真实的物理内存地址</p>
+<h2 id="启用分页机制"><a href="#启用分页机制" class="headerlink" title="启用分页机制"></a>启用分页机制</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">kern_entry:</span><br><span class="line">    <span class="meta"># load pa of boot pgdir</span></span><br><span class="line">    movl $REALLOC(__boot_pgdir), %eax</span><br><span class="line">    movl %eax, %cr3</span><br><span class="line"></span><br><span class="line">    <span class="meta"># enable paging</span></span><br><span class="line">    movl %cr0, %eax</span><br><span class="line">    orl $(CR0_PE | CR0_PG | CR0_AM | CR0_WP | CR0_NE | CR0_TS | CR0_EM | CR0_MP), %eax</span><br><span class="line">    andl $~(CR0_TS | CR0_EM), %eax</span><br><span class="line">    movl %eax, %cr0</span><br><span class="line"></span><br><span class="line">    <span class="meta"># update eip</span></span><br><span class="line">    <span class="meta"># now, eip = 0x1.....</span></span><br><span class="line">    leal next, %eax</span><br><span class="line">    <span class="meta"># set eip = KERNBASE + 0x1.....</span></span><br><span class="line">    jmp *%eax</span><br><span class="line">next:</span><br><span class="line"></span><br><span class="line">    # unmap va 0 ~ 4M, it's temporary mapping</span><br><span class="line">    xorl %eax, %eax</span><br><span class="line">    movl %eax, __boot_pgdir</span><br><span class="line"></span><br><span class="line">    <span class="meta"># set ebp, esp</span></span><br><span class="line">    movl $<span class="number">0x0</span>, %ebp</span><br><span class="line">    <span class="meta"># the kernel stack region is from bootstack -- bootstacktop,</span></span><br><span class="line">    <span class="meta"># the kernel stack size is KSTACKSIZE (8KB)defined in memlayout.h</span></span><br><span class="line">    movl $bootstacktop, %esp</span><br><span class="line">    <span class="meta"># now kernel stack is ready , call the first C function</span></span><br><span class="line">    call kern_init</span><br></pre></td></tr></table></figure>
 
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/os/从零写一个操作系统（一）.html" itemprop="url">
-              
-                <span itemprop="name">我是如何学习写一个操作系统（一）：开篇</span>
-              
-            </a>
-        
-      </h3>
+<p>首先要启动分页模式，cr3寄存器就应该存放着一级页表，然后进行分页模式的使能，再做一些准备工作然后跳入kern_init内核初始化</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span></span><br><span class="line">pmm_init(<span class="keyword">void</span>) &#123;</span><br><span class="line">    boot_cr3 = PADDR(boot_pgdir);</span><br><span class="line"></span><br><span class="line">    init_pmm_manager();</span><br><span class="line"></span><br><span class="line">    page_init();</span><br><span class="line"></span><br><span class="line">    check_alloc_page();</span><br><span class="line"></span><br><span class="line">    check_pgdir();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static_assert</span>(KERNBASE % PTSIZE == <span class="number">0</span> &amp;&amp; KERNTOP % PTSIZE == <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    boot_pgdir[PDX(VPT)] = PADDR(boot_pgdir) | PTE_P | PTE_W;</span><br><span class="line"></span><br><span class="line">    boot_map_segment(boot_pgdir, KERNBASE, KMEMSIZE, <span class="number">0</span>, PTE_W);</span><br><span class="line"></span><br><span class="line">    gdt_init();</span><br><span class="line"></span><br><span class="line">    check_boot_pgdir();</span><br><span class="line"></span><br><span class="line">    print_pgdir();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-08-22T15:22:25+08:00" content="2019-08-22">
-          08-22
-        </time>
-      </div>
+<ul>
+<li>先定义物理内存管理的各个函数</li>
+<li>检测物理内存空间，保留已使用的内存，然后使用pmm-&gt; init_memmap创建空闲页面列表</li>
+<li>映射物理内存地址到线性地址</li>
+<li>重新加载全局描述符表</li>
+</ul>
+<h2 id="页机制的代码实现"><a href="#页机制的代码实现" class="headerlink" title="页机制的代码实现"></a>页机制的代码实现</h2><h3 id="以页为单位来进行内存的分配"><a href="#以页为单位来进行内存的分配" class="headerlink" title="以页为单位来进行内存的分配"></a>以页为单位来进行内存的分配</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Page</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> ref;                        </span><br><span class="line">    <span class="keyword">uint32_t</span> flags;                </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> property;          </span><br><span class="line">    <span class="keyword">list_entry_t</span> page_link;        </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </article>
+<p><strong>ref</strong>:  ref作为页的引用次数</p>
+<p><strong>flags</strong>:  标识当前页的使用状态，比如如果这个页被内核使用那么它就是保留状态的</p>
+<p><strong>property</strong>:  标识当前可用的连续块的大小，这个时候这个页是作为这些空闲块的开始地址的</p>
+<p><strong>page_link</strong>:  空闲块的链表结构</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span></span><br><span class="line">default_init_memmap(struct Page *base, <span class="keyword">size_t</span> n) &#123;</span><br><span class="line">    assert(n &gt; <span class="number">0</span>);</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Page</span> *<span class="title">p</span> = <span class="title">base</span>;</span></span><br><span class="line">    <span class="keyword">for</span> (;p != base + n; p ++) &#123;</span><br><span class="line">        assert(PageReserved(p));</span><br><span class="line">        p-&gt;flags = <span class="number">0</span>;</span><br><span class="line">        SetPageProperty(p);</span><br><span class="line">        p-&gt;property = <span class="number">0</span>;</span><br><span class="line">        set_page_ref(p, <span class="number">0</span>);</span><br><span class="line">        list_add_before(&amp;free_list, &amp;(p-&gt;page_link));</span><br><span class="line">    &#125;</span><br><span class="line">    nr_free += n;</span><br><span class="line">    base-&gt;property = n;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>init_memmap是进行内存的初始化工作，主要就是设置标志位和引用数和加入空闲队列中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">Page</span> *</span></span><br><span class="line"><span class="class"><span class="title">default_alloc_pages</span>(<span class="title">size_t</span> <span class="title">n</span>) &#123;</span></span><br><span class="line">    assert(n &gt; <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (n &gt; nr_free) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">list_entry_t</span> *le, *len;</span><br><span class="line">    le = &amp;free_list;</span><br><span class="line">    <span class="keyword">while</span> ((le=list_next(le)) != &amp;free_list) &#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">Page</span> *<span class="title">p</span> = <span class="title">le2page</span>(<span class="title">le</span>, <span class="title">page_link</span>);</span></span><br><span class="line">        <span class="keyword">if</span> (p-&gt;property &gt;= n) &#123;</span><br><span class="line">            <span class="keyword">int</span> i;</span><br><span class="line">            <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">                len = list_next(le);</span><br><span class="line">                <span class="class"><span class="keyword">struct</span> <span class="title">Page</span> *<span class="title">pp</span> = <span class="title">le2page</span>(<span class="title">le</span>, <span class="title">page_link</span>);</span></span><br><span class="line">                SetPageReserved(pp);</span><br><span class="line">                ClearPageProperty(pp);</span><br><span class="line">                list_del(le);<span class="comment">//从空闲页链表中删除这个双向链表指针</span></span><br><span class="line">                le = len;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(p-&gt;property &gt; n)&#123;</span><br><span class="line">                (le2page(le, page_link))-&gt;property = p-&gt;property - n;<span class="comment">//如果选中的第一个连续的块大于n，只取其中的大小为n的块</span></span><br><span class="line">            &#125;</span><br><span class="line">            ClearPageProperty(p);</span><br><span class="line">            SetPageReserved(p);</span><br><span class="line">            nr_free -= n;<span class="comment">//当前空闲页的数目减n</span></span><br><span class="line">            <span class="keyword">return</span> p;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>alloc_pages是进行以页为单位进行内存的分配，用的是最简单的First-fit算法，也就是从空闲队列中找到第一个可用的块就直接进行分配，然后如果这个块大于需要分配的内存大小，那就进行切割</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span></span><br><span class="line">default_free_pages(struct Page *base, <span class="keyword">size_t</span> n) &#123;</span><br><span class="line">    assert(n &gt; <span class="number">0</span>);</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Page</span> *<span class="title">p</span> = <span class="title">base</span>;</span></span><br><span class="line">    <span class="keyword">for</span> (; p != base + n; p ++) &#123;</span><br><span class="line">        assert(!PageReserved(p) &amp;&amp; !PageProperty(p));</span><br><span class="line">        p-&gt;flags = <span class="number">0</span>;</span><br><span class="line">        set_page_ref(p, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    base-&gt;property = n;</span><br><span class="line">    SetPageProperty(base);</span><br><span class="line">    <span class="keyword">list_entry_t</span> *le = list_next(&amp;free_list);</span><br><span class="line">    <span class="keyword">while</span> (le != &amp;free_list) &#123;</span><br><span class="line">        p = le2page(le, page_link);</span><br><span class="line">        le = list_next(le);</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> optimize</span></span><br><span class="line">        <span class="keyword">if</span> (base + base-&gt;property == p) &#123;</span><br><span class="line">            base-&gt;property += p-&gt;property;</span><br><span class="line">            ClearPageProperty(p);</span><br><span class="line">            list_del(&amp;(p-&gt;page_link));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (p + p-&gt;property == base) &#123;</span><br><span class="line">            p-&gt;property += base-&gt;property;</span><br><span class="line">            ClearPageProperty(base);</span><br><span class="line">            base = p;</span><br><span class="line">            list_del(&amp;(p-&gt;page_link));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    nr_free += n;</span><br><span class="line">    le = list_next(&amp;free_list);</span><br><span class="line">    <span class="keyword">while</span> (le != &amp;free_list) &#123;</span><br><span class="line">        p = le2page(le, page_link);</span><br><span class="line">        <span class="keyword">if</span> (base + base-&gt;property &lt;= p) &#123;</span><br><span class="line">            assert(base + base-&gt;property != p);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        le = list_next(le);</span><br><span class="line">    &#125;</span><br><span class="line">    list_add_before(le, &amp;(base-&gt;page_link));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>free_pages是alloc_page的逆过程，一样是先设置一些标志位，然后再遍历空闲队列进行空闲块的合并，再重新入队</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    dejavudwh
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://dejavudwh.cn/os/lab2：menman.html" title="Lab2：物理内存管理">https://dejavudwh.cn/os/lab2：menman.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/操作系统/" rel="tag"><i class="fa fa-tag"></i> 操作系统</a>
+          
+            <a href="/tags/ucore/" rel="tag"><i class="fa fa-tag"></i> ucore</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/os/lab1：bootloader.html" rel="next" title="Lab1：bootloader操作系统的启动">
+                <i class="fa fa-chevron-left"></i> Lab1：bootloader操作系统的启动
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/tags/操作系统/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/tags/操作系统/">1</a><span class="page-number current">2</span>
-  </nav>
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -414,6 +611,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -434,8 +638,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -543,6 +756,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#段机制"><span class="nav-number">2.</span> <span class="nav-text">段机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#段地址空间"><span class="nav-number">2.1.</span> <span class="nav-text">段地址空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#段访问"><span class="nav-number">2.2.</span> <span class="nav-text">段访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页机制"><span class="nav-number">3.</span> <span class="nav-text">页机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#页和页帧"><span class="nav-number">3.1.</span> <span class="nav-text">页和页帧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页表"><span class="nav-number">3.2.</span> <span class="nav-text">页表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页机制的性能问题"><span class="nav-number">4.</span> <span class="nav-text">页机制的性能问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#快表"><span class="nav-number">4.1.</span> <span class="nav-text">快表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多级页表"><span class="nav-number">4.2.</span> <span class="nav-text">多级页表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#段页式存储管理"><span class="nav-number">5.</span> <span class="nav-text">段页式存储管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启用分页机制"><span class="nav-number">6.</span> <span class="nav-text">启用分页机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页机制的代码实现"><span class="nav-number">7.</span> <span class="nav-text">页机制的代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#以页为单位来进行内存的分配"><span class="nav-number">7.1.</span> <span class="nav-text">以页为单位来进行内存的分配</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -697,6 +926,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
