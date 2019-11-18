@@ -427,7 +427,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  2.5k
+                  4.2k
                 </span>
               
 
@@ -443,7 +443,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  10
+                  18
                 </span>
               
             </div>
@@ -465,8 +465,7 @@
 
       
         
-          
-            <h2 id="进程的定义"><a href="#进程的定义" class="headerlink" title="进程的定义"></a>进程的定义</h2><p>进程是指一个具有一定独立功能的程序在一个数据集合上的一次动态执行过程</p>
+          <h2 id="进程的定义"><a href="#进程的定义" class="headerlink" title="进程的定义"></a>进程的定义</h2><p>进程是指一个具有一定独立功能的程序在一个数据集合上的一次动态执行过程</p>
 <p>源代码在经过编译链接之后生成了可执行文件，再由操作系统进行加载并且进行一些堆栈的分配才是进程</p>
 <h2 id="进程控制块"><a href="#进程控制块" class="headerlink" title="进程控制块"></a>进程控制块</h2><blockquote>
 <p>操作系统管理控制进程运行所用的信息集合</p>
@@ -480,105 +479,13 @@
 </ul>
 <p>进程控制块主要包含的就是进程的标识信息，处理机现场保存和进程控制信息</p>
 <p><strong>控制信息</strong>：</p>
-<ol>
-<li>调度和状态信息</li>
-<li>进程间通信信息</li>
-<li>存储管理信息</li>
-<li>进程所用资源</li>
-<li>有关数据结构连接信息</li>
-</ol>
-<h2 id="进程的生命周期"><a href="#进程的生命周期" class="headerlink" title="进程的生命周期"></a>进程的生命周期</h2><ul>
-<li><p>进程创建</p>
-<p>用户请求创建一个新进程，正在运行的进程执行了创建进程的系统调用，并且加入到就绪队列</p>
-</li>
-<li><p>进程执行</p>
-<p>内核对就绪队列进行调度，到执行该进程</p>
-</li>
-<li><p>进程等待</p>
-<p>运行中的进程可能会进入阻塞状态，比如进行IO的等待或者需要的数据没有到达</p>
-</li>
-<li><p>进程抢占</p>
-<p>运行中的进程可能时间片被用完或者高优先级进程被唤醒导致了进程被抢占进入阻塞状态</p>
-</li>
-<li><p>进程唤醒</p>
-<p>被阻塞需要的资源可以被满足就可能被唤醒进入就绪队列</p>
-</li>
-<li><p>进程结束</p>
-<p>进程完成任务或者被迫结束</p>
-</li>
-</ul>
-<h2 id="线程的定义"><a href="#线程的定义" class="headerlink" title="线程的定义"></a>线程的定义</h2><blockquote>
-<p>线程是进程的一部分，描述指令流执行状态。它是进程中的指令执行流的最小单元，是CPU调度的基本单位。</p>
-</blockquote>
-<ul>
-<li>进程作为资源分配角色</li>
-</ul>
-<p>进程由一组相关资源构成，包括地址空间（代码段、数据段）、打开的文件等各种资源</p>
-<ul>
-<li>线程作为处理机调度角色</li>
-</ul>
-<p>线程描述在进程资源环境中的指令流执行状态</p>
-<p>一个进程中可以同时存在多个线程，各个线程之间可以并发地执行，各个线程之间可以共享地址空间和文件等资源</p>
-<h2 id="线程的实现方式"><a href="#线程的实现方式" class="headerlink" title="线程的实现方式"></a>线程的实现方式</h2><h3 id="用户线程"><a href="#用户线程" class="headerlink" title="用户线程"></a>用户线程</h3><blockquote>
-<p>用户线程是基于在用户态自己实现的线程库函数来完成对线程的管理，包括线程的创建、终止、同步和调度</p>
-</blockquote>
-<p>这样内核并不知道用户线程的存在，所以每个线程控制块都由线程库函数来维护，也不要在用户态和内核态进行切换，开销会较小，但是对于如果线程发生阻塞的话，由于操作系统并不知道用户级线程的情况，所以会造成整个进程的阻塞，并且除非当前运行线程主动放弃，它所在进程的其他线程无法抢占CPU</p>
-<h3 id="内核线程"><a href="#内核线程" class="headerlink" title="内核线程"></a>内核线程</h3><blockquote>
-<p>由内核通过系统调用实现的线程机制，由内核完成线程的创建、终止和管理</p>
-</blockquote>
-<p>由内核维护PCB和TCB，线程执行系统调用而被阻塞不影响其他线程，线程的创建、终止和切换相对较大，以线程为单位进行CPU时间分配</p>
-<h2 id="进程控制"><a href="#进程控制" class="headerlink" title="进程控制"></a>进程控制</h2><h3 id="进程切换"><a href="#进程切换" class="headerlink" title="进程切换"></a>进程切换</h3><blockquote>
-<p>暂停当前运行进程，从运行状态变成其他状态，调度另一个进程从就绪状态变成运行状态</p>
-</blockquote>
-<p>要完成进程切换就需要对切换前的进程进行进程上下文的保存，并且在切换后对进程上下文的恢复</p>
-<p><strong>进程控制块</strong>：内核为每个进程维护了对应的进程控制块（PCB)，内核将相同状态的进程的PCB放置在同一队列</p>
-<h3 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h3><p><strong>fork/exec</strong>：</p>
-<ul>
-<li><p>fork() 创建一个继承的子进程</p>
-<p>复制父进程的所有变量和内存，复制父进程的所有CPU寄存器(有一个寄存器例外)，fork()执行过程对于子进程而言，是在调用时间对父进程地址空间的一次复制，对于父进程fork() 返回child PID, 对于子进程返回值为0</p>
-</li>
-<li><p>fork()的地址空间复制</p>
-<p>fork()执行过程对于子进程而言，是在调用时间对父进程地址空间的一次复制，对于父进程fork() 返回child PID, 对于子进程返回值为0</p>
-</li>
-</ul>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="分配并初始化一个进程控制块"><a href="#分配并初始化一个进程控制块" class="headerlink" title="分配并初始化一个进程控制块"></a>分配并初始化一个进程控制块</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">enum</span> proc_state state;                      <span class="comment">// Process state</span></span><br><span class="line">    <span class="keyword">int</span> pid;                                    <span class="comment">// Process ID</span></span><br><span class="line">    <span class="keyword">int</span> runs;                                   <span class="comment">// the running times of Proces</span></span><br><span class="line">    <span class="keyword">uintptr_t</span> kstack;                           <span class="comment">// Process kernel stack</span></span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">bool</span> need_resched;                 <span class="comment">// bool value: need to be rescheduled to release CPU?</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">parent</span>;</span>                 <span class="comment">// the parent process</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">mm_struct</span> *<span class="title">mm</span>;</span>                       <span class="comment">// Process's memory management field</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">context</span> <span class="title">context</span>;</span>                     <span class="comment">// Switch here to run process</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">trapframe</span> *<span class="title">tf</span>;</span>                       <span class="comment">// Trap frame for current interrupt</span></span><br><span class="line">    <span class="keyword">uintptr_t</span> cr3;                              <span class="comment">// CR3 register: the base addr of Page Directroy Table(PDT)</span></span><br><span class="line">    <span class="keyword">uint32_t</span> flags;                             <span class="comment">// Process flag</span></span><br><span class="line">    <span class="keyword">char</span> name[PROC_NAME_LEN + <span class="number">1</span>];               <span class="comment">// Process name</span></span><br><span class="line">    <span class="keyword">list_entry_t</span> list_link;                     <span class="comment">// Process link list </span></span><br><span class="line">    <span class="keyword">list_entry_t</span> hash_link;                     <span class="comment">// Process hash list</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> struct proc_struct *<span class="title">alloc_proc</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">proc</span> = <span class="title">kmalloc</span>(<span class="title">sizeof</span>(<span class="title">struct</span> <span class="title">proc_struct</span>));</span></span><br><span class="line">    <span class="keyword">if</span> (proc != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        proc-&gt;state = PROC_UNINIT;  <span class="comment">//设置进程为未初始化状态</span></span><br><span class="line">        proc-&gt;pid = <span class="number">-1</span>;             <span class="comment">//未初始化的的进程id为-1</span></span><br><span class="line">        proc-&gt;runs = <span class="number">0</span>;             <span class="comment">//初始化时间片</span></span><br><span class="line">        proc-&gt;kstack = <span class="number">0</span>;           <span class="comment">//内存栈的地址</span></span><br><span class="line">        proc-&gt;need_resched = <span class="number">0</span>;     <span class="comment">//是否需要调度设为不需要</span></span><br><span class="line">        proc-&gt;parent = <span class="literal">NULL</span>;        <span class="comment">//父节点设为空</span></span><br><span class="line">        proc-&gt;mm = <span class="literal">NULL</span>;            <span class="comment">//虚拟内存设为空</span></span><br><span class="line">        <span class="built_in">memset</span>(&amp;(proc-&gt;context), <span class="number">0</span>, <span class="keyword">sizeof</span>(struct context));<span class="comment">//上下文的初始化</span></span><br><span class="line">        proc-&gt;tf = <span class="literal">NULL</span>;            <span class="comment">//中断帧指针置为空</span></span><br><span class="line">        proc-&gt;cr3 = boot_cr3;       <span class="comment">//页目录设为内核页目录表的基址</span></span><br><span class="line">        proc-&gt;flags = <span class="number">0</span>;            <span class="comment">//标志位</span></span><br><span class="line">        <span class="built_in">memset</span>(proc-&gt;name, <span class="number">0</span>, PROC_NAME_LEN);<span class="comment">//进程名</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> proc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>proc_struct即是进程控制块的结构体，alloc_proc函数来负责分配一个新的struct proc_struct结构，根据提示我们需要初始化一些变量</p>
-<h3 id="为新创建的内核线程分配资源"><a href="#为新创建的内核线程分配资源" class="headerlink" title="为新创建的内核线程分配资源"></a>为新创建的内核线程分配资源</h3><p>创建内核线程的主要工作由do_fork来完成资源的分配</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span></span><br><span class="line">do_fork(<span class="keyword">uint32_t</span> clone_flags, <span class="keyword">uintptr_t</span> <span class="built_in">stack</span>, struct trapframe *tf) &#123;</span><br><span class="line">    <span class="keyword">int</span> ret = -E_NO_FREE_PROC;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">proc</span>;</span></span><br><span class="line">    <span class="keyword">if</span> (nr_process &gt;= MAX_PROCESS) &#123;</span><br><span class="line">        <span class="keyword">goto</span> fork_out;</span><br><span class="line">    &#125;</span><br><span class="line">    ret = -E_NO_MEM;</span><br><span class="line">    <span class="comment">//1：调用alloc_proc()函数申请内存块，如果失败，直接返回处理</span></span><br><span class="line">    <span class="keyword">if</span> ((proc = alloc_proc()) == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">goto</span> fork_out;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//2.将子进程的父节点设置为当前进程</span></span><br><span class="line">    proc-&gt;parent = current;</span><br><span class="line">    <span class="comment">//3.调用setup_stack()函数为进程分配一个内核栈</span></span><br><span class="line">    <span class="keyword">if</span> (setup_kstack(proc) != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">goto</span> bad_fork_cleanup_proc;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//4.调用copy_mm()函数复制父进程的内存信息到子进程</span></span><br><span class="line">    <span class="keyword">if</span> (copy_mm(clone_flags, proc) != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">goto</span> bad_fork_cleanup_kstack;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//5.调用copy_thread()函数复制父进程的中断帧和上下文信息</span></span><br><span class="line">    copy_thread(proc, <span class="built_in">stack</span>, tf);</span><br><span class="line">    <span class="comment">//6.将新进程添加到进程的hash列表中</span></span><br><span class="line">    <span class="keyword">bool</span> intr_flag;</span><br><span class="line">    local_intr_save(intr_flag);</span><br><span class="line">    &#123;</span><br><span class="line">        proc-&gt;pid = get_pid();</span><br><span class="line">        hash_proc(proc); <span class="comment">//建立映射</span></span><br><span class="line">        nr_process ++;  <span class="comment">//进程数加1</span></span><br><span class="line">        list_add(&amp;proc_list, &amp;(proc-&gt;list_link));<span class="comment">//将进程加入到进程的链表中</span></span><br><span class="line">    &#125;</span><br><span class="line">    local_intr_restore(intr_flag);</span><br><span class="line">    <span class="comment">//      7.一切就绪，唤醒子进程</span></span><br><span class="line">    wakeup_proc(proc);</span><br><span class="line">    <span class="comment">//      8.返回子进程的pid</span></span><br><span class="line">    ret = proc-&gt;pid;</span><br><span class="line">fork_out:</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line">bad_fork_cleanup_kstack:</span><br><span class="line">    put_kstack(proc);</span><br><span class="line">bad_fork_cleanup_proc:</span><br><span class="line">    kfree(proc);</span><br><span class="line">    <span class="keyword">goto</span> fork_out;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>1.分配并初始化进程控制块（alloc_proc 函数）;</li>
-<li>2.分配并初始化内核栈（setup_stack 函数）;</li>
-<li>3.根据 clone_flag标志复制或共享进程内存管理结构（copy_mm 函数）;</li>
-<li>4.设置进程在内核（将来也包括用户态）正常运行和调度所需的中断帧和执行上下文<br>（copy_thread函数）;</li>
-<li>5.把设置好的进程控制块放入hash_list 和proc_list 两个全局进程链表中;</li>
-<li>6.自此,进程已经准备好执行了，把进程状态设置为“就绪”态;</li>
-<li>7.设置返回码为子进程的 id号。</li>
-</ul>
-<h3 id="proc-run完成进程切换"><a href="#proc-run完成进程切换" class="headerlink" title="proc_run完成进程切换"></a>proc_run完成进程切换</h3><p>先看调度函数，就只是一个简单FIFO模型</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span></span><br><span class="line">schedule(<span class="keyword">void</span>) &#123;</span><br><span class="line">    <span class="keyword">bool</span> intr_flag;</span><br><span class="line">    <span class="keyword">list_entry_t</span> *le, *last;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">next</span> = <span class="title">NULL</span>;</span></span><br><span class="line">    local_intr_save(intr_flag);</span><br><span class="line">    &#123;</span><br><span class="line">        current-&gt;need_resched = <span class="number">0</span>;</span><br><span class="line">        last = (current == idleproc) ? &amp;proc_list : &amp;(current-&gt;list_link);</span><br><span class="line">        le = last;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> ((le = list_next(le)) != &amp;proc_list) &#123;</span><br><span class="line">                next = le2proc(le, list_link);</span><br><span class="line">                <span class="keyword">if</span> (next-&gt;state == PROC_RUNNABLE) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">while</span> (le != last);</span><br><span class="line">        <span class="keyword">if</span> (next == <span class="literal">NULL</span> || next-&gt;state != PROC_RUNNABLE) &#123;</span><br><span class="line">            next = idleproc;</span><br><span class="line">        &#125;</span><br><span class="line">        next-&gt;runs ++;</span><br><span class="line">        <span class="keyword">if</span> (next != current) &#123;</span><br><span class="line">            proc_run(next);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    local_intr_restore(intr_flag);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>1、设置当前内核线程 current-&gt;need_resched 为 0;</li>
-<li>2、在 proc_list 队列中查找下一个处于就绪态的线程或进程 next;</li>
-<li>3、找到这样的进程后，就调用 proc_run 函数，保存当前进程 current 的执行现场(进程上下文)，恢复新进程的执行现场，完成进程切换。</li>
-</ul>
-<p>调度完成由proc_run来切换和开始执行进程</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">proc_run</span><span class="params">(struct proc_struct *proc)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (proc != current) &#123;</span><br><span class="line">        <span class="keyword">bool</span> intr_flag;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">prev</span> = <span class="title">current</span>, *<span class="title">next</span> = <span class="title">proc</span>;</span></span><br><span class="line">        local_intr_save(intr_flag);</span><br><span class="line">        &#123;</span><br><span class="line">            current = proc;</span><br><span class="line">            load_esp0(next-&gt;kstack + KSTACKSIZE);</span><br><span class="line">            lcr3(next-&gt;cr3);</span><br><span class="line">            switch_to(&amp;(prev-&gt;context), &amp;(next-&gt;context));</span><br><span class="line">        &#125;</span><br><span class="line">        local_intr_restore(intr_flag);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>1、让 current 指向 next 内核线程 initproc；</li>
-<li>2、设置任务状态段 ts 中特权态 0 下的栈顶指针 esp0 为 next 内核线程 initproc 的内核栈的栈顶，即 next-&gt;kstack + KSTACKSIZE ；</li>
-<li>3、设置 CR3 寄存器的值为 next 内核线程 initproc 的页目录表起始地址 next-&gt;cr3，这实际上是完成进程间的页表切换；</li>
-<li>4、由 switch_to函数完成具体的两个线程的执行现场切换，即切换各个寄存器，当 switch_to 函数执行完“ret”指令后，就切换到 initproc 执行了。</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">switch_to:                      # switch_to(from, to)</span><br><span class="line">    # save from's registers</span><br><span class="line">    movl <span class="number">4</span>(%esp), %eax          <span class="meta"># eax points to from</span></span><br><span class="line">    popl <span class="number">0</span>(%eax)                <span class="meta"># save eip !popl</span></span><br><span class="line">    movl %esp, <span class="number">4</span>(%eax)</span><br><span class="line">    movl %ebx, <span class="number">8</span>(%eax)</span><br><span class="line">    movl %ecx, <span class="number">12</span>(%eax)</span><br><span class="line">    movl %edx, <span class="number">16</span>(%eax)</span><br><span class="line">    movl %esi, <span class="number">20</span>(%eax)</span><br><span class="line">    movl %edi, <span class="number">24</span>(%eax)</span><br><span class="line">    movl %ebp, <span class="number">28</span>(%eax)</span><br><span class="line"></span><br><span class="line">    # restore to's registers</span><br><span class="line">    movl <span class="number">4</span>(%esp), %eax          <span class="meta"># not 8(%esp): popped return address already</span></span><br><span class="line">                                <span class="meta"># eax now points to to</span></span><br><span class="line">    movl <span class="number">28</span>(%eax), %ebp</span><br><span class="line">    movl <span class="number">24</span>(%eax), %edi</span><br><span class="line">    movl <span class="number">20</span>(%eax), %esi</span><br><span class="line">    movl <span class="number">16</span>(%eax), %edx</span><br><span class="line">    movl <span class="number">12</span>(%eax), %ecx</span><br><span class="line">    movl <span class="number">8</span>(%eax), %ebx</span><br><span class="line">    movl <span class="number">4</span>(%eax), %esp</span><br><span class="line">    pushl <span class="number">0</span>(%eax)               <span class="meta"># push eip</span></span><br><span class="line">    ret</span><br></pre></td></tr></table></figure>
-
-<p>这些指令完成了保存前一个进程的其他 7 个寄存器到 context 中的相应域中。至此前一个进程的执行现场保存完毕。</p>
-<p>再往后是恢复向一个进程的执行现场，这其实就是上述保存过程的逆执行过程，即从 context 的高地址的域 ebp 开始，逐一把相关域的值赋值给对应的寄存器。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/os/lab4：process.html#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2680,7 +2587,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">101.4k</span>
+    <span title="Site words total count">103k</span>
   
 </div>
 
