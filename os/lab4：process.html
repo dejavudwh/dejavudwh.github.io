@@ -82,7 +82,7 @@
 
 
 
-  <meta name="keywords" content="大二期间,SICP,计算机科学,解释器,Lisp,Scheme,">
+  <meta name="keywords" content="操作系统,ucore,">
 
 
 
@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 2 构造数据对象  练习答案符号数据 这里其实只是引出了符号的表示，重点应该在实例中">
-<meta name="keywords" content="大二期间,SICP,计算机科学,解释器,Lisp,Scheme">
+<meta name="description" content="进程的定义进程是指一个具有一定独立功能的程序在一个数据集合上的一次动态执行过程 源代码在经过编译链接之后生成了可执行文件，再由操作系统进行加载并且进行一些堆栈的分配才是进程 进程控制块 操作系统管理控制进程运行所用的信息集合   操作系统用PCB来描述进程的基本情况以及运行变化的过程  PCB是进程存在的唯一标志   每个进程都在操作系统中有一个对应的PCB   进程控制块主要包含的就是进程的标识">
+<meta name="keywords" content="操作系统,ucore">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SICP Chapter 2.3">
-<meta property="og:url" content="https://dejavudwh.cn/SICP/Chapter 2.3.html">
+<meta property="og:title" content="Lab4：进程和线程">
+<meta property="og:url" content="https://dejavudwh.cn/os/lab4：process.html">
 <meta property="og:site_name" content="dejavudwh&#39;s Blog">
-<meta property="og:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 2 构造数据对象  练习答案符号数据 这里其实只是引出了符号的表示，重点应该在实例中">
+<meta property="og:description" content="进程的定义进程是指一个具有一定独立功能的程序在一个数据集合上的一次动态执行过程 源代码在经过编译链接之后生成了可执行文件，再由操作系统进行加载并且进行一些堆栈的分配才是进程 进程控制块 操作系统管理控制进程运行所用的信息集合   操作系统用PCB来描述进程的基本情况以及运行变化的过程  PCB是进程存在的唯一标志   每个进程都在操作系统中有一个对应的PCB   进程控制块主要包含的就是进程的标识">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-06-14T08:27:21.160Z">
+<meta property="og:updated_time" content="2019-11-18T06:14:04.863Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SICP Chapter 2.3">
-<meta name="twitter:description" content="SICP CONCLUSION 让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！   祝我能够突破层层代码，找到住在里计算机的神灵！  目录1. 构造过程抽象2. 构造数据抽象3. 模块化、对象和状态4. 元语言抽象5. 寄存器机器里的计算Chapter 2 构造数据对象  练习答案符号数据 这里其实只是引出了符号的表示，重点应该在实例中">
+<meta name="twitter:title" content="Lab4：进程和线程">
+<meta name="twitter:description" content="进程的定义进程是指一个具有一定独立功能的程序在一个数据集合上的一次动态执行过程 源代码在经过编译链接之后生成了可执行文件，再由操作系统进行加载并且进行一些堆栈的分配才是进程 进程控制块 操作系统管理控制进程运行所用的信息集合   操作系统用PCB来描述进程的基本情况以及运行变化的过程  PCB是进程存在的唯一标志   每个进程都在操作系统中有一个对应的PCB   进程控制块主要包含的就是进程的标识">
 
 
 
@@ -136,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://dejavudwh.cn/SICP/Chapter 2.3.html">
+  <link rel="canonical" href="https://dejavudwh.cn/os/lab4：process.html">
 
 
 
 
 
-  <title>SICP Chapter 2.3 | dejavudwh's Blog</title>
+  <title>Lab4：进程和线程 | dejavudwh's Blog</title>
   
 
 
@@ -321,7 +321,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/SICP/Chapter 2.3.html">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/os/lab4：process.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dejavudwh">
@@ -338,7 +338,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">SICP Chapter 2.3</h2>
+          <h2 class="post-title" itemprop="name headline">Lab4：进程和线程</h2>
         
 
         <div class="post-meta">
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-12T18:54:25+08:00">
-                2019-06-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-17T12:22:25+08:00">
+                2019-11-17
               </time>
             
 
@@ -384,8 +384,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/SICP/" itemprop="url" rel="index">
-                    <span itemprop="name">SICP</span>
+                  <a href="/categories/学习笔记/ucore/" itemprop="url" rel="index">
+                    <span itemprop="name">ucore</span>
                   </a>
                 </span>
 
@@ -401,7 +401,7 @@
 
           
           
-             <span id="/SICP/Chapter 2.3.html" class="leancloud_visitors" data-flag-title="SICP Chapter 2.3">
+             <span id="/os/lab4：process.html" class="leancloud_visitors" data-flag-title="Lab4：进程和线程">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -431,7 +431,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.1k
+                  2.5k
                 </span>
               
 
@@ -447,7 +447,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  5
+                  10
                 </span>
               
             </div>
@@ -468,90 +468,117 @@
       
 
       
-        <h1 id="SICP-CONCLUSION"><a href="#SICP-CONCLUSION" class="headerlink" title="SICP CONCLUSION"></a><strong>SICP CONCLUSION</strong></h1><blockquote>
-<p>让我们举起杯，祝福那些将他们的思想镶嵌在重重括号之间的Lisp程序员 ！</p>
+        <h2 id="进程的定义"><a href="#进程的定义" class="headerlink" title="进程的定义"></a>进程的定义</h2><p>进程是指一个具有一定独立功能的程序在一个数据集合上的一次动态执行过程</p>
+<p>源代码在经过编译链接之后生成了可执行文件，再由操作系统进行加载并且进行一些堆栈的分配才是进程</p>
+<h2 id="进程控制块"><a href="#进程控制块" class="headerlink" title="进程控制块"></a>进程控制块</h2><blockquote>
+<p>操作系统管理控制进程运行所用的信息集合</p>
 </blockquote>
-<blockquote>
-<p>祝我能够突破层层代码，找到住在里计算机的神灵！</p>
-</blockquote>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a><strong><font color="green">目录</font></strong></h2><h5 id="1-构造过程抽象"><a href="#1-构造过程抽象" class="headerlink" title="1. 构造过程抽象"></a>1. 构造过程抽象</h5><h5 id="2-构造数据抽象"><a href="#2-构造数据抽象" class="headerlink" title="2. 构造数据抽象"></a>2. 构造数据抽象</h5><h5 id="3-模块化、对象和状态"><a href="#3-模块化、对象和状态" class="headerlink" title="3. 模块化、对象和状态"></a>3. 模块化、对象和状态</h5><h5 id="4-元语言抽象"><a href="#4-元语言抽象" class="headerlink" title="4. 元语言抽象"></a>4. 元语言抽象</h5><h5 id="5-寄存器机器里的计算"><a href="#5-寄存器机器里的计算" class="headerlink" title="5. 寄存器机器里的计算"></a>5. 寄存器机器里的计算</h5><h2 id="Chapter-2"><a href="#Chapter-2" class="headerlink" title="Chapter 2"></a><strong><font color="red">Chapter 2</font></strong></h2><ul>
-<li>构造数据对象</li>
-</ul>
-<h5 id="练习答案"><a href="#练习答案" class="headerlink" title="练习答案"></a><a href="https://github.com/dejavudwh/SICP-Exercise" target="_blank" rel="noopener">练习答案</a></h5><h4 id="符号数据"><a href="#符号数据" class="headerlink" title="符号数据"></a>符号数据</h4><blockquote>
-<p>这里其实只是引出了符号的表示，重点应该在实例中</p>
-</blockquote>
-<a id="more"></a>
-
-<h6 id="实例：符号求导"><a href="#实例：符号求导" class="headerlink" title="实例：符号求导"></a>实例：符号求导</h6><ol>
-<li>列出有关求导的基本算法</li>
-<li>按愿望思维，先提取出其中有关的基本过程和数据抽象,然后根据算法构造<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(vairable? e)</span><br><span class="line">(sanme-variable? v1 v2)</span><br><span class="line">(sum? e)</span><br><span class="line">...</span><br><span class="line">（product? e)</span><br></pre></td></tr></table></figure>
-
+<ul>
+<li><p>操作系统用PCB来描述进程的基本情况以及运行变化的过程</p>
 </li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">(define (deriv exp var)</span><br><span class="line">  (cond ((number? exp) 0)</span><br><span class="line">        ((variable? exp)</span><br><span class="line">         (if (same-variable? exp var) 1 0))</span><br><span class="line">        ((sum? exp)</span><br><span class="line">         (make-sum (deriv (addend exp) var)</span><br><span class="line">                   (deriv (augend exp) var)))</span><br><span class="line">        ((product? exp)</span><br><span class="line">         (make-sum</span><br><span class="line">           (make-product (multiplier exp)</span><br><span class="line">                         (deriv (multiplicand exp) var))</span><br><span class="line">           (make-product (deriv (multiplier exp) var)</span><br><span class="line">                         (multiplicand exp))))</span><br><span class="line">        (else</span><br><span class="line">         (error &quot;unknown expression type -- DERIV&quot; exp))))</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>建立细节，实现数据的具体表示和基本过程</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">(define (variable? x) (symbol? x))</span><br><span class="line"></span><br><span class="line">(define (same-variable? v1 v2)</span><br><span class="line">  (and (variable? v1) (variable? v2) (eq? v1 v2)))</span><br><span class="line"></span><br><span class="line">(define (make-sum a1 a2) (list &apos;+ a1 a2))</span><br><span class="line"></span><br><span class="line">(define (make-product m1 m2) (list &apos;* m1 m2))</span><br><span class="line"></span><br><span class="line">(define (sum? x)</span><br><span class="line">  (and (pair? x) (eq? (car x) &apos;+)))</span><br><span class="line"></span><br><span class="line">(define (addend s) (cadr s))</span><br><span class="line"></span><br><span class="line">(define (augend s) (caddr s))</span><br><span class="line"></span><br><span class="line">(define (product? x)</span><br><span class="line">  (and (pair? x) (eq? (car x) &apos;*)))</span><br><span class="line"></span><br><span class="line">(define (multiplier p) (cadr p))</span><br><span class="line"></span><br><span class="line">(define (multiplicand p) (caddr p))</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>上面构造出的只是一个比较粗糙的模型，还需要完善细节<br>例如完善化简</li>
-</ol>
-<h6 id="实例：集合的表示"><a href="#实例：集合的表示" class="headerlink" title="实例：集合的表示"></a>实例：集合的表示</h6><ul>
-<li>还是数据抽象的思想，表示出关于集合的操作函数</li>
+<li><p>PCB是进程存在的唯一标志</p>
+<p>  每个进程都在操作系统中有一个对应的PCB</p>
+</li>
 </ul>
+<p>进程控制块主要包含的就是进程的标识信息，处理机现场保存和进程控制信息</p>
+<p><strong>控制信息</strong>：</p>
 <ol>
-<li>集合作为未排序的表</li>
+<li>调度和状态信息</li>
+<li>进程间通信信息</li>
+<li>存储管理信息</li>
+<li>进程所用资源</li>
+<li>有关数据结构连接信息</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">(define (element-of-set? x set)</span><br><span class="line">  (cond ((null? set) false)</span><br><span class="line">        ((equal? x (car set)) true)</span><br><span class="line">        (else (element-of-set? x (cdr set)))))</span><br><span class="line"></span><br><span class="line">(define (adjoin-set x set)</span><br><span class="line">  (if (element-of-set? x set)</span><br><span class="line">      set</span><br><span class="line">      (cons x set)))</span><br><span class="line"></span><br><span class="line">(define (intersection-set set1 set2)</span><br><span class="line">  (cond ((or (null? set1) (null? set2)) &apos;())</span><br><span class="line">        ((element-of-set? (car set1) set2)</span><br><span class="line">         (cons (car set1)</span><br><span class="line">               (intersection-set (cdr set1) set2)))</span><br><span class="line">        (else (intersection-set (cdr set1) set2))))</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>集合作为排序的表(效率的提升)</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">(define (element-of-set? x set)</span><br><span class="line">  (cond ((null? set) false)</span><br><span class="line">        ((= x (car set)) true)</span><br><span class="line">        ((&lt; x (car set)) false)</span><br><span class="line">        (else (element-of-set? x (cdr set)))))</span><br><span class="line"></span><br><span class="line">(define (intersection-set set1 set2)</span><br><span class="line">  (if (or (null? set1) (null? set2))</span><br><span class="line">      &apos;()</span><br><span class="line">      (let ((x1 (car set1)) (x2 (car set2)))</span><br><span class="line">        (cond ((= x1 x2)</span><br><span class="line">               (cons x1</span><br><span class="line">                     (intersection-set (cdr set1)</span><br><span class="line">                                       (cdr set2))))</span><br><span class="line">              ((&lt; x1 x2)</span><br><span class="line">               (intersection-set (cdr set1) set2))</span><br><span class="line">              ((&lt; x2 x1)</span><br><span class="line">               (intersection-set set1 (cdr set2)))))))</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>集合作为二叉树</li>
-</ol>
-<ul>
-<li>惯例依旧数据抽象，构建出关于数据的操作函数</li>
+<h2 id="进程的生命周期"><a href="#进程的生命周期" class="headerlink" title="进程的生命周期"></a>进程的生命周期</h2><ul>
+<li><p>进程创建</p>
+<p>用户请求创建一个新进程，正在运行的进程执行了创建进程的系统调用，并且加入到就绪队列</p>
+</li>
+<li><p>进程执行</p>
+<p>内核对就绪队列进行调度，到执行该进程</p>
+</li>
+<li><p>进程等待</p>
+<p>运行中的进程可能会进入阻塞状态，比如进行IO的等待或者需要的数据没有到达</p>
+</li>
+<li><p>进程抢占</p>
+<p>运行中的进程可能时间片被用完或者高优先级进程被唤醒导致了进程被抢占进入阻塞状态</p>
+</li>
+<li><p>进程唤醒</p>
+<p>被阻塞需要的资源可以被满足就可能被唤醒进入就绪队列</p>
+</li>
+<li><p>进程结束</p>
+<p>进程完成任务或者被迫结束</p>
+</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(define (entry tree) (car tree))</span><br><span class="line"></span><br><span class="line">(define (left-branch tree) (cadr tree))</span><br><span class="line"></span><br><span class="line">(define (right-branch tree) (caddr tree))</span><br><span class="line"></span><br><span class="line">(define (make-tree entry left right)</span><br><span class="line">  (list entry left right))</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>集合与信息检索</li>
-</ol>
-<p>提供键值检索</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(define (lookup given-key set-of-records)</span><br><span class="line">  (cond ((null? set-of-records) false)</span><br><span class="line">        ((equal? given-key (key (car set-of-records)))</span><br><span class="line">         (car set-of-records))</span><br><span class="line">        (else (lookup given-key (cdr set-of-records)))))</span><br></pre></td></tr></table></figure>
-
-<h6 id="实例：Huffman编码树"><a href="#实例：Huffman编码树" class="headerlink" title="实例：Huffman编码树"></a>实例：Huffman编码树</h6><blockquote>
-<p>算法：使得带有最低频度的符号出现在离树根最远的地方。从叶节点开始，反复找出具有最低权重的两个结点，归并他们</p>
+<h2 id="线程的定义"><a href="#线程的定义" class="headerlink" title="线程的定义"></a>线程的定义</h2><blockquote>
+<p>线程是进程的一部分，描述指令流执行状态。它是进程中的指令执行流的最小单元，是CPU调度的基本单位。</p>
 </blockquote>
 <ul>
-<li>树的表示</li>
+<li>进程作为资源分配角色</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">(define (make-leaf symbol weight)</span><br><span class="line">  (list &apos;leaf symbol weight))</span><br><span class="line"></span><br><span class="line">(define (leaf? object)</span><br><span class="line">  (eq? (car object) &apos;leaf))</span><br><span class="line"></span><br><span class="line">(define (symbol-leaf x) (cadr x))</span><br><span class="line"></span><br><span class="line">(define (weight-leaf x) (caddr x))</span><br><span class="line"></span><br><span class="line">(define (make-code-tree left right)</span><br><span class="line">  (list left</span><br><span class="line">        right</span><br><span class="line">        (append (symbols left) (symbols right))</span><br><span class="line">        (+ (weight left) (weight right))))</span><br><span class="line"></span><br><span class="line">(define (left-branch tree) (car tree))</span><br><span class="line"></span><br><span class="line">(define (right-branch tree) (cadr tree))</span><br><span class="line"></span><br><span class="line">(define (symbols tree)</span><br><span class="line">  (if (leaf? tree)</span><br><span class="line">      (list (symbol-leaf tree))</span><br><span class="line">      (caddr tree)))</span><br><span class="line"></span><br><span class="line">(define (weight tree)</span><br><span class="line">  (if (leaf? tree)</span><br><span class="line">      (weight-leaf tree)</span><br><span class="line">      (cadddr tree)))</span><br></pre></td></tr></table></figure>
+<p>进程由一组相关资源构成，包括地址空间（代码段、数据段）、打开的文件等各种资源</p>
+<ul>
+<li>线程作为处理机调度角色</li>
+</ul>
+<p>线程描述在进程资源环境中的指令流执行状态</p>
+<p>一个进程中可以同时存在多个线程，各个线程之间可以并发地执行，各个线程之间可以共享地址空间和文件等资源</p>
+<h2 id="线程的实现方式"><a href="#线程的实现方式" class="headerlink" title="线程的实现方式"></a>线程的实现方式</h2><h3 id="用户线程"><a href="#用户线程" class="headerlink" title="用户线程"></a>用户线程</h3><blockquote>
+<p>用户线程是基于在用户态自己实现的线程库函数来完成对线程的管理，包括线程的创建、终止、同步和调度</p>
+</blockquote>
+<p>这样内核并不知道用户线程的存在，所以每个线程控制块都由线程库函数来维护，也不要在用户态和内核态进行切换，开销会较小，但是对于如果线程发生阻塞的话，由于操作系统并不知道用户级线程的情况，所以会造成整个进程的阻塞，并且除非当前运行线程主动放弃，它所在进程的其他线程无法抢占CPU</p>
+<h3 id="内核线程"><a href="#内核线程" class="headerlink" title="内核线程"></a>内核线程</h3><blockquote>
+<p>由内核通过系统调用实现的线程机制，由内核完成线程的创建、终止和管理</p>
+</blockquote>
+<p>由内核维护PCB和TCB，线程执行系统调用而被阻塞不影响其他线程，线程的创建、终止和切换相对较大，以线程为单位进行CPU时间分配</p>
+<h2 id="进程控制"><a href="#进程控制" class="headerlink" title="进程控制"></a>进程控制</h2><h3 id="进程切换"><a href="#进程切换" class="headerlink" title="进程切换"></a>进程切换</h3><blockquote>
+<p>暂停当前运行进程，从运行状态变成其他状态，调度另一个进程从就绪状态变成运行状态</p>
+</blockquote>
+<p>要完成进程切换就需要对切换前的进程进行进程上下文的保存，并且在切换后对进程上下文的恢复</p>
+<p><strong>进程控制块</strong>：内核为每个进程维护了对应的进程控制块（PCB)，内核将相同状态的进程的PCB放置在同一队列</p>
+<h3 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h3><p><strong>fork/exec</strong>：</p>
+<ul>
+<li><p>fork() 创建一个继承的子进程</p>
+<p>复制父进程的所有变量和内存，复制父进程的所有CPU寄存器(有一个寄存器例外)，fork()执行过程对于子进程而言，是在调用时间对父进程地址空间的一次复制，对于父进程fork() 返回child PID, 对于子进程返回值为0</p>
+</li>
+<li><p>fork()的地址空间复制</p>
+<p>fork()执行过程对于子进程而言，是在调用时间对父进程地址空间的一次复制，对于父进程fork() 返回child PID, 对于子进程返回值为0</p>
+</li>
+</ul>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="分配并初始化一个进程控制块"><a href="#分配并初始化一个进程控制块" class="headerlink" title="分配并初始化一个进程控制块"></a>分配并初始化一个进程控制块</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">enum</span> proc_state state;                      <span class="comment">// Process state</span></span><br><span class="line">    <span class="keyword">int</span> pid;                                    <span class="comment">// Process ID</span></span><br><span class="line">    <span class="keyword">int</span> runs;                                   <span class="comment">// the running times of Proces</span></span><br><span class="line">    <span class="keyword">uintptr_t</span> kstack;                           <span class="comment">// Process kernel stack</span></span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">bool</span> need_resched;                 <span class="comment">// bool value: need to be rescheduled to release CPU?</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">parent</span>;</span>                 <span class="comment">// the parent process</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">mm_struct</span> *<span class="title">mm</span>;</span>                       <span class="comment">// Process's memory management field</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">context</span> <span class="title">context</span>;</span>                     <span class="comment">// Switch here to run process</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">trapframe</span> *<span class="title">tf</span>;</span>                       <span class="comment">// Trap frame for current interrupt</span></span><br><span class="line">    <span class="keyword">uintptr_t</span> cr3;                              <span class="comment">// CR3 register: the base addr of Page Directroy Table(PDT)</span></span><br><span class="line">    <span class="keyword">uint32_t</span> flags;                             <span class="comment">// Process flag</span></span><br><span class="line">    <span class="keyword">char</span> name[PROC_NAME_LEN + <span class="number">1</span>];               <span class="comment">// Process name</span></span><br><span class="line">    <span class="keyword">list_entry_t</span> list_link;                     <span class="comment">// Process link list </span></span><br><span class="line">    <span class="keyword">list_entry_t</span> hash_link;                     <span class="comment">// Process hash list</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> struct proc_struct *<span class="title">alloc_proc</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">proc</span> = <span class="title">kmalloc</span>(<span class="title">sizeof</span>(<span class="title">struct</span> <span class="title">proc_struct</span>));</span></span><br><span class="line">    <span class="keyword">if</span> (proc != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        proc-&gt;state = PROC_UNINIT;  <span class="comment">//设置进程为未初始化状态</span></span><br><span class="line">        proc-&gt;pid = <span class="number">-1</span>;             <span class="comment">//未初始化的的进程id为-1</span></span><br><span class="line">        proc-&gt;runs = <span class="number">0</span>;             <span class="comment">//初始化时间片</span></span><br><span class="line">        proc-&gt;kstack = <span class="number">0</span>;           <span class="comment">//内存栈的地址</span></span><br><span class="line">        proc-&gt;need_resched = <span class="number">0</span>;     <span class="comment">//是否需要调度设为不需要</span></span><br><span class="line">        proc-&gt;parent = <span class="literal">NULL</span>;        <span class="comment">//父节点设为空</span></span><br><span class="line">        proc-&gt;mm = <span class="literal">NULL</span>;            <span class="comment">//虚拟内存设为空</span></span><br><span class="line">        <span class="built_in">memset</span>(&amp;(proc-&gt;context), <span class="number">0</span>, <span class="keyword">sizeof</span>(struct context));<span class="comment">//上下文的初始化</span></span><br><span class="line">        proc-&gt;tf = <span class="literal">NULL</span>;            <span class="comment">//中断帧指针置为空</span></span><br><span class="line">        proc-&gt;cr3 = boot_cr3;       <span class="comment">//页目录设为内核页目录表的基址</span></span><br><span class="line">        proc-&gt;flags = <span class="number">0</span>;            <span class="comment">//标志位</span></span><br><span class="line">        <span class="built_in">memset</span>(proc-&gt;name, <span class="number">0</span>, PROC_NAME_LEN);<span class="comment">//进程名</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> proc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>proc_struct即是进程控制块的结构体，alloc_proc函数来负责分配一个新的struct proc_struct结构，根据提示我们需要初始化一些变量</p>
+<h3 id="为新创建的内核线程分配资源"><a href="#为新创建的内核线程分配资源" class="headerlink" title="为新创建的内核线程分配资源"></a>为新创建的内核线程分配资源</h3><p>创建内核线程的主要工作由do_fork来完成资源的分配</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span></span><br><span class="line">do_fork(<span class="keyword">uint32_t</span> clone_flags, <span class="keyword">uintptr_t</span> <span class="built_in">stack</span>, struct trapframe *tf) &#123;</span><br><span class="line">    <span class="keyword">int</span> ret = -E_NO_FREE_PROC;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">proc</span>;</span></span><br><span class="line">    <span class="keyword">if</span> (nr_process &gt;= MAX_PROCESS) &#123;</span><br><span class="line">        <span class="keyword">goto</span> fork_out;</span><br><span class="line">    &#125;</span><br><span class="line">    ret = -E_NO_MEM;</span><br><span class="line">    <span class="comment">//1：调用alloc_proc()函数申请内存块，如果失败，直接返回处理</span></span><br><span class="line">    <span class="keyword">if</span> ((proc = alloc_proc()) == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">goto</span> fork_out;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//2.将子进程的父节点设置为当前进程</span></span><br><span class="line">    proc-&gt;parent = current;</span><br><span class="line">    <span class="comment">//3.调用setup_stack()函数为进程分配一个内核栈</span></span><br><span class="line">    <span class="keyword">if</span> (setup_kstack(proc) != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">goto</span> bad_fork_cleanup_proc;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//4.调用copy_mm()函数复制父进程的内存信息到子进程</span></span><br><span class="line">    <span class="keyword">if</span> (copy_mm(clone_flags, proc) != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">goto</span> bad_fork_cleanup_kstack;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//5.调用copy_thread()函数复制父进程的中断帧和上下文信息</span></span><br><span class="line">    copy_thread(proc, <span class="built_in">stack</span>, tf);</span><br><span class="line">    <span class="comment">//6.将新进程添加到进程的hash列表中</span></span><br><span class="line">    <span class="keyword">bool</span> intr_flag;</span><br><span class="line">    local_intr_save(intr_flag);</span><br><span class="line">    &#123;</span><br><span class="line">        proc-&gt;pid = get_pid();</span><br><span class="line">        hash_proc(proc); <span class="comment">//建立映射</span></span><br><span class="line">        nr_process ++;  <span class="comment">//进程数加1</span></span><br><span class="line">        list_add(&amp;proc_list, &amp;(proc-&gt;list_link));<span class="comment">//将进程加入到进程的链表中</span></span><br><span class="line">    &#125;</span><br><span class="line">    local_intr_restore(intr_flag);</span><br><span class="line">    <span class="comment">//      7.一切就绪，唤醒子进程</span></span><br><span class="line">    wakeup_proc(proc);</span><br><span class="line">    <span class="comment">//      8.返回子进程的pid</span></span><br><span class="line">    ret = proc-&gt;pid;</span><br><span class="line">fork_out:</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line">bad_fork_cleanup_kstack:</span><br><span class="line">    put_kstack(proc);</span><br><span class="line">bad_fork_cleanup_proc:</span><br><span class="line">    kfree(proc);</span><br><span class="line">    <span class="keyword">goto</span> fork_out;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>解码过程</li>
+<li>1.分配并初始化进程控制块（alloc_proc 函数）;</li>
+<li>2.分配并初始化内核栈（setup_stack 函数）;</li>
+<li>3.根据 clone_flag标志复制或共享进程内存管理结构（copy_mm 函数）;</li>
+<li>4.设置进程在内核（将来也包括用户态）正常运行和调度所需的中断帧和执行上下文<br>（copy_thread函数）;</li>
+<li>5.把设置好的进程控制块放入hash_list 和proc_list 两个全局进程链表中;</li>
+<li>6.自此,进程已经准备好执行了，把进程状态设置为“就绪”态;</li>
+<li>7.设置返回码为子进程的 id号。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">(define (decode bits tree)</span><br><span class="line">  (define (decode-1 bits current-branch)</span><br><span class="line">    (if (null? bits)</span><br><span class="line">        &apos;()</span><br><span class="line">        (let ((next-branch</span><br><span class="line">               (choose-branch (car bits) current-branch)))</span><br><span class="line">          (if (leaf? next-branch)</span><br><span class="line">              (cons (symbol-leaf next-branch)</span><br><span class="line">                    (decode-1 (cdr bits) tree))</span><br><span class="line">              (decode-1 (cdr bits) next-branch)))))</span><br><span class="line">  (decode-1 bits tree))</span><br><span class="line"></span><br><span class="line">(define (choose-branch bit branch)</span><br><span class="line">  (cond ((= bit 0) (left-branch branch))</span><br><span class="line">        ((= bit 1) (right-branch branch))</span><br><span class="line">        (else (error &quot;bad bit -- CHOOSE-BRANCH&quot; bit))))</span><br></pre></td></tr></table></figure>
+<h3 id="proc-run完成进程切换"><a href="#proc-run完成进程切换" class="headerlink" title="proc_run完成进程切换"></a>proc_run完成进程切换</h3><p>先看调度函数，就只是一个简单FIFO模型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span></span><br><span class="line">schedule(<span class="keyword">void</span>) &#123;</span><br><span class="line">    <span class="keyword">bool</span> intr_flag;</span><br><span class="line">    <span class="keyword">list_entry_t</span> *le, *last;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">next</span> = <span class="title">NULL</span>;</span></span><br><span class="line">    local_intr_save(intr_flag);</span><br><span class="line">    &#123;</span><br><span class="line">        current-&gt;need_resched = <span class="number">0</span>;</span><br><span class="line">        last = (current == idleproc) ? &amp;proc_list : &amp;(current-&gt;list_link);</span><br><span class="line">        le = last;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> ((le = list_next(le)) != &amp;proc_list) &#123;</span><br><span class="line">                next = le2proc(le, list_link);</span><br><span class="line">                <span class="keyword">if</span> (next-&gt;state == PROC_RUNNABLE) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">while</span> (le != last);</span><br><span class="line">        <span class="keyword">if</span> (next == <span class="literal">NULL</span> || next-&gt;state != PROC_RUNNABLE) &#123;</span><br><span class="line">            next = idleproc;</span><br><span class="line">        &#125;</span><br><span class="line">        next-&gt;runs ++;</span><br><span class="line">        <span class="keyword">if</span> (next != current) &#123;</span><br><span class="line">            proc_run(next);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    local_intr_restore(intr_flag);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>这里的Huffman树细细体会真的可以体会到数据抽象之威力还是那句讲来讲去的，我无需去关心底层的实现，只要他能保证给我正确的操作</p>
-</blockquote>
 <ul>
-<li>带权重元素的集合</li>
+<li>1、设置当前内核线程 current-&gt;need_resched 为 0;</li>
+<li>2、在 proc_list 队列中查找下一个处于就绪态的线程或进程 next;</li>
+<li>3、找到这样的进程后，就调用 proc_run 函数，保存当前进程 current 的执行现场(进程上下文)，恢复新进程的执行现场，完成进程切换。</li>
 </ul>
-<blockquote>
-<p>只需要用adjoin-set来构造树中的表</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(define (adjoin-set x set)</span><br><span class="line">  (cond ((null? set) (list x))</span><br><span class="line">        ((&lt; (weight x) (weight (car set))) (cons x set)) ;;这里其实可以抽象出来作为更</span><br><span class="line">        (else (cons (car set)                            ;;一般的排序方法</span><br><span class="line">                    (adjoin-set x (cdr set))))))</span><br><span class="line"></span><br><span class="line">(define (make-leaf-set pairs)</span><br><span class="line">  (if (null? pairs)</span><br><span class="line">      &apos;()</span><br><span class="line">      (let ((pair (car pairs)))</span><br><span class="line">        (adjoin-set (make-leaf (car pair)</span><br><span class="line">                               (cadr pair))</span><br><span class="line">                    (make-leaf-set (cdr pairs))))))</span><br></pre></td></tr></table></figure>
+<p>调度完成由proc_run来切换和开始执行进程</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">proc_run</span><span class="params">(struct proc_struct *proc)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (proc != current) &#123;</span><br><span class="line">        <span class="keyword">bool</span> intr_flag;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">prev</span> = <span class="title">current</span>, *<span class="title">next</span> = <span class="title">proc</span>;</span></span><br><span class="line">        local_intr_save(intr_flag);</span><br><span class="line">        &#123;</span><br><span class="line">            current = proc;</span><br><span class="line">            load_esp0(next-&gt;kstack + KSTACKSIZE);</span><br><span class="line">            lcr3(next-&gt;cr3);</span><br><span class="line">            switch_to(&amp;(prev-&gt;context), &amp;(next-&gt;context));</span><br><span class="line">        &#125;</span><br><span class="line">        local_intr_restore(intr_flag);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>这一节首先时引进了符号数据，但之后讲的主要还是去构造数据抽象，只是内容包括了符号数据。介绍了两种数据结构，树和集合，本质上还是讲将他们构造成数据抽象，也就是提供他们的操作函数</p>
-</blockquote>
+<ul>
+<li>1、让 current 指向 next 内核线程 initproc；</li>
+<li>2、设置任务状态段 ts 中特权态 0 下的栈顶指针 esp0 为 next 内核线程 initproc 的内核栈的栈顶，即 next-&gt;kstack + KSTACKSIZE ；</li>
+<li>3、设置 CR3 寄存器的值为 next 内核线程 initproc 的页目录表起始地址 next-&gt;cr3，这实际上是完成进程间的页表切换；</li>
+<li>4、由 switch_to函数完成具体的两个线程的执行现场切换，即切换各个寄存器，当 switch_to 函数执行完“ret”指令后，就切换到 initproc 执行了。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">switch_to:                      # switch_to(from, to)</span><br><span class="line">    # save from's registers</span><br><span class="line">    movl <span class="number">4</span>(%esp), %eax          <span class="meta"># eax points to from</span></span><br><span class="line">    popl <span class="number">0</span>(%eax)                <span class="meta"># save eip !popl</span></span><br><span class="line">    movl %esp, <span class="number">4</span>(%eax)</span><br><span class="line">    movl %ebx, <span class="number">8</span>(%eax)</span><br><span class="line">    movl %ecx, <span class="number">12</span>(%eax)</span><br><span class="line">    movl %edx, <span class="number">16</span>(%eax)</span><br><span class="line">    movl %esi, <span class="number">20</span>(%eax)</span><br><span class="line">    movl %edi, <span class="number">24</span>(%eax)</span><br><span class="line">    movl %ebp, <span class="number">28</span>(%eax)</span><br><span class="line"></span><br><span class="line">    # restore to's registers</span><br><span class="line">    movl <span class="number">4</span>(%esp), %eax          <span class="meta"># not 8(%esp): popped return address already</span></span><br><span class="line">                                <span class="meta"># eax now points to to</span></span><br><span class="line">    movl <span class="number">28</span>(%eax), %ebp</span><br><span class="line">    movl <span class="number">24</span>(%eax), %edi</span><br><span class="line">    movl <span class="number">20</span>(%eax), %esi</span><br><span class="line">    movl <span class="number">16</span>(%eax), %edx</span><br><span class="line">    movl <span class="number">12</span>(%eax), %ecx</span><br><span class="line">    movl <span class="number">8</span>(%eax), %ebx</span><br><span class="line">    movl <span class="number">4</span>(%eax), %esp</span><br><span class="line">    pushl <span class="number">0</span>(%eax)               <span class="meta"># push eip</span></span><br><span class="line">    ret</span><br></pre></td></tr></table></figure>
+
+<p>这些指令完成了保存前一个进程的其他 7 个寄存器到 context 中的相应域中。至此前一个进程的执行现场保存完毕。</p>
+<p>再往后是恢复向一个进程的执行现场，这其实就是上述保存过程的逆执行过程，即从 context 的高地址的域 ebp 开始，逐一把相关域的值赋值给对应的寄存器。</p>
 
       
     </div>
@@ -572,7 +599,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="https://dejavudwh.cn/SICP/Chapter 2.3.html" title="SICP Chapter 2.3">https://dejavudwh.cn/SICP/Chapter 2.3.html</a>
+    <a href="https://dejavudwh.cn/os/lab4：process.html" title="Lab4：进程和线程">https://dejavudwh.cn/os/lab4：process.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -587,17 +614,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/大二期间/" rel="tag"><i class="fa fa-tag"></i> 大二期间</a>
+            <a href="/tags/操作系统/" rel="tag"><i class="fa fa-tag"></i> 操作系统</a>
           
-            <a href="/tags/SICP/" rel="tag"><i class="fa fa-tag"></i> SICP</a>
-          
-            <a href="/tags/计算机科学/" rel="tag"><i class="fa fa-tag"></i> 计算机科学</a>
-          
-            <a href="/tags/解释器/" rel="tag"><i class="fa fa-tag"></i> 解释器</a>
-          
-            <a href="/tags/Lisp/" rel="tag"><i class="fa fa-tag"></i> Lisp</a>
-          
-            <a href="/tags/Scheme/" rel="tag"><i class="fa fa-tag"></i> Scheme</a>
+            <a href="/tags/ucore/" rel="tag"><i class="fa fa-tag"></i> ucore</a>
           
         </div>
       
@@ -610,8 +629,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/SICP/Chapter 3.3.html" rel="next" title="SICP Chapter 3.3">
-                <i class="fa fa-chevron-left"></i> SICP Chapter 3.3
+              <a href="/os/lab3：virmem.html" rel="next" title="Lab3：虚拟内存管理">
+                <i class="fa fa-chevron-left"></i> Lab3：虚拟内存管理
               </a>
             
           </div>
@@ -619,10 +638,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/SICP/Chapter 2.4.html" rel="prev" title="SICP Chapter 2.4">
-                SICP Chapter 2.4 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -805,7 +820,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SICP-CONCLUSION"><span class="nav-number">1.</span> <span class="nav-text">SICP CONCLUSION</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-构造过程抽象"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">1. 构造过程抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-构造数据抽象"><span class="nav-number">1.1.0.0.2.</span> <span class="nav-text">2. 构造数据抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-模块化、对象和状态"><span class="nav-number">1.1.0.0.3.</span> <span class="nav-text">3. 模块化、对象和状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-元语言抽象"><span class="nav-number">1.1.0.0.4.</span> <span class="nav-text">4. 元语言抽象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-寄存器机器里的计算"><span class="nav-number">1.1.0.0.5.</span> <span class="nav-text">5. 寄存器机器里的计算</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-2"><span class="nav-number">1.2.</span> <span class="nav-text">Chapter 2</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#练习答案"><span class="nav-number">1.2.0.0.1.</span> <span class="nav-text">练习答案</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#符号数据"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">符号数据</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#实例：符号求导"><span class="nav-number">1.2.0.1.0.1.</span> <span class="nav-text">实例：符号求导</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#实例：集合的表示"><span class="nav-number">1.2.0.1.0.2.</span> <span class="nav-text">实例：集合的表示</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#实例：Huffman编码树"><span class="nav-number">1.2.0.1.0.3.</span> <span class="nav-text">实例：Huffman编码树</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的定义"><span class="nav-number">1.</span> <span class="nav-text">进程的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程控制块"><span class="nav-number">2.</span> <span class="nav-text">进程控制块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的生命周期"><span class="nav-number">3.</span> <span class="nav-text">进程的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的定义"><span class="nav-number">4.</span> <span class="nav-text">线程的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的实现方式"><span class="nav-number">5.</span> <span class="nav-text">线程的实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户线程"><span class="nav-number">5.1.</span> <span class="nav-text">用户线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内核线程"><span class="nav-number">5.2.</span> <span class="nav-text">内核线程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程控制"><span class="nav-number">6.</span> <span class="nav-text">进程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程切换"><span class="nav-number">6.1.</span> <span class="nav-text">进程切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程创建"><span class="nav-number">6.2.</span> <span class="nav-text">进程创建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现"><span class="nav-number">7.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分配并初始化一个进程控制块"><span class="nav-number">7.1.</span> <span class="nav-text">分配并初始化一个进程控制块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为新创建的内核线程分配资源"><span class="nav-number">7.2.</span> <span class="nav-text">为新创建的内核线程分配资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-run完成进程切换"><span class="nav-number">7.3.</span> <span class="nav-text">proc_run完成进程切换</span></a></li></ol></li></ol></div>
             
 
           </div>
