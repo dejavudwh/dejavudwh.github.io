@@ -320,7 +320,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/os/lab6：scheduling.html">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/compiler/PL真有意思（一）.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dejavudwh">
@@ -339,7 +339,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/os/lab6：scheduling.html" itemprop="url">Lab6：进程的调度</a></h2>
+                <a class="post-title-link" href="/compiler/PL真有意思（一）.html" itemprop="url">PL真有意思（一）：引言</a></h2>
         
 
         <div class="post-meta">
@@ -351,8 +351,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-17T12:22:25+08:00">
-                2019-11-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-22T14:32:25+08:00">
+                2019-11-22
               </time>
             
 
@@ -374,8 +374,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
+                  <a href="/categories/学习日记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习日记</span>
                   </a>
                 </span>
 
@@ -385,8 +385,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/ucore/" itemprop="url" rel="index">
-                    <span itemprop="name">ucore</span>
+                  <a href="/categories/学习日记/PL真有意思/" itemprop="url" rel="index">
+                    <span itemprop="name">PL真有意思</span>
                   </a>
                 </span>
 
@@ -402,7 +402,7 @@
 
           
           
-             <span id="/os/lab6：scheduling.html" class="leancloud_visitors" data-flag-title="Lab6：进程的调度">
+             <span id="/compiler/PL真有意思（一）.html" class="leancloud_visitors" data-flag-title="PL真有意思（一）：引言">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -427,7 +427,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.6k
+                  1.4k
                 </span>
               
 
@@ -443,7 +443,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  6
+                  4
                 </span>
               
             </div>
@@ -465,69 +465,17 @@
 
       
         
-          
-            <h2 id="CPU调度"><a href="#CPU调度" class="headerlink" title="CPU调度"></a>CPU调度</h2><blockquote>
-<p>从就绪队列中挑选下一个占用CPU运行的进程,从多个可用CPU中挑选就绪进程可使用的CPU资源</p>
-</blockquote>
-<h3 id="调度策略"><a href="#调度策略" class="headerlink" title="调度策略"></a>调度策略</h3><h4 id="比较调度算法的准则"><a href="#比较调度算法的准则" class="headerlink" title="比较调度算法的准则"></a>比较调度算法的准则</h4><ul>
-<li>CPU使用率</li>
-<li>吞吐量</li>
-<li>周转时间</li>
-<li>就绪等待时间</li>
-<li>响应时间</li>
-</ul>
-<p><strong>吞吐量与延迟</strong></p>
-<ol>
-<li><p>低延迟：喝水的时候想要一打开水龙头水就流出来</p>
-</li>
-<li><p>高带宽：给游泳池充水时希望从水龙头里同时流出大量的水，并且不介意是否存在延迟</p>
-</li>
-</ol>
-<h3 id="处理机调度策略的响应时间目标"><a href="#处理机调度策略的响应时间目标" class="headerlink" title="处理机调度策略的响应时间目标"></a>处理机调度策略的响应时间目标</h3><ol>
-<li>减少响应时间</li>
-<li>减少平均响应时间的波动</li>
-<li>增加吞吐量</li>
-<li>减少等待时间</li>
-</ol>
-<h2 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h2><h3 id="先来先服务算法-First-Come-First-Served-FCFS"><a href="#先来先服务算法-First-Come-First-Served-FCFS" class="headerlink" title="先来先服务算法(First Come First Served, FCFS)"></a>先来先服务算法(First Come First Served, FCFS)</h3><p>依据进程进入就绪状态的先后顺序排列，进程进入等待或结束状态时，就绪队列中的下一个进程占用CPU</p>
-<p>但是FCFS的平均等待时间波动较大，I/O资源和CPU资源的利用率较低</p>
-<h3 id="短进程优先算法-SPN"><a href="#短进程优先算法-SPN" class="headerlink" title="短进程优先算法(SPN)"></a>短进程优先算法(SPN)</h3><p>选择就绪队列中执行时间最短进程占用CPU进入运行状态，用历史的执行时间来预估未来的执行时间，短进程优先算法具有最优平均周转时间</p>
-<p>但是连续的短进程流会使长进程无法获得CPU资源</p>
-<h3 id="最高响应比优先算法-HRRN"><a href="#最高响应比优先算法-HRRN" class="headerlink" title="最高响应比优先算法(HRRN)"></a>最高响应比优先算法(HRRN)</h3><p>选择就绪队列中响应比R值最高的进程</p>
-<p><code>Ｒ＝（ｗ+s)/s</code></p>
-<pre><code>w: 等待时间(waiting time)
-s: 执行时间(service time)</code></pre><h3 id="时间片轮转算法-RR-Round-Robin"><a href="#时间片轮转算法-RR-Round-Robin" class="headerlink" title="时间片轮转算法(RR, Round-Robin)"></a>时间片轮转算法(RR, Round-Robin)</h3><p>利用时间片作为分配处理机资源的基本时间单元，时间片结束时，按FCFS算法切换到下一个就绪进程，   每隔(n – 1)个时间片进程执行一个时间片q</p>
-<p>但是时间片轮转算法需要选择好时间片的大小，过大过小都会导致效率问题</p>
-<h3 id="多级队列调度算法-MQ"><a href="#多级队列调度算法-MQ" class="headerlink" title="多级队列调度算法(MQ)"></a>多级队列调度算法(MQ)</h3><p>就绪队列被划分成多个独立的子队列，如：前台–RR、后台–FCFS</p>
-<h3 id="多级反馈队列算法-MLFQ"><a href="#多级反馈队列算法-MLFQ" class="headerlink" title="多级反馈队列算法(MLFQ)"></a>多级反馈队列算法(MLFQ)</h3><p>进程可在不同队列间移动的多级队列算法，时间片大小随优先级级别增加而增加，如进程在当前的时间片没有完成，则降到下一个优先级</p>
-<h3 id="公平共享调度-FSS-Fair-Share-Scheduling"><a href="#公平共享调度-FSS-Fair-Share-Scheduling" class="headerlink" title="公平共享调度(FSS, Fair Share Scheduling)"></a>公平共享调度(FSS, Fair Share Scheduling)</h3><p>FSS控制用户对系统资源的访问，一些用户组比其他用户组更重要，保证不重要的组无法垄断资源，未使用的资源按比例分配，没有达到资源使用率目标的组获得更高的优先级</p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>这个实验其实有两个，一个是实现Round Robin，一个是Stride Scheduling，两个都非常简单。</p>
-<p>Round Robin调度算法的调度思想是让所有 runnable 态的进程分时轮流使用 CPU 时间。Round Robin 调度器维护当前 runnable进程的有序运行队列。当前进程的时间片用完之后,调度器将当前进程放置到运行队列的尾部，再从其头部取出进程进行调度。</p>
-<h2 id="Stride-Scheduling"><a href="#Stride-Scheduling" class="headerlink" title="Stride Scheduling"></a>Stride Scheduling</h2><p>具体看一下Stride Scheduling</p>
-<p>1、为每个runnable的进程设置一个当前状态stride，表示该进程当前的调度权。另外定义其对应的pass值，表示对应进程在调度后，stride 需要进行的累加值。<br>2、每次需要调度时，从当前 runnable 态的进程中选择 stride最小的进程调度。对于获得调度的进程P，将对应的stride加上其对应的步长pass（只与进程的优先权有关系）。<br>3、在一段固定的时间之后，回到步骤2，重新调度当前stride最小的进程</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span>  </span><br><span class="line">stride_init(struct run_queue *rq) &#123;  </span><br><span class="line">     <span class="comment">/* LAB6: YOUR CODE */</span>  </span><br><span class="line">     list_init(&amp;(rq-&gt;run_list)); </span><br><span class="line">     rq-&gt;lab6_run_pool = <span class="literal">NULL</span>; </span><br><span class="line">     rq-&gt;proc_num = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>首先是队列初始化函数</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span></span><br><span class="line">stride_enqueue(struct run_queue *rq, struct proc_struct *proc) &#123;</span><br><span class="line">     <span class="comment">/* LAB6: YOUR CODE */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> USE_SKEW_HEAP</span></span><br><span class="line">     rq-&gt;lab6_run_pool = skew_heap_insert(rq-&gt;lab6_run_pool, &amp;(proc-&gt;lab6_run_pool), proc_stride_comp_f);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">     assert(list_empty(&amp;(proc-&gt;run_link)));</span><br><span class="line">     list_add_before(&amp;(rq-&gt;run_list), &amp;(proc-&gt;run_link));</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">     <span class="keyword">if</span> (proc-&gt;time_slice == <span class="number">0</span> || proc-&gt;time_slice &gt; rq-&gt;max_time_slice) &#123;</span><br><span class="line">          proc-&gt;time_slice = rq-&gt;max_time_slice;</span><br><span class="line">     &#125;</span><br><span class="line">     proc-&gt;rq = rq;</span><br><span class="line">     rq-&gt;proc_num ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后是入队函数stride_enqueue，根据之前对该调度算法的分析，这里函数主要是初始化刚进入运行队列的进程 proc 的stride属性，然后比较队头元素与当前进程的步数大小，选择步数最小的运行，即将其插入放入运行队列中去，这里并未放置在队列头部。最后初始化时间片，然后将运行队列进程数目加一。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span></span><br><span class="line">stride_enqueue(struct run_queue *rq, struct proc_struct *proc) &#123;</span><br><span class="line">     <span class="comment">/* LAB6: YOUR CODE */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> USE_SKEW_HEAP</span></span><br><span class="line">     rq-&gt;lab6_run_pool = skew_heap_insert(rq-&gt;lab6_run_pool, &amp;(proc-&gt;lab6_run_pool), proc_stride_comp_f);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">     assert(list_empty(&amp;(proc-&gt;run_link)));</span><br><span class="line">     list_add_before(&amp;(rq-&gt;run_list), &amp;(proc-&gt;run_link));</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">     <span class="keyword">if</span> (proc-&gt;time_slice == <span class="number">0</span> || proc-&gt;time_slice &gt; rq-&gt;max_time_slice) &#123;</span><br><span class="line">          proc-&gt;time_slice = rq-&gt;max_time_slice;</span><br><span class="line">     &#125;</span><br><span class="line">     proc-&gt;rq = rq;</span><br><span class="line">     rq-&gt;proc_num ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span></span><br><span class="line">stride_dequeue(struct run_queue *rq, struct proc_struct *proc) &#123;</span><br><span class="line">     <span class="comment">/* LAB6: YOUR CODE */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> USE_SKEW_HEAP</span></span><br><span class="line">     rq-&gt;lab6_run_pool = skew_heap_remove(rq-&gt;lab6_run_pool, &amp;(proc-&gt;lab6_run_pool), proc_stride_comp_f); <span class="comment">//从优先队列中移除</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">     assert(!list_empty(&amp;(proc-&gt;run_link)) &amp;&amp; proc-&gt;rq == rq);</span><br><span class="line">     list_del_init(&amp;(proc-&gt;run_link));</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">     rq-&gt;proc_num --;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *</span></span><br><span class="line"><span class="class"><span class="title">stride_pick_next</span>(<span class="title">struct</span> <span class="title">run_queue</span> *<span class="title">rq</span>) &#123;</span></span><br><span class="line">     <span class="comment">/* LAB6: YOUR CODE */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> USE_SKEW_HEAP</span></span><br><span class="line">     <span class="keyword">if</span> (rq-&gt;lab6_run_pool == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">     <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">p</span> = <span class="title">le2proc</span>(<span class="title">rq</span>-&gt;<span class="title">lab6_run_pool</span>, <span class="title">lab6_run_pool</span>);</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">     <span class="keyword">list_entry_t</span> *le = list_next(&amp;(rq-&gt;run_list));</span><br><span class="line"></span><br><span class="line">     <span class="keyword">if</span> (le == &amp;rq-&gt;run_list)</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">     <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">p</span> = <span class="title">le2proc</span>(<span class="title">le</span>, <span class="title">run_link</span>);</span></span><br><span class="line">     le = list_next(le);</span><br><span class="line">     <span class="keyword">while</span> (le != &amp;rq-&gt;run_list)</span><br><span class="line">     &#123;</span><br><span class="line">          <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">q</span> = <span class="title">le2proc</span>(<span class="title">le</span>, <span class="title">run_link</span>);</span></span><br><span class="line">          <span class="keyword">if</span> ((<span class="keyword">int32_t</span>)(p-&gt;lab6_stride - q-&gt;lab6_stride) &gt; <span class="number">0</span>)</span><br><span class="line">               p = q;</span><br><span class="line">          le = list_next(le);</span><br><span class="line">     &#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="comment">//更新对应进程的stride值</span></span><br><span class="line">     <span class="keyword">if</span> (p-&gt;lab6_priority == <span class="number">0</span>)</span><br><span class="line">          p-&gt;lab6_stride += BIG_STRIDE;</span><br><span class="line">     <span class="keyword">else</span> p-&gt;lab6_stride += BIG_STRIDE / p-&gt;lab6_priority;   </span><br><span class="line">     <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>接下来就是进程的调度函数stride_pick_next，观察代码，它的核心是先扫描整个运行队列，返回其中stride值最小的对应进程，然后更新对应进程的stride值，将步长设置为优先级的倒数，如果为0则设置为最大的步长。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span>  </span><br><span class="line">stride_proc_tick(struct run_queue *rq, struct proc_struct *proc) &#123;  </span><br><span class="line">     <span class="comment">/* LAB6: YOUR CODE */</span>  </span><br><span class="line">    <span class="keyword">if</span> (proc-&gt;time_slice &gt; <span class="number">0</span>) </span><br><span class="line">    &#123;  </span><br><span class="line">        proc-&gt;time_slice --;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">if</span> (proc-&gt;time_slice == <span class="number">0</span>) </span><br><span class="line">    &#123;  </span><br><span class="line">        proc-&gt;need_resched = <span class="number">1</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>最后是时间片函数stride_proc_tick，主要工作是检测当前进程是否已用完分配的时间片。</p>
-<p>相对于这两个算法我觉得更重要的是明白进程的调度时机</p>
-<ol>
-<li>时钟中断处理函数检测到时间片到期了</li>
-<li>发生阻塞或者睡眠等情况</li>
-</ol>
-
-          
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>断断续续学编译原理到之前发过写一个编译器和正则表达式引擎系列文章也有一段时间了，然后最近看完PLP这本书，这本书应该算是入门书，但是对我这种半吊子收获很大。所以为了弥补最近学操作系统和接外包摸的鱼，就想写写看完这本书的收获。</p>
+<h2 id="程序设计语言的谱系"><a href="#程序设计语言的谱系" class="headerlink" title="程序设计语言的谱系"></a>程序设计语言的谱系</h2><p>现在的新语言都是一撮一撮的出来，但是基本都可以用他们的计算模型来分成两类，一类是更关心计算机做什么的<strong>说明式</strong>，一类是更关心计算机怎么做的<strong>命令式</strong></p>
+<p>一般认为像函数式逻辑式语言都算是说明式，而冯诺依曼式和面向对象的都被认为是命令式</p>
+<h3 id="函数式"><a href="#函数式" class="headerlink" title="函数式"></a>函数式</h3>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/compiler/PL真有意思（一）.html#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -574,7 +522,7 @@ s: 执行时间(service time)</code></pre><h3 id="时间片轮转算法-RR-Round
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/os/lab4：process.html">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/os/lab8：filesystem.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dejavudwh">
@@ -593,7 +541,7 @@ s: 执行时间(service time)</code></pre><h3 id="时间片轮转算法-RR-Round
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/os/lab4：process.html" itemprop="url">Lab4\5：进程和线程</a></h2>
+                <a class="post-title-link" href="/os/lab8：filesystem.html" itemprop="url">Lab8：文件系统</a></h2>
         
 
         <div class="post-meta">
@@ -605,8 +553,8 @@ s: 执行时间(service time)</code></pre><h3 id="时间片轮转算法-RR-Round
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-17T12:22:25+08:00">
-                2019-11-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-20T22:22:25+08:00">
+                2019-11-20
               </time>
             
 
@@ -656,7 +604,7 @@ s: 执行时间(service time)</code></pre><h3 id="时间片轮转算法-RR-Round
 
           
           
-             <span id="/os/lab4：process.html" class="leancloud_visitors" data-flag-title="Lab4\5：进程和线程">
+             <span id="/os/lab8：filesystem.html" class="leancloud_visitors" data-flag-title="Lab8：文件系统">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -681,7 +629,7 @@ s: 执行时间(service time)</code></pre><h3 id="时间片轮转算法-RR-Round
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  4.2k
+                  1.5k
                 </span>
               
 
@@ -697,7 +645,7 @@ s: 执行时间(service time)</code></pre><h3 id="时间片轮转算法-RR-Round
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  18
+                  5
                 </span>
               
             </div>
@@ -719,27 +667,194 @@ s: 执行时间(service time)</code></pre><h3 id="时间片轮转算法-RR-Round
 
       
         
-          <h2 id="进程的定义"><a href="#进程的定义" class="headerlink" title="进程的定义"></a>进程的定义</h2><p>进程是指一个具有一定独立功能的程序在一个数据集合上的一次动态执行过程</p>
-<p>源代码在经过编译链接之后生成了可执行文件，再由操作系统进行加载并且进行一些堆栈的分配才是进程</p>
-<h2 id="进程控制块"><a href="#进程控制块" class="headerlink" title="进程控制块"></a>进程控制块</h2><blockquote>
-<p>操作系统管理控制进程运行所用的信息集合</p>
+          
+            <h2 id="文件系统的概念"><a href="#文件系统的概念" class="headerlink" title="文件系统的概念"></a>文件系统的概念</h2><blockquote>
+<p>文件系统是操作系统中管理持久性数据的子系统，提供数据存储和访问功能</p>
+</blockquote>
+<blockquote>
+<p>文件是具有符号名，由字节序列构成的数据项集合</p>
+</blockquote>
+<h3 id="文件系统的功能"><a href="#文件系统的功能" class="headerlink" title="文件系统的功能"></a>文件系统的功能</h3><ol>
+<li>分配文件磁盘空间</li>
+</ol>
+<ul>
+<li>管理文件块（位置和顺序）</li>
+<li>管理空闲空间</li>
+<li>分配算法</li>
+</ul>
+<ol start="2">
+<li>管理文件集合</li>
+</ol>
+<ul>
+<li>定位：文件及其内容</li>
+<li>命名：通过名字找到文件</li>
+<li>文件系统结构：文件组织方式</li>
+</ul>
+<ol start="3">
+<li>数据可靠和安全</li>
+</ol>
+<ul>
+<li>安全：多层次保护数据安全</li>
+<li>可靠：持久保存文件，避免系统崩溃、媒体错误、攻击等</li>
+</ul>
+<p><strong>文件属性</strong>：名称、类型、位置、大小、保护、创建者、创建时间、最近修改时间<br><strong>文件头</strong>：文件系统元数据中的文件信息</p>
+<ol>
+<li>文件属性</li>
+<li>文件存储位置和顺序</li>
+</ol>
+<h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h2><ul>
+<li>文件访问模式</li>
+</ul>
+<p>进程访问文件数据前必须先“打开”文件</p>
+<ul>
+<li>内核跟踪进程打开的所有文件</li>
+</ul>
+<p>操作系统为每个进程维护一个打开文件表，文件描述符是打开文件的标识</p>
+<hr>
+<blockquote>
+<p>操作系统在打开文件表中维护的打开文件状态和信息</p>
 </blockquote>
 <ul>
-<li><p>操作系统用PCB来描述进程的基本情况以及运行变化的过程</p>
+<li>文件指针</li>
+</ul>
+<p>最近一次读写位置，每个进程分别维护自己打开的文件指针</p>
+<ul>
+<li>文件打开计数</li>
+</ul>
+<p>当前打开文件的次数，最后一个进程关闭文件时，将其从打开文件表中移除</p>
+<ul>
+<li>文件的磁盘位置</li>
+</ul>
+<p>缓存数据访问信息</p>
+<ul>
+<li>访问权限</li>
+</ul>
+<p>每个进程的文件访问模式信息</p>
+<h3 id="文件的用户视图和系统视图"><a href="#文件的用户视图和系统视图" class="headerlink" title="文件的用户视图和系统视图"></a>文件的用户视图和系统视图</h3><ul>
+<li>文件的用户视图</li>
+</ul>
+<p>持久的数据结构</p>
+<ul>
+<li>系统访问接口</li>
+</ul>
+<p>字节序列的集合，系统不关心存储在磁盘上的数据结构</p>
+<ul>
+<li>操作系统的文件视图</li>
+</ul>
+<p>数据块的集合，数据块是逻辑存储单元，而扇区是物理存储单元</p>
+<h3 id="用户视图到系统视图的转换"><a href="#用户视图到系统视图的转换" class="headerlink" title="用户视图到系统视图的转换"></a>用户视图到系统视图的转换</h3><ul>
+<li>进程读文件</li>
+</ul>
+<p>获取字节所在的数据块，返回数据块内对应内容</p>
+<ul>
+<li>进程写文件</li>
+</ul>
+<p>获取数据块，修改数据块的对应部分，写回数据块</p>
+<p><strong>访问模式</strong>：</p>
+<ol>
+<li>顺序访问: 按字节依次读取</li>
+<li>随机访问: 从中间读写</li>
+<li>索引访问: 依据数据特征索引</li>
+</ol>
+<h3 id="文件内部结构"><a href="#文件内部结构" class="headerlink" title="文件内部结构"></a>文件内部结构</h3><ol>
+<li>无结构</li>
+</ol>
+<p>单词和字节的序列</p>
+<ol start="2">
+<li>简单记录结构</li>
+</ol>
+<p>分列、固定长度和可变长度</p>
+<ol start="3">
+<li>复杂结构</li>
+</ol>
+<p>格式化文档、可执行文件等</p>
+<h2 id="文件系统种类"><a href="#文件系统种类" class="headerlink" title="文件系统种类"></a>文件系统种类</h2><h3 id="分层文件系统"><a href="#分层文件系统" class="headerlink" title="分层文件系统"></a>分层文件系统</h3><p>文件以目录的方式组织起来</p>
+<p>目录是一类特殊的文件，目录的内容是文件索引表&lt;文件名, 指向文件的指针&gt;</p>
+<h3 id="目录实现"><a href="#目录实现" class="headerlink" title="目录实现"></a>目录实现</h3><ul>
+<li><p>文件名的线性列表，包涵了指向数据块的指针</p>
 </li>
-<li><p>PCB是进程存在的唯一标志</p>
-<p>  每个进程都在操作系统中有一个对应的PCB</p>
+<li><p>哈希表 – 哈希数据结构的线性表</p>
 </li>
 </ul>
-<p>进程控制块主要包含的就是进程的标识信息，处理机现场保存和进程控制信息</p>
-<p><strong>控制信息</strong>：</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/os/lab4：process.html#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+<h3 id="文件别名"><a href="#文件别名" class="headerlink" title="文件别名"></a>文件别名</h3><ul>
+<li>硬链接: 多个文件项指向一个文件</li>
+<li>软链接: 以“快捷方式”指向其他文件</li>
+</ul>
+<h3 id="种类"><a href="#种类" class="headerlink" title="种类"></a>种类</h3><ul>
+<li>磁盘文件系统</li>
+<li>数据库文件系统</li>
+<li>日志文件系统</li>
+<li>网络/分布式文件系统</li>
+<li>特殊/虚拟文件系统</li>
+</ul>
+<h2 id="文件系统的实现"><a href="#文件系统的实现" class="headerlink" title="文件系统的实现"></a>文件系统的实现</h2><h3 id="分层结构"><a href="#分层结构" class="headerlink" title="分层结构"></a>分层结构</h3><ul>
+<li>虚拟（逻辑）文件系统(VFS, Virtual File System)</li>
+</ul>
+<p>对所有不同文件系统的抽象，提供相同的文件系统接口，管理所有文件和文件系统关联的数据结构，与特定的文件模块进行交互</p>
+<h3 id="文件系统基本数据结构"><a href="#文件系统基本数据结构" class="headerlink" title="文件系统基本数据结构"></a>文件系统基本数据结构</h3><p>文件卷控制块 (Unix: “superblock”)</p>
+<ul>
+<li>每个文件系统一个</li>
+<li>文件系统详细信息</li>
+<li>块、块大小、空余块、计数/指针等</li>
+</ul>
+<p>文件控制块(Unix: “vnode” or “inode”)</p>
+<ul>
+<li>每个文件一个</li>
+<li>文件详细信息</li>
+<li>访问权限、拥有者、大小、数据块位置等</li>
+</ul>
+<p>目录项 (Linux: “dentry”)</p>
+<ul>
+<li>每个目录项一个(目录和文件)</li>
+<li>将目录项数据结构及树型布局编码成树型数据结构</li>
+<li>指向文件控制块、父目录、子目录等</li>
+</ul>
+<h3 id="文件系统的存储结构"><a href="#文件系统的存储结构" class="headerlink" title="文件系统的存储结构"></a>文件系统的存储结构</h3><p>文件系统数据结构</p>
+<ul>
+<li>卷控制块 (每个文件系统一个）</li>
+<li>文件控制块 (每个文件一个）</li>
+<li>目录节点(每个目录项一个）</li>
+</ul>
+<p>持久存储在外存中</p>
+<ul>
+<li>存储设备的数据块中</li>
+</ul>
+<p>当需要时加载进内存</p>
+<ul>
+<li>卷控制模块 : 当文件系统挂载时进入内存</li>
+<li>文件控制块: 当文件被访问时进入每次</li>
+<li>目录节点: 在遍历一个文件路径时进入内存</li>
+</ul>
+<h3 id="数据块缓存"><a href="#数据块缓存" class="headerlink" title="数据块缓存"></a>数据块缓存</h3><ul>
+<li>数据块按需读入内存</li>
+</ul>
+<p>提供read()操作<br>预读: 预先读取后面的数据块</p>
+<ul>
+<li>数据块使用后被缓存</li>
+</ul>
+<p>假设数据将会再次用到<br>写操作可能被缓存和延迟写入</p>
+<ul>
+<li>两种数据块缓存方式</li>
+</ul>
+<p>数据块缓存<br>页缓存: 统一缓存数据块和内存页</p>
+<h2 id="页缓存"><a href="#页缓存" class="headerlink" title="页缓存"></a>页缓存</h2><ul>
+<li>虚拟页式存储</li>
+</ul>
+<p>在虚拟地址空间中虚拟页面可映射到本地外存文件中</p>
+<ul>
+<li>文件数据块的页缓存</li>
+</ul>
+<p>在虚拟内存中文件数据块被映射成页，文件的读/写操作被转换成对内存的访问，可能导致缺页和/或设置为脏页</p>
+<h2 id="文件分配"><a href="#文件分配" class="headerlink" title="文件分配"></a>文件分配</h2><h3 id="连续分配"><a href="#连续分配" class="headerlink" title="连续分配"></a>连续分配</h3><p>文件头指定起始块和长度</p>
+<p>分配策略：最先匹配, 最佳匹配</p>
+<p>文件读取表现好，高效的顺序和随机访问</p>
+<h3 id="链式分配"><a href="#链式分配" class="headerlink" title="链式分配"></a>链式分配</h3><p>文件以数据块链表方式存储</p>
+<p>文件头包含了到第一块和最后一块的指针</p>
+<p>创建、增大、缩小很容易，没有碎片</p>
+<h3 id="索引分配"><a href="#索引分配" class="headerlink" title="索引分配"></a>索引分配</h3><p>为每个文件创建一个索引数据块，指向文件数据块的指针列表，文件头包含了索引数据块指针</p>
+<p>创建、增大、缩小很容易，没有碎片，支持直接访问</p>
+
+          
         
       
     </div>
@@ -817,8 +932,8 @@ s: 执行时间(service time)</code></pre><h3 id="时间片轮转算法-RR-Round
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-17T12:22:25+08:00">
-                2019-11-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-20T19:22:25+08:00">
+                2019-11-20
               </time>
             
 
@@ -1129,6 +1244,472 @@ s: 执行时间(service time)</code></pre><h3 id="时间片轮转算法-RR-Round
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">phi_take_forks_condvar</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">     down(&amp;(mtp-&gt;mutex));  <span class="comment">//通过P操作进入临界区</span></span><br><span class="line">      state_condvar[i]=HUNGRY; <span class="comment">//记录下哲学家i是否饥饿，即处于等待状态拿叉子</span></span><br><span class="line">      phi_test_condvar(i);</span><br><span class="line">      <span class="keyword">while</span> (state_condvar[i] != EATING) &#123;</span><br><span class="line">          cprintf(<span class="string">"phi_take_forks_condvar: %d didn't get fork and will wait\n"</span>,i);</span><br><span class="line">          cond_wait(&amp;mtp-&gt;cv[i]);<span class="comment">//如果得不到叉子就睡眠</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//如果存在睡眠的进程则那么将之唤醒</span></span><br><span class="line">      <span class="keyword">if</span>(mtp-&gt;next_count&gt;<span class="number">0</span>)</span><br><span class="line">         up(&amp;(mtp-&gt;next));</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">         up(&amp;(mtp-&gt;mutex));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">phi_put_forks_condvar</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">     down(&amp;(mtp-&gt;mutex));<span class="comment">//通过P操作进入临界区</span></span><br><span class="line"></span><br><span class="line">      state_condvar[i]=THINKING;<span class="comment">//记录进餐结束的状态</span></span><br><span class="line">      phi_test_condvar(LEFT);<span class="comment">//看一下左边哲学家现在是否能进餐</span></span><br><span class="line">      phi_test_condvar(RIGHT);<span class="comment">//看一下右边哲学家现在是否能进餐</span></span><br><span class="line">      <span class="comment">//如果有哲学家睡眠就予以唤醒</span></span><br><span class="line">     <span class="keyword">if</span>(mtp-&gt;next_count&gt;<span class="number">0</span>)</span><br><span class="line">        up(&amp;(mtp-&gt;next));</span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">        up(&amp;(mtp-&gt;mutex));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>最后的实现</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/os/lab4：process.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dejavudwh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dejavudwh's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/os/lab4：process.html" itemprop="url">Lab4\5：进程和线程</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-17T12:22:25+08:00">
+                2019-11-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/ucore/" itemprop="url" rel="index">
+                    <span itemprop="name">ucore</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/os/lab4：process.html" class="leancloud_visitors" data-flag-title="Lab4\5：进程和线程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  4.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  18
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="进程的定义"><a href="#进程的定义" class="headerlink" title="进程的定义"></a>进程的定义</h2><p>进程是指一个具有一定独立功能的程序在一个数据集合上的一次动态执行过程</p>
+<p>源代码在经过编译链接之后生成了可执行文件，再由操作系统进行加载并且进行一些堆栈的分配才是进程</p>
+<h2 id="进程控制块"><a href="#进程控制块" class="headerlink" title="进程控制块"></a>进程控制块</h2><blockquote>
+<p>操作系统管理控制进程运行所用的信息集合</p>
+</blockquote>
+<ul>
+<li><p>操作系统用PCB来描述进程的基本情况以及运行变化的过程</p>
+</li>
+<li><p>PCB是进程存在的唯一标志</p>
+<p>  每个进程都在操作系统中有一个对应的PCB</p>
+</li>
+</ul>
+<p>进程控制块主要包含的就是进程的标识信息，处理机现场保存和进程控制信息</p>
+<p><strong>控制信息</strong>：</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/os/lab4：process.html#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/os/lab6：scheduling.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dejavudwh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dejavudwh's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/os/lab6：scheduling.html" itemprop="url">Lab6：进程的调度</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-17T12:22:25+08:00">
+                2019-11-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/ucore/" itemprop="url" rel="index">
+                    <span itemprop="name">ucore</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/os/lab6：scheduling.html" class="leancloud_visitors" data-flag-title="Lab6：进程的调度">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="CPU调度"><a href="#CPU调度" class="headerlink" title="CPU调度"></a>CPU调度</h2><blockquote>
+<p>从就绪队列中挑选下一个占用CPU运行的进程,从多个可用CPU中挑选就绪进程可使用的CPU资源</p>
+</blockquote>
+<h3 id="调度策略"><a href="#调度策略" class="headerlink" title="调度策略"></a>调度策略</h3><h4 id="比较调度算法的准则"><a href="#比较调度算法的准则" class="headerlink" title="比较调度算法的准则"></a>比较调度算法的准则</h4><ul>
+<li>CPU使用率</li>
+<li>吞吐量</li>
+<li>周转时间</li>
+<li>就绪等待时间</li>
+<li>响应时间</li>
+</ul>
+<p><strong>吞吐量与延迟</strong></p>
+<ol>
+<li><p>低延迟：喝水的时候想要一打开水龙头水就流出来</p>
+</li>
+<li><p>高带宽：给游泳池充水时希望从水龙头里同时流出大量的水，并且不介意是否存在延迟</p>
+</li>
+</ol>
+<h3 id="处理机调度策略的响应时间目标"><a href="#处理机调度策略的响应时间目标" class="headerlink" title="处理机调度策略的响应时间目标"></a>处理机调度策略的响应时间目标</h3><ol>
+<li>减少响应时间</li>
+<li>减少平均响应时间的波动</li>
+<li>增加吞吐量</li>
+<li>减少等待时间</li>
+</ol>
+<h2 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h2><h3 id="先来先服务算法-First-Come-First-Served-FCFS"><a href="#先来先服务算法-First-Come-First-Served-FCFS" class="headerlink" title="先来先服务算法(First Come First Served, FCFS)"></a>先来先服务算法(First Come First Served, FCFS)</h3><p>依据进程进入就绪状态的先后顺序排列，进程进入等待或结束状态时，就绪队列中的下一个进程占用CPU</p>
+<p>但是FCFS的平均等待时间波动较大，I/O资源和CPU资源的利用率较低</p>
+<h3 id="短进程优先算法-SPN"><a href="#短进程优先算法-SPN" class="headerlink" title="短进程优先算法(SPN)"></a>短进程优先算法(SPN)</h3><p>选择就绪队列中执行时间最短进程占用CPU进入运行状态，用历史的执行时间来预估未来的执行时间，短进程优先算法具有最优平均周转时间</p>
+<p>但是连续的短进程流会使长进程无法获得CPU资源</p>
+<h3 id="最高响应比优先算法-HRRN"><a href="#最高响应比优先算法-HRRN" class="headerlink" title="最高响应比优先算法(HRRN)"></a>最高响应比优先算法(HRRN)</h3><p>选择就绪队列中响应比R值最高的进程</p>
+<p><code>Ｒ＝（ｗ+s)/s</code></p>
+<pre><code>w: 等待时间(waiting time)
+s: 执行时间(service time)</code></pre><h3 id="时间片轮转算法-RR-Round-Robin"><a href="#时间片轮转算法-RR-Round-Robin" class="headerlink" title="时间片轮转算法(RR, Round-Robin)"></a>时间片轮转算法(RR, Round-Robin)</h3><p>利用时间片作为分配处理机资源的基本时间单元，时间片结束时，按FCFS算法切换到下一个就绪进程，   每隔(n – 1)个时间片进程执行一个时间片q</p>
+<p>但是时间片轮转算法需要选择好时间片的大小，过大过小都会导致效率问题</p>
+<h3 id="多级队列调度算法-MQ"><a href="#多级队列调度算法-MQ" class="headerlink" title="多级队列调度算法(MQ)"></a>多级队列调度算法(MQ)</h3><p>就绪队列被划分成多个独立的子队列，如：前台–RR、后台–FCFS</p>
+<h3 id="多级反馈队列算法-MLFQ"><a href="#多级反馈队列算法-MLFQ" class="headerlink" title="多级反馈队列算法(MLFQ)"></a>多级反馈队列算法(MLFQ)</h3><p>进程可在不同队列间移动的多级队列算法，时间片大小随优先级级别增加而增加，如进程在当前的时间片没有完成，则降到下一个优先级</p>
+<h3 id="公平共享调度-FSS-Fair-Share-Scheduling"><a href="#公平共享调度-FSS-Fair-Share-Scheduling" class="headerlink" title="公平共享调度(FSS, Fair Share Scheduling)"></a>公平共享调度(FSS, Fair Share Scheduling)</h3><p>FSS控制用户对系统资源的访问，一些用户组比其他用户组更重要，保证不重要的组无法垄断资源，未使用的资源按比例分配，没有达到资源使用率目标的组获得更高的优先级</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>这个实验其实有两个，一个是实现Round Robin，一个是Stride Scheduling，两个都非常简单。</p>
+<p>Round Robin调度算法的调度思想是让所有 runnable 态的进程分时轮流使用 CPU 时间。Round Robin 调度器维护当前 runnable进程的有序运行队列。当前进程的时间片用完之后,调度器将当前进程放置到运行队列的尾部，再从其头部取出进程进行调度。</p>
+<h2 id="Stride-Scheduling"><a href="#Stride-Scheduling" class="headerlink" title="Stride Scheduling"></a>Stride Scheduling</h2><p>具体看一下Stride Scheduling</p>
+<p>1、为每个runnable的进程设置一个当前状态stride，表示该进程当前的调度权。另外定义其对应的pass值，表示对应进程在调度后，stride 需要进行的累加值。<br>2、每次需要调度时，从当前 runnable 态的进程中选择 stride最小的进程调度。对于获得调度的进程P，将对应的stride加上其对应的步长pass（只与进程的优先权有关系）。<br>3、在一段固定的时间之后，回到步骤2，重新调度当前stride最小的进程</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span>  </span><br><span class="line">stride_init(struct run_queue *rq) &#123;  </span><br><span class="line">     <span class="comment">/* LAB6: YOUR CODE */</span>  </span><br><span class="line">     list_init(&amp;(rq-&gt;run_list)); </span><br><span class="line">     rq-&gt;lab6_run_pool = <span class="literal">NULL</span>; </span><br><span class="line">     rq-&gt;proc_num = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先是队列初始化函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span></span><br><span class="line">stride_enqueue(struct run_queue *rq, struct proc_struct *proc) &#123;</span><br><span class="line">     <span class="comment">/* LAB6: YOUR CODE */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> USE_SKEW_HEAP</span></span><br><span class="line">     rq-&gt;lab6_run_pool = skew_heap_insert(rq-&gt;lab6_run_pool, &amp;(proc-&gt;lab6_run_pool), proc_stride_comp_f);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">     assert(list_empty(&amp;(proc-&gt;run_link)));</span><br><span class="line">     list_add_before(&amp;(rq-&gt;run_list), &amp;(proc-&gt;run_link));</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">     <span class="keyword">if</span> (proc-&gt;time_slice == <span class="number">0</span> || proc-&gt;time_slice &gt; rq-&gt;max_time_slice) &#123;</span><br><span class="line">          proc-&gt;time_slice = rq-&gt;max_time_slice;</span><br><span class="line">     &#125;</span><br><span class="line">     proc-&gt;rq = rq;</span><br><span class="line">     rq-&gt;proc_num ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后是入队函数stride_enqueue，根据之前对该调度算法的分析，这里函数主要是初始化刚进入运行队列的进程 proc 的stride属性，然后比较队头元素与当前进程的步数大小，选择步数最小的运行，即将其插入放入运行队列中去，这里并未放置在队列头部。最后初始化时间片，然后将运行队列进程数目加一。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span></span><br><span class="line">stride_enqueue(struct run_queue *rq, struct proc_struct *proc) &#123;</span><br><span class="line">     <span class="comment">/* LAB6: YOUR CODE */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> USE_SKEW_HEAP</span></span><br><span class="line">     rq-&gt;lab6_run_pool = skew_heap_insert(rq-&gt;lab6_run_pool, &amp;(proc-&gt;lab6_run_pool), proc_stride_comp_f);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">     assert(list_empty(&amp;(proc-&gt;run_link)));</span><br><span class="line">     list_add_before(&amp;(rq-&gt;run_list), &amp;(proc-&gt;run_link));</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">     <span class="keyword">if</span> (proc-&gt;time_slice == <span class="number">0</span> || proc-&gt;time_slice &gt; rq-&gt;max_time_slice) &#123;</span><br><span class="line">          proc-&gt;time_slice = rq-&gt;max_time_slice;</span><br><span class="line">     &#125;</span><br><span class="line">     proc-&gt;rq = rq;</span><br><span class="line">     rq-&gt;proc_num ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span></span><br><span class="line">stride_dequeue(struct run_queue *rq, struct proc_struct *proc) &#123;</span><br><span class="line">     <span class="comment">/* LAB6: YOUR CODE */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> USE_SKEW_HEAP</span></span><br><span class="line">     rq-&gt;lab6_run_pool = skew_heap_remove(rq-&gt;lab6_run_pool, &amp;(proc-&gt;lab6_run_pool), proc_stride_comp_f); <span class="comment">//从优先队列中移除</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">     assert(!list_empty(&amp;(proc-&gt;run_link)) &amp;&amp; proc-&gt;rq == rq);</span><br><span class="line">     list_del_init(&amp;(proc-&gt;run_link));</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">     rq-&gt;proc_num --;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *</span></span><br><span class="line"><span class="class"><span class="title">stride_pick_next</span>(<span class="title">struct</span> <span class="title">run_queue</span> *<span class="title">rq</span>) &#123;</span></span><br><span class="line">     <span class="comment">/* LAB6: YOUR CODE */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> USE_SKEW_HEAP</span></span><br><span class="line">     <span class="keyword">if</span> (rq-&gt;lab6_run_pool == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">     <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">p</span> = <span class="title">le2proc</span>(<span class="title">rq</span>-&gt;<span class="title">lab6_run_pool</span>, <span class="title">lab6_run_pool</span>);</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">     <span class="keyword">list_entry_t</span> *le = list_next(&amp;(rq-&gt;run_list));</span><br><span class="line"></span><br><span class="line">     <span class="keyword">if</span> (le == &amp;rq-&gt;run_list)</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">     <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">p</span> = <span class="title">le2proc</span>(<span class="title">le</span>, <span class="title">run_link</span>);</span></span><br><span class="line">     le = list_next(le);</span><br><span class="line">     <span class="keyword">while</span> (le != &amp;rq-&gt;run_list)</span><br><span class="line">     &#123;</span><br><span class="line">          <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">q</span> = <span class="title">le2proc</span>(<span class="title">le</span>, <span class="title">run_link</span>);</span></span><br><span class="line">          <span class="keyword">if</span> ((<span class="keyword">int32_t</span>)(p-&gt;lab6_stride - q-&gt;lab6_stride) &gt; <span class="number">0</span>)</span><br><span class="line">               p = q;</span><br><span class="line">          le = list_next(le);</span><br><span class="line">     &#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="comment">//更新对应进程的stride值</span></span><br><span class="line">     <span class="keyword">if</span> (p-&gt;lab6_priority == <span class="number">0</span>)</span><br><span class="line">          p-&gt;lab6_stride += BIG_STRIDE;</span><br><span class="line">     <span class="keyword">else</span> p-&gt;lab6_stride += BIG_STRIDE / p-&gt;lab6_priority;   </span><br><span class="line">     <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来就是进程的调度函数stride_pick_next，观察代码，它的核心是先扫描整个运行队列，返回其中stride值最小的对应进程，然后更新对应进程的stride值，将步长设置为优先级的倒数，如果为0则设置为最大的步长。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span>  </span><br><span class="line">stride_proc_tick(struct run_queue *rq, struct proc_struct *proc) &#123;  </span><br><span class="line">     <span class="comment">/* LAB6: YOUR CODE */</span>  </span><br><span class="line">    <span class="keyword">if</span> (proc-&gt;time_slice &gt; <span class="number">0</span>) </span><br><span class="line">    &#123;  </span><br><span class="line">        proc-&gt;time_slice --;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">if</span> (proc-&gt;time_slice == <span class="number">0</span>) </span><br><span class="line">    &#123;  </span><br><span class="line">        proc-&gt;need_resched = <span class="number">1</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后是时间片函数stride_proc_tick，主要工作是检测当前进程是否已用完分配的时间片。</p>
+<p>相对于这两个算法我觉得更重要的是明白进程的调度时机</p>
+<ol>
+<li>时钟中断处理函数检测到时间片到期了</li>
+<li>发生阻塞或者睡眠等情况</li>
+</ol>
 
           
         
@@ -2241,415 +2822,6 @@ s: 执行时间(service time)</code></pre><h3 id="时间片轮转算法-RR-Round
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/Regex/实现正则表达式引擎（二）.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="dejavudwh">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="dejavudwh's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/Regex/实现正则表达式引擎（二）.html" itemprop="url">实现一个正则表达式引擎in Python(二)</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-24T10:36:25+08:00">
-                2019-09-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/开发日记/" itemprop="url" rel="index">
-                    <span itemprop="name">开发日记</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/开发日记/实现正则表达式引擎/" itemprop="url" rel="index">
-                    <span itemprop="name">实现正则表达式引擎</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/Regex/实现正则表达式引擎（二）.html" class="leancloud_visitors" data-flag-title="实现一个正则表达式引擎in Python(二)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1.4k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  6
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>项目地址：<a href="https://github.com/dejavudwh/Regex" target="_blank" rel="noopener">Regex in Python</a></strong></p>
-<p>在看一下之前正则的语法的 BNF 范式</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">group ::= (<span class="string">"("</span> expr <span class="string">")"</span>)*</span><br><span class="line">expr ::= factor_conn (<span class="string">"|"</span> factor_conn)*</span><br><span class="line">factor_conn ::= factor | factor factor*</span><br><span class="line">factor ::= (term | term (<span class="string">"*"</span> | <span class="string">"+"</span> | <span class="string">"?"</span>))*</span><br><span class="line">term ::= char | <span class="string">"["</span> char <span class="string">"-"</span> char <span class="string">"]"</span> | .</span><br></pre></td></tr></table></figure>
-
-<p>上一篇构造了 term 的简单 NFA</p>
-<h2 id="构造复杂的-NFA"><a href="#构造复杂的-NFA" class="headerlink" title="构造复杂的 NFA"></a>构造复杂的 NFA</h2><h2 id="factor"><a href="#factor" class="headerlink" title="factor"></a>factor</h2><p>根据上面的<code>factor ::= (term | term (&quot;*&quot; | &quot;+&quot; | &quot;?&quot;))*</code>，先进行 term 的 NFA 的生成，然后根据词法分析器来判断要进行哪个 factor 的 NFA 的构造</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">factor</span><span class="params">(pair_out)</span>:</span></span><br><span class="line">    term(pair_out)</span><br><span class="line">    <span class="keyword">if</span> lexer.match(Token.CLOSURE):</span><br><span class="line">        nfa_star_closure(pair_out)</span><br><span class="line">    <span class="keyword">elif</span> lexer.match(Token.PLUS_CLOSE):</span><br><span class="line">        nfa_plus_closure(pair_out)</span><br><span class="line">    <span class="keyword">elif</span> lexer.match(Token.OPTIONAL):</span><br><span class="line">        nfa_option_closure(pair_out)</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Regex/实现正则表达式引擎（二）.html#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/Regex/实现正则表达式引擎（一）.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="dejavudwh">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="dejavudwh's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/Regex/实现正则表达式引擎（一）.html" itemprop="url">实现一个正则表达式引擎in Python(一)</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-23T17:32:25+08:00">
-                2019-09-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/开发日记/" itemprop="url" rel="index">
-                    <span itemprop="name">开发日记</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/开发日记/实现正则表达式引擎/" itemprop="url" rel="index">
-                    <span itemprop="name">实现正则表达式引擎</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/Regex/实现正则表达式引擎（一）.html" class="leancloud_visitors" data-flag-title="实现一个正则表达式引擎in Python(一)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1.9k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  7
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>项目地址：<a href="https://github.com/dejavudwh/Regex" target="_blank" rel="noopener">Regex in Python</a></strong></p>
-<p>开学摸鱼了几个礼拜，最近几天用Python造了一个正则表达式引擎的轮子，在这里记录分享一下。</p>
-<h3 id="实现目标"><a href="#实现目标" class="headerlink" title="实现目标"></a>实现目标</h3><p>实现了所有基本语法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">st = <span class="string">'AS342abcdefg234aaaaabccccczczxczcasdzxc'</span></span><br><span class="line">pattern = <span class="string">'([A-Z]+[0-9]*abcdefg)([0-9]*)(\*?|a+)(zx|bc*)([a-z]+|[0-9]*)(asd|fgh)(zxc)'</span></span><br><span class="line"></span><br><span class="line">regex = Regex(st, pattern)</span><br><span class="line">result = regex.match()</span><br><span class="line">log(result)</span><br></pre></td></tr></table></figure>
-
-<p>更多示例可以在<a href="https://github.com/dejavudwh/Regex/blob/master/sample.py" target="_blank" rel="noopener">github</a>上看到</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Regex/实现正则表达式引擎（一）.html#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2702,7 +2874,7 @@ s: 执行时间(service time)</code></pre><h3 id="时间片轮转算法-RR-Round
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2713,7 +2885,7 @@ s: 执行时间(service time)</code></pre><h3 id="时间片轮转算法-RR-Round
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -2784,7 +2956,7 @@ s: 执行时间(service time)</code></pre><h3 id="时间片轮转算法-RR-Round
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST/">AST</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LALR-1/">LALR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LL-1/">LL(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR-1/">LR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lisp/">Lisp</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SICP/">SICP</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scheme/">Scheme</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Secrets-of-the-JavaScript-Ninja/">Secrets of the JavaScript Ninja</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ucore/">ucore</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上下文无关文法/">上下文无关文法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个操作系统/">从零写一个操作系统</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个编译器/">从零写一个编译器</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码生成/">代码生成</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大二期间/">大二期间</a><span class="tag-list-count">48</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字节码/">字节码</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抽象语法树/">抽象语法树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限状态自动机/">有限状态自动机</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限自动机/">有限自动机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式引擎/">正则表达式引擎</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/符号表/">符号表</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自底向上/">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解释器/">解释器</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词法分析/">词法分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语义分析/">语义分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析/">语法分析</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析表/">语法分析表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/输入系统/">输入系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归下降/">递归下降</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST/">AST</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LALR-1/">LALR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LL-1/">LL(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR-1/">LR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lisp/">Lisp</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SICP/">SICP</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scheme/">Scheme</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Secrets-of-the-JavaScript-Ninja/">Secrets of the JavaScript Ninja</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ucore/">ucore</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上下文无关文法/">上下文无关文法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个操作系统/">从零写一个操作系统</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个编译器/">从零写一个编译器</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码生成/">代码生成</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大二期间/">大二期间</a><span class="tag-list-count">48</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字节码/">字节码</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抽象语法树/">抽象语法树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限状态自动机/">有限状态自动机</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限自动机/">有限自动机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式引擎/">正则表达式引擎</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/符号表/">符号表</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a><span class="tag-list-count">19</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自底向上/">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解释器/">解释器</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词法分析/">词法分析</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语义分析/">语义分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析/">语法分析</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析表/">语法分析表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/输入系统/">输入系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归下降/">递归下降</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -2828,7 +3000,7 @@ s: 执行时间(service time)</code></pre><h3 id="时间片轮转算法-RR-Round
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">107.1k</span>
+    <span title="Site words total count">109.9k</span>
   
 </div>
 
