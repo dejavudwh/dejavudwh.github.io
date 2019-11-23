@@ -82,7 +82,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="编译原理,词法分析,语法分析,">
 
 
 
@@ -95,17 +95,18 @@
 
 
 
-<meta name="description" content="title: PL真有意思（二）：程序设计语言语法date: 2019-11-22 23:32:25tags:  编译原理 词法分析categories: 学习日记 PL真有意思copyright: true   前言虽然标题是程序语言的语法，但是讲的是对词法和语法的解析，其实关于这个前面那个写编译器系列的描述会更清楚，有关语言语法的部分应该是穿插在整个设计当中的，也看语言设计者的心情了 和英语">
+<meta name="description" content="前言虽然标题是程序语言的语法，但是讲的是对词法和语法的解析，其实关于这个前面那个写编译器系列的描述会更清楚，有关语言语法的部分应该是穿插在整个设计当中的，也看语言设计者的心情了 和英语汉语这些自然语言不一样，计算机语言必须是精确的，它们的语法和语义都必须保证没有歧义，这当然也让语法分析更加简单 所以对于编译器一项很重要的任务就是时别程序设计语言的结构规则，要完成这个目标就需要两个要求：  完成对语">
+<meta name="keywords" content="编译原理,词法分析,语法分析">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dejavudwh&#39;s Blog">
+<meta property="og:title" content="PL真有意思（二）：程序设计语言语法">
 <meta property="og:url" content="https://dejavudwh.cn/compiler/PL真有意思（二）.html">
 <meta property="og:site_name" content="dejavudwh&#39;s Blog">
-<meta property="og:description" content="title: PL真有意思（二）：程序设计语言语法date: 2019-11-22 23:32:25tags:  编译原理 词法分析categories: 学习日记 PL真有意思copyright: true   前言虽然标题是程序语言的语法，但是讲的是对词法和语法的解析，其实关于这个前面那个写编译器系列的描述会更清楚，有关语言语法的部分应该是穿插在整个设计当中的，也看语言设计者的心情了 和英语">
+<meta property="og:description" content="前言虽然标题是程序语言的语法，但是讲的是对词法和语法的解析，其实关于这个前面那个写编译器系列的描述会更清楚，有关语言语法的部分应该是穿插在整个设计当中的，也看语言设计者的心情了 和英语汉语这些自然语言不一样，计算机语言必须是精确的，它们的语法和语义都必须保证没有歧义，这当然也让语法分析更加简单 所以对于编译器一项很重要的任务就是时别程序设计语言的结构规则，要完成这个目标就需要两个要求：  完成对语">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-23T13:10:10.861Z">
+<meta property="og:updated_time" content="2019-11-23T13:13:22.044Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dejavudwh&#39;s Blog">
-<meta name="twitter:description" content="title: PL真有意思（二）：程序设计语言语法date: 2019-11-22 23:32:25tags:  编译原理 词法分析categories: 学习日记 PL真有意思copyright: true   前言虽然标题是程序语言的语法，但是讲的是对词法和语法的解析，其实关于这个前面那个写编译器系列的描述会更清楚，有关语言语法的部分应该是穿插在整个设计当中的，也看语言设计者的心情了 和英语">
+<meta name="twitter:title" content="PL真有意思（二）：程序设计语言语法">
+<meta name="twitter:description" content="前言虽然标题是程序语言的语法，但是讲的是对词法和语法的解析，其实关于这个前面那个写编译器系列的描述会更清楚，有关语言语法的部分应该是穿插在整个设计当中的，也看语言设计者的心情了 和英语汉语这些自然语言不一样，计算机语言必须是精确的，它们的语法和语义都必须保证没有歧义，这当然也让语法分析更加简单 所以对于编译器一项很重要的任务就是时别程序设计语言的结构规则，要完成这个目标就需要两个要求：  完成对语">
 
 
 
@@ -141,7 +142,7 @@
 
 
 
-  <title> | dejavudwh's Blog</title>
+  <title>PL真有意思（二）：程序设计语言语法 | dejavudwh's Blog</title>
   
 
 
@@ -337,7 +338,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline"></h2>
+          <h2 class="post-title" itemprop="name headline">PL真有意思（二）：程序设计语言语法</h2>
         
 
         <div class="post-meta">
@@ -349,7 +350,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-22T22:09:03+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-22T14:32:25+08:00">
                 2019-11-22
               </time>
             
@@ -360,6 +361,39 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习日记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习日记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习日记/PL真有意思/" itemprop="url" rel="index">
+                    <span itemprop="name">PL真有意思</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -367,7 +401,7 @@
 
           
           
-             <span id="/compiler/PL真有意思（二）.html" class="leancloud_visitors" data-flag-title>
+             <span id="/compiler/PL真有意思（二）.html" class="leancloud_visitors" data-flag-title="PL真有意思（二）：程序设计语言语法">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -413,7 +447,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  10
+                  9
                 </span>
               
             </div>
@@ -434,16 +468,7 @@
       
 
       
-        <hr>
-<p>title: PL真有意思（二）：程序设计语言语法<br>date: 2019-11-22 23:32:25<br>tags:</p>
-<ul>
-<li>编译原理</li>
-<li>词法分析<br>categories:</li>
-<li>学习日记</li>
-<li>PL真有意思<br>copyright: true</li>
-</ul>
-<hr>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>虽然标题是程序语言的语法，但是讲的是对词法和语法的解析，其实关于这个前面那个写编译器系列的描述会更清楚，有关语言语法的部分应该是穿插在整个设计当中的，也看语言设计者的心情了</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>虽然标题是程序语言的语法，但是讲的是对词法和语法的解析，其实关于这个前面那个写编译器系列的描述会更清楚，有关语言语法的部分应该是穿插在整个设计当中的，也看语言设计者的心情了</p>
 <p>和英语汉语这些自然语言不一样，计算机语言必须是精确的，它们的语法和语义都必须保证没有歧义，这当然也让语法分析更加简单</p>
 <p>所以对于编译器一项很重要的任务就是时别程序设计语言的结构规则，要完成这个目标就需要两个要求：</p>
 <ul>
@@ -632,7 +657,7 @@ digit -&gt; 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></p>
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="https://dejavudwh.cn/compiler/PL真有意思（二）.html" title>https://dejavudwh.cn/compiler/PL真有意思（二）.html</a>
+    <a href="https://dejavudwh.cn/compiler/PL真有意思（二）.html" title="PL真有意思（二）：程序设计语言语法">https://dejavudwh.cn/compiler/PL真有意思（二）.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -644,6 +669,16 @@ digit -&gt; 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></p>
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编译原理/" rel="tag"><i class="fa fa-tag"></i> 编译原理</a>
+          
+            <a href="/tags/词法分析/" rel="tag"><i class="fa fa-tag"></i> 词法分析</a>
+          
+            <a href="/tags/语法分析/" rel="tag"><i class="fa fa-tag"></i> 语法分析</a>
+          
+        </div>
       
 
       
@@ -826,7 +861,7 @@ digit -&gt; 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></p>
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST/">AST</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LALR-1/">LALR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LL-1/">LL(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR-1/">LR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lisp/">Lisp</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SICP/">SICP</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scheme/">Scheme</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Secrets-of-the-JavaScript-Ninja/">Secrets of the JavaScript Ninja</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ucore/">ucore</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上下文无关文法/">上下文无关文法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个操作系统/">从零写一个操作系统</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个编译器/">从零写一个编译器</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码生成/">代码生成</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大二期间/">大二期间</a><span class="tag-list-count">48</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字节码/">字节码</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抽象语法树/">抽象语法树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限状态自动机/">有限状态自动机</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限自动机/">有限自动机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式引擎/">正则表达式引擎</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/符号表/">符号表</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a><span class="tag-list-count">19</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自底向上/">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解释器/">解释器</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词法分析/">词法分析</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语义分析/">语义分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析/">语法分析</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析表/">语法分析表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/输入系统/">输入系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归下降/">递归下降</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST/">AST</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LALR-1/">LALR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LL-1/">LL(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR-1/">LR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lisp/">Lisp</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SICP/">SICP</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scheme/">Scheme</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Secrets-of-the-JavaScript-Ninja/">Secrets of the JavaScript Ninja</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ucore/">ucore</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上下文无关文法/">上下文无关文法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个操作系统/">从零写一个操作系统</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个编译器/">从零写一个编译器</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码生成/">代码生成</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大二期间/">大二期间</a><span class="tag-list-count">48</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字节码/">字节码</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抽象语法树/">抽象语法树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限状态自动机/">有限状态自动机</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限自动机/">有限自动机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式引擎/">正则表达式引擎</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/符号表/">符号表</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自底向上/">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解释器/">解释器</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词法分析/">词法分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语义分析/">语义分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析/">语法分析</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析表/">语法分析表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/输入系统/">输入系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归下降/">递归下降</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -886,7 +921,7 @@ digit -&gt; 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></p>
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">112.8k</span>
+    <span title="Site words total count">112.7k</span>
   
 </div>
 
