@@ -2,7 +2,7 @@ https://dejavudwh.cn/compiler/PL真有意思（二）.html
 https://dejavudwh.cn/compiler/PL真有意思（一）.html
 https://dejavudwh.cn/os/lab8：filesystem.html
 https://dejavudwh.cn/os/lab7：synchronous.html
-https://dejavudwh.cn/os/lab4：process.html
 https://dejavudwh.cn/os/lab6：scheduling.html
+https://dejavudwh.cn/os/lab4：process.html
 https://dejavudwh.cn/os/lab3：virmem.html
 https://dejavudwh.cn/os/lab2：menman.html

@@ -320,7 +320,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/datastructure/基础的表ADT.html">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/datastructure/AVL树和伸展树.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dejavudwh">
@@ -339,7 +339,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/datastructure/基础的表ADT.html" itemprop="url">基础的表ADT</a></h2>
+                <a class="post-title-link" href="/datastructure/AVL树和伸展树.html" itemprop="url">AVL树和伸展树</a></h2>
         
 
         <div class="post-meta">
@@ -402,7 +402,7 @@
 
           
           
-             <span id="/datastructure/基础的表ADT.html" class="leancloud_visitors" data-flag-title="基础的表ADT">
+             <span id="/datastructure/AVL树和伸展树.html" class="leancloud_visitors" data-flag-title="AVL树和伸展树">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -427,7 +427,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.1k
+                  927
                 </span>
               
 
@@ -443,7 +443,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  5
+                  4
                 </span>
               
             </div>
@@ -465,41 +465,53 @@
 
       
         
-          <h1 id="表的概述"><a href="#表的概述" class="headerlink" title="表的概述"></a>表的概述</h1><ul>
-<li>形如A1,A2,A3…</li>
-<li>操作合集<ol>
-<li>PrintList</li>
-<li>MakeEmpty</li>
-<li>Find</li>
-<li>Insert</li>
-<li>Delete</li>
-</ol>
-</li>
-</ul>
-<h1 id="表的简单数组实现"><a href="#表的简单数组实现" class="headerlink" title="表的简单数组实现"></a>表的简单数组实现</h1><h2 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h2><ul>
-<li>PrintList和Find操作线性时间</li>
-<li>Find操作常数时间</li>
-<li>Insert和Delete操作效率低下<blockquote>
-<p>所以一般不用数组实现</p>
+          <h1 id="AVL树"><a href="#AVL树" class="headerlink" title="AVL树"></a>AVL树</h1><blockquote>
+<p>带有平衡条件的二叉树，通常要求每颗树的左右子树深度差&lt;=1</p>
 </blockquote>
-</li>
-</ul>
-<h1 id="链表的指针实现"><a href="#链表的指针实现" class="headerlink" title="链表的指针实现"></a>链表的指针实现</h1><h2 id="设计思路"><a href="#设计思路" class="headerlink" title="设计思路"></a>设计思路</h2><ul>
-<li>在内存中不必相连</li>
-<li>每个结构包含表元素和指向该元素后继元的指针<blockquote>
-<p>即实现了快速Insert和Delete操作</p>
+<blockquote>
+<p>可以将破坏平衡的插入操作分为四种，最后通过旋转恢复平衡</p>
 </blockquote>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><h3 id="类型声明"><a href="#类型声明" class="headerlink" title="类型声明"></a>类型声明</h3>
+<p><br><br></p>
+<table>
+<thead>
+<tr>
+<th>破坏平衡的插入方式</th>
+<th>描述</th>
+<th>恢复平衡旋转方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LL</td>
+<td>在左儿子的左子树进行插入</td>
+<td>右旋转</td>
+</tr>
+<tr>
+<td>RR</td>
+<td>在右儿子的右子树进行插入</td>
+<td>左旋转</td>
+</tr>
+<tr>
+<td>LR</td>
+<td>在左儿子的右子树进行插入</td>
+<td>先左旋转 后右旋转</td>
+</tr>
+<tr>
+<td>RL</td>
+<td>在右儿子的左子树进行插入</td>
+<td>先右旋转 后左旋转</td>
+</tr>
+</tbody></table>
+<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/datastructure/基础的表ADT.html#more" rel="contents">
+            <a class="btn" href="/datastructure/AVL树和伸展树.html#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
-    </li></ul></div>
+    </div>
     
     
     
