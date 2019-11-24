@@ -82,7 +82,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="编译原理,程序设计语言PL,">
 
 
 
@@ -95,16 +95,18 @@
 
 
 
-<meta name="description" content="a sophomore majoring in software engineering">
-<meta property="og:type" content="website">
-<meta property="og:title" content="dejavudwh&#39;s Blog">
-<meta property="og:url" content="https://dejavudwh.cn/categories/学习笔记/page/4/index.html">
+<meta name="description" content="前言这两篇写了词法分析和语法分析，比较偏向实践。这一篇来看一下语言设计里一个比较重要的部分：名字。在大部分语言里，名字就是标识符，如果从抽象层面来看名字就是对更低一级的内存之类的概念的一层抽象。但是名字还有其它相关的比如它的约束时间和生存周期等等 约束时间约束就是两个东西之间的一种关联，例如一个名字和它所命名的事物，约束时间就是指创建约束的时间。有关的约束可以在许多不同的时间作出  语言设计时 语">
+<meta name="keywords" content="编译原理,程序设计语言PL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PL真有意思（三）：名字、作用域和约束">
+<meta property="og:url" content="https://dejavudwh.cn/compiler/PL真有意思（三）.html">
 <meta property="og:site_name" content="dejavudwh&#39;s Blog">
-<meta property="og:description" content="a sophomore majoring in software engineering">
+<meta property="og:description" content="前言这两篇写了词法分析和语法分析，比较偏向实践。这一篇来看一下语言设计里一个比较重要的部分：名字。在大部分语言里，名字就是标识符，如果从抽象层面来看名字就是对更低一级的内存之类的概念的一层抽象。但是名字还有其它相关的比如它的约束时间和生存周期等等 约束时间约束就是两个东西之间的一种关联，例如一个名字和它所命名的事物，约束时间就是指创建约束的时间。有关的约束可以在许多不同的时间作出  语言设计时 语">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-24T07:19:58.725Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dejavudwh&#39;s Blog">
-<meta name="twitter:description" content="a sophomore majoring in software engineering">
+<meta name="twitter:title" content="PL真有意思（三）：名字、作用域和约束">
+<meta name="twitter:description" content="前言这两篇写了词法分析和语法分析，比较偏向实践。这一篇来看一下语言设计里一个比较重要的部分：名字。在大部分语言里，名字就是标识符，如果从抽象层面来看名字就是对更低一级的内存之类的概念的一层抽象。但是名字还有其它相关的比如它的约束时间和生存周期等等 约束时间约束就是两个东西之间的一种关联，例如一个名字和它所命名的事物，约束时间就是指创建约束的时间。有关的约束可以在许多不同的时间作出  语言设计时 语">
 
 
 
@@ -134,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://dejavudwh.cn/categories/学习笔记/page/4/">
+  <link rel="canonical" href="https://dejavudwh.cn/compiler/PL真有意思（三）.html">
 
 
 
 
 
-  <title>Category: 学习笔记 | dejavudwh's Blog</title>
+  <title>PL真有意思（三）：名字、作用域和约束 | dejavudwh's Blog</title>
   
 
 
@@ -159,7 +161,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -305,291 +307,349 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>学习笔记<small>Category</small>
-        </h2>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/compiler/PL真有意思（三）.html">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dejavudwh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dejavudwh's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/SICP/Chapter 3.2.html" itemprop="url">
-              
-                <span itemprop="name">SICP Chapter 3.2</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">PL真有意思（三）：名字、作用域和约束</h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-24T09:32:25+08:00">
+                2019-11-24
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习日记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习日记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习日记/PL真有意思/" itemprop="url" rel="index">
+                    <span itemprop="name">PL真有意思</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/compiler/PL真有意思（三）.html" class="leancloud_visitors" data-flag-title="PL真有意思（三）：名字、作用域和约束">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  3.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/SICP/Chapter 2.2.html" itemprop="url">
-              
-                <span itemprop="name">SICP Chapter 2.2</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这两篇写了词法分析和语法分析，比较偏向实践。这一篇来看一下语言设计里一个比较重要的部分：名字。在大部分语言里，名字就是标识符，如果从抽象层面来看名字就是对更低一级的内存之类的概念的一层抽象。但是名字还有其它相关的比如它的约束时间和生存周期等等</p>
+<h2 id="约束时间"><a href="#约束时间" class="headerlink" title="约束时间"></a>约束时间</h2><p>约束就是两个东西之间的一种关联，例如一个名字和它所命名的事物，约束时间就是指创建约束的时间。有关的约束可以在许多不同的时间作出</p>
+<ul>
+<li>语言设计时</li>
+<li>语言实现时</li>
+<li>编写程序时</li>
+<li>编译时</li>
+<li>链接时</li>
+<li>装入时</li>
+<li>运行时</li>
+</ul>
+<p>这就是为什么基于编译的语言实现通常会比基于解释器的语言的实现更高效的原因，因为基于编译的语言在更早的时候就做了约束，比如对于全局变量在编译时就已经确定了它在内存中的布局了</p>
+<h2 id="对象生存期和存储管理"><a href="#对象生存期和存储管理" class="headerlink" title="对象生存期和存储管理"></a>对象生存期和存储管理</h2><p><strong>在名字和它们所引用的对象的约束之间有几个关键事件</strong>：</p>
+<ul>
+<li>对象的创建</li>
+<li>约束的创建</li>
+<li>对变量、子程序、类型等的引用，所有这些都使用了约束</li>
+<li>对可能暂时无法使用的约束进行失活或者重新约束</li>
+<li>约束的撤销</li>
+<li>对象的撤销</li>
+</ul>
+<p><strong>对象的生存期和存储分配机制有关</strong></p>
+<ul>
+<li>静态对象被赋予一个绝对地址，这个地址在程序的整个执行过程中都保持不变</li>
+<li>栈对象按照后进先出的方式分配和释放，通常与子程序的调用和退出同时进行</li>
+<li>堆对象可以在任意时刻分配或者释放，它们要求更通用的存储管理算法</li>
+</ul>
+<h3 id="静态分配"><a href="#静态分配" class="headerlink" title="静态分配"></a>静态分配</h3><p>全局变量是静态对象最显而易见的例子，还有构成程序的机器语言翻译结果的那些指令，也可以看作是静态分配对象。</p>
+<p>还有像每次调用函数都会保持相同的值的局部变量也是静态分配的。对于数值和字符串这些常量也是静态分配。</p>
+<p>还有用来支持运行时的各种程序，比如废料收集和异常处理等等也可以看作是静态分配</p>
+<h3 id="基于栈的分配"><a href="#基于栈的分配" class="headerlink" title="基于栈的分配"></a>基于栈的分配</h3><p>如果一种语言允许递归，那么局部变量就不能使用静态分配的方式了，因为在同一时刻，一个局部变量存在的实例个数是不确定的</p>
+<p>所以一般对于子程序，都用栈来保存它相关的变量信息。在运行时，一个子程序的每个实例都在栈中有一个相应的栈帧，保存着它的参数、返回值、局部变量和一些簿记信息</p>
+<h3 id="基于堆的分配"><a href="#基于堆的分配" class="headerlink" title="基于堆的分配"></a>基于堆的分配</h3><p>堆是一块存储区域，其中的子存储块可以在任意时间分配与释放。因为堆具有它的动态性，所以就需要对堆空间进行严格的管理。许多存储管理算法都维护着堆中当前尚未使用的存储块的一个链接表，称为自由表。</p>
+<p>初始时这个表只有一个块，就是整个堆，每当遇到分配请求时，算法就在表中查找一个大小适当的块。所以当请求次数增多，就会出现碎片问题，也需要相应的解决</p>
+<p>所以有废料收集的语言其实就是对堆的管理</p>
+<h2 id="作用域作用"><a href="#作用域作用" class="headerlink" title="作用域作用"></a>作用域作用</h2><blockquote>
+<p>一个约束起作用的那一段程序正文区域，称为这个约束的作用域。</p>
+</blockquote>
+<p>现在大多数语言使用的都是静态作用域，也就是在编译时就确定了。也有少数语言使用动态作用域，它们的约束需要等到运行时的执行流才能确定</p>
+<h3 id="静态作用域"><a href="#静态作用域" class="headerlink" title="静态作用域"></a>静态作用域</h3><p>在使用静态作用域的语言，也叫作词法作用域。一般当前的约束就是程序中包围着一个给定点的最近的，其中有与该名字匹配的声明的那个快中建立的那个约束。比如C语言在进入子程序时，如果局部变量和全局变量，那么当前的约束就是与局部变量关联，直到退出子程序才撤销这个约束</p>
+<p>但是有的语言提供了一种可以提供约束的生存期的机制，比如Fortran的save和C的static </p>
+<h4 id="嵌套子程序"><a href="#嵌套子程序" class="headerlink" title="嵌套子程序"></a>嵌套子程序</h4><p>有许多语言允许一个子程序嵌套在另一个子程序的。这样有关约束的定义通常来说都是首先用这个名字在当前、最内层的作用域中查找相应的声明，如果找不到就直接到更外围的作用域查找当前的约束，直到到达全局作用域，否则就发生一个错误</p>
+<p><strong>访问非局部变量</strong></p>
+<p>上面提到的访问外围作用域的变量，但是当前子程序只能访问到当前的栈帧，所以就需要一个调用帧链来让当前的作用域访问到外围作用，通过调用顺序形成一个静态链</p>
+<h4 id="声明的顺序"><a href="#声明的顺序" class="headerlink" title="声明的顺序"></a>声明的顺序</h4><p>关于约束还有一个问题，就是在同一作用域里，先声明的名字是否能使用在此之后的声明</p>
+<p>在Pascal里有这样两条规则：</p>
+<ol>
+<li>修改变量要求名字在使用之前就进行声明</li>
+<li>但是当前声明的作用域是整个程序块</li>
+</ol>
+<p>所以在这两个的相互作用下，会造成一个让人吃惊的问题</p>
+<figure class="highlight pascal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> N = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">procedure</span> <span class="title">foo</span>;</span></span><br><span class="line"><span class="keyword">const</span></span><br><span class="line">  M = N; <span class="comment">(*静态语义错误*)</span></span><br><span class="line">  N = <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<p>但是在C、C++和Java等语言就不会出现这个问题，它们都规定标识符的作用域不是整个块，而是从其声明到块结束的那一部分</p>
+<p>并且C++和Java还进一步放宽了规则，免除了使用之前必须声明的要求</p>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><blockquote>
+<p>恰当模块化的代码可以减少程序员的思维负担，因为它最大限度的减少了理解系统的任意给定部分时所需的信息量。在设计良好的程序中，模块之间的接口应尽可能的小，所有可能改变的设计决策都隐藏在某个模块里。</p>
+</blockquote>
+<h3 id="模块作为抽象"><a href="#模块作为抽象" class="headerlink" title="模块作为抽象"></a>模块作为抽象</h3><p>模块可以将一组对象（如子程序、变量、类型）封装起来。使得：</p>
+<ol>
+<li>这些内部的对象相互可见</li>
+<li>但是外部对象和内部对象，除非显示的导入，否则都是不可见的</li>
+</ol>
+<h3 id="模块作为管理器"><a href="#模块作为管理器" class="headerlink" title="模块作为管理器"></a>模块作为管理器</h3><p>模块使我们很容易的创建各种抽象，但是如果需要多个栈的实例，那么就需要一个让模块成为一个类型的管理器。这种管理器组织方式一般都是要求在模块中增加创建/初始化函数，并给每一个函数增加一个用于描述被操作的实例</p>
+<h3 id="模块类型"><a href="#模块类型" class="headerlink" title="模块类型"></a>模块类型</h3><p>对于像这种多实例的问题，除了管理器，在许多语言里的解决方法都是可以将模块看作是类型。当模块是类型的时候，就可以将当前的方法认为是属于这个类型的，简单来说就是调用方法变化了</p>
+<p><code>push(A, x) -&gt; A.push(x)</code></p>
+<p>本质上的实现区别不大</p>
+<h3 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h3><p>在更面向对象里的方法里，可以把类看作是一种扩充了一种继承机制的模块类型。继承机制鼓励其中所有操作都被看作是从属于对象的，并且新的对象可以从现有对象继承大部分的操作，而不需要为这些操作重写代码。</p>
+<p>类的概念最早应该是起源于Simula-67，像后来的C++，Java和C#中的类的思想也都起源于它。类也是像Python和Ruby这些脚本语言的核心概念</p>
+<hr>
+<p>从模块到模块类型再到类都是有其思想基础，但是最初都是为了更好的数据抽象。但是即使有了类也不能完全取代模块，所以许多语言都提供了面向对象和模块的机制</p>
+<h2 id="动态作用域"><a href="#动态作用域" class="headerlink" title="动态作用域"></a>动态作用域</h2><p>在使用动态作用域的语言中，名字与对象间的约束依赖于运行时的控制流，特别是依赖子程序的调用顺序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">n : integer</span><br><span class="line"></span><br><span class="line">procedure first</span><br><span class="line">  n := 1</span><br><span class="line"></span><br><span class="line">procedure second</span><br><span class="line">  n : integer</span><br><span class="line">  first()</span><br><span class="line"></span><br><span class="line">n := 2</span><br><span class="line">if read_integer() &gt; 0</span><br><span class="line">  second()</span><br><span class="line">else</span><br><span class="line">  first()</span><br><span class="line">write_integer()</span><br></pre></td></tr></table></figure>
 
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/SICP/Chapter 2.4.html" itemprop="url">
-              
-                <span itemprop="name">SICP Chapter 2.4</span>
-              
-            </a>
-        
-      </h3>
+<p>这里最后的输出结果完全取决于read_integer读入的数字的正负，如果为正，输出就为2，否则就打印一个1</p>
+<h2 id="作用域的实现"><a href="#作用域的实现" class="headerlink" title="作用域的实现"></a>作用域的实现</h2><p>为了跟踪静态作用域程序中的哥哥名字，编译器需要依靠一个叫做符号表的数据结构。从本质上看，符号表就是一个记录名字和它已知信息的映射关系的字典，但是由于作用域规则，所以还需要更强大的数据结构。像之前那个写编译器系列的符号表就是使用哈希表加上同一层作用域链表来实现的</p>
+<p>而对于动态作用域来说就需要在运行时执行一些操作</p>
+<h2 id="作用域中名字的含义"><a href="#作用域中名字的含义" class="headerlink" title="作用域中名字的含义"></a>作用域中名字的含义</h2><h3 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h3><p>在基于指针的数据结构使用别名是很自然的情况，但是使用别名可能会导致编译器难以优化或者造成像悬空引用的问题，所以需要谨慎使用</p>
+<h3 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h3><p>在大多数语言中都或多或少的提供了重载机制，比如C语言中（+）可以被用在整数类型也可以用在浮点数类型，还有Java中的String类型也支持(+)运算发</p>
+<p>要在编译器的符号表中处理重载问题，就需要安排查找程序根据当前的上下文环境返回一个有意义的符号</p>
+<p>比如C++、Java和C#中的类方法重载都可以根据当前的参数类型和数量来判断使用哪个符号</p>
+<h4 id="内部运算符的重载"><a href="#内部运算符的重载" class="headerlink" title="内部运算符的重载"></a>内部运算符的重载</h4><p>C++、C#和Haskell都支持用户定义的类型重载内部的算术运算符，在C++和C#的内部实现中通常是将A+B看作是operator+(A, B)的语法糖</p>
+<h3 id="多态性"><a href="#多态性" class="headerlink" title="多态性"></a>多态性</h3><p>对于名字，除了重载还有两个重要的概念：强制和多态。这三个概念都用于在某些环境中将不同类型的参数传给一个特定名字的子程序</p>
+<p>强制是编译器为了满足外围环境要求，自动将某类型转换为另一类型的值的操作</p>
+<p>所以在C中，定义一个计算整数或者浮点数两个值中的最小值的函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">min</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">double</span> y)</span></span>;</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
+<p>只要浮点数至少有整数那么多有效二进制位，那么结果就一定会是正确的。因为编译器会对int类型强制转换为double类型</p>
+<p>这是强制提供的方法，但是多态性提供的是，它使同一个子程序可以不加转换的接受多种类型的参数。要使这个概念有意义，那么这多种类型肯定要具有共同的特性</p>
+<p>显式的参数多态性就叫做泛型，像Ada、C++、Clu、Java和C#都支持泛型机制，像刚才的例子就可以在Ada中用泛型来实现</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">generic</span></span><br><span class="line">  <span class="keyword">type</span> <span class="type">T </span><span class="keyword">is</span> <span class="keyword">private</span>;</span><br><span class="line">  <span class="keyword">with</span> <span class="keyword">function</span> <span class="title">"&lt;"</span> (x, y : <span class="type">T</span>) <span class="keyword">return</span> <span class="type">Boolean</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title">min</span>(x, y : <span class="type">T</span>) <span class="keyword">return</span> <span class="type">T</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title">min</span>(x, y : <span class="type">T</span>) <span class="keyword">return</span> <span class="type">T</span> <span class="keyword">is</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="keyword">if</span> x &lt; y <span class="keyword">then</span> <span class="keyword">return</span> x;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">return</span> y;</span><br><span class="line">  <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line"><span class="keyword">end</span> min</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title">string_min</span> <span class="keyword">is</span> <span class="keyword">new</span> min(string, <span class="string">"&lt;"</span>)</span><br><span class="line"><span class="keyword">function</span> <span class="title">date_min</span> <span class="keyword">is</span> <span class="keyword">new</span> min(date, date_precedes);</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </article>
+<p>像List和ML中就可以直接写</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">define</span> min (<span class="name">lambda</span> (<span class="name">a</span> b) (<span class="name">if</span> (<span class="name">&lt;</span> a b) a b)))</span><br></pre></td></tr></table></figure>
 
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/SICP/Chapter 2.1.html" itemprop="url">
-              
-                <span itemprop="name">SICP Chapter 2.1</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/SICP/Chapter 2.3.html" itemprop="url">
-              
-                <span itemprop="name">SICP Chapter 2.3</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/SICP/Chapter 1.1.html" itemprop="url">
-              
-                <span itemprop="name">SICP Chapter 1.1</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/SICP/Chapter 3.3.html" itemprop="url">
-              
-                <span itemprop="name">SICP Chapter 3.3</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/SICP/Chapter 1.2.html" itemprop="url">
-              
-                <span itemprop="name">SICP Chapter 1.2</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-12T18:54:25+08:00" content="2019-06-12">
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/datastructure/哈希表.html" itemprop="url">
-              
-                <span itemprop="name">哈希表</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-11T18:54:25+08:00" content="2019-06-11">
-          06-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/datastructure/图论.html" itemprop="url">
-              
-                <span itemprop="name">图论</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-11T18:54:25+08:00" content="2019-06-11">
-          06-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+<p>其中有关类型的任何细节都由解释器处理</p>
+<h2 id="引用环境的约束"><a href="#引用环境的约束" class="headerlink" title="引用环境的约束"></a>引用环境的约束</h2><p>提到引用环境的约束就有两种方式：浅约束和深约束</p>
+<p>推迟到调用时建立约束的方式浅约束。一般动态作用域的语言默认是浅约束，当然动态作用域和深约束也是可以组合到一起的。<br>执行时依然使用传递时的引用环境，而非执行时的引用环境。那么这种规则称为深约束，一般静态作用域的语言默认是深约束</p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>为了实现神约束，需要创建引用环境的一种显示表示形式，并将它与对有关子程序的引用捆绑在一起，这样的捆绑叫做闭包</p>
+<p>总而言之，如果子程序可以被当作参数传递，那么它的引用环境一样也会被传递过去</p>
+<h3 id="一级值和非受限生存期"><a href="#一级值和非受限生存期" class="headerlink" title="一级值和非受限生存期"></a>一级值和非受限生存期</h3><p>一般而言，在语言中，如果一个值可以赋值给变量、可以当作参数传递、可以从子程序返回，那么它被称为具有一级状态（和我们在js中说函数是一等公民一个含义）。大多数的语言中数据对象都是一级状态。二级状态是只能当作参数传递；三级值则是连参数也不能做，比如C#中一些+-*/等符号。</p>
+<p>在一级子程序会出现一个复杂性，就是它的生存期可能持续到这个子程序的作用域的执行期外。为了避免这一问题，大部分函数式语言都表示局部变量具有非受限的生命周期，它们的生命周期无限延长，直到GC能证明这些对象再也不使用了才会撤销。那么不撤销带来的问题就是这些子程序的存储分配基于栈帧是不行了，只能是基于堆来分配管理。为了维持能基于栈的分配，有些语言会限制一级子程序的能力，比如C++，C#，都是不允许子程序嵌套，也就从根本上不会存在闭包带来的悬空引用问题。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这一篇从名字入手，介绍了名字与其背后的对象的约束关系、以及约束时间的概念；然后介绍了对象的分配策咯（静态、栈、堆）；紧接着讨论了名字与对象之间建立的约束的生命周期，并由此引出了作用域的概念；进一步延伸出多个约束组成的引用环境的相关概念以及问题。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    dejavudwh
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://dejavudwh.cn/compiler/PL真有意思（三）.html" title="PL真有意思（三）：名字、作用域和约束">https://dejavudwh.cn/compiler/PL真有意思（三）.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编译原理/" rel="tag"><i class="fa fa-tag"></i> 编译原理</a>
+          
+            <a href="/tags/程序设计语言PL/" rel="tag"><i class="fa fa-tag"></i> 程序设计语言PL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/compiler/PL真有意思（二）.html" rel="next" title="PL真有意思（二）：程序设计语言语法">
+                <i class="fa fa-chevron-left"></i> PL真有意思（二）：程序设计语言语法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/categories/学习笔记/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/categories/学习笔记/">1</a><span class="space">&hellip;</span><a class="page-number" href="/categories/学习笔记/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/categories/学习笔记/page/5/">5</a><a class="extend next" rel="next" href="/categories/学习笔记/page/5/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -597,6 +657,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -617,8 +684,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -726,6 +802,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#约束时间"><span class="nav-number">2.</span> <span class="nav-text">约束时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象生存期和存储管理"><span class="nav-number">3.</span> <span class="nav-text">对象生存期和存储管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#静态分配"><span class="nav-number">3.1.</span> <span class="nav-text">静态分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于栈的分配"><span class="nav-number">3.2.</span> <span class="nav-text">基于栈的分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于堆的分配"><span class="nav-number">3.3.</span> <span class="nav-text">基于堆的分配</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域作用"><span class="nav-number">4.</span> <span class="nav-text">作用域作用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#静态作用域"><span class="nav-number">4.1.</span> <span class="nav-text">静态作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#嵌套子程序"><span class="nav-number">4.1.1.</span> <span class="nav-text">嵌套子程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#声明的顺序"><span class="nav-number">4.1.2.</span> <span class="nav-text">声明的顺序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块"><span class="nav-number">5.</span> <span class="nav-text">模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模块作为抽象"><span class="nav-number">5.1.</span> <span class="nav-text">模块作为抽象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块作为管理器"><span class="nav-number">5.2.</span> <span class="nav-text">模块作为管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块类型"><span class="nav-number">5.3.</span> <span class="nav-text">模块类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#面向对象"><span class="nav-number">5.4.</span> <span class="nav-text">面向对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态作用域"><span class="nav-number">6.</span> <span class="nav-text">动态作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域的实现"><span class="nav-number">7.</span> <span class="nav-text">作用域的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域中名字的含义"><span class="nav-number">8.</span> <span class="nav-text">作用域中名字的含义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#别名"><span class="nav-number">8.1.</span> <span class="nav-text">别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重载"><span class="nav-number">8.2.</span> <span class="nav-text">重载</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内部运算符的重载"><span class="nav-number">8.2.1.</span> <span class="nav-text">内部运算符的重载</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多态性"><span class="nav-number">8.3.</span> <span class="nav-text">多态性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用环境的约束"><span class="nav-number">9.</span> <span class="nav-text">引用环境的约束</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">9.1.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一级值和非受限生存期"><span class="nav-number">9.2.</span> <span class="nav-text">一级值和非受限生存期</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">10.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -880,6 +972,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
