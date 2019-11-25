@@ -82,7 +82,7 @@
 
 
 
-  <meta name="keywords" content="大二期间,Node.js,React,Electron,Socket,">
+  <meta name="keywords" content="编译原理,程序设计语言PL,">
 
 
 
@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="Github StackChat  Redux学习回顾 Redux的主要功能就是管理复杂交错的State，比如需要讲state提升到顶层组件的场景中，使用Redux就很合适  Redux主要提供三个东西来进行状态管理 1. Action 表达要进行的动作，也就是通过view层触发，来进行派发来改变全局state  action创建函数也就是只返回一个action的函数 1234export co">
-<meta name="keywords" content="大二期间,Node.js,React,Electron,Socket">
+<meta name="description" content="前言对大多数计算模型而言，顺序都是基本的东西，它确定了为完成所期望的某种工作，什么事情应该最先做，什么事应该随后做，我们可以将语言规定顺序的机制分为几个类别：  顺序执行 选择 迭代 过程抽象 递归 并发 异常处理和推断 非确定性  对于不同类别的语言对不同类别的控制流的重要性也不尽相同，比如顺序执行相比于函数式对于命令式则更加重要。而命令式中更倾向用迭代，函数则更强调递归 表达式求值在讨论控制流">
+<meta name="keywords" content="编译原理,程序设计语言PL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Node.js实现PC端类微信聊天软件（三）">
-<meta property="og:url" content="https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（三）.html">
+<meta property="og:title" content="PL真有意思（四）：控制流">
+<meta property="og:url" content="https://dejavudwh.cn/compiler/PL真有意思（四）.html">
 <meta property="og:site_name" content="dejavudwh&#39;s Blog">
-<meta property="og:description" content="Github StackChat  Redux学习回顾 Redux的主要功能就是管理复杂交错的State，比如需要讲state提升到顶层组件的场景中，使用Redux就很合适  Redux主要提供三个东西来进行状态管理 1. Action 表达要进行的动作，也就是通过view层触发，来进行派发来改变全局state  action创建函数也就是只返回一个action的函数 1234export co">
+<meta property="og:description" content="前言对大多数计算模型而言，顺序都是基本的东西，它确定了为完成所期望的某种工作，什么事情应该最先做，什么事应该随后做，我们可以将语言规定顺序的机制分为几个类别：  顺序执行 选择 迭代 过程抽象 递归 并发 异常处理和推断 非确定性  对于不同类别的语言对不同类别的控制流的重要性也不尽相同，比如顺序执行相比于函数式对于命令式则更加重要。而命令式中更倾向用迭代，函数则更强调递归 表达式求值在讨论控制流">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-07-09T09:54:38.009Z">
+<meta property="og:updated_time" content="2019-11-25T14:47:50.678Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Node.js实现PC端类微信聊天软件（三）">
-<meta name="twitter:description" content="Github StackChat  Redux学习回顾 Redux的主要功能就是管理复杂交错的State，比如需要讲state提升到顶层组件的场景中，使用Redux就很合适  Redux主要提供三个东西来进行状态管理 1. Action 表达要进行的动作，也就是通过view层触发，来进行派发来改变全局state  action创建函数也就是只返回一个action的函数 1234export co">
+<meta name="twitter:title" content="PL真有意思（四）：控制流">
+<meta name="twitter:description" content="前言对大多数计算模型而言，顺序都是基本的东西，它确定了为完成所期望的某种工作，什么事情应该最先做，什么事应该随后做，我们可以将语言规定顺序的机制分为几个类别：  顺序执行 选择 迭代 过程抽象 递归 并发 异常处理和推断 非确定性  对于不同类别的语言对不同类别的控制流的重要性也不尽相同，比如顺序执行相比于函数式对于命令式则更加重要。而命令式中更倾向用迭代，函数则更强调递归 表达式求值在讨论控制流">
 
 
 
@@ -136,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（三）.html">
+  <link rel="canonical" href="https://dejavudwh.cn/compiler/PL真有意思（四）.html">
 
 
 
 
 
-  <title>Node.js实现PC端类微信聊天软件（三） | dejavudwh's Blog</title>
+  <title>PL真有意思（四）：控制流 | dejavudwh's Blog</title>
   
 
 
@@ -321,7 +321,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（三）.html">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/compiler/PL真有意思（四）.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dejavudwh">
@@ -338,7 +338,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Node.js实现PC端类微信聊天软件（三）</h2>
+          <h2 class="post-title" itemprop="name headline">PL真有意思（四）：控制流</h2>
         
 
         <div class="post-meta">
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-28T23:20:25+08:00">
-                2019-06-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-24T19:32:25+08:00">
+                2019-11-24
               </time>
             
 
@@ -373,8 +373,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/开发日记/" itemprop="url" rel="index">
-                    <span itemprop="name">开发日记</span>
+                  <a href="/categories/学习日记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习日记</span>
                   </a>
                 </span>
 
@@ -384,8 +384,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/开发日记/StackChat开发记录/" itemprop="url" rel="index">
-                    <span itemprop="name">StackChat开发记录</span>
+                  <a href="/categories/学习日记/PL真有意思/" itemprop="url" rel="index">
+                    <span itemprop="name">PL真有意思</span>
                   </a>
                 </span>
 
@@ -401,7 +401,7 @@
 
           
           
-             <span id="/StackChat/Node.js实现PC端类微信聊天软件（三）.html" class="leancloud_visitors" data-flag-title="Node.js实现PC端类微信聊天软件（三）">
+             <span id="/compiler/PL真有意思（四）.html" class="leancloud_visitors" data-flag-title="PL真有意思（四）：控制流">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -431,7 +431,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.1k
+                  5.1k
                 </span>
               
 
@@ -447,7 +447,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  4
+                  18
                 </span>
               
             </div>
@@ -468,89 +468,154 @@
       
 
       
-        <blockquote>
-<p><a href="https://github.com/dejavudwh/StackChat" target="_blank" rel="noopener">Github StackChat</a></p>
-</blockquote>
-<h2 id="Redux学习回顾"><a href="#Redux学习回顾" class="headerlink" title="Redux学习回顾"></a>Redux学习回顾</h2><blockquote>
-<p>Redux的主要功能就是管理复杂交错的State，比如需要讲state提升到顶层组件的场景中，使用Redux就很合适</p>
-</blockquote>
-<p>Redux主要提供三个东西来进行状态管理</p>
-<h3 id="1-Action"><a href="#1-Action" class="headerlink" title="1. Action"></a>1. Action</h3><blockquote>
-<p>表达要进行的动作，也就是通过view层触发，来进行派发来改变全局state</p>
-</blockquote>
-<h4 id="action创建函数"><a href="#action创建函数" class="headerlink" title="action创建函数"></a>action创建函数</h4><p>也就是只返回一个action的函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SignUpEmailChange = <span class="function">(<span class="params">value</span>) =&gt;</span> (&#123;</span><br><span class="line">  type: <span class="string">'SIGNUP_EMAIL_CHANGE'</span>,</span><br><span class="line">  value: value,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<p>action通常有一个type来进行判断要进行的动作，和任意其它的字段</p>
-<h3 id="2-Reducer"><a href="#2-Reducer" class="headerlink" title="2. Reducer"></a>2. Reducer</h3><blockquote>
-<p>主要进行接收action根据其中的type来进行更改state</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> registerChange = <span class="function">(<span class="params">state, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> state === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> initialState</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span>(action.type === <span class="string">'SIGNUP_NAME_CHANGE'</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.assign(&#123;&#125;, state, &#123;</span><br><span class="line">      signUpForm: &#123;</span><br><span class="line">        signup: <span class="literal">true</span>,</span><br><span class="line">        signupUsername: action.value,</span><br><span class="line">        signupEmail: state.signUpForm.signupEmail,</span><br><span class="line">        signupPwd: state.signUpForm.signupPwd,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Reducer拆分"><a href="#Reducer拆分" class="headerlink" title="Reducer拆分"></a>Reducer拆分</h4><p>当reducer膨胀时还可以进行拆分再用Redux提供的combineReducers进行组合</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Reducer = combineReducers(&#123;</span><br><span class="line">  ChatBar,</span><br><span class="line">  Message,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-Store"><a href="#3-Store" class="headerlink" title="3. Store"></a>3. Store</h3><blockquote>
-<p>Store作为全局的state</p>
-</blockquote>
-<h4 id="使用createStore来创建Store"><a href="#使用createStore来创建Store" class="headerlink" title="使用createStore来创建Store"></a>使用createStore来创建Store</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store = createStore(</span><br><span class="line">  Reducer,</span><br><span class="line">  Initialize,</span><br><span class="line">  applyMiddleware(thunk)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<p>第二个第三个参数都是可选的，第一个参数就是进行执行动作的Reducer,第二个是初始化state,第三个为中间件</p>
-<h4 id="通过Provider组件来进行分发组件"><a href="#通过Provider组件来进行分发组件" class="headerlink" title="通过Provider组件来进行分发组件"></a>通过Provider组件来进行分发组件</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Provider</span> <span class="attr">store</span>=<span class="string">&#123;store&#125;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Router</span> <span class="attr">history</span>=<span class="string">&#123;browserHistory&#125;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">component</span>=<span class="string">&#123;App&#125;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">IndexRoute</span> <span class="attr">component</span>=<span class="string">&#123;Login&#125;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"/home"</span> <span class="attr">component</span>=<span class="string">&#123;MainPanel&#125;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Router</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Provider</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="dispatch函数"><a href="#dispatch函数" class="headerlink" title="dispatch函数"></a>dispatch函数</h4><p>store通过提供dispatch函数来对action的派发，流程也就是</p>
-<blockquote>
-<p>view -&gt; action -&gt; reducer -&gt; store -&gt; view</p>
-</blockquote>
-<p>dispatch接收一个action创建函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dispatch(onSignup())</span><br></pre></td></tr></table></figure>
-
-<h3 id="React-Redux"><a href="#React-Redux" class="headerlink" title="React-Redux"></a>React-Redux</h3><blockquote>
-<p>Redux的一个React绑定库</p>
-</blockquote>
-<blockquote>
-<p>主要提供的是connect把组件包装成容器</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Login = connect(</span><br><span class="line">  mapStateToProps,</span><br><span class="line">  mapDispatchToProps</span><br><span class="line">)(SigninCmpt);</span><br></pre></td></tr></table></figure>
-
-<p>接收两个函数参数</p>
-<h4 id="mapStateToProps"><a href="#mapStateToProps" class="headerlink" title="mapStateToProps"></a>mapStateToProps</h4><p>主要负责把store映射到组件的props上</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function">(<span class="params">state</span>) =&gt;</span> (&#123;</span><br><span class="line">  signup: state.signup,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="mapDispatchToProps"><a href="#mapDispatchToProps" class="headerlink" title="mapDispatchToProps"></a>mapDispatchToProps</h4><p>一样是负责映射，把分发函数映射到组件的props上</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mapDispatchToProps = <span class="function">(<span class="params">dispatch</span>) =&gt;</span> (&#123;</span><br><span class="line">  onSignup: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    dispatch(onSignup())</span><br><span class="line">  &#125;,</span><br><span class="line">  closeSignup: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    dispatch(closeSignup())</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="Redux-thunk"><a href="#Redux-thunk" class="headerlink" title="Redux-thunk"></a>Redux-thunk</h3><blockquote>
-<p>一个action异步处理库，主要功能是能够接收一个返回函数的action创建函数</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fetchSignUp = <span class="function">(<span class="params">username, email, password</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> url = <span class="string">'http://localhost:8008/api/signup'</span>;</span><br><span class="line">  <span class="keyword">const</span> data = &#123;</span><br><span class="line">    username: username,</span><br><span class="line">    email: email,</span><br><span class="line">    password: password,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'fetch'</span>, data)</span><br><span class="line">  <span class="keyword">return</span> fetch(url, &#123;</span><br><span class="line">    method: <span class="string">'POST'</span>, <span class="comment">// or 'PUT'</span></span><br><span class="line">    body: <span class="built_in">JSON</span>.stringify(data), <span class="comment">// data can be `string` or &#123;object&#125;!</span></span><br><span class="line">    headers: <span class="keyword">new</span> Headers(&#123;</span><br><span class="line">      <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> res.json())</span><br><span class="line">  .then(<span class="function"><span class="params">response</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'Success:'</span>, response));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SignUpUser = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">dispatch, getState</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// TODO fix parameters</span></span><br><span class="line">    fetchSignUp(getState().signUpForm.signupUsername, getState().signUpForm.signupEmail, getState().signUpForm.signupPwd)</span><br><span class="line">    .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      dispatch(&#123;</span><br><span class="line">        type: <span class="string">'SIGNUP_USER'</span>,</span><br><span class="line">        sign: <span class="literal">false</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>thunk的在于能够将异步执行逻辑内聚在action中，其中实现利用的是Redux的中间件</p>
-<h2 id="MongoDB学习回顾"><a href="#MongoDB学习回顾" class="headerlink" title="MongoDB学习回顾"></a>MongoDB学习回顾</h2><h3 id="数据库类型"><a href="#数据库类型" class="headerlink" title="数据库类型"></a>数据库类型</h3><blockquote>
-<p>作为有别于关系型数据库的文档型数据库，其中集合对应于表，行对应与文档，列对应于字段</p>
-</blockquote>
-<blockquote>
-<p>主要应用场景</p>
-</blockquote>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>对大多数计算模型而言，顺序都是基本的东西，它确定了为完成所期望的某种工作，什么事情应该最先做，什么事应该随后做，我们可以将语言规定顺序的机制分为几个类别：</p>
 <ul>
-<li>游戏场景，使用 MongoDB 存储游戏用户信息，用户的装备、积分等直接以内嵌文档的形式存储.方便查询、更新- 物流场景，使用 MongoDB 存储订单信息，订单状态在运送过程中会不断更新，以 MongoDB 内嵌数组的形式来存储，一次查询就能将订单所有的变更读取出来。</li>
-<li>社交场景，使用 MongoDB 存储存储用户信息，以及用户发表的朋友圈信息，通过地理位置索引实现附近的人、地点等功能</li>
-<li>物联网场景，使用 MongoDB 存储所有接入的智能设备信息，以及设备汇报的日志信息，并对这些信息进行多维度的分析</li>
-<li>视频直播，使用 MongoDB 存储用户信息、礼物信息等</li>
+<li>顺序执行</li>
+<li>选择</li>
+<li>迭代</li>
+<li>过程抽象</li>
+<li>递归</li>
+<li>并发</li>
+<li>异常处理和推断</li>
+<li>非确定性</li>
 </ul>
-<p>安装驱动包 &amp;&amp; 看文档</p>
-<h2 id="今日完成"><a href="#今日完成" class="headerlink" title="今日完成"></a>今日完成</h2><p>今天主要完成的就是在注册窗口的信息录入状态更改和到后台的验证录入响应</p>
-<ol>
-<li><p>注册输入框的状态onChange进行接收action派发更改state更新每个输入框的内容</p>
-</li>
-<li><p>发送注册请求，利用redux-thunk先进行服务器请求，再进行dispatch</p>
-</li>
-<li><p>服务器端的接收请求和数据库的添加</p>
-</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  MongoClient.connect(url, &#123; <span class="attr">useNewUrlParser</span>: <span class="literal">true</span> &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err, db</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line">    <span class="keyword">var</span> dbo = db.db(<span class="string">"stackchat"</span>);</span><br><span class="line">    dbo.collection(<span class="string">"user"</span>).insertOne(user, <span class="function"><span class="keyword">function</span>(<span class="params">err, res</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"insert success"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于不同类别的语言对不同类别的控制流的重要性也不尽相同，比如顺序执行相比于函数式对于命令式则更加重要。而命令式中更倾向用迭代，函数则更强调递归</p>
+<h2 id="表达式求值"><a href="#表达式求值" class="headerlink" title="表达式求值"></a>表达式求值</h2><p>在讨论控制流之前先讨论下表达式的问题，先明确两个概念：运算符通常是指那些采用特殊语法形式的内部函数（比如+-*/等），运算对象指的是运算符的参数（如2+3，2和3就是运算对象），那么运算符和运算对象的组合就是表达式。一般根据运算符出现的位置（相对于运算对象而言），可以分为3类表示形式：前缀、中缀和后缀。比如Lisp就运用前缀语法：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">+</span> <span class="number">1</span> <span class="number">3</span> <span class="number">4</span> <span class="number">6</span>)      </span><br><span class="line">(<span class="name">*</span> (<span class="name">+</span> <span class="number">1</span> <span class="number">7</span>) <span class="number">8</span>)</span><br></pre></td></tr></table></figure>
 
+<p>大多数命令式语言对二元运算符都使用中缀记法，而对一元运算符和其它函数使用前缀激发。但是像Lisp就全部统一使用中缀记法</p>
+<p><strong>优先级和结合性</strong></p>
+<p>大多数程序设计语言都提供丰富的内部算术。在用中缀方式（没有括号）写出就可能出现歧义。所以就需要优先级和结合性来解决歧义性，但是我觉得</p>
+<p><strong>妈的你写括号就完事儿了</strong></p>
+<p>而且不同语言的优先级和结合性也不尽相同</p>
+<h3 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h3><blockquote>
+<p>在纯函数式语言中，程序的基本组成部分是表达式，计算也仅是对表达式求值。任何一个表达式对于整个计算的影响也仅限于这个表达式所处的上下文环境。</p>
+</blockquote>
+<blockquote>
+<p>而命令式语言的情况与此截然不同，计算通常是通过对内存中变量值的一系列修改操作来完成，赋值就是这种修改的最基本手段。每一次赋值都表示一个值被放入一个对应的变量中。</p>
+</blockquote>
+<p>一般来说，如果语言中的一个结构除了返回一个值供其外围环境所使用，还能以其他方式影响后续计算(并最终影响程序输出)，那么我们就说这种结构有副作用。而副作用也是命令式语言里最核心的部分</p>
+<p>而在纯函数语言中没有任何的副作用，表达式的值只依赖于输入</p>
+<p>但是现在许多语言都是混合的，像Python和Ruby主要是命令式的，但是也提供了很多的函数式的特征，现在连Java都提供了对函数式的支持</p>
+<h3 id="引用和值"><a href="#引用和值" class="headerlink" title="引用和值"></a>引用和值</h3><p>考虑一下下面的C语言的赋值：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">d = a;</span><br><span class="line">a = b + c;</span><br></pre></td></tr></table></figure>
+
+<p>第一个语句中，赋值语句右部引用了a的值，并希望把这个值放入d。第二个语句左部引用了a的位置，希望把b+c的结果放进去。这两种解释(值和位置)都是可行的，因为c语言中变量就是能保存值的命名容器，所以我们会说类似的语言的变量是值模型。由于指示位置的表达式被放在赋值语句的左部，所以这种指示位置的表达式成为左值表达式。表示一个值的表达式称为右值。在变量的值模型下，同一表达式也可能是左值或者右值，比如(a=a+1)，左部的a是左值，用于表示存放结果的位置；右部的a是右值，用于代表a具体所指的值。</p>
+<p>在采用了变量的引用模型的语言中，这种左值和右值的差异就更加明显了。</p>
+<figure class="highlight pascal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">b = <span class="number">2</span>;</span><br><span class="line">c = b;</span><br><span class="line">a = b + c;</span><br></pre></td></tr></table></figure>
+
+<p>在值模型语言中程序员会说：“把2放入b，然后复制到c，然后用它们两个的值相加，把结果4放入a。”。;</p>
+<p>在引用模型语言中的程序员会说：“让b引用2，让c也引用2，然后把这两个引用送给+运算，并让a引用算出的结果，也是4“。</p>
+<p>而在Java中，对于内部类型使用值模型，而类使用引用模型</p>
+<h4 id="装箱"><a href="#装箱" class="headerlink" title="装箱"></a>装箱</h4><p>对于内部类型使用值模型，就无法以统一的方式将它们传给要求类类型的参数的方法，所以这里就需要一个装箱过程</p>
+<p>比如Java提供的Integer类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer i = <span class="keyword">new</span> Integer(<span class="number">12</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="多路赋值"><a href="#多路赋值" class="headerlink" title="多路赋值"></a>多路赋值</h4><p>我们知道赋值操作有右结合性，这使得我们可以写出a=b=c的简练代码，在一些语言中(Ruby，Go，Python)我们可以进一步这样写：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a, b = <span class="number">1</span>, <span class="number">2</span>;</span><br><span class="line"><span class="comment">//上面的语句结果就是a等于1，b等于2。</span></span><br><span class="line"></span><br><span class="line">a, b = b, a;</span><br><span class="line"><span class="comment">//交换两个值，如果没有这种语言特性，那么就需要引入临时变量了。</span></span><br><span class="line"></span><br><span class="line">a, b , c = funx(d, e, f);</span><br></pre></td></tr></table></figure>
+
+<p>这种记法也消除了大多数程序设计语言中函数的非对称性，这些语言可以允许任意多个参数，但只能返回一个返回值。但是其实在Python中的返回多个值，就是将多个值封装为元组，在赋值的时候又拆箱而已</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>并不是所有语言都提供声明变量时指定初始值的方式，但是至少有这几点可以证明提供初始值的机制是有益的</p>
+<ul>
+<li>局部静态变量需要一个初始值才能使用</li>
+<li>使用静态分配的变量，可以由编译器放入全局内存，避免了在运行时赋予吃数值所造成的开销</li>
+<li>可以避免意外的使用未初始的变量</li>
+</ul>
+<p>如果声明时没有明确的给定变量的初始值，语言也可以给定一个默认值。像C、Java和C#也都提供了类似的机制</p>
+<p><strong>动态检查</strong></p>
+<p>除了可以指定默认值之外，还可以采用另外一种方式，将对为初始化的变量的使用作为动态语义错误，在运行时捕获这种错误。但是在运行时捕获所有使用到未初始化的情况的代价非常高</p>
+<p><strong>定义性赋值</strong></p>
+<p>在Java和C#中提供了一种定义性赋值的表示形式，意思就是由编译器来检查在达到一个表达式的所有可能控制路径上，都必须为这个表达式中的每个变量赋过值</p>
+<p><strong>构造函数</strong></p>
+<p>许多面向对象语言都提供了为用户定义的类型的自动初始化方法，也就是构造函数</p>
+<p>在C++中，还区分了初始化和赋值，它将初始化赋值解释为调用变量所属类型的构造函数，以初始值作为调用参数。在没有强制的情况下，赋值被解释为调用相关类型的赋值运算符，如果没有定义赋值运算符，就默认将赋值右部的值简单的按位复制过来</p>
+<p>区分初始化和赋值的好处是，可以区分在赋值前是不是需要先释放空间</p>
+<h3 id="表达式的顺序问题"><a href="#表达式的顺序问题" class="headerlink" title="表达式的顺序问题"></a>表达式的顺序问题</h3><p>虽然优先级和结合性规则定义了表达式里二元中缀运算符的应用顺序，但却没有明确说明特定运算符的各运算对象的求值顺序。举例来说，如下表达式：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a - f(b) - c * d</span><br></pre></td></tr></table></figure>
+
+<p>根据结合性可知a-f(b)将在第二个减法前执行，根据优先级可知第二个减法的右运算对象是c<em>d这个整体而不是c。但是如果没有进一步的规则描述，我们无法得知a-f(b)是否在c</em>d之前运行。诸如此类：对于f(a,g(b),c)这个子程序调用，我们也不知这三个参数的求值顺序。</p>
+<p>求值顺序之所以重要：</p>
+<ul>
+<li><p>副作用：如果f(b)这个子程序可能会修改c的值，那么a-f(b)-c<em>d的求值结果将依赖f(b)和c</em>d哪一个先执行；类似的，如果g(b)修改了a或者c的值，那么f(a,g(b),c)的结果也是依赖于参数的求值顺序。</p>
+</li>
+<li><p>代码改进：子表达式的求值顺序对于寄存器分配和指令调度都有重要的影响。比如（a<em>b+f(c)），我们可能会希望在执行a</em>b之前调用f(c)。因为如果先计算乘法，则在调用f(c)之前就要先保存起来乘积，因为f(c)可能会用光所有的寄存器。</p>
+</li>
+</ul>
+<h3 id="短路求值"><a href="#短路求值" class="headerlink" title="短路求值"></a>短路求值</h3><p>对于布尔表达式，如果编译器可以对其执行短路求值，那么它生成的代码可以在表达式前一半的结果可以确定整个表达式的值的情况下跳过后一半的计算。</p>
+<p>比如(a&lt;b) and(b&lt;c)，如果a&gt;b，那么完全没必要去检查b是否小于c就可以确定这个表达式一定为假。在一些特殊情况下，短路求值可节省大量时间，比如if(func&amp;&amp;func())。实际上这种情况下短路求值已经改变了布尔表达式的语义，如果非短路求值，那么在func不存在的情况下去执行func()，程序是会抛出错误的。</p>
+<p>我们常见的语法表现形式是&amp;&amp;和||这种布尔运算符身兼多职，既是布尔运算符又会触发短路求值，但是有一些语言针对短路求值是有单独的语法形式的，比如Clu语言中布尔运算符是and和or,短路运算符是cand和cor。这是为何呢，因为有些代码逻辑是不需要这种短路求值的优化的。</p>
+<h2 id="结构化和非结构化的流程"><a href="#结构化和非结构化的流程" class="headerlink" title="结构化和非结构化的流程"></a>结构化和非结构化的流程</h2><blockquote>
+<p>汇编语言中的控制流通过有条件的或无条件的跳转（分支）指令来完成，早期的高级语言模仿这种方式（如Fortran），主要依赖goto来描述大部分非过程化控制流，比如下面代码：</p>
+</blockquote>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> A &lt; B <span class="keyword">goto</span> label1;</span><br><span class="line"></span><br><span class="line">label1;</span><br></pre></td></tr></table></figure>
+
+<p>但是如今goto像在Java、Clu和Eiffel里已经完全被禁止了，在其它语言也是受限了或者只是为了向前兼容而已</p>
+<h3 id="goto的结构化替代品"><a href="#goto的结构化替代品" class="headerlink" title="goto的结构化替代品"></a>goto的结构化替代品</h3><p>对于goto被废弃，各种使用goto的地方也被结构的方案给代替了</p>
+<ul>
+<li><h4 id="循环中的退出和继续"><a href="#循环中的退出和继续" class="headerlink" title="循环中的退出和继续"></a>循环中的退出和继续</h4></li>
+</ul>
+<p>break和contiune这两个关键字大家应该很熟悉了</p>
+<ul>
+<li><h4 id="从子程序提前返回"><a href="#从子程序提前返回" class="headerlink" title="从子程序提前返回"></a>从子程序提前返回</h4></li>
+</ul>
+<p>return</p>
+<ul>
+<li><h4 id="多层返回"><a href="#多层返回" class="headerlink" title="多层返回"></a>多层返回</h4></li>
+</ul>
+<p>上面的两个问题都可以有很好的替代品，但是对于多层返回就会比较麻烦一点。return或”局部的goto“只能在子程序中返回,如果遇到多层嵌套的子程序，想从内层的子程序返回来结束外围子程序的执行，那return和局部的goto就无能为力了。这种情况下，语言实现要保证能恰当的恢复栈上的子程序调用信息，这种修复工作称为”回卷”，为完成此事，不仅必须释放需要跳出的所有子程序的栈帧，还要执行一些信息管理工作，比如恢复寄存器内容。</p>
+<p>Common Lisp提供了return-from语句来明确指定需要退出的词法外围函数或嵌套块，还可以提供一个返回值：</p>
+<p>Common Lisp和另外一个语言Ruby中还内置一个throw/catch语法来支持这种多层返回，注意这种结构并不是所谓的异常处理，而是一种多层返回的语法结构，直白点说是一种功能强大的变相”goto“，看下面代码：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/<span class="regexp">/定义一个方法</span></span><br><span class="line"><span class="regexp">def search_file(filename,pattern)</span></span><br><span class="line"><span class="regexp">   file=File.Open(filename)</span></span><br><span class="line"><span class="regexp">   /</span><span class="regexp">/遍历文件每一行</span></span><br><span class="line"><span class="regexp">   file.each&#123;|line|</span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/根据parrern匹配模式查找，如果匹配就返回到定义found标签的位置</span></span><br><span class="line"><span class="regexp">        throw :found,line if line=~/</span><span class="comment">#&#123;pattern&#125;/</span></span><br><span class="line">   &#125;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">/<span class="regexp">/用catch定义一个found标签</span></span><br><span class="line"><span class="regexp">math=catch:found do</span></span><br><span class="line"><span class="regexp">   serach_file("f1",key) </span></span><br><span class="line"><span class="regexp">   serach_file("f2",key)    /</span><span class="regexp">/如果f2文件找到了则就会返回line至math</span></span><br><span class="line"><span class="regexp">   serach_file("f3",key)</span></span><br><span class="line"><span class="regexp">   ”not fount“              /</span><span class="regexp">/找不到就执行到此处了</span></span><br><span class="line"><span class="regexp">end</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">print match</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="错误和异常"><a href="#错误和异常" class="headerlink" title="错误和异常"></a>错误和异常</h4></li>
+</ul>
+<p>多层返回的概念假定了被调用方知道调用方期的是什么，并且能返回一个适当的值。还存在一种情况，其中深层嵌套的子程序中发生了一些情况，导致无法继续执行下去，而且因为没有足够的环境信息，甚至无法合适的结束自己的工作，这种情况下，唯一能做的就是”退回去“，一直回退到能够恢复执行的地方，这种要求程序退回去的条件通常称为叫做”异常“。常见的结构化的异常处理和多层返回有很大的相似性，两者都需要从某一个内层上下文回退到外层的上下文。具体的差异则是多层返回是内层的上下文正常的完成计算然后根据需要返回正确的值，然后转移到外层上下文，并不需要后续处理。而异常中的内层上下文已经是无法进行正常的计算，必须以一种非正常的退出一直回卷，然后触发某个特殊的处理流程直到catch到它。</p>
+<ul>
+<li><h4 id="继续"><a href="#继续" class="headerlink" title="继续"></a>继续</h4></li>
+</ul>
+<p>如果进一步推广上一小节中造成栈回卷的非局部goto概念，则可以定义一种称为继续（Continuations）的概念。从底层来看，一个继续是由一个代码地址与其关联的一个引用环境组成的，如果跳转到这个地址，就该恢复这个引用环境。从抽象层面看，它描述一个可能由此继续下去的执行上下文。在Scheme和Ruby中，继续是基本的一等公民，我们可以利用这种机制有效的扩充流程控制结构集合。</p>
+<p>Scheme中支持继续由一个通常称为call-with-current-continuation的函数实现，有时简称”call/cc”。该函数有一个参数f,f也是一个函数；”call/cc”调用函数f,把一个记录着当前程序计数器和引用环境的“继续（暂时称为是c）c”传递给f，这种”继续c”由一个闭包来表示（通过参数传递的子程序的表示的闭包并无不同）。在将来任何时候，f都可以调用c,然后可以用c来重新建立其保存的上下文。一般的应用情况是我们把这个c赋值给一个变量，则可重复的调用它，甚至我们可以在f中返回它，即使f已经执行完毕，仍然可以调用c。</p>
+<h2 id="顺序执行"><a href="#顺序执行" class="headerlink" title="顺序执行"></a>顺序执行</h2><h3 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h3><p>现在大部分命令式语言中采用的选择语句，都是从Algol 60引进过的 if…then…else 的某种演进变形：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> condition then statement</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> condition then statement</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> condition then statement</span><br><span class="line">...</span><br><span class="line"><span class="keyword">else</span> statement</span><br></pre></td></tr></table></figure>
+
+<h3 id="短路条件"><a href="#短路条件" class="headerlink" title="短路条件"></a>短路条件</h3><p>虽然 if…then…else 语句的条件是一个布尔表达式，但是通常没有必要求出这个表达式的值放入寄存器。大部分机器都提供了条件分支指令（如上面提到的IL指令brtrue.s），因为这个表达式求值的目的并不是为了值，而是为了跳转到合适的位置。这种看法使得可以对短路求值的表达式生成高效的代码（称为跳转码）。跳转码不但可以用于选择语句，也可用在“逻辑控制的循环”中。如下面代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>((A&gt;B)&amp;&amp;(C&lt;D)||(E!=F))&#123;</span><br><span class="line">    then_clause</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">    else_clause</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在不使用短路求值的Pascal中，生成的代码大致如下(它会计算每个表达式的结果并放入寄存器r1…，然后再决定跳转)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">     r1=A</span><br><span class="line">     r2=B</span><br><span class="line">     r1=r1&gt;r2</span><br><span class="line">     r2=C</span><br><span class="line">     r3=D</span><br><span class="line">     r2=r2&gt;r3</span><br><span class="line">     r1=r1&amp;r2</span><br><span class="line">     r2=E</span><br><span class="line">     r3=F</span><br><span class="line">     r2=r2!=r3</span><br><span class="line">     r1=r1|r2</span><br><span class="line">     if r1=0 goto L2</span><br><span class="line">L1: then_clause</span><br><span class="line">    goto L3</span><br><span class="line">L2: else_clause</span><br><span class="line">L3:</span><br></pre></td></tr></table></figure>
+
+<p>跳转码的情况于此不同，它不会把表达式的值存入寄存器，而是直接跳转(只用到了r1和r2两个寄存器，明显也不会针对整个表达式进行求值，比上面的要高效一些)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">     r1=A</span><br><span class="line">     r2=B</span><br><span class="line">     if r1&lt;=r2 goto L4</span><br><span class="line">     r1=C</span><br><span class="line">     r2=D</span><br><span class="line">     if r1&gt;r2 goto L1</span><br><span class="line">L4: r1=E</span><br><span class="line">     r2=F</span><br><span class="line">     if r1=r2 goto L2</span><br><span class="line">L1: then_clause</span><br><span class="line">    goto L3</span><br><span class="line">L2: else_clause</span><br><span class="line">L3:</span><br></pre></td></tr></table></figure>
+
+<h3 id="case-switch语句"><a href="#case-switch语句" class="headerlink" title="case/switch语句"></a>case/switch语句</h3><p>对于if else结构来说，如果嵌套的层数过多、或者是用于判断的条件表达式是基于一些有限的简单值（或编译时常量），那么出现了一种更为优雅的语法结构“case语句”，有很多ifelse都可以很轻松的改写成case/switch语句</p>
+<p>对于case/switch的优势还不只是语法上的优雅，有时还可以生成更高效的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">T: &amp;L1</span><br><span class="line">   &amp;L2</span><br><span class="line">   &amp;L3</span><br><span class="line">   &amp;L4</span><br><span class="line">   &amp;L5</span><br><span class="line">   &amp;L6</span><br><span class="line">L1: clause_A</span><br><span class="line">    goto L7</span><br><span class="line">L2: clause_B</span><br><span class="line">    goto L7</span><br><span class="line">L3: clause_C</span><br><span class="line">    goto L7</span><br><span class="line">L4: clause_D</span><br><span class="line">    goto L7</span><br><span class="line">L5: clause_E</span><br><span class="line">    goto L7</span><br><span class="line">L6: clause_F</span><br><span class="line">    goto L7</span><br><span class="line">L7:</span><br></pre></td></tr></table></figure>
+
+<p>这样其实T就是一个地址跳转表</p>
+<h2 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h2><p>迭代和递归是计算机能够重复执行一些操作的两种机制；命令式语言倾向于使用迭代、函数式语言则更看重递归。大多数语言中的迭代都是以循环的形式出现的，和复合语句中的语句一样，迭代的执行通常也是为了副作用，也就是修改一些变量的值。根据用何种方式控制迭代的次数来看，循环有两个主要变种”枚举控制的循环”和“逻辑控制的循环”。前者是在给定的某个有限的集合中执行，后者则是不确定要执行多少次（直到它所依赖的表达式结果被改变）。对于这两种结构，大多数的语言都提供了不同的语法结构来表示。</p>
+<h3 id="枚举控制的循环"><a href="#枚举控制的循环" class="headerlink" title="枚举控制的循环"></a>枚举控制的循环</h3><p>枚举控制的循环最初来自Fortran的do循环，</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> i = <span class="number">1</span>, <span class="number">10</span>, <span class="number">2</span></span><br><span class="line">  ...</span><br><span class="line"><span class="keyword">enddo</span></span><br></pre></td></tr></table></figure>
+
+<p>等号后面的表达式分别是i的初始值，边界值和步长</p>
+<p>像这种枚举循环可以说的不多，但是如果前几次迭代的执行会导致迭代的次数或下标值的发生变化，那么我们就需要一个更通用的实现</p>
+<p>思考几个问题：</p>
+<ul>
+<li>控制是否可以通过枚举之外的任何方式进入和离开循环呢？</li>
+<li>如果循环体修改了用于计算循环结束边界的变量，会发生什么？</li>
+<li>如果循环体修改了下标变量，会发生？</li>
+<li>程序是否可以在循环结束后读取下标变量，如果可以，它的值将是什么？</li>
+</ul>
+<ol>
+<li>现在的大多数语言都提供了，break类似的机制来离开循环。Fortran IV允许通过goto跳入到一个循环中，但是这个通常被认为是一个语言缺陷</li>
+<li>同样的，在大多数语言中，边界值只在第一次计算，并且保存在一个临时寄存器中，所以对于之后的修改并不会起作用</li>
+<li>早期的大部分语言都禁止在枚举控制的循环中修改下边变量。但是刚刚试验了一下，许多的语言好像都放开了这个禁止，也就是按照修改后的正常逻辑继续执行</li>
+<li>首先这是一个语言实现的问题，现在的大多数语言应该都是将循环下标的作用域限定在循环体内了，所以出了循环体是访问不到的</li>
+</ol>
+<p>当然在之后出现了C的for循环</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = first; i &lt; last; i += step) &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样有关结束条件、溢出和循环方向的问题全都交由程序员来掌控</p>
 
       
     </div>
@@ -571,7 +636,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（三）.html" title="Node.js实现PC端类微信聊天软件（三）">https://dejavudwh.cn/StackChat/Node.js实现PC端类微信聊天软件（三）.html</a>
+    <a href="https://dejavudwh.cn/compiler/PL真有意思（四）.html" title="PL真有意思（四）：控制流">https://dejavudwh.cn/compiler/PL真有意思（四）.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -586,15 +651,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/大二期间/" rel="tag"><i class="fa fa-tag"></i> 大二期间</a>
+            <a href="/tags/编译原理/" rel="tag"><i class="fa fa-tag"></i> 编译原理</a>
           
-            <a href="/tags/Node-js/" rel="tag"><i class="fa fa-tag"></i> Node.js</a>
-          
-            <a href="/tags/React/" rel="tag"><i class="fa fa-tag"></i> React</a>
-          
-            <a href="/tags/Electron/" rel="tag"><i class="fa fa-tag"></i> Electron</a>
-          
-            <a href="/tags/Socket/" rel="tag"><i class="fa fa-tag"></i> Socket</a>
+            <a href="/tags/程序设计语言PL/" rel="tag"><i class="fa fa-tag"></i> 程序设计语言PL</a>
           
         </div>
       
@@ -607,8 +666,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/StackChat/Node.js实现PC端类微信聊天软件（二）.html" rel="next" title="Node.js实现PC端类微信聊天软件（二）">
-                <i class="fa fa-chevron-left"></i> Node.js实现PC端类微信聊天软件（二）
+              <a href="/compiler/PL真有意思（三）.html" rel="next" title="PL真有意思（三）：名字、作用域和约束">
+                <i class="fa fa-chevron-left"></i> PL真有意思（三）：名字、作用域和约束
               </a>
             
           </div>
@@ -616,10 +675,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/StackChat/Node.js实现PC端类微信聊天软件（四）.html" rel="prev" title="Node.js实现PC端类微信聊天软件（四）">
-                Node.js实现PC端类微信聊天软件（四） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -802,7 +857,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux学习回顾"><span class="nav-number">1.</span> <span class="nav-text">Redux学习回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Action"><span class="nav-number">1.1.</span> <span class="nav-text">1. Action</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#action创建函数"><span class="nav-number">1.1.1.</span> <span class="nav-text">action创建函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Reducer"><span class="nav-number">1.2.</span> <span class="nav-text">2. Reducer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Reducer拆分"><span class="nav-number">1.2.1.</span> <span class="nav-text">Reducer拆分</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Store"><span class="nav-number">1.3.</span> <span class="nav-text">3. Store</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用createStore来创建Store"><span class="nav-number">1.3.1.</span> <span class="nav-text">使用createStore来创建Store</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过Provider组件来进行分发组件"><span class="nav-number">1.3.2.</span> <span class="nav-text">通过Provider组件来进行分发组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dispatch函数"><span class="nav-number">1.3.3.</span> <span class="nav-text">dispatch函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Redux"><span class="nav-number">1.4.</span> <span class="nav-text">React-Redux</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mapStateToProps"><span class="nav-number">1.4.1.</span> <span class="nav-text">mapStateToProps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mapDispatchToProps"><span class="nav-number">1.4.2.</span> <span class="nav-text">mapDispatchToProps</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux-thunk"><span class="nav-number">1.5.</span> <span class="nav-text">Redux-thunk</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB学习回顾"><span class="nav-number">2.</span> <span class="nav-text">MongoDB学习回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库类型"><span class="nav-number">2.1.</span> <span class="nav-text">数据库类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#今日完成"><span class="nav-number">3.</span> <span class="nav-text">今日完成</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表达式求值"><span class="nav-number">2.</span> <span class="nav-text">表达式求值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#赋值"><span class="nav-number">2.1.</span> <span class="nav-text">赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用和值"><span class="nav-number">2.2.</span> <span class="nav-text">引用和值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#装箱"><span class="nav-number">2.2.1.</span> <span class="nav-text">装箱</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多路赋值"><span class="nav-number">2.2.2.</span> <span class="nav-text">多路赋值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">2.3.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表达式的顺序问题"><span class="nav-number">2.4.</span> <span class="nav-text">表达式的顺序问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#短路求值"><span class="nav-number">2.5.</span> <span class="nav-text">短路求值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构化和非结构化的流程"><span class="nav-number">3.</span> <span class="nav-text">结构化和非结构化的流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#goto的结构化替代品"><span class="nav-number">3.1.</span> <span class="nav-text">goto的结构化替代品</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#循环中的退出和继续"><span class="nav-number">3.1.1.</span> <span class="nav-text">循环中的退出和继续</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从子程序提前返回"><span class="nav-number">3.1.2.</span> <span class="nav-text">从子程序提前返回</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多层返回"><span class="nav-number">3.1.3.</span> <span class="nav-text">多层返回</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#错误和异常"><span class="nav-number">3.1.4.</span> <span class="nav-text">错误和异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#继续"><span class="nav-number">3.1.5.</span> <span class="nav-text">继续</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序执行"><span class="nav-number">4.</span> <span class="nav-text">顺序执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择"><span class="nav-number">4.1.</span> <span class="nav-text">选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#短路条件"><span class="nav-number">4.2.</span> <span class="nav-text">短路条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case-switch语句"><span class="nav-number">4.3.</span> <span class="nav-text">case/switch语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代"><span class="nav-number">5.</span> <span class="nav-text">迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举控制的循环"><span class="nav-number">5.1.</span> <span class="nav-text">枚举控制的循环</span></a></li></ol></li></ol></div>
             
 
           </div>
