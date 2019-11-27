@@ -82,7 +82,7 @@
 
 
 
-  <meta name="keywords" content="编译原理,程序设计语言PL,">
+  <meta name="keywords" content="编译原理,程序设计语言PL,控制流,">
 
 
 
@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="前言对大多数计算模型而言，顺序都是基本的东西，它确定了为完成所期望的某种工作，什么事情应该最先做，什么事应该随后做，我们可以将语言规定顺序的机制分为几个类别：  顺序执行 选择 迭代 过程抽象 递归 并发 异常处理和推断 非确定性  对于不同类别的语言对不同类别的控制流的重要性也不尽相同，比如顺序执行相比于函数式对于命令式则更加重要。而命令式中更倾向用迭代，函数则更强调递归 表达式求值在讨论控制流">
-<meta name="keywords" content="编译原理,程序设计语言PL">
+<meta name="description" content="前言对大多数计算模型而言，顺序都是基本的东西，它确定了为完成所期望的某种工作，什么事情应该最先做，什么事应该随后做，我们可以将语言规定顺序的机制分为几个类别：  顺序执行 选择 迭代 过程抽象 递归 并发 异常处理和推断 非确定性  对于不同类别的语言对不同类别的控制流的重要性也不尽相同，比如顺序执行相比于函数式对于命令式则更加重要。而命令式中更倾向用迭代，函数则更强调递归 表达式求值">
+<meta name="keywords" content="编译原理,程序设计语言PL,控制流">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PL真有意思（四）：控制流">
 <meta property="og:url" content="https://dejavudwh.cn/compiler/PL真有意思（四）.html">
 <meta property="og:site_name" content="dejavudwh&#39;s Blog">
-<meta property="og:description" content="前言对大多数计算模型而言，顺序都是基本的东西，它确定了为完成所期望的某种工作，什么事情应该最先做，什么事应该随后做，我们可以将语言规定顺序的机制分为几个类别：  顺序执行 选择 迭代 过程抽象 递归 并发 异常处理和推断 非确定性  对于不同类别的语言对不同类别的控制流的重要性也不尽相同，比如顺序执行相比于函数式对于命令式则更加重要。而命令式中更倾向用迭代，函数则更强调递归 表达式求值在讨论控制流">
+<meta property="og:description" content="前言对大多数计算模型而言，顺序都是基本的东西，它确定了为完成所期望的某种工作，什么事情应该最先做，什么事应该随后做，我们可以将语言规定顺序的机制分为几个类别：  顺序执行 选择 迭代 过程抽象 递归 并发 异常处理和推断 非确定性  对于不同类别的语言对不同类别的控制流的重要性也不尽相同，比如顺序执行相比于函数式对于命令式则更加重要。而命令式中更倾向用迭代，函数则更强调递归 表达式求值">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-26T04:55:41.327Z">
+<meta property="og:updated_time" content="2019-11-26T06:08:32.420Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PL真有意思（四）：控制流">
-<meta name="twitter:description" content="前言对大多数计算模型而言，顺序都是基本的东西，它确定了为完成所期望的某种工作，什么事情应该最先做，什么事应该随后做，我们可以将语言规定顺序的机制分为几个类别：  顺序执行 选择 迭代 过程抽象 递归 并发 异常处理和推断 非确定性  对于不同类别的语言对不同类别的控制流的重要性也不尽相同，比如顺序执行相比于函数式对于命令式则更加重要。而命令式中更倾向用迭代，函数则更强调递归 表达式求值在讨论控制流">
+<meta name="twitter:description" content="前言对大多数计算模型而言，顺序都是基本的东西，它确定了为完成所期望的某种工作，什么事情应该最先做，什么事应该随后做，我们可以将语言规定顺序的机制分为几个类别：  顺序执行 选择 迭代 过程抽象 递归 并发 异常处理和推断 非确定性  对于不同类别的语言对不同类别的控制流的重要性也不尽相同，比如顺序执行相比于函数式对于命令式则更加重要。而命令式中更倾向用迭代，函数则更强调递归 表达式求值">
 
 
 
@@ -480,7 +480,9 @@
 <li>非确定性</li>
 </ul>
 <p>对于不同类别的语言对不同类别的控制流的重要性也不尽相同，比如顺序执行相比于函数式对于命令式则更加重要。而命令式中更倾向用迭代，函数则更强调递归</p>
-<h2 id="表达式求值"><a href="#表达式求值" class="headerlink" title="表达式求值"></a>表达式求值</h2><p>在讨论控制流之前先讨论下表达式的问题，先明确两个概念：运算符通常是指那些采用特殊语法形式的内部函数（比如+-*/等），运算对象指的是运算符的参数（如2+3，2和3就是运算对象），那么运算符和运算对象的组合就是表达式。一般根据运算符出现的位置（相对于运算对象而言），可以分为3类表示形式：前缀、中缀和后缀。比如Lisp就运用前缀语法：</p>
+<h2 id="表达式求值"><a href="#表达式求值" class="headerlink" title="表达式求值"></a>表达式求值</h2><a id="more"></a>
+
+<p>在讨论控制流之前先讨论下表达式的问题，先明确两个概念：运算符通常是指那些采用特殊语法形式的内部函数（比如+-*/等），运算对象指的是运算符的参数（如2+3，2和3就是运算对象），那么运算符和运算对象的组合就是表达式。一般根据运算符出现的位置（相对于运算对象而言），可以分为3类表示形式：前缀、中缀和后缀。比如Lisp就运用前缀语法：</p>
 <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">+</span> <span class="number">1</span> <span class="number">3</span> <span class="number">4</span> <span class="number">6</span>)      </span><br><span class="line">(<span class="name">*</span> (<span class="name">+</span> <span class="number">1</span> <span class="number">7</span>) <span class="number">8</span>)</span><br></pre></td></tr></table></figure>
 
 <p>大多数命令式语言对二元运算符都使用中缀记法，而对一元运算符和其它函数使用前缀激发。但是像Lisp就全部统一使用中缀记法</p>
@@ -713,6 +715,8 @@
           
             <a href="/tags/程序设计语言PL/" rel="tag"><i class="fa fa-tag"></i> 程序设计语言PL</a>
           
+            <a href="/tags/控制流/" rel="tag"><i class="fa fa-tag"></i> 控制流</a>
+          
         </div>
       
 
@@ -733,6 +737,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/compiler/PL真有意思（五）.html" rel="prev" title="PL真有意思（五）：数据类型">
+                PL真有意思（五）：数据类型 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -814,7 +822,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">74</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -836,7 +844,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -896,7 +904,7 @@
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST/">AST</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LALR-1/">LALR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LL-1/">LL(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR-1/">LR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lisp/">Lisp</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SICP/">SICP</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scheme/">Scheme</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Secrets-of-the-JavaScript-Ninja/">Secrets of the JavaScript Ninja</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ucore/">ucore</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上下文无关文法/">上下文无关文法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个操作系统/">从零写一个操作系统</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个编译器/">从零写一个编译器</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码生成/">代码生成</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大二期间/">大二期间</a><span class="tag-list-count">48</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字节码/">字节码</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抽象语法树/">抽象语法树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限状态自动机/">有限状态自动机</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限自动机/">有限自动机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式引擎/">正则表达式引擎</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计语言PL/">程序设计语言PL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/符号表/">符号表</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a><span class="tag-list-count">22</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自底向上/">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解释器/">解释器</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词法分析/">词法分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语义分析/">语义分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析/">语法分析</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析表/">语法分析表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/输入系统/">输入系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归下降/">递归下降</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST/">AST</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LALR-1/">LALR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LL-1/">LL(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR-1/">LR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lisp/">Lisp</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SICP/">SICP</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scheme/">Scheme</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Secrets-of-the-JavaScript-Ninja/">Secrets of the JavaScript Ninja</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ucore/">ucore</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上下文无关文法/">上下文无关文法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个操作系统/">从零写一个操作系统</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个编译器/">从零写一个编译器</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码生成/">代码生成</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大二期间/">大二期间</a><span class="tag-list-count">48</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字节码/">字节码</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抽象语法树/">抽象语法树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/控制流/">控制流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据类型/">数据类型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限状态自动机/">有限状态自动机</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限自动机/">有限自动机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式引擎/">正则表达式引擎</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计语言PL/">程序设计语言PL</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/符号表/">符号表</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自底向上/">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解释器/">解释器</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词法分析/">词法分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语义分析/">语义分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析/">语法分析</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析表/">语法分析表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/输入系统/">输入系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归下降/">递归下降</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -956,7 +964,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">123.5k</span>
+    <span title="Site words total count">132.9k</span>
   
 </div>
 
