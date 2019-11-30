@@ -320,6 +320,247 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/compiler/PL真有意思（七）.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dejavudwh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dejavudwh's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/compiler/PL真有意思（七）.html" itemprop="url">PL真有意思（七）：数据抽象和面向对象</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-29T10:41:25+08:00">
+                2019-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习日记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习日记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习日记/PL真有意思/" itemprop="url" rel="index">
+                    <span itemprop="name">PL真有意思</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/compiler/PL真有意思（七）.html" class="leancloud_visitors" data-flag-title="PL真有意思（七）：数据抽象和面向对象">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在之前的名字、作用域那篇提到模块类型，它使程序员可以从一个给定抽象出发，通过实例化产生多个实例；再后面是类，它使程序员可以定义一族相关的抽象。</p>
+<p>在这一篇里，我们会来看一下面向对象程序设计及其三个基本概念、动态方法约束、多重继承等等</p>
+<h2 id="面向对象程序设计"><a href="#面向对象程序设计" class="headerlink" title="面向对象程序设计"></a>面向对象程序设计</h2><p>随着软件变得越来越复杂，数据抽象已经变成了软件工程中最重要的部分。由模块和模块类型提供的这种抽象至少带来了如下三个好处：</p>
+<ul>
+<li>它可以减少程序员必须同时考虑的细节量，减少了人的概念负担</li>
+<li>它起到一种故障遏制作用，可以防止程序员以不适当的方式使用程序的各种部件。也限制了查找程序错误必须考虑的程序的部分</li>
+<li>它为程序部件之间的独立性提供了一个重要的层次，使得将程序的构造分配到各个单独的部分更加容易，在修改部件的内部实现就可以避免改动使用它们的外部代码</li>
+</ul>
+<p>但是很显然，第三点在实践中却很难做到。因为或许我们有一个原先做好的模块几乎具有当前某个新应用所需的全部性质，但是并不完全适用。假如我们有一个队列抽象，但是需要的却是能够在两端插入删除，那么就不完全符合了</p>
+<p>面向对象的程序设计可以看作是这个方向上的一种努力，它使我们能够更容易的扩展或精化现有抽象的方式定义新抽象，也就是继承。</p>
+<h3 id="封装和继承"><a href="#封装和继承" class="headerlink" title="封装和继承"></a>封装和继承</h3><p>封装机使程序员可以将数据和操作它们的子程序组织在一起，对抽象的用户隐藏起各种无关紧要的实现细节。</p>
+<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><p>随着继承的引入，面向对象语言不但要支持基于模块的语言的作用域规则，还需要处理另外一些问题，比如基类中的私有成员对于派生类的方法应该是可见的吗？基类中的公用成员在派生类中也总是公用的吗？</p>
+<p>在C++中可见性规则背后的基本原则可以总结如下</p>
+<ul>
+<li><p>任何一个类都可以限制其成员的可见性。只要该类声明在作用域中，其公用成员就都是可见的。私用成员只在本类的方法中可见。保护成员在本类及其派生类中可见</p>
+</li>
+<li><p>派生类可以显式其基类成员的可见性，但是不能提升它们的可见性。基类私用成员在派生类中根本不可见。公用基类的保护成员和公用成员，在派生类中仍然分别是保护的和公用的成员。</p>
+</li>
+<li><p>如果一个派生类通过将基类声明的protected或private而限制了基类成员的可见性，那么在这个派生类中还可以一个一个恢复基类成员的可见性。</p>
+</li>
+</ul>
+<h3 id="嵌套类"><a href="#嵌套类" class="headerlink" title="嵌套类"></a>嵌套类</h3><p>许多语言都允许类声明的嵌套。这带来了一个直接的问题：如果Inner是Outer的成员，那么Inner的方法能够看到Outer的成员吗？</p>
+<p>在C++和C#中，只允许访问外层类的静态成员。而Java中则更复杂，它允许嵌套类访问外层类的任意成员。因此内层类的每个实例都必须属于外层类的一个实例。</p>
+<h2 id="初始化和终结处理"><a href="#初始化和终结处理" class="headerlink" title="初始化和终结处理"></a>初始化和终结处理</h2><p>我们将对象的生存期定义为它占据空间并因此能保存数据的那段时间。大多数面向对象的语言都提供了某种特殊机制，用以在对象的生存期开始时自动做初始化。也有几种语言提供了类似的析构函数机制，用于在对象生存期结束时自动来终结它。</p>
+<h3 id="构造函数的选择"><a href="#构造函数的选择" class="headerlink" title="构造函数的选择"></a>构造函数的选择</h3><p>C++、Java和C#都允许程序为一个类指定多个构造函数。多个构造函数的行为方式就像是重载的子程序，必须能根据其参数的个数和类型区分它们。</p>
+<h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><p>C++强调每个对象都要在使用前初始化，进一步说，如果该对象的类派生自另一个类，C++强调必须在调用派生类的构造函数之前调用基类的构造函数。以保证派生类不会看到它所继承的域处于不一致的状态。</p>
+<p>在Java中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">super</span>(args);</span><br></pre></td></tr></table></figure>
+
+<p>super关键字用于引用当前类的基类。如果没有这种对super的调用，Java编译器就会自动插入一个对基类的无参构造函数的调用。</p>
+<h3 id="废料收集"><a href="#废料收集" class="headerlink" title="废料收集"></a>废料收集</h3><p>当一个C++对象被销毁时，首先会调用它所在派生类的析构函数，然后按照与派生类相反的顺序调用各基类的析构函数。在C++中，析构函数最常见的用途就是手工释放存储空间。</p>
+<p>但是现在的许多语言都提供了自动废料收集</p>
+<h2 id="动态方法约束"><a href="#动态方法约束" class="headerlink" title="动态方法约束"></a>动态方法约束</h2><p>假设我们现在有三个类：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Persopn</span> &#123;</span>&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> :</span> <span class="keyword">public</span> Persion &#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Professor</span> :</span> <span class="keyword">public</span> Persion &#123;&#125;</span><br><span class="line"></span><br><span class="line">Student s;</span><br><span class="line">Professor p;</span><br><span class="line"></span><br><span class="line">Persopn *x = &amp;s;</span><br><span class="line">Persopn *y = &amp;p</span><br></pre></td></tr></table></figure>
+
+<p>现在假设三个类都有一个print_mailing_label方法，那么对x,y调用这个方法将会调用的是基类的Persion的方法，还是根据现在变量引用的s、p的类型来做选择呢？</p>
+<p>第一种选择是静态方法约束，而第二种方法是动态方法约束。动态方法约束是面向对象程序设计的核心概念</p>
+<h3 id="虚方法和非虚方法"><a href="#虚方法和非虚方法" class="headerlink" title="虚方法和非虚方法"></a>虚方法和非虚方法</h3><p>C++和C#默认使用静态方法约束，但是程序员可以将特定的方法标记为virtual，要求对它使用动态约束。对虚方法的调用将在运行时根据对象的类而不是引用的类型指派适当的方法实现</p>
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>在大多数面向对象语言中，基类中都可以不给出virtual方法的体。在Java和C#中，做这件事的方法是将类或没有体的方法都标记为abstract</p>
+<p>无论用什么语法形式，如果一个类中包含了至少一个抽象方法，这个类就称为是抽象的。我们不能够声明抽象类的对象</p>
+<h3 id="成员查找"><a href="#成员查找" class="headerlink" title="成员查找"></a>成员查找</h3><p>对于静态方法约束，编译器总可以基于所引用的变量的类型确定应该调用相应的方法的哪个版本。然而，对于动态约束，被引用或指针变量所引用的对象中就必须包含足够的信息，使编译器生成的代码能够在运行时找到正确的方法版本。</p>
+<p>最常见的实现方式是用记录的形式表示每个对象，这种记录中第一个域是一个指针，指向该对象的类的虚方法表。虚表也就是一个数组，其中的第i个项指明该对象的第i个虚方法的代码地址。同一个类的所有对象共享同一个虚表。</p>
+<h3 id="多态性"><a href="#多态性" class="headerlink" title="多态性"></a>多态性</h3><p>动态方法约束将多态性引入到期望某个基类foo的对象引用的所有代码中。只要派生类的对象支持这个基类的操作，这些代码对于基类的任何派生类的对象都可以很好的工作。</p>
+<p>有人可能会认为，有了继承和动态方法约束后就不再需要泛型了，但实际情况并非如此，为了访问这些派生类的特殊内容，就必须进行强制转换，并且得到的代码仍然是不安全的，但是泛型能够解决这些问题</p>
+<h3 id="多重继承"><a href="#多重继承" class="headerlink" title="多重继承"></a>多重继承</h3><p>有些时候，让一个派生类继承多个基类的特征也是非常有用的。例如我们需要一个学生类，又希望能够方便进行增加删除，那么就可能希望从Person类和链表类派生出一个类来。</p>
+<p>C++和Python都有多重继承。Java、C#则只提供了一种受限的多重继承方式。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在这一篇的一开始我们指出了面向对象程序设计的三大基本概念：封装、继承和多态。在之后我们讨论了对象的初始化和终结操作、动态方法约束和多重继承。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/compiler/PL真有意思（六）.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2200,221 +2441,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/os/lab6：scheduling.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="dejavudwh">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="dejavudwh's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/os/lab6：scheduling.html" itemprop="url">Lab6：进程的调度</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-17T12:22:25+08:00">
-                2019-11-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/ucore/" itemprop="url" rel="index">
-                    <span itemprop="name">ucore</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/os/lab6：scheduling.html" class="leancloud_visitors" data-flag-title="Lab6：进程的调度">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1.6k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  6
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="CPU调度"><a href="#CPU调度" class="headerlink" title="CPU调度"></a>CPU调度</h2><blockquote>
-<p>从就绪队列中挑选下一个占用CPU运行的进程,从多个可用CPU中挑选就绪进程可使用的CPU资源</p>
-</blockquote>
-<h3 id="调度策略"><a href="#调度策略" class="headerlink" title="调度策略"></a>调度策略</h3><h4 id="比较调度算法的准则"><a href="#比较调度算法的准则" class="headerlink" title="比较调度算法的准则"></a>比较调度算法的准则</h4><ul>
-<li>CPU使用率</li>
-<li>吞吐量</li>
-<li>周转时间</li>
-<li>就绪等待时间</li>
-<li>响应时间</li>
-</ul>
-<p><strong>吞吐量与延迟</strong></p>
-<ol>
-<li><p>低延迟：喝水的时候想要一打开水龙头水就流出来</p>
-</li>
-<li><p>高带宽：给游泳池充水时希望从水龙头里同时流出大量的水，并且不介意是否存在延迟</p>
-</li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/os/lab6：scheduling.html#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2467,7 +2493,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-count">76</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2489,7 +2515,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -2549,7 +2575,7 @@
     <h3 class="widget-title">Tag Cloud</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST/">AST</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LALR-1/">LALR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LL-1/">LL(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR-1/">LR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lisp/">Lisp</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SICP/">SICP</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scheme/">Scheme</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Secrets-of-the-JavaScript-Ninja/">Secrets of the JavaScript Ninja</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ucore/">ucore</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上下文无关文法/">上下文无关文法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个操作系统/">从零写一个操作系统</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个编译器/">从零写一个编译器</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码生成/">代码生成</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大二期间/">大二期间</a><span class="tag-list-count">48</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/子程序和控制抽象/">子程序和控制抽象</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字节码/">字节码</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抽象语法树/">抽象语法树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/控制流/">控制流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据类型/">数据类型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限状态自动机/">有限状态自动机</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限自动机/">有限自动机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式引擎/">正则表达式引擎</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计语言PL/">程序设计语言PL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/符号表/">符号表</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a><span class="tag-list-count">24</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自底向上/">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解释器/">解释器</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词法分析/">词法分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语义分析/">语义分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析/">语法分析</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析表/">语法分析表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/输入系统/">输入系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归下降/">递归下降</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST/">AST</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LALR-1/">LALR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LL-1/">LL(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR-1/">LR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lisp/">Lisp</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SICP/">SICP</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scheme/">Scheme</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Secrets-of-the-JavaScript-Ninja/">Secrets of the JavaScript Ninja</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ucore/">ucore</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上下文无关文法/">上下文无关文法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个操作系统/">从零写一个操作系统</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个编译器/">从零写一个编译器</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码生成/">代码生成</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大二期间/">大二期间</a><span class="tag-list-count">48</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/子程序和控制抽象/">子程序和控制抽象</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字节码/">字节码</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抽象语法树/">抽象语法树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/控制流/">控制流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据抽象和面向对象/">数据抽象和面向对象</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据类型/">数据类型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限状态自动机/">有限状态自动机</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限自动机/">有限自动机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式引擎/">正则表达式引擎</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计语言PL/">程序设计语言PL</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/符号表/">符号表</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a><span class="tag-list-count">25</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自底向上/">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解释器/">解释器</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词法分析/">词法分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语义分析/">语义分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析/">语法分析</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析表/">语法分析表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/输入系统/">输入系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归下降/">递归下降</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
@@ -2593,7 +2619,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">137.3k</span>
+    <span title="Site words total count">139.5k</span>
   
 </div>
 
