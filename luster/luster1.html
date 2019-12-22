@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="dV7XCUPOyL1PUcHvSDhTDv-2rdeeFWm2Eb6K6WhZysY">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="omULaEGgAa">
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,从零实现一个React,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="dejavudwh's Blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="前言这是之前在掘金发的两条沸点，懒得写了，直接复制过来作为前言了。然后这个项目可能之后还会继续写，增加一些路由或者模板引擎的指令什么的，但是再过没多久寒假就有大块时间了就可能不摸这个鱼去开其它坑了，随缘吧。所以先写JSX的解析器吧，这个部分也比较独立 掘金沸点里有一些代码截图，就不发在markdown里 算是利用期末考这段碎片时间摸一个水项目吧 项目地址：  jsx-parser  luster">
+<meta name="keywords" content="JavaScript,从零实现一个React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零实现一个React:Luster(一):JSX解析器">
+<meta property="og:url" content="https://dejavudwh.cn/luster/luster1.html">
+<meta property="og:site_name" content="dejavudwh&#39;s Blog">
+<meta property="og:description" content="前言这是之前在掘金发的两条沸点，懒得写了，直接复制过来作为前言了。然后这个项目可能之后还会继续写，增加一些路由或者模板引擎的指令什么的，但是再过没多久寒假就有大块时间了就可能不摸这个鱼去开其它坑了，随缘吧。所以先写JSX的解析器吧，这个部分也比较独立 掘金沸点里有一些代码截图，就不发在markdown里 算是利用期末考这段碎片时间摸一个水项目吧 项目地址：  jsx-parser  luster">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-22T10:57:20.139Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从零实现一个React:Luster(一):JSX解析器">
+<meta name="twitter:description" content="前言这是之前在掘金发的两条沸点，懒得写了，直接复制过来作为前言了。然后这个项目可能之后还会继续写，增加一些路由或者模板引擎的指令什么的，但是再过没多久寒假就有大块时间了就可能不摸这个鱼去开其它坑了，随缘吧。所以先写JSX的解析器吧，这个部分也比较独立 掘金沸点里有一些代码截图，就不发在markdown里 算是利用期末考这段碎片时间摸一个水项目吧 项目地址：  jsx-parser  luster">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dejavudwh.cn/luster/luster1.html">
+
+
+
+
+
+  <title>从零实现一个React:Luster(一):JSX解析器 | dejavudwh's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">dejavudwh's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">开发日记和无聊琐碎</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            top
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dejavudwh.cn/luster/luster1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dejavudwh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dejavudwh's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">从零实现一个React:Luster(一):JSX解析器</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-22T16:32:25+08:00">
+                2019-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/开发日记/" itemprop="url" rel="index">
+                    <span itemprop="name">开发日记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/开发日记/从零实现一个React/" itemprop="url" rel="index">
+                    <span itemprop="name">从零实现一个React</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/luster/luster1.html" class="leancloud_visitors" data-flag-title="从零实现一个React:Luster(一):JSX解析器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是之前在掘金发的两条沸点，懒得写了，直接复制过来作为前言了。然后这个项目可能之后还会继续写，增加一些路由或者模板引擎的指令什么的，但是再过没多久寒假就有大块时间了就可能不摸这个鱼去开其它坑了，随缘吧。所以先写JSX的解析器吧，这个部分也比较独立</p>
+<p><a href="https://juejin.im/user/5b72ded8e51d45664c23a662" target="_blank" rel="noopener">掘金沸点</a>里有一些代码截图，就不发在markdown里</p>
+<p>算是利用期末考这段碎片时间摸一个水项目吧</p>
+<p>项目地址：</p>
+<ol>
+<li><p><a href="https://github.com/dejavudwh/jsx-parser" target="_blank" rel="noopener">jsx-parser</a></p>
+</li>
+<li><p><a href="https://github.com/dejavudwh/luster" target="_blank" rel="noopener">luster</a></p>
+</li>
+</ol>
+<h3 id="12-21"><a href="#12-21" class="headerlink" title="12.21"></a>12.21</h3><a id="more"></a>
+
+<p>最近心情比较低落，摸鱼也摸到恐慌，然后昨天就想着随便写点东西吧。然后就先选了用JavaScript写，就顺便想到了React。所以有了这个小破轮子，一个前端算是view层的框架吧，算是一个乞丐弱智版的React吧，只有两百多行。</p>
+<p>然后又想着竟然都造轮子了，那干脆JSX语法的转译也不用babel了，所以今天就摸了一个jsx的解析器，也只有两百多行</p>
+<p>算是一个学习的过程吧，虽然以后也不打算干前端，也都看看</p>
+<p>反正也快期末考了，没大块时间了，就继续摸这个项目吧，可能会再加上state和dom diff之类的吧，再做点创新？</p>
+<p>代码很水）不是前端）玩具而已）大佬轻喷）</p>
+<h3 id="12-22"><a href="#12-22" class="headerlink" title="12.22"></a>12.22</h3><p>继上一条，这个乞丐版React昨天又增加了setState和dom-diff算法。成功的实现了功能，然后把代码写成了一坨💩，估计还有我还没发现的bug。所以下面可能会稍微重构一下代码，然后写一下路由和模板引擎的指令？ </p>
+<p>这两天可能去找找有没有更好玩的可以写，不过这两天最大的收获就是清楚的了解了工整的代码变成💩堆的过程</p>
+<h2 id="Jsx到JavaScript对象"><a href="#Jsx到JavaScript对象" class="headerlink" title="Jsx到JavaScript对象"></a>Jsx到JavaScript对象</h2><blockquote>
+<p>其实这个JavaScript对象就是虚拟dom，最后我们再根据这个虚拟dom进行渲染，后面的dom-diff也是根据这个数据结构来计算的。我们解析器的目标就是把下面这一段JSX转换成相应的JavaScript对象。</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">name</span>=<span class="string">"&#123;&#123;jsx-parse&#125;&#125;"</span> <span class="attr">class</span>=<span class="string">"&#123;&#123;fuck&#125;&#125;"</span> <span class="attr">id</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line">    Life is too difficult</span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">name</span>=<span class="string">"life"</span> <span class="attr">like</span>=<span class="string">"rape"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>Life is like rape<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">span</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">name</span>=<span class="string">"live"</span> <span class="attr">do</span>=<span class="string">"&#123;&#123;gofuck&#125;&#125;"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>Looking away, everything is sad<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">span</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">Counter</span> <span class="attr">me</span>=<span class="string">"excellent"</span>&gt;</span></span><br><span class="line">            I am awesome</span><br><span class="line">        <span class="tag">&lt;/<span class="name">Counter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"type"</span>: <span class="string">"div"</span>,</span><br><span class="line">  <span class="attr">"props"</span>: &#123;</span><br><span class="line">    <span class="attr">"childrens"</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"span"</span>,</span><br><span class="line">        <span class="attr">"props"</span>: &#123;</span><br><span class="line">          <span class="attr">"childrens"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="attr">"type"</span>: <span class="string">"p"</span>,</span><br><span class="line">              <span class="attr">"props"</span>: &#123;</span><br><span class="line">                <span class="attr">"childrens"</span>: [],</span><br><span class="line">                <span class="attr">"text"</span>: <span class="string">"Life is like rape"</span></span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          ],</span><br><span class="line">          <span class="attr">"name"</span>: <span class="string">"life"</span>,</span><br><span class="line">          <span class="attr">"like"</span>: <span class="string">"rape"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"div"</span>,</span><br><span class="line">        <span class="attr">"props"</span>: &#123;</span><br><span class="line">          <span class="attr">"childrens"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="attr">"type"</span>: <span class="string">"span"</span>,</span><br><span class="line">              <span class="attr">"props"</span>: &#123;</span><br><span class="line">                <span class="attr">"childrens"</span>: [</span><br><span class="line">                  &#123;</span><br><span class="line">                    <span class="attr">"type"</span>: <span class="string">"p"</span>,</span><br><span class="line">                    <span class="attr">"props"</span>: &#123;</span><br><span class="line">                      <span class="attr">"childrens"</span>: [],</span><br><span class="line">                      <span class="attr">"text"</span>: <span class="string">"Looking away, everything is sad"</span></span><br><span class="line">                    &#125;</span><br><span class="line">                  &#125;</span><br><span class="line">                ],</span><br><span class="line">                <span class="attr">"name"</span>: <span class="string">"live"</span>,</span><br><span class="line">                <span class="attr">"do"</span>: <span class="string">"&#123;&#123;gofuck&#125;&#125;"</span></span><br><span class="line">              &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="attr">"type"</span>: <span class="string">"Counter"</span>,</span><br><span class="line">              <span class="attr">"props"</span>: &#123;</span><br><span class="line">                <span class="attr">"childrens"</span>: [],</span><br><span class="line">                <span class="attr">"me"</span>: <span class="string">"excellent"</span>,</span><br><span class="line">                <span class="attr">"text"</span>: <span class="string">"I am awesome"</span></span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"&#123;&#123;jsx-parse&#125;&#125;"</span>,</span><br><span class="line">    <span class="attr">"class"</span>: <span class="string">"&#123;&#123;fuck&#125;&#125;"</span>,</span><br><span class="line">    <span class="attr">"id"</span>: <span class="string">"1"</span>,</span><br><span class="line">    <span class="attr">"text"</span>: <span class="string">"Life is too difficult"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h2><blockquote>
+<p>其实这个解析器一共也就是240多行，就只要简单词法分析，然后直接递归下降生成了</p>
+</blockquote>
+<p>如果简单的区分，Jsx里，我们也可以说成html吧。就是就只有两种token，开始标签、结束标签和文本，然后开始标签里面有各种属性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> token = &#123;</span><br><span class="line">    startTag: <span class="string">'startTag'</span>,</span><br><span class="line">    endTag: <span class="string">'endTag'</span>,</span><br><span class="line">    text: <span class="string">'text'</span>,</span><br><span class="line">    eof: <span class="string">'eof'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>词法分析的主体逻辑就在lex()方法里，其实这个对于之前写的C语言的编译器，一对比就非常简单，没有什么情况好考虑的</p>
+<p>只有这几种情况：</p>
+<ul>
+<li>如果是&lt;开头的话，那只有两种情况，要么是开始标签，要么是结束标签，所以直接再进一步判断有没有斜杠就可以知道是开始标签还是结束标签</li>
+<li>像回车制表符这些直接跳过就可以了</li>
+<li>如果是空格的话还需要判断是不是在当前的文本里</li>
+</ul>
+<p>然后就交由各个函数处理了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">lex() &#123;</span><br><span class="line">    <span class="keyword">let</span> text = <span class="string">''</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> t = <span class="keyword">this</span>.advance()</span><br><span class="line">        <span class="keyword">let</span> token = <span class="string">''</span></span><br><span class="line">        <span class="keyword">switch</span> (t) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'&lt;'</span>:</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.lookAhead() === <span class="string">'/'</span>) &#123;</span><br><span class="line">                    token = <span class="keyword">this</span>.handleEndTag()</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    token = <span class="keyword">this</span>.handleStartTag()</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">'\n'</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">' '</span>:</span><br><span class="line">                <span class="keyword">if</span> (text != <span class="string">''</span>) &#123;</span><br><span class="line">                    text += t</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                &#125;</span><br><span class="line">            <span class="keyword">case</span> <span class="literal">undefined</span>:</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.pos &gt;= <span class="keyword">this</span>.string.length) &#123;</span><br><span class="line">                    token = [<span class="keyword">this</span>.token[<span class="string">'eof'</span>], <span class="string">'eof'</span>, []]</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                text += t</span><br><span class="line">                token = <span class="keyword">this</span>.handleTextTag(text)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.string = <span class="keyword">this</span>.string.slice(<span class="keyword">this</span>.pos)</span><br><span class="line">        <span class="keyword">this</span>.pos = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> (token != <span class="string">''</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> token</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理开始标签"><a href="#处理开始标签" class="headerlink" title="处理开始标签"></a>处理开始标签</h3><p>处理开始标签也非常简单，比较复杂的是需要处理开始标签里的属性</p>
+<ul>
+<li>首先是先处理标签名</li>
+<li>然后是处理开始标签里的属性</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">handleStartTag() &#123;</span><br><span class="line">    <span class="keyword">let</span> idx = <span class="keyword">this</span>.string.indexOf(<span class="string">'&gt;'</span>)</span><br><span class="line">    <span class="keyword">if</span> (idx == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'parse err! miss match '</span>&gt;<span class="string">''</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> str = <span class="keyword">this</span>.string.slice(<span class="keyword">this</span>.pos, idx)</span><br><span class="line">    <span class="keyword">let</span> s = <span class="string">''</span></span><br><span class="line">    <span class="keyword">if</span> (str.includes(<span class="string">' '</span>)) &#123;</span><br><span class="line">        s = <span class="keyword">this</span>.string.split(<span class="string">' '</span>).filter(<span class="function">(<span class="params">str</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> str != <span class="string">''</span></span><br><span class="line">        &#125;)[<span class="number">0</span>]</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        s = <span class="keyword">this</span>.string.split(<span class="string">'&gt;'</span>)[<span class="number">0</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> type = s.slice(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">this</span>.pos += type.length</span><br><span class="line">    <span class="keyword">let</span> props = <span class="keyword">this</span>.handlePropTag()</span><br><span class="line">    <span class="keyword">this</span>.advance()</span><br><span class="line">    <span class="keyword">return</span> [token.startTag, type, props]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理开始标签的属性"><a href="#处理开始标签的属性" class="headerlink" title="处理开始标签的属性"></a>处理开始标签的属性</h3><p>处理属性也很简单，每一个属性的键值对都是用空格分隔的，所以直接用split获取每个键值对，最后返回一个键值对数组</p>
+<p>这里上面注意token返回的格式，开始标签token的返回是一个数组，第一个元素是token类型，第二个元素是这个标签的类型，第三个元素就是这个开始标签的属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">handlePropTag() &#123;</span><br><span class="line">    <span class="keyword">let</span> idx = <span class="keyword">this</span>.string.indexOf(<span class="string">'&gt;'</span>)</span><br><span class="line">    <span class="keyword">if</span> (idx == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'parse err! miss match '</span>&gt;<span class="string">''</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> string = <span class="keyword">this</span>.string.slice(<span class="keyword">this</span>.pos, idx)</span><br><span class="line">    <span class="keyword">let</span> pm = []</span><br><span class="line">    <span class="keyword">if</span> (string != <span class="string">' '</span>)  &#123;</span><br><span class="line">        <span class="keyword">let</span> props = string.split(<span class="string">' '</span>)</span><br><span class="line">        pm = props.filter(<span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> props != <span class="string">''</span></span><br><span class="line">        &#125;).map(<span class="function">(<span class="params">prop</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> kv = prop.split(<span class="string">'='</span>)</span><br><span class="line">            <span class="keyword">let</span> o = &#123;&#125;</span><br><span class="line">            o[kv[<span class="number">0</span>]] = <span class="keyword">this</span>.trimQuotes(kv[<span class="number">1</span>])</span><br><span class="line">            <span class="keyword">return</span> o</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="keyword">this</span>.pos += string.length</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> pm</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理结束标签"><a href="#处理结束标签" class="headerlink" title="处理结束标签"></a>处理结束标签</h3><p>结束标签非常简单，直接进行字符串的切割就完事了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">handleEndTag() &#123;</span><br><span class="line">    <span class="keyword">this</span>.advance()</span><br><span class="line">    <span class="keyword">let</span> idx = <span class="keyword">this</span>.string.indexOf(<span class="string">'&gt;'</span>)</span><br><span class="line">    <span class="keyword">let</span> type = <span class="keyword">this</span>.string.slice(<span class="keyword">this</span>.pos, idx)</span><br><span class="line">    <span class="keyword">this</span>.pos += type.length</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.advance() != <span class="string">'&gt;'</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'parse err! miss match '</span>&gt;<span class="string">''</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> [token.endTag, type, []]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理文本节点"><a href="#处理文本节点" class="headerlink" title="处理文本节点"></a>处理文本节点</h3><p>文本节点需要稍微处理一下，需要判断后面的是不是&lt;来判断文本是不是结束了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">handleTextTag(text) &#123;</span><br><span class="line">    <span class="keyword">let</span> t = text.trim()</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.lookAhead() == <span class="string">'&lt;'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="keyword">this</span>.token[<span class="string">'text'</span>], t, []]</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="语法分析生成JavaScript对象"><a href="#语法分析生成JavaScript对象" class="headerlink" title="语法分析生成JavaScript对象"></a>语法分析生成JavaScript对象</h2><blockquote>
+<p>这个过程其实就是一个递归下降的过程，如果碰到语法不正确的时间抛出异常就结束了</p>
+</blockquote>
+<p>先定义一下这个JavaScript对象的结构，其实就和上面的json对象是一致的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Jsx</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(type, props) &#123;</span><br><span class="line">        <span class="keyword">this</span>.type = type</span><br><span class="line">        <span class="keyword">this</span>.props = props</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="入口函数"><a href="#入口函数" class="headerlink" title="入口函数"></a>入口函数</h3><ul>
+<li>首先就是先拿到词法分析传过来的token的三个属性</li>
+<li>然后就是根据不同的token类型调用不同的处理函数</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">parse() &#123;</span><br><span class="line">    <span class="keyword">this</span>.currentToken = <span class="keyword">this</span>.lexer.lex()</span><br><span class="line">    <span class="keyword">let</span> type = <span class="keyword">this</span>.currentToken[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">let</span> tag = <span class="keyword">this</span>.currentToken[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">let</span> props = <span class="keyword">this</span>.mergeObj(<span class="keyword">this</span>.currentToken[<span class="number">2</span>])</span><br><span class="line">    <span class="keyword">let</span> func = <span class="keyword">this</span>.parseMap[type]</span><br><span class="line">    <span class="keyword">if</span> (func != <span class="literal">undefined</span>) &#123;</span><br><span class="line">        func(tag, props)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.parseMap[<span class="string">'error'</span>]()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.tags.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'parse error! Mismatched start and end tags'</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.jsx</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理开始标签-1"><a href="#处理开始标签-1" class="headerlink" title="处理开始标签"></a>处理开始标签</h3><ul>
+<li>首先开始先要判断这个tags的长度，因为我们可以注意到我们转换的JavaScript对象其实是一个嵌套结构，但是内部的结构并不是很一致，所以就需要一些特殊处理。（这里这样写不太好）</li>
+<li>最后把这个标签名放到一个栈里，这里需要注意，因为jsx的标签是可以无限嵌套的，所以需要维护一个栈来判断开始结束标签是否匹配。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">parseStart(tag, props) &#123;</span><br><span class="line">    <span class="keyword">let</span> len = <span class="keyword">this</span>.tags.length</span><br><span class="line">    <span class="keyword">let</span> jsx = <span class="keyword">this</span>.jsx</span><br><span class="line">    <span class="keyword">if</span> (len &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (len &gt;= <span class="number">2</span> &amp;&amp; i &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">                jsx = jsx[jsx.length - <span class="number">1</span>][<span class="string">'props'</span>][<span class="string">'childrens'</span>]</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                jsx = jsx.props[<span class="string">'childrens'</span>]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.currentJsx = <span class="keyword">new</span> Jsx(tag, &#123;</span><br><span class="line">            <span class="string">'childrens'</span>: []</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="built_in">Object</span>.assign(<span class="keyword">this</span>.currentJsx[<span class="string">'props'</span>], props)</span><br><span class="line">        jsx.push(<span class="keyword">this</span>.currentJsx)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.currentJsx = jsx = <span class="keyword">new</span> Jsx(tag, &#123;</span><br><span class="line">            <span class="string">'childrens'</span>: []</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="built_in">Object</span>.assign(jsx[<span class="string">'props'</span>], props)</span><br><span class="line">        <span class="keyword">this</span>.jsx = jsx</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.tags.push(tag)</span><br><span class="line">    <span class="keyword">this</span>.parse()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理结束标签-1"><a href="#处理结束标签-1" class="headerlink" title="处理结束标签"></a>处理结束标签</h3><p>结束标签的处理就非常简单了，只要弹出对应的前一个开始标签，用来后面判断开始结束标签是否匹配</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">parseEnd(tag) &#123;</span><br><span class="line">    <span class="keyword">if</span> (tag == <span class="keyword">this</span>.tags[<span class="keyword">this</span>.tags.length - <span class="number">1</span>]) &#123;</span><br><span class="line">        <span class="keyword">this</span>.tags.pop()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.parse()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理文本节点-1"><a href="#处理文本节点-1" class="headerlink" title="处理文本节点"></a>处理文本节点</h3><p>处理文本节点就只要简单的把对应的文本内容放到对象的childrens属性中就可以了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">parseText(tag) &#123;</span><br><span class="line">    <span class="keyword">this</span>.currentJsx[<span class="string">'props'</span>][<span class="string">'text'</span>] = tag</span><br><span class="line">    <span class="keyword">this</span>.parse()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>又水了一篇博客:)</p>
+<p>这个系列的下一篇啥时候写呢？我也不知道，先去摸会鱼。看是不是去稍微重构一下这个项目的代码，因为从一开始简单的只有渲染功能，再到后面加入类组件、setState、dom-diff后代码就变成了XXX了，虽然写的时候知道这样不好，但是还是想偷懒，所以现在就看看能不能改一改了</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    dejavudwh
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://dejavudwh.cn/luster/luster1.html" title="从零实现一个React:Luster(一):JSX解析器">https://dejavudwh.cn/luster/luster1.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/从零实现一个React/" rel="tag"><i class="fa fa-tag"></i> 从零实现一个React</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/compiler/PL真有意思（八）.html" rel="next" title="PL真有意思（八）：其它程序设计模型">
+                <i class="fa fa-chevron-left"></i> PL真有意思（八）：其它程序设计模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="dejavudwh">
+            
+              <p class="site-author-name" itemprop="name">dejavudwh</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dejavudwh" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:494319000@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/secoding" target="_blank" title="cnblogs">
+                      
+                        <i class="fa fa-fw fa-align-center"></i>cnblogs</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b72ded8e51d45664c23a662" target="_blank" title="Juejin">
+                      
+                        <i class="fa fa-fw fa-book"></i>Juejin</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AST/">AST</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LALR-1/">LALR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LL-1/">LL(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR-1/">LR(1)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lisp/">Lisp</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SICP/">SICP</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scheme/">Scheme</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Secrets-of-the-JavaScript-Ninja/">Secrets of the JavaScript Ninja</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ucore/">ucore</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上下文无关文法/">上下文无关文法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个操作系统/">从零写一个操作系统</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零写一个编译器/">从零写一个编译器</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/从零实现一个React/">从零实现一个React</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码生成/">代码生成</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/函数式/">函数式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大二期间/">大二期间</a><span class="tag-list-count">48</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/子程序和控制抽象/">子程序和控制抽象</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字节码/">字节码</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抽象语法树/">抽象语法树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/控制流/">控制流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据抽象和面向对象/">数据抽象和面向对象</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据类型/">数据类型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限状态自动机/">有限状态自动机</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有限自动机/">有限自动机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式引擎/">正则表达式引擎</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序设计语言PL/">程序设计语言PL</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/符号表/">符号表</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a><span class="tag-list-count">26</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自底向上/">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解释器/">解释器</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机科学/">计算机科学</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词法分析/">词法分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语义分析/">语义分析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析/">语法分析</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法分析表/">语法分析表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/输入系统/">输入系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归下降/">递归下降</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逻辑式/">逻辑式</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#12-21"><span class="nav-number">1.1.</span> <span class="nav-text">12.21</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-22"><span class="nav-number">1.2.</span> <span class="nav-text">12.22</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jsx到JavaScript对象"><span class="nav-number">2.</span> <span class="nav-text">Jsx到JavaScript对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词法分析"><span class="nav-number">3.</span> <span class="nav-text">词法分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#处理开始标签"><span class="nav-number">3.1.</span> <span class="nav-text">处理开始标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理开始标签的属性"><span class="nav-number">3.2.</span> <span class="nav-text">处理开始标签的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理结束标签"><span class="nav-number">3.3.</span> <span class="nav-text">处理结束标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理文本节点"><span class="nav-number">3.4.</span> <span class="nav-text">处理文本节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法分析生成JavaScript对象"><span class="nav-number">4.</span> <span class="nav-text">语法分析生成JavaScript对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#入口函数"><span class="nav-number">4.1.</span> <span class="nav-text">入口函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理开始标签-1"><span class="nav-number">4.2.</span> <span class="nav-text">处理开始标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理结束标签-1"><span class="nav-number">4.3.</span> <span class="nav-text">处理结束标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理文本节点-1"><span class="nav-number">4.4.</span> <span class="nav-text">处理文本节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dejavudwh</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">143.3k</span>
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">本站访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">本站访问数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="https://cdn.bootcss.com/velocity/1.2.1/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="https://cdn.bootcss.com/velocity/1.2.1/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("a6l4GEYGNJelI48YNons47yE-gzGzoHsz", "IrvJk6mHmoPN99oAXBvlATap");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
