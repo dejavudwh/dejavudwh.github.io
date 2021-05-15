@@ -4,38 +4,17 @@
   
     
     <entry>
-      <title>Hello World</title>
-      <link href="2021/05/15/hello-world/"/>
-      <url>2021/05/15/hello-world/</url>
+      <title>旧博客归档</title>
+      <link href="2021/05/15/preface/"/>
+      <url>2021/05/15/preface/</url>
       
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+        <content type="html"><![CDATA[<h2 id="从零写一个正则表达式引擎"><a href="#从零写一个正则表达式引擎" class="headerlink" title="从零写一个正则表达式引擎"></a>从零写一个正则表达式引擎</h2><blockquote><p>项目地址：<a href="https://github.com/dejavudwh/Regex">https://github.com/dejavudwh/Regex</a></p></blockquote><p><img src="https://img2020.cnblogs.com/blog/1465701/202102/1465701-20210206180539893-235201020.png"></p><ul><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11576864.html">实现一个正则表达式引擎in Python(一)</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11579650.html">实现一个正则表达式引擎in Python(一)</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11582310.html">实现一个正则表达式引擎in Python(一)</a></strong></p></li></ul><h2 id="从零写一个编译器"><a href="#从零写一个编译器" class="headerlink" title="从零写一个编译器"></a>从零写一个编译器</h2><ul><li>项目地址：<a href="https://github.com/dejavudwh/C2j-Compiler">https://github.com/dejavudwh/C2j-Compiler</a></li></ul><p><img src="https://img2020.cnblogs.com/blog/1465701/202102/1465701-20210206180424317-1323121486.png"></p><ul><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11367511.html">从零写一个编译器（一）：输入系统和词法分析</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11367521.html">从零写一个编译器（二）：语法分析之前置知识</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11367530.html">从零写一个编译器（三）：语法分析之几个基础数据结构</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11367533.html">从零写一个编译器（四）：语法分析之构造有限状态自动机</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11369177.html">从零写一个编译器（五）：语法分析之自动机的缺陷和改进</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11371502.html">从零写一个编译器（六）：语法分析之表驱动语法分析</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11373929.html">从零写一个编译器（七）：语义分析之符号表的数据结构</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11375710.html">从零写一个编译器（八）：语义分析之构造符号表</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11379216.html">从零写一个编译器（九）：语义分析之构造抽象语法树(AST)</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11382017.html">从零写一个编译器（十）：编译前传之直接解释执行</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11384619.html">从零写一个编译器（十一）：代码生成之Java字节码基础</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11388347.html">从零写一个编译器（十二）：代码生成之生成逻辑</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11391239.html">从零写一个编译器（十三）：代码生成之遍历AST</a></strong></p></li></ul><h2 id="从零写一个操作系统"><a href="#从零写一个操作系统" class="headerlink" title="从零写一个操作系统"></a>从零写一个操作系统</h2><blockquote><p>项目地址：<a href="https://github.com/dejavudwh/FragileOS">https://github.com/dejavudwh/FragileOS</a></p></blockquote><p><img src="https://img2020.cnblogs.com/blog/1465701/202102/1465701-20210206180607574-1421693032.png"></p><ul><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11402948.html">我是如何学习写一个操作系统（一）：开篇</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11405968.html">我是如何学习写一个操作系统（二）：操作系统的启动之Bootloader</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11407486.html">我是如何学习写一个操作系统（三）：操作系统的启动之保护模式</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11414172.html">我是如何学习写一个操作系统（四）：操作系统之系统调用</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11417547.html">我是如何学习写一个操作系统（五）：故事的高潮之进程和线程1</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11422525.html">我是如何学习写一个操作系统（六）：进程的调度</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11428751.html">我是如何学习写一个操作系统（七）：进程的同步与信号量</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11437268.html">我是如何学习写一个操作系统（八）：内存管理和段页机制</a></strong></p></li><li><p><strong><a href="https://www.cnblogs.com/secoding/p/11442659.html">我是如何学习写一个操作系统（九）：文件系统</a></strong></p></li></ul><h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>cnblog: <a href="https://www.cnblogs.com/secoding">dejavudwh</a></p>]]></content>
       
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Tags and Categories</title>
-      <link href="2017/12/24/test-md/"/>
-      <url>2017/12/24/test-md/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h1><h1 id="Test1"><a href="#Test1" class="headerlink" title="Test1"></a>Test1</h1><h1 id="Test2"><a href="#Test2" class="headerlink" title="Test2"></a>Test2</h1>]]></content>
-      
-      
-      <categories>
-          
-          <category> Baz </category>
-          
-      </categories>
       
       
         <tags>
             
-            <tag> Foo </tag>
-            
-            <tag> Bar </tag>
+            <tag> 前言 </tag>
             
         </tags>
       

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="从零写一个正则表达式引擎 项目地址：https:&#x2F;&#x2F;github.com&#x2F;dejavudwh&#x2F;Regex    实现一个正则表达式引擎in Python(一)  实现一个正则表达式引擎in Python(一)  实现一个正则表达式引擎in Python(一)   从零写一个编译器 项目地址：https:&#x2F;&#x2F;github.com&#x2F;dejavudwh&#x2F;C2j-Compiler    从零写一个编译器（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="旧博客归档">
+<meta property="og:url" content="http://dejavudwh.cn/2021/05/15/preface/index.html">
+<meta property="og:site_name" content="dejavudwh">
+<meta property="og:description" content="从零写一个正则表达式引擎 项目地址：https:&#x2F;&#x2F;github.com&#x2F;dejavudwh&#x2F;Regex    实现一个正则表达式引擎in Python(一)  实现一个正则表达式引擎in Python(一)  实现一个正则表达式引擎in Python(一)   从零写一个编译器 项目地址：https:&#x2F;&#x2F;github.com&#x2F;dejavudwh&#x2F;C2j-Compiler    从零写一个编译器（">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1465701/202102/1465701-20210206180539893-235201020.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1465701/202102/1465701-20210206180424317-1323121486.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1465701/202102/1465701-20210206180607574-1421693032.png">
+<meta property="article:published_time" content="2021-05-15T01:51:43.000Z">
+<meta property="article:modified_time" content="2021-05-15T01:56:30.185Z">
+<meta property="article:author" content="dejavudwh">
+<meta property="article:tag" content="前言">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2020.cnblogs.com/blog/1465701/202102/1465701-20210206180539893-235201020.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+      
+    
+    <!-- title -->
+    <title>旧博客归档</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="dejavudwh" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" "Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Back to top " href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post " href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://dejavudwh.cn/2021/05/15/preface/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://dejavudwh.cn/2021/05/15/preface/&text=旧博客归档"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://dejavudwh.cn/2021/05/15/preface/&title=旧博客归档"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://dejavudwh.cn/2021/05/15/preface/&is_video=false&description=旧博客归档"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=旧博客归档&body=Check out this article: http://dejavudwh.cn/2021/05/15/preface/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://dejavudwh.cn/2021/05/15/preface/&title=旧博客归档"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://dejavudwh.cn/2021/05/15/preface/&title=旧博客归档"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://dejavudwh.cn/2021/05/15/preface/&title=旧博客归档"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://dejavudwh.cn/2021/05/15/preface/&title=旧博客归档"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://dejavudwh.cn/2021/05/15/preface/&name=旧博客归档&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://dejavudwh.cn/2021/05/15/preface/&t=旧博客归档"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E9%9B%B6%E5%86%99%E4%B8%80%E4%B8%AA%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%BC%95%E6%93%8E"><span class="toc-number">1.</span> <span class="toc-text">从零写一个正则表达式引擎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E9%9B%B6%E5%86%99%E4%B8%80%E4%B8%AA%E7%BC%96%E8%AF%91%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">从零写一个编译器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E9%9B%B6%E5%86%99%E4%B8%80%E4%B8%AA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.</span> <span class="toc-text">从零写一个操作系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83"><span class="toc-number">4.</span> <span class="toc-text">其它</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        旧博客归档
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">dejavudwh</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-05-15T01:51:43.000Z" itemprop="datePublished">2021-05-15</time>
+        
+        (Updated: <time datetime="2021-05-15T01:56:30.185Z" itemprop="dateModified">2021-05-15</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E5%89%8D%E8%A8%80/" rel="tag">前言</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="从零写一个正则表达式引擎"><a href="#从零写一个正则表达式引擎" class="headerlink" title="从零写一个正则表达式引擎"></a>从零写一个正则表达式引擎</h2><blockquote>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/dejavudwh/Regex">https://github.com/dejavudwh/Regex</a></p>
+</blockquote>
+<p><img src="https://img2020.cnblogs.com/blog/1465701/202102/1465701-20210206180539893-235201020.png"></p>
+<ul>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11576864.html">实现一个正则表达式引擎in Python(一)</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11579650.html">实现一个正则表达式引擎in Python(一)</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11582310.html">实现一个正则表达式引擎in Python(一)</a></strong></p>
+</li>
+</ul>
+<h2 id="从零写一个编译器"><a href="#从零写一个编译器" class="headerlink" title="从零写一个编译器"></a>从零写一个编译器</h2><ul>
+<li>项目地址：<a target="_blank" rel="noopener" href="https://github.com/dejavudwh/C2j-Compiler">https://github.com/dejavudwh/C2j-Compiler</a></li>
+</ul>
+<p><img src="https://img2020.cnblogs.com/blog/1465701/202102/1465701-20210206180424317-1323121486.png"></p>
+<ul>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11367511.html">从零写一个编译器（一）：输入系统和词法分析</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11367521.html">从零写一个编译器（二）：语法分析之前置知识</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11367530.html">从零写一个编译器（三）：语法分析之几个基础数据结构</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11367533.html">从零写一个编译器（四）：语法分析之构造有限状态自动机</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11369177.html">从零写一个编译器（五）：语法分析之自动机的缺陷和改进</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11371502.html">从零写一个编译器（六）：语法分析之表驱动语法分析</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11373929.html">从零写一个编译器（七）：语义分析之符号表的数据结构</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11375710.html">从零写一个编译器（八）：语义分析之构造符号表</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11379216.html">从零写一个编译器（九）：语义分析之构造抽象语法树(AST)</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11382017.html">从零写一个编译器（十）：编译前传之直接解释执行</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11384619.html">从零写一个编译器（十一）：代码生成之Java字节码基础</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11388347.html">从零写一个编译器（十二）：代码生成之生成逻辑</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11391239.html">从零写一个编译器（十三）：代码生成之遍历AST</a></strong></p>
+</li>
+</ul>
+<h2 id="从零写一个操作系统"><a href="#从零写一个操作系统" class="headerlink" title="从零写一个操作系统"></a>从零写一个操作系统</h2><blockquote>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/dejavudwh/FragileOS">https://github.com/dejavudwh/FragileOS</a></p>
+</blockquote>
+<p><img src="https://img2020.cnblogs.com/blog/1465701/202102/1465701-20210206180607574-1421693032.png"></p>
+<ul>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11402948.html">我是如何学习写一个操作系统（一）：开篇</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11405968.html">我是如何学习写一个操作系统（二）：操作系统的启动之Bootloader</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11407486.html">我是如何学习写一个操作系统（三）：操作系统的启动之保护模式</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11414172.html">我是如何学习写一个操作系统（四）：操作系统之系统调用</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11417547.html">我是如何学习写一个操作系统（五）：故事的高潮之进程和线程1</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11422525.html">我是如何学习写一个操作系统（六）：进程的调度</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11428751.html">我是如何学习写一个操作系统（七）：进程的同步与信号量</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11437268.html">我是如何学习写一个操作系统（八）：内存管理和段页机制</a></strong></p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding/p/11442659.html">我是如何学习写一个操作系统（九）：文件系统</a></strong></p>
+</li>
+</ul>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>cnblog: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/secoding">dejavudwh</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E9%9B%B6%E5%86%99%E4%B8%80%E4%B8%AA%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%BC%95%E6%93%8E"><span class="toc-number">1.</span> <span class="toc-text">从零写一个正则表达式引擎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E9%9B%B6%E5%86%99%E4%B8%80%E4%B8%AA%E7%BC%96%E8%AF%91%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">从零写一个编译器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E9%9B%B6%E5%86%99%E4%B8%80%E4%B8%AA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.</span> <span class="toc-text">从零写一个操作系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83"><span class="toc-number">4.</span> <span class="toc-text">其它</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://dejavudwh.cn/2021/05/15/preface/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://dejavudwh.cn/2021/05/15/preface/&text=旧博客归档"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://dejavudwh.cn/2021/05/15/preface/&title=旧博客归档"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://dejavudwh.cn/2021/05/15/preface/&is_video=false&description=旧博客归档"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=旧博客归档&body=Check out this article: http://dejavudwh.cn/2021/05/15/preface/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://dejavudwh.cn/2021/05/15/preface/&title=旧博客归档"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://dejavudwh.cn/2021/05/15/preface/&title=旧博客归档"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://dejavudwh.cn/2021/05/15/preface/&title=旧博客归档"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://dejavudwh.cn/2021/05/15/preface/&title=旧博客归档"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://dejavudwh.cn/2021/05/15/preface/&name=旧博客归档&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://dejavudwh.cn/2021/05/15/preface/&t=旧博客归档"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2021
+    dejavudwh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
