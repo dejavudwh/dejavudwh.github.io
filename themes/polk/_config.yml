@@ -1,0 +1,24 @@
+# Favicon
+favicon: /favicon.ico
+
+# SEO
+keywords: 生活,博客,C++,Golang,C++,网络编程,数据�?,分布�?,存储
+
+# Site title separator
+separator: '-'
+
+# RSS
+rss: /atom.xml
+
+# SNS config
+sns:
+  Blog: /archives
+  GitHub: https://github.com/dejavudwh
+  # RSS: /atom.xml
+
+# Nav menu
+menu:
+  home: /      
+  archives: /archives
+  categories and tags : /tags 
+  about: /about  

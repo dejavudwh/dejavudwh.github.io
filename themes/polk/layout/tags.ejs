@@ -1,0 +1,49 @@
+<%- partial('_partial/header') %>
+<section class="archive">
+<!-- <center><strong><font size="5" color="#228B66"><%= page.title %></font> </strong></center> -->
+<h1 class="article-title">Categories</h1>
+
+<% if (site.categories.length){ %>
+  <ul class="category-list">
+    <!-- <p style='color:lightyellow'>共计&nbsp;<%= site.categories.length %>&nbsp;个分�?</p> -->
+    <!-- <br> -->
+    <% site.categories.sort('name').each(function(item){ %>
+      <% if(item.posts.length){ %>
+        <li style="display:inline-block;margin-right:25px;border-bottom: 5px double #000000;" class="post-item">
+          <a class="post-title" href="<%- config.root %><%- item.path %>" title="<%= item.name %>"> <%= item.name %> </a>
+            <span class="category-list-count"><sup>[<%= item.posts.length %>]</sup></span>
+        </li>
+      <% } %>
+    <% }) %>
+  </ul>
+<% } %>
+
+<br>
+
+<h1 class="article-title">Tag</h1>
+<div align=center>
+  <% if (site.tags.length) { %>
+    <!-- <p style='color:lightyellow'>共计&nbsp;<%= site.tags.length %>&nbsp;个标�?</p> -->
+
+    <!-- <div class="tag-cloud">
+      <%- tagcloud({
+        min_font: 15, 
+        max_font: 25, 
+        amount: 999,
+        start_color: 'blue', 
+        end_color: 'gray',
+      }) %>
+    </div> -->
+
+    <% site.tags.sort('name').each(function(item){ %>
+      <% if(item.posts.length){ %>
+        <!-- <li class="post-item"> -->
+          <a style="margin-right:15px;border-bottom: 3px dashed #000000;;" href="<%- config.root %><%- item.path %>" title="<%= item.name %>"> <%= item.name %> </a>
+        <!-- </li> -->
+      <% } %>
+    <% }) %>
+
+  <% } %>
+</div>
+</section>
+<%- partial('_partial/footer') %>
