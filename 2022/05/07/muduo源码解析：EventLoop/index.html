@@ -6,7 +6,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   
-  <title>test - dejavudwh&#39;s blog</title>
+  <title>muduo源码解析：EventLoop - dejavudwh&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   
   <meta name="keywords" content=muduo,源码解析>
@@ -41,7 +41,7 @@
         </li>
       
         <li class="menu-item">
-          <a href="/tags" class="menu-item-link">categories and tags</a>
+          <a href="/tags" class="menu-item-link">tags</a>
         </li>
       
         <li class="menu-item">
@@ -53,13 +53,13 @@
 </header>
 <article class="post">
   <div class="post-title">
-    <h1 class="article-title">test</h1>
+    <h1 class="article-title">muduo源码解析：EventLoop</h1>
   </div>
    <div class="post-meta">
-    <span class="post-time">2022-05-06</span>
+    <span class="post-time">2022-05-07</span>
   </div>
   <div class="post-content">
-    <h1 id="muduo源码解析：EventLoop"><a href="#muduo源码解析：EventLoop" class="headerlink" title="muduo源码解析：EventLoop"></a>muduo源码解析：EventLoop</h1><p>本系列文章主要对muduo的核心源码进行解析。</p>
+    <p>本系列文章主要对muduo的核心源码进行解析。</p>
 <p>在正式看muduo源代码之前，必须先理解Reactor模型。</p>
 <h2 id="Reactor模型"><a href="#Reactor模型" class="headerlink" title="Reactor模型"></a>Reactor模型</h2><p>1服务器端程序一般要处理三类事件：IO事件、信号及定时事件，由此延申出来的就有两种关于如何处理这三类事件的事件处理模型：Reactor和Proactor。这里主要讨论Reactor。</p>
 <p>Reactor模型本质上主线程***（main reactor)***只负责监听Socket fd上是否有事件发生，有的立即通知工作线程进行处理，也就是说接受新连接、读写数据，业务逻辑均在工作线程中。</p>
