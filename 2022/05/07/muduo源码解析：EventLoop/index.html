@@ -1,65 +1,192 @@
 <!DOCTYPE html>
-<html>
-  <!DOCTYPE html>
 <html lang="zh">
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-  
-  <title>muduo源码解析：EventLoop - dejavudwh&#39;s blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  
-  <meta name="keywords" content=muduo,源码解析>
-  
-  
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
-  
-  
-    <link rel="alternate" href="/atom.xml " title="dejavudwh&#39;s blog" type="application/atom+xml">
-  
+    <head>
+    <meta charset="utf-8">
 
-  
-<link rel="stylesheet" href="/css/style.css">
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+        <link rel="shortcut icon" href="/favicon">
+    
+    
+    
+    
+    
+
+
+    <!-- meta -->
+
+
+<title>muduo源码解析：EventLoop | dejavudwh&#39;s blog</title>
+
+
+    <meta name="keywords" content="muduo, 源码解析">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="本系列文章主要对muduo的核心源码进行解析。 在正式看muduo源代码之前，必须先理解Reactor模型。 Reactor模型1服务器端程序一般要处理三类事件：IO事件、信号及定时事件，由此延申出来的就有两种关于如何处理这三类事件的事件处理模型：Reactor和Proactor。这里主要讨论Reactor。 Reactor模型本质上主线程***（main reactor)***只负责监听Sock">
+<meta property="og:type" content="article">
+<meta property="og:title" content="muduo源码解析：EventLoop">
+<meta property="og:url" content="http://dejavudwh.cn/2022/05/07/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9AEventLoop/index.html">
+<meta property="og:site_name" content="dejavudwh&#39;s blog">
+<meta property="og:description" content="本系列文章主要对muduo的核心源码进行解析。 在正式看muduo源代码之前，必须先理解Reactor模型。 Reactor模型1服务器端程序一般要处理三类事件：IO事件、信号及定时事件，由此延申出来的就有两种关于如何处理这三类事件的事件处理模型：Reactor和Proactor。这里主要讨论Reactor。 Reactor模型本质上主线程***（main reactor)***只负责监听Sock">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/dejavudwh/dejavudwh.github.io/picbed/muduo/20200522172245614.png">
+<meta property="article:published_time" content="2022-05-07T13:36:01.000Z">
+<meta property="article:modified_time" content="2022-05-07T14:00:43.681Z">
+<meta property="article:author" content="dejavudwh">
+<meta property="article:tag" content="muduo">
+<meta property="article:tag" content="源码解析">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/dejavudwh/dejavudwh.github.io/picbed/muduo/20200522172245614.png">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="/css/highlight/default.css" media="none" >
+        
+            <link rel="stylesheet" id="hl-dark-theme" href="/css/highlight/dark.css" media="none">
+        
+    
+
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/style/dark.css">
+
+    
+<script src="/js/darkmode.js"></script>
+
+
+
+     
+
+    <!-- custom head -->
 
 <meta name="generator" content="Hexo 6.1.0"></head>
-  <body>
-    <div class="container">
-      <header class="header">
-  <div class="blog-title">
-    <a href="/" class="logo">dejavudwh&#39;s blog</a>
-    <div class="subtitle"></div>
-  </div>
-  <nav class="navbar">
-    <ul class="menu">
-      
-        <li class="menu-item">
-          <a href="/" class="menu-item-link">home</a>
-        </li>
-      
-        <li class="menu-item">
-          <a href="/archives" class="menu-item-link">archives</a>
-        </li>
-      
-        <li class="menu-item">
-          <a href="/tags" class="menu-item-link">tags</a>
-        </li>
-      
-        <li class="menu-item">
-          <a href="/about" class="menu-item-link">about</a>
-        </li>
-      
-    </ul>
-  </nav>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">dejavudwh</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/" class="navbar-menu button">Home</a>
+                
+                    <a href="/archives/" class="navbar-menu button">archives</a>
+                
+                    <a href="/categories/" class="navbar-menu button">categories</a>
+                
+                    <a href="/tags/" class="navbar-menu button">tags</a>
+                
+                    <a href="/about/" class="navbar-menu button">about</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+    <a href="javaScript:void(0);" id="btn-toggle-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">archives</a>
+                
+                    <a href="/categories/" class="dropdown-menu button">categories</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">tags</a>
+                
+                    <a href="/about/" class="dropdown-menu button">about</a>
+                
+            </div>
+        
+    </div>
 </header>
-<article class="post">
-  <div class="post-title">
-    <h1 class="article-title">muduo源码解析：EventLoop</h1>
-  </div>
-   <div class="post-meta">
-    <span class="post-time">2022-05-07</span>
-  </div>
-  <div class="post-content">
-    <p>本系列文章主要对muduo的核心源码进行解析。</p>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        muduo源码解析：EventLoop
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2022/05/" class="post-meta__date button">2022-05-07</a>
+        
+    <span class="separate-dot"></span><a href="/categories/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="button">muduo源码解析</a>
+
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Reactor%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">Reactor模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#muduo%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">muduo的事件模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Channel"><span class="toc-number">2.</span> <span class="toc-text">Channel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#handleEvent"><span class="toc-number">2.1.</span> <span class="toc-text">handleEvent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#update%E5%92%8Cremove"><span class="toc-number">2.2.</span> <span class="toc-text">update和remove</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Poller"><span class="toc-number">3.</span> <span class="toc-text">Poller</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Acceptor"><span class="toc-number">4.</span> <span class="toc-text">Acceptor</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#constructor%E5%92%8Clisten"><span class="toc-number">4.1.</span> <span class="toc-text">constructor和listen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#handleRead"><span class="toc-number">4.2.</span> <span class="toc-text">handleRead</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EventLoop"><span class="toc-number">5.</span> <span class="toc-text">EventLoop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">总结：</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">文章目錄</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Reactor%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">Reactor模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#muduo%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">muduo的事件模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Channel"><span class="toc-number">2.</span> <span class="toc-text">Channel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#handleEvent"><span class="toc-number">2.1.</span> <span class="toc-text">handleEvent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#update%E5%92%8Cremove"><span class="toc-number">2.2.</span> <span class="toc-text">update和remove</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Poller"><span class="toc-number">3.</span> <span class="toc-text">Poller</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Acceptor"><span class="toc-number">4.</span> <span class="toc-text">Acceptor</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#constructor%E5%92%8Clisten"><span class="toc-number">4.1.</span> <span class="toc-text">constructor和listen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#handleRead"><span class="toc-number">4.2.</span> <span class="toc-text">handleRead</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EventLoop"><span class="toc-number">5.</span> <span class="toc-text">EventLoop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">总结：</span></a></li></ol>
+    </div>
+
+
+<article class="post post__with-toc content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <p>本系列文章主要对muduo的核心源码进行解析。</p>
 <p>在正式看muduo源代码之前，必须先理解Reactor模型。</p>
 <h2 id="Reactor模型"><a href="#Reactor模型" class="headerlink" title="Reactor模型"></a>Reactor模型</h2><p>1服务器端程序一般要处理三类事件：IO事件、信号及定时事件，由此延申出来的就有两种关于如何处理这三类事件的事件处理模型：Reactor和Proactor。这里主要讨论Reactor。</p>
 <p>Reactor模型本质上主线程***（main reactor)***只负责监听Socket fd上是否有事件发生，有的立即通知工作线程进行处理，也就是说接受新连接、读写数据，业务逻辑均在工作线程中。</p>
@@ -150,21 +277,146 @@
 <p>而EPollPoller则是<code>epoll</code>相关操作的封装，我们通过传递Channel到Poller中来对关注的事件进行设置和更新，而在EventLoop中的<code>loop</code>则主要是不断通过<code>Poller::poll</code>获得此时触发事件的Channel，然后直接调用Channel的<code>handleEvent</code>进行处理。</p>
 <p>所以这里最后的疑问就是：谁来负责创建和传递Channel呢？且看下篇分解。</p>
 
-  </div>
-  <div class="post-footer">
+    </div>
     
-      <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/muduo/" rel="tag">muduo</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="tag">源码解析</a></li></ul>
+    <div class="post__license">
+        <p>
+            <strong>本文作者：</strong>dejavudwh
+        </p>
+        <p>
+            <strong>
+                本文鏈接：
+            </strong>
+            <a href="http://dejavudwh.cn/2022/05/07/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9AEventLoop/">http://dejavudwh.cn/2022/05/07/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9AEventLoop/</a>
+        </p>
+        
+    </div>
+ 
+    <div class="post-footer__meta"><p>更新於 2022-05-07</p></div> 
+    <div class="post-entry__tags"><a href="/tags/muduo/" class="post-tags__link button"># muduo</a><a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="post-tags__link button"># 源码解析</a></div> 
+</article>
+
+
+
+
+
+
+</main>
+
+            <footer class="footer">
+     
+    <a href="#" class="button" id="b2t" aria-label="回到頂部" title="回到頂部">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
     
 
-    <a href="#top" class="top">Back to Top</a>
-  </div>
-</article>
-<footer>
-  &copy; 2022
-  <span class="author">
-    dejavudwh
-  </span>
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2022 <a href="/">dejavudwh&#39;s blog</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
 </footer>
-    </div>
-  </body>
+
+        </div>
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazy",
+            threshold: 0
+        };
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement('script');
+            hm.src = 'https://hm.baidu.com/hm.js?c6efdb1ec90601ee8e2211b3651001bc';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+ 
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+    
+ 
+
+
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.css">
+
+    
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.js"></script>
+
+    <script>
+        let lazyloadT = Boolean('true'),
+            auto_fancybox = Boolean('false')
+        if (auto_fancybox) {
+            $(".post__content").find('img').each(function () {
+                var element = document.createElement("a");
+                $(element).attr("data-fancybox", "gallery");
+                $(element).attr("href", $(this).attr("src"));
+                if (lazyloadT) {
+                    $(element).attr("href", $(this).attr("data-srcset"));
+                }
+                $(this).wrap(element);
+            });
+        } else {
+            $(".post__content").find("fancybox").find('img').each(function () {
+                var element = document.createElement("a");
+                $(element).attr("data-fancybox", "gallery");
+                $(element).attr("href", $(this).attr("src"));
+                if (lazyloadT) {
+                    $(element).attr("href", $(this).attr("data-srcset"));
+                }
+                $(this).wrap(element);
+            });
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+
+    </body>
 </html>

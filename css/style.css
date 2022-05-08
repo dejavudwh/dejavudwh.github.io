@@ -57,6 +57,10 @@ a {
 .page p {
   line-height: 1.5em;
 }
+code {
+  font-family: Consolas, Menlo; /*���ô�������*/
+  font-size: 1.5em;
+}
 /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
 /* Tomorrow Comment */
 .highlight .comment,
