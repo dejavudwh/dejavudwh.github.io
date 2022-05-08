@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+        <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+    
+    
+    
+
+
+    <!-- meta -->
+
+
+<title>muduo源码解析：TcpServer | dejavudwh&#39;s blog</title>
+
+
+    <meta name="keywords" content="muduo, 源码解析">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="继上篇分析完Channel、Acceptor、EPollPoller和部分EventLoop之后，已经能够大致理解了整个muduo的流程。 回顾上篇最后提到的问题：谁来负责创建和传递Channel？TcpConnection。 TcpConnectionTcpConnection负责管理一个TCP连接和这个连接的输入输出缓冲区，由Acceptor接收到一个新连接时创建，也就是上节讲到的Accept">
+<meta property="og:type" content="article">
+<meta property="og:title" content="muduo源码解析：TcpServer">
+<meta property="og:url" content="http://dejavudwh.cn/2022/05/08/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ATcpServer/index.html">
+<meta property="og:site_name" content="dejavudwh&#39;s blog">
+<meta property="og:description" content="继上篇分析完Channel、Acceptor、EPollPoller和部分EventLoop之后，已经能够大致理解了整个muduo的流程。 回顾上篇最后提到的问题：谁来负责创建和传递Channel？TcpConnection。 TcpConnectionTcpConnection负责管理一个TCP连接和这个连接的输入输出缓冲区，由Acceptor接收到一个新连接时创建，也就是上节讲到的Accept">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/dejavudwh/dejavudwh.github.io/picbed/muduo/20220508145101.png">
+<meta property="article:published_time" content="2022-05-08T04:13:05.000Z">
+<meta property="article:modified_time" content="2022-05-08T07:54:25.250Z">
+<meta property="article:author" content="dejavudwh">
+<meta property="article:tag" content="muduo">
+<meta property="article:tag" content="源码解析">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/dejavudwh/dejavudwh.github.io/picbed/muduo/20220508145101.png">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="/css/highlight/default.css" media="none" >
+        
+            <link rel="stylesheet" id="hl-dark-theme" href="/css/highlight/dark.css" media="none">
+        
+    
+
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/style/dark.css">
+
+    
+<script src="/js/darkmode.js"></script>
+
+
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">dejavudwh</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/" class="navbar-menu button">Home</a>
+                
+                    <a href="/archives/" class="navbar-menu button">archives</a>
+                
+                    <a href="/categories/" class="navbar-menu button">categories</a>
+                
+                    <a href="/tags/" class="navbar-menu button">tags</a>
+                
+                    <a href="/about/" class="navbar-menu button">about</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+    <a href="javaScript:void(0);" id="btn-toggle-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">archives</a>
+                
+                    <a href="/categories/" class="dropdown-menu button">categories</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">tags</a>
+                
+                    <a href="/about/" class="dropdown-menu button">about</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        muduo源码解析：TcpServer
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2022/05/" class="post-meta__date button">2022-05-08</a>
+        
+    <span class="separate-dot"></span><a href="/categories/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="button">muduo源码解析</a>
+
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">TcpConnection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">sendInLoop</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">TcpServer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.1.</span> <span class="toc-text">newConnection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.2.</span> <span class="toc-text">connectEstablished</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">Buffer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">TcpConnection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">sendInLoop</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">TcpServer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.1.</span> <span class="toc-text">newConnection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.2.</span> <span class="toc-text">connectEstablished</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">Buffer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+    </div>
+
+
+<article class="post post__with-toc content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <p>继上篇分析完Channel、Acceptor、EPollPoller和部分EventLoop之后，已经能够大致理解了整个muduo的流程。</p>
+<p>回顾上篇最后提到的问题：谁来负责创建和传递Channel？TcpConnection。</p>
+<h2><span id="tcpconnection">TcpConnection</span></h2><p>TcpConnection负责管理一个TCP连接和这个连接的输入输出缓冲区，由Acceptor接收到一个新连接时创建，也就是上节讲到的<code>Acceptor::handleRead</code>中的回调所创建的，下面会详细解析。</p>
+<p>先来看它的部分接口定义：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TcpConnection</span> : boost::noncopyable,</span><br><span class="line">                      <span class="keyword">public</span> boost::enable_shared_from_this&lt;TcpConnection&gt;</span><br><span class="line">&#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">TcpConnection</span>(EventLoop* loop,</span><br><span class="line">                <span class="type">const</span> string&amp; name,</span><br><span class="line">                <span class="type">int</span> sockfd,</span><br><span class="line">                <span class="type">const</span> InetAddress&amp; localAddr,</span><br><span class="line">                <span class="type">const</span> InetAddress&amp; peerAddr);</span><br><span class="line">  ~<span class="built_in">TcpConnection</span>();</span><br><span class="line"></span><br><span class="line">  <span class="function">EventLoop* <span class="title">getLoop</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> loop_; &#125;</span><br><span class="line">  <span class="function"><span class="type">const</span> string&amp; <span class="title">name</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> name_; &#125;</span><br><span class="line">  <span class="function"><span class="type">const</span> InetAddress&amp; <span class="title">localAddress</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> localAddr_; &#125;</span><br><span class="line">  <span class="function"><span class="type">const</span> InetAddress&amp; <span class="title">peerAddress</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> peerAddr_; &#125;</span><br><span class="line">  <span class="function"><span class="type">bool</span> <span class="title">connected</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> state_ == kConnected; &#125;</span><br><span class="line">  <span class="function"><span class="type">bool</span> <span class="title">disconnected</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> state_ == kDisconnected; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">send</span><span class="params">(<span class="type">const</span> <span class="type">void</span>* message, <span class="type">int</span> len)</span></span>;</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">send</span><span class="params">(Buffer* message)</span></span>;  <span class="comment">// this one will swap data</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">shutdown</span><span class="params">()</span></span>; <span class="comment">// NOT thread safe, no simultaneous calling</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">connectEstablished</span><span class="params">()</span></span>;   <span class="comment">// should be called only once</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">connectDestroyed</span><span class="params">()</span></span>;  <span class="comment">// should be called only once</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="keyword">enum</span> <span class="title class_">StateE</span> &#123; kDisconnected, kConnecting, kConnected, kDisconnecting &#125;;</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">handleRead</span><span class="params">(Timestamp receiveTime)</span></span>;</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">handleWrite</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">handleClose</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">handleError</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="comment">// void sendInLoop(string&amp;&amp; message);</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">sendInLoop</span><span class="params">(<span class="type">const</span> StringPiece&amp; message)</span></span>;</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">sendInLoop</span><span class="params">(<span class="type">const</span> <span class="type">void</span>* message, <span class="type">size_t</span> len)</span></span>;</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">shutdownInLoop</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">  EventLoop* loop_;</span><br><span class="line">  <span class="type">const</span> string name_;  <span class="comment">// 连接名称</span></span><br><span class="line">  StateE state_;  <span class="comment">// <span class="doctag">FIXME:</span> use atomic variable  </span></span><br><span class="line">  <span class="type">bool</span> reading_;</span><br><span class="line">  <span class="comment">// we don&#x27;t expose those classes to client.</span></span><br><span class="line">  boost::scoped_ptr&lt;Socket&gt; socket_;</span><br><span class="line">  boost::scoped_ptr&lt;Channel&gt; channel_;</span><br><span class="line">  <span class="type">const</span> InetAddress localAddr_;   </span><br><span class="line">  <span class="type">const</span> InetAddress peerAddr_;	  </span><br><span class="line">  </span><br><span class="line">  ConnectionCallback connectionCallback_;</span><br><span class="line">  MessageCallback messageCallback_;</span><br><span class="line">  WriteCompleteCallback writeCompleteCallback_;     <span class="comment">// 数据发送完毕回调函数，即所有的用户数据都已拷贝到内核缓冲区时回调该函数</span></span><br><span class="line">									</span><br><span class="line">  HighWaterMarkCallback highWaterMarkCallback_;    <span class="comment">// 高水位标回调函数,也就是outputBuffer撑到一定程度了</span></span><br><span class="line">  CloseCallback closeCallback_;</span><br><span class="line"></span><br><span class="line">  <span class="type">size_t</span> highWaterMark_;	<span class="comment">// 高水位标</span></span><br><span class="line">  Buffer inputBuffer_;		<span class="comment">// 接收缓冲区</span></span><br><span class="line">  Buffer outputBuffer_; <span class="comment">// <span class="doctag">FIXME:</span> use list&lt;Buffer&gt; as output buffer.</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>其中TcpConnection中的callback都是由用户设置（TcpServer为一个间接层，后面再提），也就是说用户要处理的三个半事件都是由TcpConnection进行管理，当然TcpConnection还持有一个Channel，也就是最后还是由TcpConnection反应到Channel中（在构造函数中设置）。</p>
+<p>当然这些callback还需要TcpConnection再进行一层wrap，因为用户只关心逻辑的处理，所以还是有一些工作需要TcpConnection来完成。TcpConnection对这些callback的wrap就是在<code>handleRead</code>、<code>handleWrite</code>等中。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">TcpConnection::handleWrite</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  loop_-&gt;<span class="built_in">assertInLoopThread</span>();</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 如果正处于关注POLLOUT事件,说明之前的数据没有发送完成，则将缓冲区的数据发送</span></span><br><span class="line">  <span class="keyword">if</span> (channel_-&gt;<span class="built_in">isWriting</span>())   </span><br><span class="line">  &#123;</span><br><span class="line">    <span class="type">ssize_t</span> n = sockets::<span class="built_in">write</span>(channel_-&gt;<span class="built_in">fd</span>(),</span><br><span class="line">                               outputBuffer_.<span class="built_in">peek</span>(),</span><br><span class="line">                               outputBuffer_.<span class="built_in">readableBytes</span>());</span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      outputBuffer_.<span class="built_in">retrieve</span>(n);  <span class="comment">// 将readindex_指针回收</span></span><br><span class="line">      <span class="keyword">if</span> (outputBuffer_.<span class="built_in">readableBytes</span>() == <span class="number">0</span>)  <span class="comment">//说明已经发送完毕了，缓冲区已清空</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">//停止关注POLLOUT事件，以免出现busy-loop</span></span><br><span class="line">        channel_-&gt;<span class="built_in">disableWriting</span>();</span><br><span class="line">        <span class="keyword">if</span> (writeCompleteCallback_)  <span class="comment">//回调writeCompleteCallback</span></span><br><span class="line">        &#123;</span><br><span class="line">			<span class="comment">// 应用层发送缓冲区被清空，就回调用writeCompleteCallback_</span></span><br><span class="line">          loop_-&gt;<span class="built_in">queueInLoop</span>(boost::<span class="built_in">bind</span>(writeCompleteCallback_, <span class="built_in">shared_from_this</span>()));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (state_ == kDisconnecting)</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="built_in">shutdownInLoop</span>();  <span class="comment">// 发送缓冲区已清空并且连接状态是kDisconnecting, 要关闭连接</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      LOG_SYSERR &lt;&lt; <span class="string">&quot;TcpConnection::handleWrite&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    LOG_TRACE &lt;&lt; <span class="string">&quot;Connection fd = &quot;</span> &lt;&lt; channel_-&gt;<span class="built_in">fd</span>()</span><br><span class="line">              &lt;&lt; <span class="string">&quot; is down, no more writing&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>handleWrite</code>、<code>handleRead</code>等的逻辑都非常简单，主要都是判断channel的状态然后通过Buffer对fd进行读写，Buffer是muduo中提供的一个缓冲区，这个后面再解析。所以这里我们只看<code>handleWrite</code>，首先判断channel是否可读，如果可读则调用<code>sockets::write</code>，这个函数也只是对<code>writed</code>的一层封装，然后通过<code>write</code>的返回值判断Buffer是否被读完，来以此决定要不要回调<code>writeCompleteCallback</code>以及关闭连接。</p>
+<h3><span id="sendinloop">sendInLoop</span></h3><p>当然，TcpConnection除了封装了<code>handleWrite</code>等，还向用户提供<code>send</code>接口：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">TcpConnection::send</span><span class="params">(<span class="type">const</span> StringPiece&amp; message)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (state_ == kConnected)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> (loop_-&gt;<span class="built_in">isInLoopThread</span>())   <span class="comment">// 当前线程就是IO线程，直接调用</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">sendInLoop</span>(message);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      loop_-&gt;<span class="built_in">runInLoop</span>(</span><br><span class="line">          boost::<span class="built_in">bind</span>(&amp;TcpConnection::sendInLoop,</span><br><span class="line">                      <span class="keyword">this</span>,     <span class="comment">// FIXME</span></span><br><span class="line">                      message.<span class="built_in">as_string</span>()));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">TcpConnection::sendInLoop</span><span class="params">(<span class="type">const</span> <span class="type">void</span>* data, <span class="type">size_t</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  loop_-&gt;<span class="built_in">assertInLoopThread</span>();</span><br><span class="line">  <span class="type">ssize_t</span> nwrote = <span class="number">0</span>;</span><br><span class="line">  <span class="type">size_t</span> remaining = len;    <span class="comment">// 剩余的待发送字节数</span></span><br><span class="line">  <span class="type">bool</span> faultError = <span class="literal">false</span>;   <span class="comment">// 是否错误</span></span><br><span class="line">  <span class="keyword">if</span> (state_ == kDisconnected)</span><br><span class="line">  &#123;</span><br><span class="line">    LOG_WARN &lt;&lt; <span class="string">&quot;disconnected, give up writing&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// if no thing in output queue, try writing directly</span></span><br><span class="line">  <span class="comment">// 通道没有关注可写事件并且发送缓冲区没有数据，直接write</span></span><br><span class="line">  <span class="keyword">if</span> (!channel_-&gt;<span class="built_in">isWriting</span>() &amp;&amp; outputBuffer_.<span class="built_in">readableBytes</span>() == <span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    nwrote = sockets::<span class="built_in">write</span>(channel_-&gt;<span class="built_in">fd</span>(), data, len);</span><br><span class="line">    <span class="keyword">if</span> (nwrote &gt;= <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      remaining = len - nwrote;</span><br><span class="line">	  <span class="comment">// 写完了，回调writeCompleteCallback_</span></span><br><span class="line">      <span class="keyword">if</span> (remaining == <span class="number">0</span> &amp;&amp; writeCompleteCallback_)</span><br><span class="line">      &#123;</span><br><span class="line">        loop_-&gt;<span class="built_in">queueInLoop</span>(boost::<span class="built_in">bind</span>(writeCompleteCallback_, <span class="built_in">shared_from_this</span>()));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="comment">// nwrote &lt; 0</span></span><br><span class="line">    &#123;</span><br><span class="line">      nwrote = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">if</span> (errno != EWOULDBLOCK)</span><br><span class="line">      &#123;</span><br><span class="line">        LOG_SYSERR &lt;&lt; <span class="string">&quot;TcpConnection::sendInLoop&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> (errno == EPIPE || errno == ECONNRESET) <span class="comment">// <span class="doctag">FIXME:</span> any others?</span></span><br><span class="line">        &#123;</span><br><span class="line">          faultError = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">assert</span>(remaining &lt;= len);</span><br><span class="line">  <span class="comment">// 没有错误，并且还有未写完的数据（说明内核发送缓冲区满，要将未写完的数据添加到output buffer中）</span></span><br><span class="line">  <span class="keyword">if</span> (!faultError &amp;&amp; remaining &gt; <span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="type">size_t</span> oldLen = outputBuffer_.<span class="built_in">readableBytes</span>();  <span class="comment">//outbuf中本身有的数据量</span></span><br><span class="line">	<span class="comment">// 如果超过highWaterMark_（高水位标），回调highWaterMarkCallback_</span></span><br><span class="line">    <span class="keyword">if</span> (oldLen + remaining &gt;= highWaterMark_</span><br><span class="line">        &amp;&amp; oldLen &lt; highWaterMark_</span><br><span class="line">        &amp;&amp; highWaterMarkCallback_)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">//sendInLoop也是在io线程中执行，不直接调用回调函数，而是调用queueInLoop</span></span><br><span class="line">      loop_-&gt;<span class="built_in">queueInLoop</span>(boost::<span class="built_in">bind</span>(highWaterMarkCallback_, <span class="built_in">shared_from_this</span>(), oldLen + remaining));</span><br><span class="line">    &#125;</span><br><span class="line">    outputBuffer_.<span class="built_in">append</span>(<span class="built_in">static_cast</span>&lt;<span class="type">const</span> <span class="type">char</span>*&gt;(data)+nwrote, remaining);</span><br><span class="line">    <span class="keyword">if</span> (!channel_-&gt;<span class="built_in">isWriting</span>())    <span class="comment">//如果没有关注POLLOUT事件，则进行关注pollout事件</span></span><br><span class="line">    &#123;</span><br><span class="line">      channel_-&gt;<span class="built_in">enableWriting</span>();  </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里涉及了muduo中和EventLoop有关的非常重要的设计。</p>
+<p>首先，这里分为两种情况：</p>
+<ul>
+<li>在对应的EventLoop线程中</li>
+</ul>
+<p>如果在对应的线程当中，直接调用<code>sendInLoop</code>进行发送，主要逻辑和<code>handleWrite</code>有点类似，也是根据channel和buffer的不用状态来走向不同的分支，这里不同的是，如果还有未写完的数据，需要重新写入outBuffer中，并且还要判断是否需要调用<code>highWaterMarkCallback_</code>。</p>
+<ul>
+<li>不在对应的EventLoop线程中</li>
+</ul>
+<p>如果不在对应的线程中，则会调用EventLoop的<code>runInLoop</code>，加入队列，由上篇没有讲的<code>doPendingFunctors</code>进行处理。我们先来看一下代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">EventLoop::queueInLoop</span><span class="params">(<span class="type">const</span> Functor&amp; cb)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  &#123;	</span><br><span class="line">  	<span class="function">MutexLockGuard <span class="title">lock</span><span class="params">(mutex_)</span></span>;</span><br><span class="line">  	pendingFunctors_.<span class="built_in">push_back</span>(cb);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 如果不是当前线程(可能阻塞在poll)，需要唤醒 </span></span><br><span class="line">  <span class="comment">// 或者是当前线程但是在正在处理队列中的任务(使得处理完当前队列中的元素后立即在进行下一轮处理，因为在这里又添加了任务)需要唤醒</span></span><br><span class="line">  <span class="comment">// 只有当前IO线程的事件回调中调用queueInLoop才不需要唤醒(因为执行完handleEvent会自然执行doPendingFunctor)</span></span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">isInLoopThread</span>() || callingPendingFunctors_)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">wakeup</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的swap也是一个小技巧，来减小临界区的范围。也就是说，这里如果不在对应EventLoop的线程当中，即会唤醒对应的线程来处理相应的任务。这样的作用是当其他线程需要通过这个线程的资源来执行任务的时候，并不是直接再其他线程中访问资源调用函数，这样就会造成资源的竞争，需要加锁保证，而现在我们让当前线程为其他线程提供一个接口，其他线程将要执行的任务用这个接口交给当前线程这样当前线程统一处理自己的资源，而不用加锁，唯一需要加锁的地方就是通过接口添加任务的任务队列这个地方，大大减小了锁粒度。</p>
+<p>这里为什么有竞态？如果我们允许任务在其它线程执行，则它对应的EventLoop可能此时会同一个Channel会有新事件发送，则对TcpConnection的调用可能会发送竟态。</p>
+<p>但是这时候我们注意到，为什么<code>sendInLoop</code>还是会调用<code>queueInLoop</code>呢？此时它已经是在对应的IO线程中的。👇</p>
+<p><img src="https://raw.githubusercontent.com/dejavudwh/dejavudwh.github.io/picbed/muduo/20220508145101.png" class="lazy" data-srcset="https://raw.githubusercontent.com/dejavudwh/dejavudwh.github.io/picbed/muduo/20220508145101.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33113661/article/details/88568032">原文链接</a></p>
+<p>这时候我们就可以来看一下TcpServer，也是muduo暴露给用户最重要的一个类。</p>
+<h2><span id="tcpserver">TcpServer</span></h2><p>经过前面的铺垫，TcpServer就变得非常简单了，先来看一下它的部分接口：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TcpServer</span> : boost::noncopyable</span><br><span class="line">&#123; </span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="keyword">enum</span> <span class="title class_">Option</span></span><br><span class="line">  &#123;</span><br><span class="line">    kNoReusePort,</span><br><span class="line">    kReusePort,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//TcpServer(EventLoop* loop, const InetAddress&amp; listenAddr);</span></span><br><span class="line">  <span class="built_in">TcpServer</span>(EventLoop* loop,</span><br><span class="line">            <span class="type">const</span> InetAddress&amp; listenAddr,</span><br><span class="line">            <span class="type">const</span> string&amp; nameArg,</span><br><span class="line">            Option option = kNoReusePort);</span><br><span class="line">  ~<span class="built_in">TcpServer</span>();  <span class="comment">// force out-line dtor, for scoped_ptr members.</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">setThreadNum</span><span class="params">(<span class="type">int</span> numThreads)</span></span>;</span><br><span class="line">  <span class="comment">/// valid after calling start()</span></span><br><span class="line">  <span class="function">boost::shared_ptr&lt;EventLoopThreadPool&gt; <span class="title">threadPool</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123; <span class="keyword">return</span> threadPool_; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">start</span><span class="params">()</span></span>;   <span class="comment">//启动</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/// Set connection callback.</span></span><br><span class="line">  <span class="comment">/// Not thread safe.</span></span><br><span class="line">  <span class="comment">//设置连接到来或连接关闭的回调函数</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">setConnectionCallback</span><span class="params">(<span class="type">const</span> ConnectionCallback&amp; cb)</span></span></span><br><span class="line"><span class="function">  </span>&#123; connectionCallback_ = cb; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">setMessageCallback</span><span class="params">(<span class="type">const</span> MessageCallback&amp; cb)</span></span></span><br><span class="line"><span class="function">  </span>&#123; messageCallback_ = cb; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">setWriteCompleteCallback</span><span class="params">(<span class="type">const</span> WriteCompleteCallback&amp; cb)</span></span></span><br><span class="line"><span class="function">  </span>&#123; writeCompleteCallback_ = cb; &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">newConnection</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> InetAddress&amp; peerAddr)</span></span>;</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">removeConnection</span><span class="params">(<span class="type">const</span> TcpConnectionPtr&amp; conn)</span></span>;</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">removeConnectionInLoop</span><span class="params">(<span class="type">const</span> TcpConnectionPtr&amp; conn)</span></span>;</span><br><span class="line">  <span class="keyword">typedef</span> std::map&lt;string, TcpConnectionPtr&gt; ConnectionMap;</span><br><span class="line"></span><br><span class="line">  EventLoop* loop_;  <span class="comment">// the acceptor loop , accept所属的evenLoop,不一定是连接所属的EvenLoop</span></span><br><span class="line">  <span class="type">const</span> string ipPort_;   </span><br><span class="line">  <span class="type">const</span> string name_;    </span><br><span class="line">  boost::scoped_ptr&lt;Acceptor&gt; acceptor_; <span class="comment">// avoid revealing Acceptor 用智能指针管理ptr</span></span><br><span class="line">  boost::shared_ptr&lt;EventLoopThreadPool&gt; threadPool_;  <span class="comment">//EvenLoop线程池</span></span><br><span class="line">  ConnectionCallback connectionCallback_;  <span class="comment">// 连接到来时回调函数</span></span><br><span class="line">  MessageCallback messageCallback_;			<span class="comment">// 消息到来时回掉函数</span></span><br><span class="line">  WriteCompleteCallback writeCompleteCallback_;</span><br><span class="line">  ThreadInitCallback threadInitCallback_;   <span class="comment">// 线程池初始化的回调函数</span></span><br><span class="line">  AtomicInt32 started_;   <span class="comment">// 是否已经启动</span></span><br><span class="line">  <span class="type">int</span> nextConnId_;    <span class="comment">// 下一个连接id</span></span><br><span class="line">  ConnectionMap connections_;  <span class="comment">//连接列表</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到它主要持有一个Acceptor和一个TcpConnection的Map，还有一个线程池，线程池的内容我们放在下一篇。所以根据前面的讲解，我们已经可以猜到TcpServer的工作了，通过Acceptor来接受一个新连接，并传入回调来创建一个TcpConnection和其对应的Channel，然后在TcpServer中分配TcpConnection到不同的EventLoop中（多线程下）。</p>
+<h3><span id="newconnection">newConnection</span></h3><p>我们来看一下具体代码是不是这样做的，先来看一下TcpServer的构造函数和它传给Acceptor的回调：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">TcpServer::<span class="built_in">TcpServer</span>(EventLoop* loop,</span><br><span class="line">                     <span class="type">const</span> InetAddress&amp; listenAddr,</span><br><span class="line">                     <span class="type">const</span> string&amp; nameArg,</span><br><span class="line">                     Option option)</span><br><span class="line">  : <span class="built_in">loop_</span>(<span class="built_in">CHECK_NOTNULL</span>(loop)),</span><br><span class="line">    <span class="built_in">ipPort_</span>(listenAddr.<span class="built_in">toIpPort</span>()),</span><br><span class="line">    <span class="built_in">name_</span>(nameArg),</span><br><span class="line">    <span class="built_in">acceptor_</span>(<span class="keyword">new</span> <span class="built_in">Acceptor</span>(loop, listenAddr, option == kReusePort)),</span><br><span class="line">    <span class="built_in">threadPool_</span>(<span class="keyword">new</span> <span class="built_in">EventLoopThreadPool</span>(loop, name_)), <span class="comment">//初始化线程池</span></span><br><span class="line">    <span class="built_in">connectionCallback_</span>(defaultConnectionCallback),</span><br><span class="line">    <span class="built_in">messageCallback_</span>(defaultMessageCallback),</span><br><span class="line">    <span class="built_in">nextConnId_</span>(<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">  acceptor_-&gt;<span class="built_in">setNewConnectionCallback</span>(boost::<span class="built_in">bind</span>(&amp;TcpServer::newConnection, <span class="keyword">this</span>, _1, _2));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">TcpServer::newConnection</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> InetAddress&amp; peerAddr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  loop_-&gt;<span class="built_in">assertInLoopThread</span>();</span><br><span class="line">  EventLoop* ioLoop = threadPool_-&gt;<span class="built_in">getNextLoop</span>();</span><br><span class="line">  <span class="type">char</span> buf[<span class="number">64</span>];</span><br><span class="line">  <span class="built_in">snprintf</span>(buf, <span class="keyword">sizeof</span> buf, <span class="string">&quot;-%s#%d&quot;</span>, ipPort_.<span class="built_in">c_str</span>(), nextConnId_);</span><br><span class="line">  ++nextConnId_;</span><br><span class="line">  string connName = name_ + buf;   <span class="comment">//连接名称 : servername+ipPort#conntId</span></span><br><span class="line">  <span class="function">InetAddress <span class="title">localAddr</span><span class="params">(sockets::getLocalAddr(sockfd))</span></span>;</span><br><span class="line">  <span class="comment">// 创建一个连接</span></span><br><span class="line">  <span class="function">TcpConnectionPtr <span class="title">conn</span><span class="params">(<span class="keyword">new</span> TcpConnection(ioLoop,</span></span></span><br><span class="line"><span class="params"><span class="function">                                          connName,</span></span></span><br><span class="line"><span class="params"><span class="function">                                          sockfd,</span></span></span><br><span class="line"><span class="params"><span class="function">                                          localAddr,</span></span></span><br><span class="line"><span class="params"><span class="function">                                          peerAddr))</span></span>;</span><br><span class="line">  connections_[connName] = conn;</span><br><span class="line">  <span class="comment">// 下面三行都是注册用户的回调函数</span></span><br><span class="line">  conn-&gt;<span class="built_in">setConnectionCallback</span>(connectionCallback_);</span><br><span class="line">  conn-&gt;<span class="built_in">setMessageCallback</span>(messageCallback_);</span><br><span class="line">  conn-&gt;<span class="built_in">setWriteCompleteCallback</span>(writeCompleteCallback_);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 下面是注册TcpServer的回调函数</span></span><br><span class="line">  conn-&gt;<span class="built_in">setCloseCallback</span>(boost::<span class="built_in">bind</span>(&amp;TcpServer::removeConnection, <span class="keyword">this</span>, _1)); <span class="comment">// <span class="doctag">FIXME:</span> unsafe</span></span><br><span class="line">  <span class="comment">// 让所属的EvenLoop调用connectEstablished</span></span><br><span class="line">  ioLoop-&gt;<span class="built_in">runInLoop</span>(boost::<span class="built_in">bind</span>(&amp;TcpConnection::connectEstablished, conn));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>和我们猜测的流程一样，而对于TcpConnection设置的回调，其实就是用户所传入的，当然在TcpConnection中再继续把回调传入Channel时，还是会有一层wrap的，这是上面提到的。</p>
+<p>这时候我们回过来关注刚刚没有提到的<code>connectEstablished</code>，这也是理解muduo生命周期的一个关键。</p>
+<h3><span id="connectestablished">connectEstablished</span></h3><p>现在我们可以来看一下一个TcpConnection的生命周期了</p>
+<ul>
+<li>创建：</li>
+</ul>
+<p>由TcpServer传入Acceptor的回调中创建，并放入Map当中</p>
+<ul>
+<li>释放：</li>
+</ul>
+<p>当一个tcp连接关闭的时候，首先触发Poller的可读事件，调用Channel::handledEvent来处理，然后调用TcpConnection::handledread处理，handledRead经过read后发现返回字节为0，继续调用TcpCOnnecton::handledClose，在这里面会调用tcpServer注册的回调函数removeConnection，TcpServer::removeConnection会将这个TcpConnection从它的连接列表中删除，但是此时不能直接delete TcpConnection这个对象，因为TcpConnnection对象中的channel还在函数调用栈中调用handledEvent，此时如果直接delete TcpConnection，会将channel也delete掉，程序会出现core dump错误，所以需要等channel::handeledEvent，执行完毕之后再delete TcpConnection对象，这就用到shared_ptr。</p>
+<p>所以，这时候我们也可以回过头来看Channel中的<code>tie</code>和<code>tied_</code>了，它在<code>connectEstablished</code>中被绑定到至少和TcpConnectio的生命周期一样长：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">TcpConnection::connectEstablished</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">setState</span>(kConnected);</span><br><span class="line">  channel_-&gt;<span class="built_in">tie</span>(<span class="built_in">shared_from_this</span>());</span><br><span class="line">  channel_-&gt;<span class="built_in">enableReading</span>();   </span><br><span class="line">  <span class="built_in">connectionCallback_</span>(<span class="built_in">shared_from_this</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当TCP连接断开，这个IO事件会触发<code>Channel::handleEvent()</code>函数，而后者回调用户提供的<code>CloseCallbask</code>，用户代码可能可能析构Channel对象。这样就会引起<code>Channel::handleEvent()</code>执行到一半时，其所属的Channel被销毁了。</p>
+<h2><span id="buffer">Buffer</span></h2><p>这篇的最后一个内容，Buffer的设计非常简洁，只要理解了Buffer的结构就可以很好的理解这些接口。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// A buffer class modeled after org.jboss.netty.buffer.ChannelBuffer</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// @code</span></span><br><span class="line"><span class="comment">/// +-------------------+------------------+------------------+</span></span><br><span class="line"><span class="comment">/// | prependable bytes |  readable bytes  |  writable bytes  |</span></span><br><span class="line"><span class="comment">/// |                   |     (CONTENT)    |                  |</span></span><br><span class="line"><span class="comment">/// +-------------------+------------------+------------------+</span></span><br><span class="line"><span class="comment">/// |                   |                  |                  |</span></span><br><span class="line"><span class="comment">/// 0      &lt;=      readerIndex   &lt;=   writerIndex    &lt;=     size</span></span><br><span class="line"><span class="comment">/// @endcode</span></span><br></pre></td></tr></table></figure>
+
+<p>其中prependable的作用就是<strong>让程序以很低的代价在数据前面添加几个字节</strong>。比如，程序以固定的4个字节表示消息的长度来对Tcp进行分包，其它结构的含义则非常显而易见。</p>
+<h2><span id="总结">总结</span></h2><p>现在muduo的整个流程已经非常清晰了，我们通过TcpServer设置相应事件的回调函数，然后TcpServer持有的Acceptor则用来接受新连接，并且将自己的Channel通过EventLoop注册到Poller中，而TcpServer传给Acceptor的回调在每次接受新连接时都会被调用，而后创建一个TcpConnection，TcpConnection则创建一个Channel并且通过EventLoop进行事件注册，如果在多线程下，每次创建新的TcpConnection时，都会分配到各自的EventLoop中。最后EventLoop在自身的<code>loop</code>中不断等待事件和调用Channel处理事件以及处理<code>runInLoop</code>添加的任务。</p>
+<p>下篇我们开始分析线程池。</p>
+
+    </div>
+    
+    <div class="post__license">
+        <p>
+            <strong>Author: </strong>dejavudwh
+        </p>
+        <p>
+            <strong>
+                Permalink: 
+            </strong>
+            <a href="http://dejavudwh.cn/2022/05/08/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ATcpServer/">http://dejavudwh.cn/2022/05/08/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ATcpServer/</a>
+        </p>
+        
+    </div>
+ 
+    <div class="post-footer__meta"><p>updated at 2022-05-08</p></div> 
+    <div class="post-entry__tags"><a href="/tags/muduo/" class="post-tags__link button"># muduo</a><a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="post-tags__link button"># 源码解析</a></div> 
+</article>
+
+
+    <div class="nav">
+        <div class="nav__prev">
+            
+        </div>
+        <div class="nav__next">
+            
+                <a href="/2022/05/07/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9AEventLoop/" class="nav__link">
+                    <div>
+                        <div class="nav__label">
+                            Next Post
+                        </div>
+                        <div class="nav__title">
+                            muduo源码解析：EventLoop
+                        </div>
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M434.944 790.624l-45.248-45.248L623.04 512l-233.376-233.376 45.248-45.248L713.568 512z" fill="#808080"></path></svg>
+                    </div>
+                </a>
+            
+        </div>
+    </div>
+
+
+
+
+
+</main>
+
+            <footer class="footer">
+     
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2022 <a href="/">dejavudwh&#39;s blog</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazy",
+            threshold: 0
+        };
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement('script');
+            hm.src = 'https://hm.baidu.com/hm.js?c6efdb1ec90601ee8e2211b3651001bc';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+ 
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+    
+ 
+
+
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.css">
+
+    
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.js"></script>
+
+    <script>
+        let lazyloadT = Boolean('true'),
+            auto_fancybox = Boolean('false')
+        if (auto_fancybox) {
+            $(".post__content").find('img').each(function () {
+                var element = document.createElement("a");
+                $(element).attr("data-fancybox", "gallery");
+                $(element).attr("href", $(this).attr("src"));
+                if (lazyloadT) {
+                    $(element).attr("href", $(this).attr("data-srcset"));
+                }
+                $(this).wrap(element);
+            });
+        } else {
+            $(".post__content").find("fancybox").find('img').each(function () {
+                var element = document.createElement("a");
+                $(element).attr("data-fancybox", "gallery");
+                $(element).attr("href", $(this).attr("src"));
+                if (lazyloadT) {
+                    $(element).attr("href", $(this).attr("data-srcset"));
+                }
+                $(this).wrap(element);
+            });
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+
+    </body>
+</html>
