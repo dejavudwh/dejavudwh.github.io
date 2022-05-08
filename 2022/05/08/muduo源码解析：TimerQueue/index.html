@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+        <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+    
+    
+    
+
+
+    <!-- meta -->
+
+
+<title>muduo源码解析：TimerQueue | dejavudwh&#39;s blog</title>
+
+
+    <meta name="keywords" content="muduo, 源码解析">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="本篇将作为整个muduo源码解析的完结篇，至此，muduo整体结构已经都分析过了，其它部分更多的是对一些api进行封装。 Timer要看TimerQueue，首先就要先来看Timer和TimerId。 Timer的接口如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344class Ti">
+<meta property="og:type" content="article">
+<meta property="og:title" content="muduo源码解析：TimerQueue">
+<meta property="og:url" content="http://dejavudwh.cn/2022/05/08/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ATimerQueue/index.html">
+<meta property="og:site_name" content="dejavudwh&#39;s blog">
+<meta property="og:description" content="本篇将作为整个muduo源码解析的完结篇，至此，muduo整体结构已经都分析过了，其它部分更多的是对一些api进行封装。 Timer要看TimerQueue，首先就要先来看Timer和TimerId。 Timer的接口如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344class Ti">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-05-08T11:12:50.000Z">
+<meta property="article:modified_time" content="2022-05-08T11:59:31.100Z">
+<meta property="article:author" content="dejavudwh">
+<meta property="article:tag" content="muduo">
+<meta property="article:tag" content="源码解析">
+<meta name="twitter:card" content="summary_large_image">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="/css/highlight/default.css" media="none" >
+        
+            <link rel="stylesheet" id="hl-dark-theme" href="/css/highlight/dark.css" media="none">
+        
+    
+
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/style/dark.css">
+
+    
+<script src="/js/darkmode.js"></script>
+
+
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">dejavudwh</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/" class="navbar-menu button">Home</a>
+                
+                    <a href="/archives/" class="navbar-menu button">archives</a>
+                
+                    <a href="/categories/" class="navbar-menu button">categories</a>
+                
+                    <a href="/tags/" class="navbar-menu button">tags</a>
+                
+                    <a href="/about/" class="navbar-menu button">about</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+    <a href="javaScript:void(0);" id="btn-toggle-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">archives</a>
+                
+                    <a href="/categories/" class="dropdown-menu button">categories</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">tags</a>
+                
+                    <a href="/about/" class="dropdown-menu button">about</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        muduo源码解析：TimerQueue
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2022/05/" class="post-meta__date button">2022-05-08</a>
+        
+    <span class="separate-dot"></span><a href="/categories/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="button">muduo源码解析</a>
+
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">Timer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">TimerQueue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">handleRead</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">Timer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">TimerQueue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">handleRead</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+    </div>
+
+
+<article class="post post__with-toc content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <p>本篇将作为整个muduo源码解析的完结篇，至此，muduo整体结构已经都分析过了，其它部分更多的是对一些api进行封装。</p>
+<h2><span id="timer">Timer</span></h2><p>要看TimerQueue，首先就要先来看Timer和TimerId。</p>
+<p>Timer的接口如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Timer</span> : boost::noncopyable</span><br><span class="line">&#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">Timer</span>(<span class="type">const</span> TimerCallback&amp; cb, Timestamp when, <span class="type">double</span> interval)</span><br><span class="line">    : <span class="built_in">callback_</span>(cb),</span><br><span class="line">      <span class="built_in">expiration_</span>(when),</span><br><span class="line">      <span class="built_in">interval_</span>(interval),</span><br><span class="line">      <span class="built_in">repeat_</span>(interval &gt; <span class="number">0.0</span>),</span><br><span class="line">      <span class="built_in">sequence_</span>(s_numCreated_.<span class="built_in">incrementAndGet</span>())</span><br><span class="line">  &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">run</span><span class="params">()</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="built_in">callback_</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">Timestamp <span class="title">expiration</span><span class="params">()</span> <span class="type">const</span>  </span>&#123; <span class="keyword">return</span> expiration_; &#125;</span><br><span class="line">  <span class="function"><span class="type">bool</span> <span class="title">repeat</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> repeat_; &#125;</span><br><span class="line">  <span class="function"><span class="type">int64_t</span> <span class="title">sequence</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> sequence_; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">Timer::restart</span><span class="params">(Timestamp now)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (repeat_)  </span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">// 如果是重复计时器则重新计算下一个超时时刻</span></span><br><span class="line">	  expiration_ = <span class="built_in">addTime</span>(now, interval_);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">// 如果不是重复计时器则下一个超时时刻为一个非法时间</span></span><br><span class="line">      expiration_ = Timestamp::<span class="built_in">invalid</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> <span class="function"><span class="type">static</span> <span class="type">int64_t</span> <span class="title">numCreated</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> s_numCreated_.<span class="built_in">get</span>(); &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="type">const</span> TimerCallback callback_;   <span class="comment">// 定时器回调函数</span></span><br><span class="line">  Timestamp expiration_;			<span class="comment">// 下一次的超时时刻，时刻到后回调函数</span></span><br><span class="line">  <span class="type">const</span> <span class="type">double</span> interval_; 		<span class="comment">// 超时时间间隔，如果是一次性定时器，该值为0</span></span><br><span class="line">  <span class="type">const</span> <span class="type">bool</span> repeat_;		<span class="comment">// 是否重复，false为一次性定时器</span></span><br><span class="line">  <span class="type">const</span> <span class="type">int64_t</span> sequence_;  <span class="comment">// 定时器序号</span></span><br><span class="line"></span><br><span class="line">  <span class="type">static</span> AtomicInt64 s_numCreated_;  <span class="comment">//定时器计数，当前已经创建的定时器的数量，原子操作类&#125;;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Timer的实现非常简单，主要就是对定时任务的callback以及超时时间进行封装。TimerId相当于是Timer的一个标识，大家可以自行看源码。</p>
+<h2><span id="timerqueue">TimerQueue</span></h2><p>在一般的定时器实现当中，会先统一事件源，也就是将定时器的事件也加入事件循环。所以在TimerQueue中持有一个<code>timerfd_</code>和<code>timerChannel</code>以此来加入Poller。</p>
+<p>TimerQueue里使用了两个数据结构去维护Timer：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> std::pair&lt;Timestamp, Timer*&gt; Entry;</span><br><span class="line"><span class="keyword">typedef</span> std::set&lt;Entry&gt; TimerList;</span><br><span class="line"><span class="number">1</span><span class="keyword">typedef</span> std::pair&lt;Timer*, <span class="type">int64_t</span>&gt; ActiveTimer;</span><br><span class="line"><span class="keyword">typedef</span> std::set&lt;ActiveTimer&gt; ActiveTimerSet;</span><br><span class="line"></span><br><span class="line">TimerList timers_;	<span class="comment">//按到期时间排序</span></span><br><span class="line">ActiveTimerSet activeTimers_;  <span class="comment">//按对象地址进行排序 ，与timers_保存的是相同的数据</span></span><br><span class="line">ActiveTimerSet cancelingTimers_;  <span class="comment">//保存的是被取消的定时器</span></span><br></pre></td></tr></table></figure>
+
+<p>两个数据结构保存的Timer是一样的，但是set排序的方式不一样。这里有两个ActiveTimerSet，有一个原因就是当我们取消一个定时器时，此时的定时器回调任务正在执行，所以不能直接删除它，而是先标记，最后再进行删除。</p>
+<p>TimeQueue对外提供的最重要的接口就是<code>addTimer</code>，EventLoop中持有一个TimerQueue，所以由EventLoop对外暴露这个接口。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TimerId <span class="title">addTimer</span><span class="params">(<span class="type">const</span> TimerCallback&amp; cb, Timestamp when, <span class="type">double</span> interval)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>下面来看一下它的实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TimerId <span class="title">TimerQueue::addTimer</span><span class="params">(<span class="type">const</span> TimerCallback&amp; cb,</span></span></span><br><span class="line"><span class="params"><span class="function">                             Timestamp when,</span></span></span><br><span class="line"><span class="params"><span class="function">                             <span class="type">double</span> interval)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// 定义一个timer</span></span><br><span class="line">  Timer* timer = <span class="keyword">new</span> <span class="built_in">Timer</span>(cb, when, interval);</span><br><span class="line">  loop_-&gt;<span class="built_in">runInLoop</span>(</span><br><span class="line">      boost::<span class="built_in">bind</span>(&amp;TimerQueue::addTimerInLoop, <span class="keyword">this</span>, timer));</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">TimerId</span>(timer, timer-&gt;<span class="built_in">sequence</span>());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">TimerQueue::addTimerInLoop</span><span class="params">(Timer* timer)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// 插入一个定时器，有可能会使最早到期的定时器发生改变</span></span><br><span class="line">  <span class="type">bool</span> earliestChanged = <span class="built_in">insert</span>(timer);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (earliestChanged)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 重置定时器的超时时刻</span></span><br><span class="line">    <span class="built_in">resetTimerfd</span>(timerfd_, timer-&gt;<span class="built_in">expiration</span>());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的逻辑很清晰，TimerQueue会把添加一个定时器作为一个计算任务通过EventLoop的<code>runInLoop</code>入队，当然这里也就是线程安全的了。而<code>addTimerInLoop</code>的主要工作的就是维护保存Timer的两个数据结构，muduo的定时器的实现就是以所有定时器中最短超时的时间去设置timerfd_的超时时间，所以这时候新加入的定时器的时间可能比所有已经存在的超时时间还要短，所以可能就需要重新设置定时器超时时间。</p>
+<p><code>resetTimerfd</code>内部其实就是对<code>timerfd_settime</code>的一个调用。其中<code>insert</code>的实现也很直观，大家可以对照源码。</p>
+<h2><span id="handleread">handleRead</span></h2><p>下面思考一个，定时器怎么运行起来？我们看看提到，muduo使用了<code>timerfd_</code>统一了事件源，所以在一开始构造函数时，就已经通过EventLoop向Poller注册了事件。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">TimerQueue::<span class="built_in">TimerQueue</span>(EventLoop* loop)</span><br><span class="line">  : <span class="built_in">loop_</span>(loop),</span><br><span class="line">    <span class="built_in">timerfd_</span>(<span class="built_in">createTimerfd</span>()),</span><br><span class="line">    <span class="built_in">timerfdChannel_</span>(loop, timerfd_),</span><br><span class="line">    <span class="built_in">timers_</span>(),</span><br><span class="line">    <span class="built_in">callingExpiredTimers_</span>(<span class="literal">false</span>)</span><br><span class="line">&#123;</span><br><span class="line">  timerfdChannel_.<span class="built_in">setReadCallback</span>(boost::<span class="built_in">bind</span>(&amp;TimerQueue::handleRead, <span class="keyword">this</span>));</span><br><span class="line">  timerfdChannel_.<span class="built_in">enableReading</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以，也就是说调用定时器回调任务的地方大概率就在<code>handleRead</code>中。</p>
+<p>我们来看一下<code>handleRead</code>的实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">TimerQueue::handleRead</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  loop_-&gt;<span class="built_in">assertInLoopThread</span>();</span><br><span class="line">  <span class="function">Timestamp <span class="title">now</span><span class="params">(Timestamp::now())</span></span>;</span><br><span class="line">  <span class="built_in">readTimerfd</span>(timerfd_, now);   <span class="comment">//清除该事件，避免一直触发</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 获取该时刻前所有的定时器列表(即超时定时器列表)</span></span><br><span class="line">  std::vector&lt;Entry&gt; expired = <span class="built_in">getExpired</span>(now);</span><br><span class="line"></span><br><span class="line">  callingExpiredTimers_ = <span class="literal">true</span>;  <span class="comment">// 处理到期时间状态的flag打开</span></span><br><span class="line">  cancelingTimers_.<span class="built_in">clear</span>();   </span><br><span class="line">  <span class="keyword">for</span> (std::vector&lt;Entry&gt;::iterator it = expired.<span class="built_in">begin</span>();</span><br><span class="line">      it != expired.<span class="built_in">end</span>(); ++it)</span><br><span class="line">  &#123;</span><br><span class="line">    it-&gt;second-&gt;<span class="built_in">run</span>();		<span class="comment">// 这里回调定时器处理函数</span></span><br><span class="line">  &#125;</span><br><span class="line">  callingExpiredTimers_ = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">reset</span>(expired, now);   <span class="comment">// 如果不是一次性定时器，需要重启</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>handleRead</code>的逻辑也非常清晰，核心就是找出超时的定时器，然后执行任务，最后判断是否要重新设置定时器。所以核心函数就是<code>getExpired</code>和<code>reset</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::vector&lt;TimerQueue::Entry&gt; <span class="title">TimerQueue::getExpired</span><span class="params">(Timestamp now)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">assert</span>(timers_.<span class="built_in">size</span>() == activeTimers_.<span class="built_in">size</span>());</span><br><span class="line">  std::vector&lt;Entry&gt; expired;  </span><br><span class="line">  <span class="comment">//以now构造的Entry，注意后面的UINTPTR_MAX是故意构造的最大值</span></span><br><span class="line">  <span class="function">Entry <span class="title">sentry</span><span class="params">(now, <span class="keyword">reinterpret_cast</span>&lt;Timer*&gt;(UINTPTR_MAX))</span></span>; </span><br><span class="line"></span><br><span class="line">  <span class="comment">// 返回第一个未到期的Timer的迭代器</span></span><br><span class="line">  TimerList::iterator end = timers_.<span class="built_in">lower_bound</span>(sentry);</span><br><span class="line">  <span class="built_in">assert</span>(end == timers_.<span class="built_in">end</span>() || now &lt; end-&gt;first);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 将到期的定时器插入到expired中</span></span><br><span class="line">  std::<span class="built_in">copy</span>(timers_.<span class="built_in">begin</span>(), end, <span class="built_in">back_inserter</span>(expired));</span><br><span class="line">  </span><br><span class="line">  timers_.<span class="built_in">erase</span>(timers_.<span class="built_in">begin</span>(), end);</span><br><span class="line">  <span class="keyword">for</span> (std::vector&lt;Entry&gt;::iterator it = expired.<span class="built_in">begin</span>();</span><br><span class="line">      it != expired.<span class="built_in">end</span>(); ++it)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="function">ActiveTimer <span class="title">timer</span><span class="params">(it-&gt;second, it-&gt;second-&gt;sequence())</span></span>;</span><br><span class="line">    <span class="type">size_t</span> n = activeTimers_.<span class="built_in">erase</span>(timer);</span><br><span class="line">    <span class="built_in">assert</span>(n == <span class="number">1</span>); (<span class="type">void</span>)n;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">assert</span>(timers_.<span class="built_in">size</span>() == activeTimers_.<span class="built_in">size</span>());</span><br><span class="line">  <span class="keyword">return</span> expired;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里主要就是利用了set的排序方式以及<code>lower_bound</code>来找到第一个未到期的定时器，接下来的任务就非常简单了。而<code>reset</code>主要就是根据Timer是否是<code>repeat</code>来判断是否要重新设置定时器。</p>
+<h2><span id="总结">总结</span></h2><p>简而言之就是通过<code>timerfd_create</code>封住成Channel来统一事件源。而主要的设计就是根据所有定时器中最短的超时时间去设置<code>timerfd_</code>的超时时间，整体的设计非常清晰。</p>
+
+    </div>
+    
+    <div class="post__license">
+        <p>
+            <strong>Author: </strong>dejavudwh
+        </p>
+        <p>
+            <strong>
+                Permalink: 
+            </strong>
+            <a href="http://dejavudwh.cn/2022/05/08/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ATimerQueue/">http://dejavudwh.cn/2022/05/08/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ATimerQueue/</a>
+        </p>
+        
+    </div>
+ 
+    <div class="post-footer__meta"><p>updated at 2022-05-08</p></div> 
+    <div class="post-entry__tags"><a href="/tags/muduo/" class="post-tags__link button"># muduo</a><a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="post-tags__link button"># 源码解析</a></div> 
+</article>
+
+
+    <div class="nav">
+        <div class="nav__prev">
+            
+        </div>
+        <div class="nav__next">
+            
+                <a href="/2022/05/08/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9AEventLoopThreadPool/" class="nav__link">
+                    <div>
+                        <div class="nav__label">
+                            Next Post
+                        </div>
+                        <div class="nav__title">
+                            muduo源码解析：EventLoopThreadPool
+                        </div>
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M434.944 790.624l-45.248-45.248L623.04 512l-233.376-233.376 45.248-45.248L713.568 512z" fill="#808080"></path></svg>
+                    </div>
+                </a>
+            
+        </div>
+    </div>
+
+
+
+
+
+</main>
+
+            <footer class="footer">
+     
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2022 <a href="/">dejavudwh&#39;s blog</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazy",
+            threshold: 0
+        };
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement('script');
+            hm.src = 'https://hm.baidu.com/hm.js?c6efdb1ec90601ee8e2211b3651001bc';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+ 
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+    
+ 
+
+
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.css">
+
+    
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.js"></script>
+
+    <script>
+        let lazyloadT = Boolean('true'),
+            auto_fancybox = Boolean('false')
+        if (auto_fancybox) {
+            $(".post__content").find('img').each(function () {
+                var element = document.createElement("a");
+                $(element).attr("data-fancybox", "gallery");
+                $(element).attr("href", $(this).attr("src"));
+                if (lazyloadT) {
+                    $(element).attr("href", $(this).attr("data-srcset"));
+                }
+                $(this).wrap(element);
+            });
+        } else {
+            $(".post__content").find("fancybox").find('img').each(function () {
+                var element = document.createElement("a");
+                $(element).attr("data-fancybox", "gallery");
+                $(element).attr("href", $(this).attr("src"));
+                if (lazyloadT) {
+                    $(element).attr("href", $(this).attr("data-srcset"));
+                }
+                $(this).wrap(element);
+            });
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+
+    </body>
+</html>

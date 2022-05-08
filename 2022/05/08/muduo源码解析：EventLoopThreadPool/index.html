@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+        <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+    
+    
+    
+
+
+    <!-- meta -->
+
+
+<title>muduo源码解析：EventLoopThreadPool | dejavudwh&#39;s blog</title>
+
+
+    <meta name="keywords" content="muduo，源码解析">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="这篇文章主要来分析EventLoopThread和EventLoopThreadPool。至此，muduo的大部分重要组件都已经分析过了，除了TcpClient部分和TimerQueue部分以及一些对于系统API的封装。 EventLoopThread和EventLoopThreadPool的设计非常简单和清晰，所以这篇文章篇幅很小。111 EventLoopThread我们先来看一下EventL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="muduo源码解析：EventLoopThreadPool">
+<meta property="og:url" content="http://dejavudwh.cn/2022/05/08/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9AEventLoopThreadPool/index.html">
+<meta property="og:site_name" content="dejavudwh&#39;s blog">
+<meta property="og:description" content="这篇文章主要来分析EventLoopThread和EventLoopThreadPool。至此，muduo的大部分重要组件都已经分析过了，除了TcpClient部分和TimerQueue部分以及一些对于系统API的封装。 EventLoopThread和EventLoopThreadPool的设计非常简单和清晰，所以这篇文章篇幅很小。111 EventLoopThread我们先来看一下EventL">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-05-08T08:38:03.000Z">
+<meta property="article:modified_time" content="2022-05-08T11:12:55.624Z">
+<meta property="article:author" content="dejavudwh">
+<meta property="article:tag" content="muduo，源码解析">
+<meta name="twitter:card" content="summary_large_image">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="/css/highlight/default.css" media="none" >
+        
+            <link rel="stylesheet" id="hl-dark-theme" href="/css/highlight/dark.css" media="none">
+        
+    
+
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/style/dark.css">
+
+    
+<script src="/js/darkmode.js"></script>
+
+
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">dejavudwh</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/" class="navbar-menu button">Home</a>
+                
+                    <a href="/archives/" class="navbar-menu button">archives</a>
+                
+                    <a href="/categories/" class="navbar-menu button">categories</a>
+                
+                    <a href="/tags/" class="navbar-menu button">tags</a>
+                
+                    <a href="/about/" class="navbar-menu button">about</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+    <a href="javaScript:void(0);" id="btn-toggle-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">archives</a>
+                
+                    <a href="/categories/" class="dropdown-menu button">categories</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">tags</a>
+                
+                    <a href="/about/" class="dropdown-menu button">about</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        muduo源码解析：EventLoopThreadPool
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2022/05/" class="post-meta__date button">2022-05-08</a>
+        
+    <span class="separate-dot"></span><a href="/categories/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="button">muduo源码解析</a>
+
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">EventLoopThread</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">EventLoopThreadPool</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">EventLoopThread</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">EventLoopThreadPool</span></a></li></ol>
+    </div>
+
+
+<article class="post post__with-toc content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <p>这篇文章主要来分析EventLoopThread和EventLoopThreadPool。至此，muduo的大部分重要组件都已经分析过了，除了TcpClient部分和TimerQueue部分以及一些对于系统API的封装。</p>
+<p>EventLoopThread和EventLoopThreadPool的设计非常简单和清晰，所以这篇文章篇幅很小。111</p>
+<h2><span id="eventloopthread">EventLoopThread</span></h2><p>我们先来看一下EventLoopThread的接口：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">EventLoopThread</span> : boost::noncopyable</span><br><span class="line">&#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="keyword">typedef</span> boost::function&lt;<span class="type">void</span>(EventLoop*)&gt; ThreadInitCallback;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">EventLoopThread</span>(<span class="type">const</span> ThreadInitCallback&amp; cb = <span class="built_in">ThreadInitCallback</span>(),</span><br><span class="line">                  <span class="type">const</span> string&amp; name = <span class="built_in">string</span>());</span><br><span class="line">  ~<span class="built_in">EventLoopThread</span>();</span><br><span class="line">  <span class="function">EventLoop* <span class="title">startLoop</span><span class="params">()</span></span>;	<span class="comment">// 启动线程，会调用Thread中的start函数, 该线程成为IO线程</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:	</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">threadFunc</span><span class="params">()</span></span>;	<span class="comment">// 线程函数</span></span><br><span class="line"></span><br><span class="line">  EventLoop* loop_;		<span class="comment">// loop_指针指向一个EvenLoop对象</span></span><br><span class="line">  <span class="type">bool</span> exiting_;		<span class="comment">// 是否退出</span></span><br><span class="line">  Thread thread_;		<span class="comment">// 基于对象的封装方法，不是用继承，而是用包含</span></span><br><span class="line">  MutexLock mutex_;		</span><br><span class="line">  Condition cond_;</span><br><span class="line">  ThreadInitCallback callback_;  <span class="comment">// 回调函数在EventLoop::loop事件循环之前被调用，默认为空</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>其中Thread、MutexLock和Condition都是muduo对于基本api的封装，和C++现在提供的差别并不大。</p>
+<p>其中含义也非常明显，线程运行的肯定是<code>threadFunc</code>，而<code>startLoop</code>就是用来启动线程的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">EventLoop* <span class="title">EventLoopThread::startLoop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">assert</span>(!thread_.<span class="built_in">started</span>());  <span class="comment">//断言线程还没有启动</span></span><br><span class="line">  thread_.<span class="built_in">start</span>();		<span class="comment">//启动线程，调用回调函数threadFunc</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="function">MutexLockGuard <span class="title">lock</span><span class="params">(mutex_)</span></span>;</span><br><span class="line">    <span class="keyword">while</span> (loop_ == <span class="literal">NULL</span>)   <span class="comment">//通过这种方式判断线程中EvenLoop是否创建完毕</span></span><br><span class="line">    &#123;</span><br><span class="line">      cond_.<span class="built_in">wait</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> loop_;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">EventLoopThread::threadFunc</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  EventLoop loop;  <span class="comment">// 创建一个对象</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (callback_)  <span class="comment">//调用ThreadInitCallback</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">callback_</span>(&amp;loop);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="function">MutexLockGuard <span class="title">lock</span><span class="params">(mutex_)</span></span>;	</span><br><span class="line">	loop_ = &amp;loop;</span><br><span class="line">    cond_.<span class="built_in">notify</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  loop.<span class="built_in">loop</span>();   </span><br><span class="line">  loop_ = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>逻辑都非常简单，值得一提的是会用cond来等待EventLoop创建成功才退出这个函数。</p>
+<p>而这里的loop_指针指向了一个栈上的对象，threadFunc函数退出之后，这个指针就失效了。threadFunc函数退出，就意味着线程退出了，EventLoopThread对象也就没有存在的价值了。</p>
+<h2><span id="eventloopthreadpool">EventLoopThreadPool</span></h2><p>而EventLoopThreadPool就是用来管理EventLoopThread，也比较简单。比较值得一提的就是暴露给TcpServer的<code>getNextLoop</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">EventLoop* <span class="title">EventLoopThreadPool::getNextLoop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  baseLoop_-&gt;<span class="built_in">assertInLoopThread</span>();</span><br><span class="line">  EventLoop* loop = baseLoop_;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果loops_为空，则loop指向baseLoop_</span></span><br><span class="line">  <span class="comment">// 如果不为空，按照round-robin的调度方式选择一个EventLoop</span></span><br><span class="line">  <span class="keyword">if</span> (!loops_.<span class="built_in">empty</span>())</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// round-robin</span></span><br><span class="line">    loop = loops_[next_];</span><br><span class="line">    ++next_;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">implicit_cast</span>&lt;<span class="type">size_t</span>&gt;(next_) &gt;= loops_.<span class="built_in">size</span>())</span><br><span class="line">    &#123;</span><br><span class="line">      next_ = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> loop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也就是被在TcpServer中的<code>newConnection</code>调用，用来给TcpConnection分配一个EventLoop。</p>
+
+    </div>
+    
+    <div class="post__license">
+        <p>
+            <strong>Author: </strong>dejavudwh
+        </p>
+        <p>
+            <strong>
+                Permalink: 
+            </strong>
+            <a href="http://dejavudwh.cn/2022/05/08/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9AEventLoopThreadPool/">http://dejavudwh.cn/2022/05/08/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9AEventLoopThreadPool/</a>
+        </p>
+        
+    </div>
+ 
+    <div class="post-footer__meta"><p>updated at 2022-05-08</p></div> 
+    <div class="post-entry__tags"><a href="/tags/muduo%EF%BC%8C%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="post-tags__link button"># muduo，源码解析</a></div> 
+</article>
+
+
+    <div class="nav">
+        <div class="nav__prev">
+            
+                <a href="/2022/05/08/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ATimerQueue/" class="nav__link">
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M589.088 790.624L310.464 512l278.624-278.624 45.248 45.248L400.96 512l233.376 233.376z" fill="#808080"></path></svg>
+                    </div>
+                    <div>
+                        <div class="nav__label">
+                            Previous Post
+                        </div>
+                        <div class="nav__title">
+                            muduo源码解析：TimerQueue
+                        </div>
+                    </div>
+                </a>
+            
+        </div>
+        <div class="nav__next">
+            
+                <a href="/2022/05/08/muduo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ATcpServer/" class="nav__link">
+                    <div>
+                        <div class="nav__label">
+                            Next Post
+                        </div>
+                        <div class="nav__title">
+                            muduo源码解析：TcpServer
+                        </div>
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M434.944 790.624l-45.248-45.248L623.04 512l-233.376-233.376 45.248-45.248L713.568 512z" fill="#808080"></path></svg>
+                    </div>
+                </a>
+            
+        </div>
+    </div>
+
+
+
+
+
+</main>
+
+            <footer class="footer">
+     
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2022 <a href="/">dejavudwh&#39;s blog</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazy",
+            threshold: 0
+        };
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement('script');
+            hm.src = 'https://hm.baidu.com/hm.js?c6efdb1ec90601ee8e2211b3651001bc';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+ 
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+    
+ 
+
+
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.css">
+
+    
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.js"></script>
+
+    <script>
+        let lazyloadT = Boolean('true'),
+            auto_fancybox = Boolean('false')
+        if (auto_fancybox) {
+            $(".post__content").find('img').each(function () {
+                var element = document.createElement("a");
+                $(element).attr("data-fancybox", "gallery");
+                $(element).attr("href", $(this).attr("src"));
+                if (lazyloadT) {
+                    $(element).attr("href", $(this).attr("data-srcset"));
+                }
+                $(this).wrap(element);
+            });
+        } else {
+            $(".post__content").find("fancybox").find('img').each(function () {
+                var element = document.createElement("a");
+                $(element).attr("data-fancybox", "gallery");
+                $(element).attr("href", $(this).attr("src"));
+                if (lazyloadT) {
+                    $(element).attr("href", $(this).attr("data-srcset"));
+                }
+                $(this).wrap(element);
+            });
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+
+    </body>
+</html>
